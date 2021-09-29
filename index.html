@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+<script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
+<css-doodle class = "background">
+ :doodle {
+    @grid: 10 / 100vmax;
+    grid-gap: 4vmax;
+  } 
+  @random(0.5){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: heart;
+  }
+   @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: windmill;
+  }
+  
+  @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: fish;
+  }
+  @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: star;
+  }
+   @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: drop;
+  }
+     @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: clover 4;
+  }
+  
+</css-doodle>
+
+<meta charset="UTF-8">
+<title>Lindsey Feng | student @ USC</title>
+</head>
+<body>
+
+
+<div id = "sidebar">
+
+<span class = "slide">
+<a href = "#" onclick = "openSlideMenu()">
+	<i class = "fas fa-bars"></i>
+</a>
+</span>
+
+<div id = "menu" class = "nav">
+<a href = "#" class = "close" onclick = "closeSlideMenu()">
+<i class = "fas fa-times"></i>
+</a>
+<a class = "option" href = "index.html">HOME</a>
+<a class = "option" href = "aboutme.html">MORE ABOUT ME</a>
+<a class = "option" href = "resume.pdf">RESUME</a>
+<a class = "option" href = "#">PROJECTS</a>
+<a class = "option" href = "#">WRITINGS</a>
+<div class="option"  data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical" data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link" href='https://cn.linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a></div>
+</div>
+
+</div>
+
+<div class = "picture"> 
+<img src="me.jpeg" alt = "a picture of mine which is not displaying right now ;)" style = " width: 450px; height: 450px;">
+</div>
+
+<div id = "intro">
+<h1>Hi, Lindsey here!</h1>
+<p>I am a rising junior majoring in Computer Science and Applied Math at University of Southern California. I am currently interested in: </p>
+
+ <ul>
+ <li>web design (obviously ;))</li>
+ <li>research involving machine learning (mostly NLP including text generating and pattern detection in logical reasoning)</li> 
+ <li>creative writing
+(specifically unconventional narrative structures with existential themes). </li>
+ </ul>
+ 
+ <p>Last updated: Sep.28 2021</p>
+ 
+ 
+</div>
+
+
+</body>
+<style>
+
+body{
+overflow-x:hidden;
+}
+
+.background {
+position: fixed;
+    z-index: -1;
+}
+
+.nav{
+height: 100%;
+width:0;
+position:fixed;
+z-index:1;
+top:0;
+left:0;
+background-color:#ffc34d;
+opacity: 0.9;
+overflow-x:hidden;
+padding-top:60px;
+transition:0.7s;
+
+}
+.nav .option{
+font-family: 'Montserrat', sans-serif;
+display:block;
+padding:20px 30px;
+font-size:25px;
+text-decoration:none;
+color: white;
+
+}
+
+.nav .option:hover{
+color:black;
+transition:0.4s;
+}
+
+.nav .close{
+margin-right:10px;
+font-size:30px;
+font-family: 'Montserrat', sans-serif;
+color: white;
+float:right;
+position:absolute;
+top:0;
+right:0;
+}
+
+.slide a{
+color: black;
+font-size:30px;
+}
+
+.sidebar{
+padding: 20px;
+transition:margin-left 0.7s;
+overflow:hidden;
+
+}
+
+#intro{
+margin-top:20px;
+margin-left:100px;
+margin-right:100px;
+}
+#intro h1{
+font-family: 'Reenie Beanie', cursive;
+font-size:30px;
+text-align:center;
+}
+
+#intro p{
+line-height:1.4;
+margin-top: 30px;
+margin-left: 300px;
+margin-right:300px;
+}
+
+
+li{
+line-height:1.4;
+margin-left: 300px;
+margin-right:300px;
+
+}
+
+.picture{
+text-align:center;
+}
+
+.picture:before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 700px;
+  width: 150px;
+  height: 30px;
+  margin-left: -50px;
+  background: #ffdd99;
+  opacity:0.6;
+}
+
+</style>
+
+<script>
+function openSlideMenu(){
+	document.getElementById('menu').style.width = '250px';
+	document.getElementById('sidebar').style.marginLeft = '250px';
+	
+}
+function closeSlideMenu(){
+	document.getElementById('menu').style.width = '0';
+	document.getElementById('sidebar').style.marginLeft = '0';
+	
+}
+
+</script>
+</html>

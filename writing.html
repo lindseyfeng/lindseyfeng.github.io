@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lindsey Feng | Writing</title>
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+<script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
+
+<style>
+.name{
+font-style: italic;
+font-size: 20px;
+}
+.box li{
+margin-bottom: 5px;
+}
+.box{
+min-height: 50vh;
+margin-bottom: 10px;
+background-color:rgba(238, 238, 238, 0.3);
+padding: 20px 20px 20px 20px;
+}
+
+.box h1{
+margin-top: -3px;
+font-size: 40px;
+font-family: 'Reenie Beanie', cursive;
+}
+
+
+#writing_menu a{
+font-family: 'Montserrat', sans-serif;
+color:black;
+margin-bottom:1vh;
+display:block;
+}
+
+#overview_ul a{
+color:black;
+}
+
+#overview_ul a:link, #writing_menu a:link {
+  text-decoration: none;
+}
+
+#overview_ul a:visited, #writing_menu a:visited {
+  text-decoration: none;
+}
+
+#overview_ul a:hover, #writing_menu a:hover {
+  text-decoration: underline;
+}
+
+#overview_ul a:active, #writing_menu a:active {
+  text-decoration: underline;
+}
+
+
+#writing_menu{
+padding-left: 1vh;
+margin-top: 30vh;
+border-left: 2px solid rgba(238, 238, 238, 1);
+right:20px;
+position:fixed;
+}
+
+#content{
+margin-left: 10%;
+margin-right:23%;
+}
+
+body{
+overflow-x:hidden;
+padding-bottom: 20px;
+}
+
+.background {
+position: fixed;
+    z-index: -1;
+}
+
+.nav{
+height: 100%;
+width:0;
+position:fixed;
+z-index:1;
+top:0;
+left:0;
+background-color:#ffc34d;
+opacity: 0.9;
+overflow-x:hidden;
+padding-top:60px;
+transition:0.7s;
+
+}
+.nav .option{
+font-family: 'Montserrat', sans-serif;
+display:block;
+padding:20px 30px;
+font-size:25px;
+text-decoration:none;
+color: white;
+
+}
+
+.nav .option:hover{
+color:black;
+transition:0.4s;
+}
+
+.nav .close{
+margin-right:10px;
+font-size:30px;
+font-family: 'Montserrat', sans-serif;
+color: white;
+float:right;
+position:absolute;
+top:0;
+right:0;
+}
+
+.slide a{
+color: black;
+font-size:30px;
+}
+
+.sidebar{
+padding: 20px;
+transition:margin-left 0.7s;
+overflow:hidden;
+
+}
+</style>
+<css-doodle class = "background">
+ :doodle {
+    @grid: 10 / 100vmax;
+    grid-gap: 4vmax;
+  } 
+  @random(0.5){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: heart;
+  }
+   @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: windmill;
+  }
+  
+  @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: fish;
+  }
+  @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: star;
+  }
+   @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: drop;
+  }
+     @random(0.3){
+   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+  @shape: clover 4;
+  }
+  
+</css-doodle>
+</head>
+<body>
+
+<div id = "sidebar">
+
+<span class = "slide">
+<a href = "#" onclick = "openSlideMenu()">
+	<i class = "fas fa-bars"></i>
+</a>
+</span>
+
+<div id = "menu" class = "nav">
+<a href = "#" class = "close" onclick = "closeSlideMenu()">
+<i class = "fas fa-times"></i>
+</a>
+<a class = "option" href = "main.html">HOME</a>
+<a class = "option" href = "aboutme.html">MORE ABOUT ME</a>
+<a class = "option" href = "resume.pdf">RESUME</a>
+<a class = "option" href = "#">PROJECTS</a>
+<a class = "option" href = "#">WRITINGS</a>
+<div class="option"  data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical" data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link" href='https://cn.linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a></div>
+</div>
+
+</div>
+
+<div id = "writing_menu">
+<a class = "option" href = "#intro">Overview</a>
+<a class = "option" href = "#wordplay">Playing with Words</a>
+<a class = "option" href = "#unstructured">Unconventional Narrative Structure </a>
+<a class = "option" href = "#existential">Themes</a>
+</div>
+
+<div id = "content">
+
+<div class = "box" id = "intro">
+<h1>Overview</h1>
+<p>Currently I am interested in exploring: 
+<ul id = "overview_ul">
+<li><a href = "#wordplay">the boundary of words</a>
+<li><a href = "#unstructure">narrative structure (circular, fragmented)</a>
+<li><a href = "#existential">Existential themes (individual feeling alienated from his/her perception of the human reality)</a>
+</ul>
+
+<span>I am still organizing pieces written over the past few years and actively revising them in spare time. Writing is not of any academic pursuit but just a fun thing to do in general.</span>
+<br><br>Please email me at <a href = "mailto:lindseyfthegreatest@gmail.com">lindseyfthegreatest@gmail.com</a> <span>if you feel like providing any general comments/suggestion to any of my works. (I would really love them) </span>
+
+
+</div>
+
+<div class = "box" id = "wordplay">
+<h1>Playing with Words</h1>
+<span>I am into exploring the boundary of words through its spelling, sound, and meaning in different context. Specifically i am into the idea of taking words out of its contexts and playing with it </span>
+<ul>
+<li class = "work">
+<span class = "name">Untitled, 2019</span>
+<span>Written in English, in an attempt to explore the limitation of words and common expression.</span>
+<a href = "https://docs.google.com/document/d/1ATC55G7cveNCOiG2RzBMAv5j3Q8joP9xDcgg7r6t-YY/edit?usp=sharing">Google doc</a>
+</li>
+<li class = "work">
+<span class = "name">Untitled, 2020</span>
+</li>
+<li class = "work">
+<span class = "name">Untitled, 2020</span>
+</li>
+</ul>
+</div>
+
+<div class = "box" id = "existential">
+<h1>Themes</h1>
+<ul>
+<li class = "work">
+<span class = "name">Cache, 2020</span>
+<span>Written in Chinese, in an attempt to explore Sartre's account of </span><a href = "https://en.wikipedia.org/wiki/Bad_faith_(existentialism)">bad faith</a><span> and Kierkegaard's account of </span><a href = "https://en.wikipedia.org/wiki/Leap_of_faith">leap of faith</a>.
+</li>
+
+<li class = "work">
+<span class = "name">Untitled, 2021</span>
+<span>Written in Chinese, in an attempt to explore the boundary between dreams and reality and reflect upon Sartre's account of</span> <a href = "https://existentialcomics.com/comic/235"> the look</a>.
+<a href = "https://docs.google.com/document/d/1A5KAExiy4c1q-3oChVOYc-cxp9v6AHN0Q1_NvspeT-A/edit?usp=sharing">Google doc</a>
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</body>
+<script>
+function openSlideMenu(){
+	document.getElementById('menu').style.width = '250px';
+	document.getElementById('sidebar').style.marginLeft = '250px';
+	
+}
+function closeSlideMenu(){
+	document.getElementById('menu').style.width = '0';
+	document.getElementById('sidebar').style.marginLeft = '0';
+	
+}
+
+</script>
+</html>

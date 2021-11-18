@@ -1,210 +1,253 @@
 <!DOCTYPE html>
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <head>
-<link rel="preconnect" href="https://fonts.gstatic.com"> 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-<script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+  <script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
 
-<style>
+  <style>
+    body {
+      overflow-x: hidden;
+    }
 
-body{
-overflow-x:hidden;
-}
+    .background {
+      position: fixed;
+      z-index: -1;
+    }
 
-.background {
-position: fixed;
-    z-index: -1;
-}
+    #main {
+      display: flex;
+    }
 
-.nav{
-height: 100%;
-width:0;
-position:fixed;
-z-index:1;
-top:0;
-left:0;
-background-color:#ffc34d;
-opacity: 0.9;
-overflow-x:hidden;
-padding-top:60px;
-transition:0.7s;
+    #sidebar {
+      padding: 20px;
+    }
 
-}
-.nav .option{
-font-family: 'Montserrat', sans-serif;
-display:block;
-padding:20px 30px;
-font-size:25px;
-text-decoration:none;
-color: white;
+    #intro {
+      display: flex;
+      height: 45em;
+      background-color: rgba(238, 238, 238, 0.4);
+      padding-top: 20px;
+      margin-top: 20px;
+      margin-left: 2.5%;
+      padding-bottom: 30px;
+    }
 
-}
+    #introduction h1 {
+      font-size: 30px;
+      text-align: center;
+    }
 
-.nav .option:hover{
-color:black;
-transition:0.4s;
-}
+    .greeting {
+      text-align: center;
+      font-family: 'Reenie Beanie', cursive;
+    }
 
-.nav .close{
-margin-right:10px;
-font-size:30px;
-font-family: 'Montserrat', sans-serif;
-color: white;
-float:right;
-position:absolute;
-top:0;
-right:0;
-}
-
-.slide a{
-color: black;
-font-size:30px;
-}
-
-.sidebar{
-padding: 20px;
-transition:margin-left 0.7s;
-overflow:hidden;
-
-}
-
-#intro{
-margin-top:20px;
-margin-left: 10%;
-margin-right:10%;
-}
-#intro h1{
-font-family: 'Reenie Beanie', cursive;
-font-size:30px;
-text-align:center;
-}
-
-#intro p{
-line-height:1.4;
-margin-top: 30px;
-margin-left: 10%;
-margin-right:10%;
-}
+    #intro p {
+      line-height: 1.4;
+      margin-top: 30px;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
 
 
-li{
-line-height:1.4;
-margin-left: 10%;
-margin-right:10%;
+    li {
+      line-height: 1.4;
+      margin-left: 10%;
+      margin-right: 10%;
 
-}
+    }
 
-.picture{
-text-align:center;
-}
+    .picture {
+      text-align: center;
+      position: relative;
+    }
 
 
-</style>
+    .picture img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-<css-doodle class = "background">
- :doodle {
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: .5s ease;
+    }
+
+    .picture:hover .overlay {
+      opacity: 1;
+    }
+
+    .overpic {
+      height: 100%;
+      width: 100%;
+    }
+
+    #introduction {
+      width:60%;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    #left{
+      margin-left: 5%;
+      width: 40%;
+    }
+
+    #sidebar{
+      margin-top: 37%;
+      margin-left:1.5%;
+      border-left: 2px solid black;
+      height : 30%;
+    }
+
+    #sidebar a{
+      margin-top: -15%;
+      margin-left: -15%;
+      display:block;
+      padding-top:30%;
+      text-decoration:none;
+      color:black;
+    }
+
+    #sidebar a:hover{
+      color: #ffc34d;
+      transition:0.4s;
+    }
+  </style>
+
+  <css-doodle class="background">
+    :doodle {
     @grid: 10 / 100vmax;
     grid-gap: 4vmax;
-  } 
-  @random(0.5){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: heart;
-  }
-   @random(0.3){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: windmill;
-  }
-  
-  @random(0.3){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: fish;
-  }
-  @random(0.3){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: star;
-  }
-   @random(0.3){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: drop;
-  }
-     @random(0.3){
-   transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-  background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-  @shape: clover 4;
-  }
-  
-</css-doodle>
+    }
+    @random(0.5){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: heart;
+    }
+    @random(0.3){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: windmill;
+    }
 
-<meta charset="UTF-8">
-<title>Lindsey Feng | student @ USC</title>
+    @random(0.3){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: fish;
+    }
+    @random(0.3){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: star;
+    }
+    @random(0.3){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: drop;
+    }
+    @random(0.3){
+    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
+    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
+    @shape: clover 4;
+    }
+
+  </css-doodle>
+
+  <meta charset="UTF-8">
+  <title>Lindsey Feng | student @ USC</title>
 </head>
+
 <body>
 
+  <div id="main">
 
-<div id = "sidebar">
+    <div id="intro">
+      <div id = "left">
+        <div class="picture">
+          <img id = "precovid" src="precovid.jpeg" alt="a picture of mine which is not displaying right now">
+          <div class="overlay">
+            <img class="overpic" src="covid.jpeg" alt="a picture of mine which is not displaying right now">
+          </div>
+        </div>
 
-<span class = "slide">
-<a href = "#" onclick = "openSlideMenu()">
-	<i class = "fas fa-bars"></i>
-</a>
-</span>
+        <p>Pronoun: she/her <br>
+          Email: xinyuf@usc.edu</p>
 
-<div id = "menu" class = "nav">
-<a href = "#" class = "close" onclick = "closeSlideMenu()">
-<i class = "fas fa-times"></i>
-</a>
-<a class = "option" href = "index.html">HOME</a>
-<a class = "option" href = "aboutme.html">MORE ABOUT ME</a>
-<a class = "option" href = "resume.pdf">RESUME</a>
-<a class = "option" href = "#">PROJECTS</a>
-<a class = "option" href = "writing.html">WRITINGS</a>
-<div class="option"  data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical" data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link" href='https://cn.linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a></div>
-</div>
+  
+          <span>Some say that my last </span> <a href="me.jpeg">profile picture</a> <span>looks nothing like me and so just
+            thought i would quickly take a selfie when working on
+            this page. Also thought it would be cool to show my covid look
+            just so you recognize me with my mask on. just hover around the picture - try it on desktop, not sure if it works for mobile
+            and also too lazy to implement one for mobile
+          </span>
+      </div>
+      <div id="introduction">
+        <h1> Xinyu (Lindsey) Feng 封欣雨</h1>
+        <h2 class="greeting">Hi, Lindsey here!</h2>
+        <span>I am a junior majoring in Computer Science and Applied Math at </span> <a href="https://www.usc.edu">University of Southern
+          California</a>. <span>I am
+          currently interested in: </span>
 
-</div>
+        <ul>
+          <li>web design (obviously ;))</li>
+          <li>research involving natural language processing</li>
+          <li>creative writing </li>
+        </ul>
 
-<div class = "picture"> 
-<img src="me.jpeg" alt = "a picture of mine which is not displaying right now ;)" style = " width: 450px; height: 450px;">
-</div>
+        <h2 class ="greeting" style = "text-decoration: underline;">Also some personal updates: </h2>
+        <div>
+          <ul>
+            <li>
+              Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the process and am currently 
+              in search for the next one - specifically on semantic parsing or logical inference - please <a href = "mailto:xinyuf@usc.edu">email</a> me if you feel like adding me up to your team!
+            </li>
+            <br>
+            <li>
+              I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a href = "https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
+              I am actually planning on writing another page about my experience in job search and how I handle failure and stuff - to remind myself to value past failures just as much as what I have achieved 
+              and also to help my readers out (if they really help)
+            </li>
 
-<div id = "intro">
-<h1>Hi, Lindsey here!</h1>
-<p>I am a rising junior majoring in Computer Science and Applied Math at University of Southern California. I am currently interested in: </p>
+          </ul>
+        </div>
+        <p>Last update: Nov. 17 2021</p>
 
- <ul>
- <li>web design (obviously ;))</li>
- <li>research involving machine learning</li> 
- <li>creative writing </li>
- </ul>
- 
- <p>Last update: Oct.16 2021</p>
- 
- 
-</div>
+
+      </div>
+
+    </div>
+
+    <div id="sidebar">
+
+      <a class="option" href="index.html">HOME</a>
+      <a class="option" href="aboutme.html">MORE ABOUT ME</a>
+      <a class="option" href="resume.pdf">RESUME</a>
+      <a class="option" href="#">PROJECTS</a>
+      <a class="option" href="writing.html">WRITINGS</a>
+      <div class="option"  data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical" data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link" href='https://cn.linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a></div>
+
+    </div>
+  </div>
 
 
 </body>
-
-
-<script>
-function openSlideMenu(){
-	document.getElementById('menu').style.width = '250px';
-	document.getElementById('sidebar').style.marginLeft = '250px';
-	
-}
-function closeSlideMenu(){
-	document.getElementById('menu').style.width = '0';
-	document.getElementById('sidebar').style.marginLeft = '0';
-	
-}
 
 </script>
 

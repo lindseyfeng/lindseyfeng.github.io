@@ -3,6 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+<script type="text/javascript">
+  $(function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
+      var mw = 480; // min width of site
+      var ratio = ww / mw; //calculate ratio
+      if (ww < mw) { //smaller than minimum size
+        $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
+      } else { //regular size
+        $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
+      }
+    }
+  });
+</script>
   <title>Lindsey Feng | Writing</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -93,52 +109,6 @@
     .background {
       position: fixed;
       z-index: -1;
-    }
-
-    .nav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #ffc34d;
-      opacity: 0.9;
-      overflow-x: hidden;
-      padding-top: 60px;
-      transition: 0.7s;
-
-    }
-
-    .nav .option {
-      font-family: 'Montserrat', sans-serif;
-      display: block;
-      padding: 20px 30px;
-      font-size: 25px;
-      text-decoration: none;
-      color: white;
-
-    }
-
-    .nav .option:hover {
-      color: black;
-      transition: 0.4s;
-    }
-
-    .nav .close {
-      margin-right: 10px;
-      font-size: 30px;
-      font-family: 'Montserrat', sans-serif;
-      color: white;
-      float: right;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-
-    .slide a {
-      color: black;
-      font-size: 30px;
     }
 
     #sidebar {

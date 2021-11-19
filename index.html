@@ -4,23 +4,24 @@
 <meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
 <script type="text/javascript">
-$(function(){
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-  var ww = ( $(window).width() < window.screen.width ) ? $(window).width() : window.screen.width; //get proper width
-  var mw = 480; // min width of site
-  var ratio =  ww / mw; //calculate ratio
-  if( ww < mw){ //smaller than minimum size
-   $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
-  }else{ //regular size
-   $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
-  }
-}
-});
+  $(function () {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+      var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
+      var mw = 480; // min width of site
+      var ratio = ww / mw; //calculate ratio
+      if (ww < mw) { //smaller than minimum size
+        $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
+      } else { //regular size
+        $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
+      }
+    }
+  });
 </script>
+
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -39,22 +40,25 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     }
 
     #main {
-      position:fixed;
       display: flex;
-      margin-left: 2.5%;
-      margin-right: 2.5%;
     }
 
     #intro {
+      margin-top: 2.5%;
+      margin-left: 5%;
+      margin-right: 5%;
       display: flex;
       background-color: rgba(238, 238, 238, 0.4);
       padding-top: 20px;
-      margin-top: 20px;
       padding-bottom: 30px;
+
+    }
+
+    #linkedin {
+      display: inline-block;
     }
 
     #introduction h1 {
-
       text-align: center;
     }
 
@@ -112,39 +116,53 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     }
 
     #introduction {
-      width:60%;
+      width: 60%;
       margin-left: 5%;
       margin-right: 5%;
     }
-    #left{
-      margin-left: 5%;
+
+    #left {
+      margin-left: 6%;
       width: 40%;
     }
 
-    #sidebar{
-      margin-top: 37%;
-      margin-left:0.5%;
-      border-left: 2px solid black;
-      height : 30%;
-    }
-
-    #sidebar a{
-      margin-top: -15%;
+    #sidebar {
       margin-left: 5%;
-      display:block;
-      padding-top:30%;
-      text-decoration:none;
-      color:black;
+      margin-top: -1%;
+      margin-bottom: 1%;
+      width: 100%;
+      position: absolute;
+      border-left: 5px solid #ffc34d;
     }
 
-    #sidebar a:hover{
+    #sidebar a {
+      margin-top: 10px;
+      margin-left: 10px;
+      text-decoration: none;
+      color: black;
+    }
+
+    #sidebar a:hover {
+      text-decoration: underline;
+      transition: 2s;
       color: #ffc34d;
-      transition:0.4s;
+      transition: 0.4s ease;
     }
 
     @media (max-width: 667px) {
-      #intro{
+      #intro {
         flex-direction: column-reverse;
+      }
+
+      #left {
+        margin-left: 20%;
+        margin-right: 20%;
+      }
+
+      #introduction {
+        margin-left: 20%;
+        margin-right: 20%;
+
       }
     }
   </style>
@@ -196,71 +214,81 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 
   <div id="main">
 
-    <div id="intro">
-      <div id = "left">
-        <div class="picture">
-          <img id = "precovid" src="precovid.jpeg" alt="a picture of mine which is not displaying right now">
-          <div class="overlay">
-            <img class="overpic" src="covid.jpeg" alt="a picture of mine which is not displaying right now">
-          </div>
-        </div>
-
-        <p>Pronoun: she/her <br>
-          Email: xinyuf@usc.edu</p>
-
-  
-          <span>Some say that my last </span> <a href="me.jpeg">profile picture</a> <span>looks nothing like me and so just
-            thought i would use the most up to date selfie (one i quickly took for writing this page) instead. Also thought it would be cool to take a picture of my covid look
-            just so you recognize me with my mask on. just hover around the picture - try it on desktop, not sure if it works for mobile
-            and also too lazy to implement one for mobile
-          </span>
-      </div>
-      <div id="introduction">
-        <h1> Xinyu (Lindsey) Feng 封欣雨</h1>
-        <h2 class="greeting">Hi, Lindsey here!</h2>
-        <span>I am a junior majoring in Computer Science and Applied Math at </span> <a href="https://www.usc.edu">University of Southern
-          California</a>. <span>I am
-          currently interested in: </span>
-
-        <ul>
-          <li>web design (obviously ;))</li>
-          <li>research involving natural language processing</li>
-          <li>creative writing </li>
-        </ul>
-
-        <h2 class ="greeting" style = "text-decoration: underline;">Also some personal updates: </h2>
-        <div>
-          <ul>
-            <li>
-              Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the process and am currently 
-              in search for the next one - specifically on semantic parsing or logical inference - please <a href = "mailto:xinyuf@usc.edu">email</a> me if you feel like adding me up to your team!
-            </li>
-            <br>
-            <li>
-              I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a href = "https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
-              I am actually planning on writing another page about my experience in job search and how I handle failure and stuff - to remind myself to value past failures just as much as what I have achieved 
-              and also to help my readers out (if they really help)
-            </li>
-
-          </ul>
-        </div>
-        <p>Last update: Nov. 17 2021</p>
-
-
-      </div>
-
-    </div>
-
     <div id="sidebar">
-
       <a class="option" href="index.html">HOME</a>
       <a class="option" href="aboutme.html">MORE ABOUT ME</a>
       <a class="option" href="resume.pdf">RESUME</a>
       <a class="option" href="#">PROJECTS</a>
       <a class="option" href="writing.html">WRITINGS</a>
-      <div class="option"  data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical" data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link" href='https://cn.linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a></div>
+      <div id="linkedin" class="option" data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical"
+        data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link"
+          href='https://linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="intro">
+    <div id="left">
+      <div class="picture">
+        <img id="precovid" src="precovid.jpeg" alt="a picture of mine which is not displaying right now">
+        <div class="overlay">
+          <img class="overpic" src="covid.jpeg" alt="a picture of mine which is not displaying right now">
+        </div>
+      </div>
+
+      <p>Pronoun: she/her <br>
+        Email: xinyuf@usc.edu</p>
+
+
+      <span>Some say that my last </span> <a href="me.jpeg">profile picture</a> <span>looks nothing like me and so
+        just
+        thought i would use the most up to date selfie (one i quickly took for writing this page) instead. Also
+        thought it would be cool to take a picture of my covid look
+        just so you recognize me with my mask on. just hover around the picture - try it on desktop, not sure if it
+        works for mobile
+        and also too lazy to implement one for mobile
+      </span>
+    </div>
+    <div id="introduction">
+      <h1> Xinyu (Lindsey) Feng 封欣雨</h1>
+      <h2 class="greeting">Hi, Lindsey here!</h2>
+      <span>I am a junior majoring in Computer Science and Applied Math at </span> <a
+        href="https://www.usc.edu">University of Southern
+        California</a>. <span>I am
+        currently interested in: </span>
+
+      <ul>
+        <li>web design (obviously ;))</li>
+        <li>research involving natural language processing</li>
+        <li>creative writing </li>
+      </ul>
+
+      <h2 class="greeting" style="text-decoration: underline;">Also some personal updates: </h2>
+      <div>
+        <ul>
+          <li>
+            Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the process
+            and am currently
+            in search for the next one - specifically on semantic parsing or logical inference - please <a
+              href="mailto:xinyuf@usc.edu">email</a> me if you feel like adding me up to your team!
+          </li>
+          <br>
+          <li>
+            I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a
+              href="https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
+            I am actually planning on writing another page about my experience in job search and how I handle failure
+            and stuff - to remind myself to value past failures just as much as what I have achieved
+            and also to help my readers out (if they really help)
+          </li>
+
+        </ul>
+      </div>
+      <p>Last update: Nov. 17 2021</p>
+
 
     </div>
+
   </div>
 
 

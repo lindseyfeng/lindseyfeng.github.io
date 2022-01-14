@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
-<script type="text/javascript">
-  $(function () {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-      var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
-      var mw = 480; // min width of site
-      var ratio = ww / mw; //calculate ratio
-      if (ww < mw) { //smaller than minimum size
-        $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
-      } else { //regular size
-        $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
+  <script type="text/javascript">
+    $(function () {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
+        var mw = 480; // min width of site
+        var ratio = ww / mw; //calculate ratio
+        if (ww < mw) { //smaller than minimum size
+          $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
+        } else { //regular size
+          $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
+        }
       }
-    }
-  });
-</script>
+    });
+  </script>
   <title>Lindsey Feng | Writing</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -29,9 +29,7 @@
   <script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
 
   <style>
-    body{
-      margin-top: 5%;
-    }
+
     .name {
       font-style: italic;
       font-size: 20px;
@@ -103,7 +101,6 @@
 
     body {
       overflow-x: hidden;
-      padding-bottom: 20px;
     }
 
     .background {
@@ -111,32 +108,50 @@
       z-index: -1;
     }
 
-    #sidebar {
-      margin-left: 5%;
+    #main {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      width: 100;
       margin-top: -1%;
-      margin-bottom: 1%;
-      width: 100%;
-      position: absolute;
-      border-left: 5px solid #ffc34d;
+      margin-bottom: 2.5%;
+      padding-top: 1.5%;
+      padding-bottom: 1.5%;
+      background-color: #ffe5d9;
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+    #sidebar {
+      display: flex;
+      justify-content: space-between;
     }
 
     #sidebar a {
-      margin-top: 10px;
       margin-left: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 7px;
+      padding-right: 7px;
       text-decoration: none;
       color: black;
     }
 
     #sidebar a:hover {
-      text-decoration: underline;
       transition: 2s;
-      color: #ffc34d;
+      background-color: #fec5bb;
       transition: 0.4s ease;
     }
 
-    #linkedin{
-      display:inline-block;
+    #linkedin {
+      display: inline-block;
     }
+
+    .placeholder {
+      color: #ffe5d9;
+    }
+
   </style>
   <css-doodle class="background">
     :doodle {
@@ -179,8 +194,8 @@
 </head>
 
 <body>
-
-  <div id="sidebar">
+  <div id="main">
+    <div class="placeholder">placeholder</div>
     <div id="sidebar">
       <a class="option" href="index.html">HOME</a>
       <a class="option" href="aboutme.html">MORE ABOUT ME</a>
@@ -192,6 +207,9 @@
           href='https://linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a>
       </div>
     </div>
+    <i class="fas fa-play-circle" id="audioplay" onclick="play()"><audio id="bolero" src="bolero.mp3"
+      loop></audio></i>
+  </div>
 
   </div>
 

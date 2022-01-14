@@ -3,22 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
-<script type="text/javascript">
-  $(function () {
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-      var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
-      var mw = 480; // min width of site
-      var ratio = ww / mw; //calculate ratio
-      if (ww < mw) { //smaller than minimum size
-        $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
-      } else { //regular size
-        $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
-      }
-    }
-  });
-</script>
-
 <head>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
@@ -28,8 +17,60 @@
     integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
   <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
   <script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Saira+Condensed:wght@200&display=swap"
+    rel="stylesheet">
+
+
+
+
+  <script type="text/javascript">
+    function play() {
+      var myAudio = document.getElementById('bolero');
+      if (!myAudio.paused) {
+        alert("music paused");
+        myAudio.pause();
+        return;
+      }
+      alert("music played - hope you enjoy ;)")
+      myAudio.currentTime = 0;
+      myAudio.play();
+    }
+
+
+    $(function () {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        var ww = ($(window).width() < window.screen.width) ? $(window).width() : window.screen.width; //get proper width
+        var mw = 480; // min width of site
+        var ratio = ww / mw; //calculate ratio
+        if (ww < mw) { //smaller than minimum size
+          $('#Viewport').attr('content', 'initial-scale=' + ratio + ', maximum-scale=' + ratio + ', minimum-scale=' + ratio + ', user-scalable=yes, width=' + ww);
+        } else { //regular size
+          $('#Viewport').attr('content', 'initial-scale=1.0, maximum-scale=2, minimum-scale=1.0, user-scalable=yes, width=' + ww);
+        }
+      }
+    });
+
+
+  </script>
 
   <style>
+
+    *{
+      box-sizing: border-box;
+    }
+    #container{
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height:100vh;
+    }
+
+    .section{
+      scroll-snap-align: start;
+      height:100vh;
+    }
+
     body {
       overflow-x: hidden;
     }
@@ -39,32 +80,50 @@
       z-index: -1;
     }
 
+    .placeholder {
+      color: #ffe5d9;
+    }
+
     #main {
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      width: 100;
+      margin-top: -1%;
+      padding-top: 1.5%;
+      padding-bottom: 1.5%;
+      background-color: #ffe5d9;
       display: flex;
+      justify-content: space-between;
     }
 
     #intro {
-      margin-top: 2.5%;
-      margin-left: 5%;
-      margin-right: 5%;
-      display: flex;
-      background-color: rgba(238, 238, 238, 0.4);
-      padding-top: 20px;
-      padding-bottom: 30px;
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      box-sizing: border-box;
+    }
 
+    #introduction {
+      width: 500px;
+      position: absolute;
+      left: 10vh;
+      top: 30vh;
     }
 
     #linkedin {
       display: inline-block;
     }
 
-    #introduction h1 {
-      text-align: center;
+    #emoji{
+      height: 15vh;
+      width: auto;
     }
 
-    .greeting {
-      text-align: center;
+    #greeting {
+      display:inline-block;
       font-family: 'Reenie Beanie', cursive;
+      --animate-delay: 2000s;
     }
 
     #intro p {
@@ -75,78 +134,53 @@
     }
 
 
-    li {
+    #fun li {
       line-height: 1.4;
       margin-left: 10%;
       margin-right: 10%;
-
     }
 
-    .picture {
-      text-align: center;
-      position: relative;
+    /* #fun li:nth-of-type(even):hover{
+      background: rgba(254, 197, 187, 0.5);
     }
 
+    #fun li:nth-of-type(odd):hover{
+      background: rgba(250, 225, 221, 0.5);
+    } */
 
-    .picture img {
-      display: block;
-      width: 100%;
+    #image img {
+      float: right;
+      margin-right: 10%;
+      margin-top: 15vh;
+      width: 50vh;
       height: auto;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      transition: .5s ease;
-    }
 
-    .picture:hover .overlay {
-      opacity: 1;
-    }
-
-    .overpic {
-      height: 100%;
-      width: 100%;
-    }
-
-    #introduction {
-      width: 60%;
-      margin-left: 5%;
-      margin-right: 5%;
-    }
-
-    #left {
-      margin-left: 6%;
-      width: 40%;
-    }
 
     #sidebar {
-      margin-left: 5%;
-      margin-top: -1%;
-      margin-bottom: 1%;
-      width: 100%;
-      position: absolute;
-      border-left: 5px solid #ffc34d;
+      display: flex;
+      justify-content: space-between;
     }
 
     #sidebar a {
-      margin-top: 10px;
       margin-left: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 7px;
+      padding-right: 7px;
       text-decoration: none;
       color: black;
     }
 
     #sidebar a:hover {
-      text-decoration: underline;
       transition: 2s;
-      color: #ffc34d;
+      background-color: #fec5bb;
       transition: 0.4s ease;
+    }
+
+    #scrollbar {
+      overflow: scroll;
     }
 
     @media (max-width: 667px) {
@@ -164,6 +198,188 @@
         margin-right: 20%;
 
       }
+    }
+
+    #audioplay {
+      margin-right: 2.5%;
+    }
+
+
+    /* aboutme.html */
+
+    #updates {
+      padding-left: 3%;
+      padding-right: 3%;
+      background-color: rgba(255, 229, 217, 0.4);
+      height: 100vh;
+      width: 25%;
+    }
+
+    #fun {
+      height: 100vh;
+      margin-left: 10px;
+      justify-content: flex-end;
+    }
+
+    #fun h1 {
+      margin-left: 10%;
+      text-decoration: underline;
+    }
+
+    #facts {
+      box-sizing: border-box;
+      display: flex;
+      align-content: space-between;
+
+    }
+
+    #facts h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 36px;
+      font-weight: 600;
+    }
+
+    #scrolldown {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      transform: translateY(-80px) translateX(-50%) rotate(45deg);
+    }
+
+    #scrolldown span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-bottom: 2px solid white;
+      border-right: 2px solid white;
+      animation: animate 1.5s linear infinite;
+      opacity: 0;
+    }
+
+    #scrolldown span:nth-child(1) {
+      transform: translate(-15px, -15px);
+
+    }
+
+    #scrolldown span:nth-child(2) {
+      transform: translate(0, 0);
+
+    }
+
+    #scrolldown span:nth-child(3) {
+      transform: translate(15px, 15px);
+
+    }
+
+    @keyframes animate {
+
+      0% {
+        top: -5px;
+        left: -5px;
+        opacity: 0;
+      }
+
+      25% {
+        top: 0px;
+        left: 0px;
+        opacity: 1;
+      }
+
+    }
+
+    #first {
+      min-height: 100vh;
+      width: 100%;
+      background-image: linear-gradient(rgba(252, 213, 206, 0.5), rgba(216, 226, 220, 0.53)), url("aboutme.jpeg");
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .firstline {
+      border-left: #ffc34d thick solid;
+    }
+
+    .lastline {
+      border-right: #ffc34d thick solid;
+    }
+
+    #preface {
+      width: 80%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    #preface h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 70px;
+    }
+
+    #preface p {
+      font-size: 17px;
+      margin: 10px 0 40px;
+      display: inline;
+    }
+
+    /* contact */
+
+    #contact {
+      box-sizing: border-box;
+      height: 100vh;
+    }
+
+    #box {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    #front {
+      padding-top: 2.5vh;
+      height: 20vh;
+    }
+
+
+
+    #second {
+      width: 100%;
+      height: 30vh;
+
+    }
+
+    .contacts {
+      padding-top: 2.5%;
+      padding-bottom: 2.5%;
+      padding-left: 5%;
+      padding-right: 5%;
+      background-color: #fec5bb;
+      text-align: center;
+      font-size: 30px;
+    }
+    
+    .contacts img{
+      height: 20vh;
+      width: auto;
+
+    }
+    #third{
+      height: 50vh;
+      text-align: center;
+      background-color: rgba(255, 229, 217, 1);
+      z-index: -1;
+    }
+
+    #third img{
+      width: 30vh;
+      height:auto;
     }
   </style>
 
@@ -213,87 +429,175 @@
 <body>
 
   <div id="main">
-
+    <div class="placeholder">placeholder</div>
     <div id="sidebar">
-      <a class="option" href="index.html">HOME</a>
-      <a class="option" href="aboutme.html">MORE ABOUT ME</a>
-      <a class="option" href="resume.pdf">RESUME</a>
-      <a class="option" href="#">PROJECTS</a>
-      <a class="option" href="writing.html">WRITINGS</a>
+      <div><a class="option" href="index.html">HOME</a></div>
+      <div><a class="option" href="#first">MORE ABOUT ME & LIFE UPDATES</a></div>
+      <div><a class="option" href="resume.pdf">RESUME</a></div>
+      <div><a class="option" href="#">PROJECTS</a></div>
+      <div><a class="option" href="writing.html">WRITINGS</a></div>
       <div id="linkedin" class="option" data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical"
         data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link"
           href='https://linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a>
       </div>
     </div>
-
+    <i class="fas fa-play-circle" id="audioplay" onclick="play()"><audio id="bolero" src="bolero.mp3" loop></audio></i>
   </div>
 
-  <div id="intro">
-    <div id="left">
-      <div class="picture">
-        <img id="precovid" src="precovid.jpeg" alt="a picture of mine which is not displaying right now">
-        <div class="overlay">
-          <img class="overpic" src="covid.jpeg" alt="a picture of mine which is not displaying right now">
+  <div id="container">
+    <section id="intro" class="section">
+      <div id="introduction">
+        <img id = "emoji" src = "greeting-removebg-preview.png">
+        <h1 id="greeting" class="animate__animated animate__pulse animate__slower animate__infinite"> Hi, Lindsey Here!
+        </h1>
+        <br>
+        <span>I am a junior majoring in Computer Science and Applied Math
+          at </span> <a href="https://www.usc.edu">University of Southern
+          California</a>. I am currently interested in learning math (a lot of them!), Statistical learning, Natural
+        Language Processing, and creative writing.
+        Feel free to explore around my website ;)<span>
+
+          <p>Last update: Jan.11th 2021</p>
+      </div>
+
+      <div id="image">
+        <img src="me.jpeg">
+      </div>
+    </section>
+
+    <section id="first" class="section">
+      <div id="preface">
+        <h1 class="animate__animated animate__bounce animate__slower animate__infinite">Hey, you wanna know more about
+          me!
+        </h1>
+
+        <p class="firstline">I've once read a few psychology papers (for more information, </p> <a
+          href="https://journals.sagepub.com/doi/pdf/10.1177/0146167211433878">click here</a>
+        <p class="lastline">) about the positive social effect of I-sharing (i.e. Believing one shares a subjective
+          experience with another). Specifically, i-sharing would increase conformity,
+          eradicate prejudice towards outgroups and increase interpersonal connectedness. To test out this theory, I
+          leave
+          here a small section that describes a few aspects of my own reality as an experiment to see if you, my reader
+          and
+          probably a stranger to me, would like me more after consuming my stories :)
+        </p>
+      </div>
+
+      <div id="scrolldown">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </section>
+
+
+    <section id="facts" class="section">
+      <div id="updates">
+        <h2 style="text-decoration: underline; font-family: 'Amatic SC', cursive;">Life updates:
+        </h2>
+        <div id="scrollbar">
+          <ul>
+            <li>
+              Jan. 08 - I am really excited to be one of the CPs for CSCI170 - Discrete Methods in Computer Science at
+              USC
+            </li>
+            <br>
+            <li>
+              Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the
+              process!
+            </li>
+            <br>
+            <li>
+              I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a
+                href="https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
+            </li>
+      
+          </ul>
         </div>
       </div>
 
-      <p>Pronoun: she/her <br>
-        Email: xinyuf@usc.edu</p>
-
-
-      <span>Some say that my last </span> <a href="me.jpeg">profile picture</a> <span>looks nothing like me and so
-        just
-        thought i would use the most up to date selfie (one i quickly took for writing this page) instead. Also
-        thought it would be cool to take a picture of my covid look
-        just so you recognize me with my mask on. just hover around the picture - try it on desktop, not sure if it
-        works for mobile
-        and also too lazy to implement one for mobile
-      </span>
-    </div>
-    <div id="introduction">
-      <h1> Xinyu (Lindsey) Feng 封欣雨</h1>
-      <h2 class="greeting">Hi, Lindsey here!</h2>
-      <span>I am a junior majoring in Computer Science and Applied Math at </span> <a
-        href="https://www.usc.edu">University of Southern
-        California</a>. <span>I am
-        currently interested in: </span>
-
-      <ul>
-        <li>web design (obviously ;))</li>
-        <li>research involving natural language processing</li>
-        <li>creative writing </li>
-      </ul>
-
-      <h2 class="greeting" style="text-decoration: underline;">Also some personal updates: </h2>
-      <div>
+      <div id="fun">
+        <h1>10 Random Facts About me</h1>
         <ul>
-          <li>
-            Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the process
-            and am currently
-            in search for the next one - specifically on semantic parsing or logical inference - please <a
-              href="mailto:xinyuf@usc.edu">email</a> me if you feel like adding me up to your team!
+          <li>My Chinese name is 封欣雨 (Xinyu Feng) and Lindsey is my preferred name</li>
+          <br>
+          <li>I love cooking, baking and eating. Actually just finished a great bowl of 螺狮粉 with my bud before writing
+            down these lines of code.
+            <br> Do try them out my readers ;)
           </li>
           <br>
-          <li>
-            I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a
-              href="https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
-            I am actually planning on writing another page about my experience in job search and how I handle failure
-            and stuff - to remind myself to value past failures just as much as what I have achieved
-            and also to help my readers out (if they really help)
-          </li>
-
+          <li>Finished three seasons of Modern Family over this winter break! It's finatic. Am slowing falling into
+            The
+            Office now, when you are taking 20 unit a semester...</li>
+          <br>
+          <li>I know every word to <a href="https://www.youtube.com/watch?v=N-26_1aAC9Q">Todokanai Koi</a>. Still
+            remember
+            my days binge playing this game back in High School. Ahh life.</li>
+          <br>
+          <li>Speaking of anime stuff, my favorite anime character is Asuka Langley Soryu. Asuka, and the show (the
+            old
+            tv
+            series and the following two movies, not the reboot one!) supports me through some of my hardest times in
+            high
+            school and just life in general. </li>
+          <br>
+          <li>Am actually listening to <a href="https://www.youtube.com/watch?v=LAlzrCndEv8">this wonderful song</a>
+            right
+            now. Yorushika saikou!</li>
+          <br>
+          <li>Speaking of music, here are a few random songs that I enjoy and you may find interesting: <a
+              href="https://www.youtube.com/watch?v=sHD_z90ZKV0">this one</a>, <a
+              href="https://www.youtube.com/watch?v=aHUVqV5CO6w">this one</a>, and <a
+              href="https://www.youtube.com/watch?v=1NPn6vcQtrk">this one</a></li>
+          <br>
+          <li>I think maybe I do like Math. I guess I do.</li>
+          <br>
+          <li>I procrastinate the most when I am pressured ;(</li>
+          <br>
+          <li>I really like this line from "On The Road" by Jack Kerouac (hey, was a big fan of Allen Ginsberg back in
+            Senior High...), and I will put them down below: </li>
+          <br>
+          <h2
+            style="align-content: center; margin-left: 10%; margin-right:10%; font-family: 'Reenie Beanie', cursive; font-size: 40px;">
+            “Somewhere along the line I knew there'd be girls, visions, everything; somewhere along the line the pearl
+            would be handed to me.”</h2>
         </ul>
       </div>
-      <p>Last update: Nov. 17 2021</p>
+
+    </section>
 
 
-    </div>
+    <section id="contact" class="section">
+      <div id = "front"></div>
+      <div id="second">
+        <div id="box">
+          <div class="contacts">
+            <img src = "call-removebg-preview.png">
+            <p style="font-family: 'Amatic SC'">(626) 353-0419</p>
+          </div>
 
+          <div class="contacts">
+            <img src = "email-removebg-preview.png">
+            <p style="font-family: 'Amatic SC'">xinyuf@usc.com</p>
+          </div>
+        </div>
+      </div>
+      <div id = "third">
+        <img src="hi-removebg-preview.png">
+        <h1 class="animate__animated animate__pulse animate__slower animate__infinite" style="font-family: 'Amatic SC', cursive; font-size: 50px;">Feel like keeping in touch?</h1>
+      </div>
+
+    </section>
   </div>
 
 
-</body>
 
-</script>
+  <script>
+    $(document).ready(function () {
+      $('#pagepiling').pagepiling();
+    });
+
+  </script>
+</body>
 
 </html>

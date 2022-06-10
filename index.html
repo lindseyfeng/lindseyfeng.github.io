@@ -1,589 +1,449 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta id="Viewport" name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-
-<head>
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-  <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-  <script src="https://unpkg.com/css-doodle@0.19.1/css-doodle.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Saira+Condensed:wght@200&display=swap"
-    rel="stylesheet">
-
-
-
-
-  <script type="text/javascript">
-    function play() {
-      var myAudio = document.getElementById('bolero');
-      if (!myAudio.paused) {
-        alert("music paused");
-        myAudio.pause();
-        return;
-      }
-      alert("music played - hope you enjoy ;)")
-      myAudio.currentTime = 0;
-      myAudio.play();
-    }
-
-
-  </script>
-
-  <style>
-
-    *{
-      box-sizing: border-box;
-    }
-    #container{
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-      height:100vh;
-    }
-
-    .section{
-      scroll-snap-align: start;
-      height:100vh;
-    }
-
-    body {
-      overflow-x: hidden;
-    }
-
-    .background {
-      position: fixed;
-      z-index: -1;
-    }
-
-    .placeholder {
-      color: #ffe5d9;
-    }
-
-    #main {
-      position: sticky;
-      top: 0;
-      z-index: 99;
-      width: 100;
-      margin-top: -1%;
-      padding-top: 1.5%;
-      padding-bottom: 1.5%;
-      background-color: #ffe5d9;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    #intro {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      box-sizing: border-box;
-    }
-
-    #introduction {
-      width: 500px;
-      position: absolute;
-      left: 10vh;
-      top: 30vh;
-    }
-
-    #linkedin {
-      display: inline-block;
-    }
-
-    #emoji{
-      height: 15vh;
-      width: auto;
-    }
-
-    #greeting {
-      display:inline-block;
-      font-family: 'Reenie Beanie', cursive;
-      --animate-delay: 2000s;
-    }
-
-    #intro p {
-      line-height: 1.4;
-      margin-top: 30px;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-
-
-    #fun li {
-      line-height: 1.4;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-
-    /* #fun li:nth-of-type(even):hover{
-      background: rgba(254, 197, 187, 0.5);
-    }
-
-    #fun li:nth-of-type(odd):hover{
-      background: rgba(250, 225, 221, 0.5);
-    } */
-
-    #image img {
-      float: right;
-      margin-right: 10%;
-      margin-top: 15vh;
-      width: 50vh;
-      height: auto;
-    }
-
-
-
-    #sidebar {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    #sidebar a {
-      margin-left: 10px;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      padding-left: 7px;
-      padding-right: 7px;
-      text-decoration: none;
-      color: black;
-    }
-
-    #sidebar a:hover {
-      transition: 2s;
-      background-color: #fec5bb;
-      transition: 0.4s ease;
-    }
-
-    #scrollbar {
-      overflow: scroll;
-    }
-
-    @media (max-width: 667px) {
-      #intro {
-        flex-direction: column-reverse;
-      }
-
-      #left {
-        margin-left: 20%;
-        margin-right: 20%;
-      }
-
-      #introduction {
-        margin-left: 20%;
-        margin-right: 20%;
-
-      }
-    }
-
-    #audioplay {
-      margin-right: 2.5%;
-    }
-
-
-    /* aboutme.html */
-
-    #updates {
-      padding-left: 3%;
-      padding-right: 3%;
-      background-color: rgba(255, 229, 217, 0.4);
-      height: 100vh;
-      width: 25%;
-    }
-
-    #fun {
-      height: 100vh;
-      margin-left: 10px;
-      justify-content: flex-end;
-    }
-
-    #fun h1 {
-      margin-left: 10%;
-      text-decoration: underline;
-    }
-
-    #facts {
-      box-sizing: border-box;
-      display: flex;
-      align-content: space-between;
-
-    }
-
-    #facts h1 {
-      font-family: 'Amatic SC', cursive;
-      font-size: 36px;
-      font-weight: 600;
-    }
-
-    #scrolldown {
-      position: absolute;
-      bottom: 70px;
-      left: 50%;
-      width: 40px;
-      height: 40px;
-      transform: translateY(-80px) translateX(-50%) rotate(45deg);
-    }
-
-    #scrolldown span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-bottom: 2px solid white;
-      border-right: 2px solid white;
-      animation: animate 1.5s linear infinite;
-      opacity: 0;
-    }
-
-    #scrolldown span:nth-child(1) {
-      transform: translate(-15px, -15px);
-
-    }
-
-    #scrolldown span:nth-child(2) {
-      transform: translate(0, 0);
-
-    }
-
-    #scrolldown span:nth-child(3) {
-      transform: translate(15px, 15px);
-
-    }
-
-    @keyframes animate {
-
-      0% {
-        top: -5px;
-        left: -5px;
-        opacity: 0;
-      }
-
-      25% {
-        top: 0px;
-        left: 0px;
-        opacity: 1;
-      }
-
-    }
-
-    #first {
-      min-height: 100vh;
-      width: 100%;
-      background-image: linear-gradient(rgba(252, 213, 206, 0.5), rgba(216, 226, 220, 0.53)), url("aboutme.jpeg");
-      background-position: center;
-      background-size: cover;
-      position: relative;
-      box-sizing: border-box;
-    }
-
-    .firstline {
-      border-left: #ffc34d thick solid;
-    }
-
-    .lastline {
-      border-right: #ffc34d thick solid;
-    }
-
-    #preface {
-      width: 80%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    #preface h1 {
-      font-family: 'Amatic SC', cursive;
-      font-size: 70px;
-    }
-
-    #preface p {
-      font-size: 17px;
-      margin: 10px 0 40px;
-      display: inline;
-    }
-
-    /* contact */
-
-    #contact {
-      box-sizing: border-box;
-      height: 100vh;
-    }
-
-    #box {
-      display: flex;
-      justify-content: space-around;
-    }
-
-    #front {
-      padding-top: 2.5vh;
-      height: 20vh;
-    }
-
-
-
-    #second {
-      width: 100%;
-      height: 30vh;
-
-    }
-
-    .contacts {
-      padding-top: 2.5%;
-      padding-bottom: 2.5%;
-      padding-left: 5%;
-      padding-right: 5%;
-      background-color: #fec5bb;
-      text-align: center;
-      font-size: 30px;
-    }
-    
-    .contacts img{
-      height: 20vh;
-      width: auto;
-
-    }
-    #third{
-      height: 50vh;
-      text-align: center;
-      background-color: rgba(255, 229, 217, 1);
-      z-index: -1;
-    }
-
-    #third img{
-      width: 30vh;
-      height:auto;
-    }
-  </style>
-
-  <css-doodle class="background">
-    :doodle {
-    @grid: 10 / 100vmax;
-    grid-gap: 4vmax;
-    }
-    @random(0.5){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: heart;
-    }
-    @random(0.3){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: windmill;
-    }
-
-    @random(0.3){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: fish;
-    }
-    @random(0.3){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: star;
-    }
-    @random(0.3){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: drop;
-    }
-    @random(0.3){
-    transform: scale(@rand(.1, 1)) translate3d(@r(150px), @r(200px), 0) rotate(@r(360deg));
-    background: hsla(@r(100), 85%, @r(70%, 90%), @r(.9));
-    @shape: clover 4;
-    }
-
-  </css-doodle>
-
-  <meta charset="UTF-8">
-  <title>Lindsey Feng | student @ USC</title>
-</head>
-
-<body>
-
-  <div id="main">
-    <div class="placeholder">placeholder</div>
-    <div id="sidebar">
-      <div><a class="option" href="index.html">HOME</a></div>
-      <div><a class="option" href="#first">MORE ABOUT ME & LIFE UPDATES</a></div>
-      <div><a class="option" href="resume.pdf">RESUME</a></div>
-      <div><a class="option" href="#">PROJECTS</a></div>
-      <div><a class="option" href="writing.html">WRITINGS</a></div>
-      <div id="linkedin" class="option" data-version="v1" data-size="medium" data-locale="zh_CN" data-type="vertical"
-        data-theme="light" data-vanity="xinyu-feng-083130131"><a class="LI-simple-link"
-          href='https://linkedin.com/in/xinyu-feng-083130131?trk=profile-badge'><i class="fab fa-linkedin"></i></a>
-      </div>
-    </div>
-    <i class="fas fa-play-circle" id="audioplay" onclick="play()"><audio id="bolero" src="bolero.mp3" loop></audio></i>
-  </div>
-
-  <div id="container">
-    <section id="intro" class="section">
-      <div id="introduction">
-        <img id = "emoji" src = "greeting-removebg-preview.png">
-        <h1 id="greeting" class="animate__animated animate__pulse animate__slower animate__infinite"> Hi, Lindsey Here!
-        </h1>
-        <br>
-        <span>I am a junior majoring in Computer Science and Applied Math
-          at </span> <a href="https://www.usc.edu">University of Southern
-          California</a>. I am currently interested in learning math (a lot of them!), Statistical learning, Natural
-        Language Processing, and creative writing.
-        Feel free to explore around my website ;)<span>
-
-          <p>Last update: Jan.11th 2021</p>
-      </div>
-
-      <div id="image">
-        <a href = "Untitled.txt"><img src="me.jpeg"></a>
-      </div>
-    </section>
-
-    <section id="first" class="section">
-      <div id="preface">
-        <h1 class="animate__animated animate__bounce animate__slower animate__infinite">Hey, you wanna know more about
-          me!
-        </h1>
-
-        <p class="firstline">I've once read a few psychology papers (for more information, </p> <a
-          href="https://journals.sagepub.com/doi/pdf/10.1177/0146167211433878">click here</a>
-        <p class="lastline">) about the positive social effect of I-sharing (i.e. Believing one shares a subjective
-          experience with another). Specifically, i-sharing would increase conformity,
-          eradicate prejudice towards outgroups and increase interpersonal connectedness. To test out this theory, I
-          leave
-          here a small section that describes a few aspects of my own reality as an experiment to see if you, my reader
-          and
-          probably a stranger to me, would like me more after consuming my stories :)
-        </p>
-      </div>
-
-      <div id="scrolldown">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </section>
-
-
-    <section id="facts" class="section">
-      <div id="updates">
-        <h2 style="text-decoration: underline; font-family: 'Amatic SC', cursive;">Life updates:
-        </h2>
-        <div id="scrollbar">
-          <ul>
-            <li>
-              Jan. 08 - I am really excited to be one of the CPs for CSCI170 - Discrete Methods in Computer Science at
-              USC
-            </li>
-            <br>
-            <li>
-              Finish the research project on named-entity recognition w/ demonstration-based learning. Enjoy the
-              process!
-            </li>
-            <br>
-            <li>
-              I am thrilled to annouce that I'll be starting my software engineer internship for summer 2022 at <a
-                href="https://www.momentive.ai/en/">Momentive.ai (former SurveyMonkey)</a>! Super excited for it!
-            </li>
-      
-          </ul>
-        </div>
-      </div>
-
-      <div id="fun">
-        <h1>10 Random Facts About me</h1>
-        <ul>
-          <li>My Chinese name is 封欣雨 (Xinyu Feng) and Lindsey is my preferred name</li>
-          <br>
-          <li>I love cooking, baking and eating. Actually just finished a great bowl of 螺狮粉 with my bud before writing
-            down these lines of code.
-            <br> Do try them out my readers ;)
-          </li>
-          <br>
-          <li>Finished three seasons of Modern Family over this winter break! It's finatic. Am slowing falling into
-            The
-            Office now, when you are taking 20 unit a semester...</li>
-          <br>
-          <li>I know every word to <a href="https://www.youtube.com/watch?v=N-26_1aAC9Q">Todokanai Koi</a>. Still
-            remember
-            my days binge playing this game back in High School. Ahh life.</li>
-          <br>
-          <li>Speaking of anime stuff, my favorite anime character is Asuka Langley Soryu. Asuka, and the show (the
-            old
-            tv
-            series and the following two movies, not the reboot one!) supports me through some of my hardest times in
-            high
-            school and just life in general. </li>
-          <br>
-          <li>Am actually listening to <a href="https://www.youtube.com/watch?v=LAlzrCndEv8">this wonderful song</a>
-            right
-            now. Yorushika saikou!</li>
-          <br>
-          <li>Speaking of music, here are a few random songs that I enjoy and you may find interesting: <a
-              href="https://www.youtube.com/watch?v=sHD_z90ZKV0">this one</a>, <a
-              href="https://www.youtube.com/watch?v=aHUVqV5CO6w">this one</a>, and <a
-              href="https://www.youtube.com/watch?v=1NPn6vcQtrk">this one</a></li>
-          <br>
-          <li>I think maybe I do like Math. I guess I do.</li>
-          <br>
-          <li>I procrastinate the most when I am pressured ;(</li>
-          <br>
-          <li>I really like this line from "On The Road" by Jack Kerouac (hey, was a big fan of Allen Ginsberg back in
-            Senior High...), and I will put them down below: </li>
-          <br>
-          <h2
-            style="align-content: center; margin-left: 10%; margin-right:10%; font-family: 'Reenie Beanie', cursive; font-size: 40px;">
-            “Somewhere along the line I knew there'd be girls, visions, everything; somewhere along the line the pearl
-            would be handed to me.”</h2>
-        </ul>
-      </div>
-
-    </section>
-
-
-    <section id="contact" class="section">
-      <div id = "front"></div>
-      <div id="second">
-        <div id="box">
-          <div class="contacts">
-            <img src = "call-removebg-preview.png">
-            <p style="font-family: 'Amatic SC'">(626) 353-0419</p>
-          </div>
-
-          <div class="contacts">
-            <img src = "email-removebg-preview.png">
-            <p style="font-family: 'Amatic SC'">xinyuf@usc.com</p>
-          </div>
-        </div>
-      </div>
-      <div id = "third">
-        <img src="hi-removebg-preview.png">
-        <h1 class="animate__animated animate__pulse animate__slower animate__infinite" style="font-family: 'Amatic SC', cursive; font-size: 50px;">Feel like keeping in touch?</h1>
-      </div>
-
-    </section>
-  </div>
-
-
-
-  <script>
-    $(document).ready(function () {
-      $('#pagepiling').pagepiling();
-    });
-
-  </script>
-</body>
-
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lindsey Feng | Student @ USC</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<div id="colorlib-page">
+		<div class="container-wrap">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
+			<div class="text-center">
+				<div class="author-img" style="background-image: url(images/about.png);"></div>
+				<h1 id="colorlib-logo"><a href="index.html">Lindsey Feng</a></h1>
+				<span class="position"> Student at <a href="https://www.usc.edu">USC</a></span>
+			</div>
+			<nav id="colorlib-main-menu" role="navigation" class="navbar">
+				<div id="navbar" class="collapse">
+					<ul>
+						<li class="active"><a href="#" data-nav-section="home">Home</a></li>
+						<li><a href="#" data-nav-section="about">CV</a></li>
+						<li><a href="#" data-nav-section="about">About</a></li>
+						<li><a href="#" data-nav-section="education">Education</a></li>
+						<li><a href="#" data-nav-section="experience">Experience & Research projects</a></li>
+
+						<li><a href="#" data-nav-section="blog">Blog & Writing</a></li>
+						<li><a href="#" data-nav-section="contact">Contact</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="colorlib-footer">
+				<ul>
+					<li><a href="#"><i class="icon-github"></i></a></li>
+					<li><a href="#"><i class="icon-linkedin2"></i></a></li>
+				</ul>
+			</div>
+
+		</aside>
+
+		<div id="colorlib-main">
+			<section id="colorlib-hero" class="js-fullheight" data-section="home">
+				<div class="flexslider js-fullheight">
+					<ul class="slides">
+				   	<li style="background-image: url(images/img_bg_1.png);">
+				   		<div class="overlay"></div>
+				   		<div class="container-fluid">
+				   			<div class="row">
+					   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
+					   				<div class="slider-text-inner js-fullheight">
+					   					<div class="desc" style = "background-color:white; padding-left: 15px; padding-bottom: 15px;">
+						   					<h1>Hi! <br>This is Lindsey</h1>
+						   					<h2>I am currently a junior student @<a href="https://www.usc.edu" target="_blank">USC</a> double majoring Computer Science and Applied math. Welcome to my personal website ;)</h2>
+												<p><a class="btn btn-primary btn-learn">Download CV <i class="icon-download4"></i></a></p>
+											</div>
+					   				</div>
+					   			</div>
+					   		</div>
+				   		</div>
+				   	</li>
+				   	<li style="background-image: url(https://pic1.zhimg.com/80/v2-1cc3a4f196880118d8dbba29a233f7ca_1440w.jpg?source=3af55fa1);">
+				   		<div class="overlay"></div>
+				   		<div class="container-fluid">
+				   			<div class="row">
+					   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
+					   				<div class="slider-text-inner">
+					   					<div class="desc" style = "background-color:white; padding-left: 15px; padding-right: 15px; padding-bottom: 15px; ">
+						   					<h1>I love <br>CS & Math!</h1>
+												<h2>I am currently interested in learning math, machine learning, and natural language processing. </a></h2>
+												<p><a class="btn btn-primary btn-learn" href = "#experience">View Experienec & Research projects<i class="icon-briefcase3"></i></a></p>
+											</div>
+					   				</div>
+					   			</div>
+					   		</div>
+				   		</div>
+				   	</li>
+				  	</ul>
+			  	</div>
+			</section>
+
+			<section class="colorlib-about" data-section="about">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="col-md-12"> 
+									<div class="about-desc">
+										<span class="heading-meta">About Me</span>
+										<h2 class="colorlib-heading">Who Am I?</h2>
+										<p><strong>Nice meeting you here stranger! </strong></p>
+										<p>As you may already know by now, I am a junior majoring in computer science and applied math at USC. Besides that, here are a few fun facts about me: </p>
+										<ul>
+											<li>My Chinese name is 封欣雨 (Xinyu Feng) and Lindsey is my preferred name</li>
+											<li>Besides learning math stuff and coding cool stuff, I have huge passion for anime, games and music. (yeah otaku me!) I also like surreal and post-modern literature and art works. </li>
+											<li>Speaking of anime stuff, my favorite anime character is Asuka Langley Soryu. Always. </li>
+											<li>Speaking of music, here are a few random songs that I enjoy and you may find interesting: <a href = "https://www.youtube.com/watch?v=wyfA0ogtwU4">this one</a>, <a href = "https://www.youtube.com/watch?v=OCUSalQf-jY" >this one</a>, and <a href = "https://www.youtube.com/watch?v=RTUwaCImChM">this one</a></li>
+											<li>I am also actively writing random stuff. (you may find them <a href = "#writing">here</a>) i myself refer them as post-modern writing. They are mostly fragmented pieces filled with subjective dillusional distorted reality to capture the absurdity of a meaningless world with essentially no rule and no purpose at all (haha getting real). 
+												I also try to explore different narrative structures. </li>
+										</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="colorlib-education" data-section="education">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<span class="heading-meta">Education</span>
+							<h2 class="colorlib-heading animate-box">Education</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+							<div class="fancy-collapse-panel">
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingTwo">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Bachelor Degree of Computer Science
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									        <div class="panel-body">
+									            <p>Relevant courses: Software Development, Introduction to Computer System, Introduction to Algorithms, Data Structure
+													and Object-Oriented Design, Discrete Methods in Computer Science</p>
+													<ul>
+														<li>Computer Science B.S. at University of Southern California</li>
+														<li>Estimated graduation date: May, 2023</li>
+													</ul>
+									        </div>
+									    </div>
+									</div>
+									<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingThree">
+									        <h4 class="panel-title">
+									            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Bachelor Degree of Applied and Computational Mathematics
+									            </a>
+									        </h4>
+									    </div>
+									    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+									        <div class="panel-body">
+												<p>Relevant courses: Number Theory, Topics in Linear Algebra, Mathematics of Machine Learning, Fundamental Concepts of
+													Analysis, Probability Theory, Mathematical Statistics, Linear Algebra and Linear Differential Equations, Multivariable Calculus.</p>
+													<ul>
+														<li>Applied and Computational Mathematics B.S. at University of Southern California</li>
+														<li>Estimated graduation date: May, 2023</li>
+													</ul>
+									        </div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id = "experience" class="colorlib-experience" data-section="experience">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<span class="heading-meta">Experience</span>
+							<h2 class="colorlib-heading animate-box">Experiences & Research project</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+				         <div class="timeline-centered">
+
+							<article class="timeline-entry animate-box" data-animate-effect="fadeInRight">
+					            <div class="timeline-entry-inner">
+					               <div class="timeline-icon color-2">
+					                  <i class="icon-pen2"></i>
+					               </div>
+					               <div class="timeline-label">
+					               	<h2><a href="#">Software Engineer Intern @ Momentive</a> <span> Jun. 2022 - Aug. 2022</span></h2>
+					                  <p>incoming software engineer intern</p>
+					               </div>
+					            </div>
+					         </article>
+
+
+
+					         <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
+					            <div class="timeline-entry-inner">
+
+					               <div class="timeline-icon color-1">
+					                  <i class="icon-pen2"></i>
+					               </div>
+
+					               <div class="timeline-label">
+					                  <h2><a href="#">CSCI 170 Course Producer at USC</a> <span>Jan. 2022 - May. 2022</span></h2>
+					                  <p>Grading and holding 10 hours of office hours every week to help students understand contents of CSCI 170: Discrete Method in Computer Science.</p>
+					               </div>
+					            </div>
+					         </article>
+
+
+					         <article class="timeline-entry animate-box" data-animate-effect="fadeInRight">
+					            <div class="timeline-entry-inner">
+					               <div class="timeline-icon color-2">
+					                  <i class="icon-pen2"></i>
+					               </div>
+					               <div class="timeline-label">
+					               	<h2><a href="#">Research Assistant at Minds Machines and Society Group @ Dartmouth College</a> <span>Nov.2021 – Feb. 2022</span></h2>
+					                  <p>Searched for datasets displaying social values and have clear paragraph-long explanations to feed into the model to explore the explainable text generation. Work appears on NAACL 2022. <a href = "https://www.cs.dartmouth.edu/~rbliu/aligining_values.pdf">link here</a></p>
+					               </div>
+					            </div>
+					         </article>
+
+					         <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
+					            <div class="timeline-entry-inner">
+					               <div class="timeline-icon color-3">
+					                  <i class="icon-pen2"></i>
+					               </div>
+					               <div class="timeline-label">
+					               	<h2><a href="#">Research Assistant at INK Lab @ USC</a> <span>Mar. 2021 - Present</span></h2>
+					                  <p><ul>
+										  <li>Designed and implemented a visualization dashboard for the process and results of sentiment analysis using
+											d3.js and JavaScript; code integrated into the LEAN-LIFE project.
+											</li>
+											<li>
+												Developed a web interface for researchers to interact with NLP models and displayed results using bootstrap,
+											HTML and JavaScript.
+											</li>
+											<li>
+												Worked on experimentation of entity recognition models with a five-people team using pretrained models
+												(transformer, BERT and SBERT) with PyTorch. Work appears on ACL 2022.<a href = "https://arxiv.org/pdf/2110.08454.pdf">link here</a>
+												</li>
+											</li>
+									  </ul></p>
+					               </div>
+					            </div>
+					         </article>
+
+					         <article class="timeline-entry animate-box" data-animate-effect="fadeInTop">
+					            <div class="timeline-entry-inner">
+					               <div class="timeline-icon color-4">
+					                  <i class="icon-pen2"></i>
+					               </div>
+					               <div class="timeline-label">
+					               	<h2><a href="#">Machine Learning Intern at Huatai Securities</a> <span>July. 2021- Aug. 2021</span></h2>
+					                  <p>Created a general linear model using scikit-learn, pandas and python for stock price predictions with data
+										from the Chinese stock market. Gained 23.2% revenue growth during simulation.</p>
+					               </div>
+					            </div>
+					         </article>
+
+					         <article class="timeline-entry begin animate-box" data-animate-effect="fadeInBottom">
+					            <div class="timeline-entry-inner">
+					               <div class="timeline-icon color-none">
+					               </div>
+					            </div>
+					         </article>
+					      </div>
+					   </div>
+				   </div>
+				</div>
+			</section> 
+
+			<section class="colorlib-blog" id = "writing" data-section="blog">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<span class="heading-meta">Read</span>
+							<h2 class="colorlib-heading">Recent Blogs & Writings</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+							<div class="blog-entry">
+								<a href="https://docs.google.com/document/d/1ATC55G7cveNCOiG2RzBMAv5j3Q8joP9xDcgg7r6t-YY/edit?usp=sharing" class="blog-img"><img src="https://assets.rebelmouse.io/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmVzX2F0IjoxNjU0OTM1NDkzLCJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8xNDQ5MTY1OS9vcmlnaW4uanBnIn0.-hMOXxixvyof-NziWusrriZJ7UAy10ZRv6UWE9qsN58/img.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+								<div class="desc">
+									<span><small>2019 </small> | <small> Playing with Words </small> | <small> <i class="icon-bubble3"></i> 4</small></span>
+									<h3><a href="https://docs.google.com/document/d/1ATC55G7cveNCOiG2RzBMAv5j3Q8joP9xDcgg7r6t-YY/edit?usp=sharing">Untitled</a></h3>
+									<p>Written in English, in an attempt to explore the limitation of words and common expression.</p>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInRight">
+							<div class="blog-entry">
+								<a href="blog.html" class="blog-img"><img src="images/blog-2.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+								<div class="desc">
+									<span><small>April 14, 2018 </small> | <small> Web Design </small> | <small> <i class="icon-bubble3"></i> 4</small></span>
+									<h3><a href="blog.html">Wordpress for a Beginner</a></h3>
+									<p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+								</div>
+							</div>
+						</div> -->
+						<div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+							<div class="blog-entry">
+								<a href="https://docs.google.com/document/d/1A5KAExiy4c1q-3oChVOYc-cxp9v6AHN0Q1_NvspeT-A/edit?usp=sharing" class="blog-img"><img src="https://i.pinimg.com/originals/ee/e6/50/eee650fc325467bfa9894b27a395091b.jpg" class="img-responsive" alt="HTML5 Bootstrap Template by colorlib.com"></a>
+								<div class="desc">
+									<span><small>2021 </small> | <small> In Exploration of Existential Themes </small> | <small> <i class="icon-bubble3"></i> 4</small></span>
+									<h3><a href="https://docs.google.com/document/d/1A5KAExiy4c1q-3oChVOYc-cxp9v6AHN0Q1_NvspeT-A/edit?usp=sharing">Untitled</a></h3>
+									<p>Written in Chinese, in an attempt to explore the boundary between dreams and reality and reflect upon Sartre's account of <span><a href ="https://existentialcomics.com/comic/235">the look.</a></span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 animate-box">
+							<!-- <p><a href="#" class="btn btn-primary btn-lg btn-load-more">Load more <i class="icon-reload"></i></a></p> -->
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="colorlib-contact" data-section="contact">
+				<div class="colorlib-narrow-content">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box" data-animate-effect="fadeInLeft">
+							<span class="heading-meta">Get in Touch</span>
+							<h2 class="colorlib-heading">Contact</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="colorlib-icon">
+									<i class="icon-globe-outline"></i>
+								</div>
+								<div class="colorlib-text">
+									<p><a href="mailto:xinyuf@usc.edu">xinyuf@usc.edu</a></p>
+								</div>
+							</div>
+
+							<div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="colorlib-icon">
+									<i class="icon-map"></i>
+								</div>
+								<div class="colorlib-text">
+									<p>University of Southern California, Los Angeles, 90007</p>
+								</div>
+							</div>
+
+							<div class="colorlib-feature colorlib-feature-sm animate-box" data-animate-effect="fadeInLeft">
+								<div class="colorlib-icon">
+									<i class="icon-phone"></i>
+								</div>
+								<div class="colorlib-text">
+									<p><a href="tel://">+626 353 0419</a></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-7 col-md-push-1">
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
+									<form action="">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Name">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Email">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Subject">
+										</div>
+										<div class="form-group">
+											<textarea name="" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+										</div>
+										<div class="form-group">
+											<input type="submit" class="btn btn-primary btn-send-message" value="Send Message">
+										</div>
+									</form>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div><!-- end:colorlib-main -->
+	</div><!-- end:container-wrap -->
+	</div><!-- end:colorlib-page -->
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Counters -->
+	<script src="js/jquery.countTo.js"></script>
+	
+	
+	<!-- MAIN JS -->
+	<script src="js/main.js"></script>
+
+	</body>
 </html>
+

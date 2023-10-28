@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-image: url("7573859.jpg");
+      background-repeat: no-repeat;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    h1 {
+      animation-name: h1;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      margin: 0;
+    }
+
+    @keyframes h1 {
+      50% {
+        color: rgba(0, 255, 255, 1);
+      }
+
+      100% {
+        color: rgba(255, 0, 0, 1);
+      }
+    }
+
+    @keyframes swim {
+
+      0%,
+      100% {
+        transform: translateX(0) scaleX(1);
+      }
+
+      25%,
+      75% {
+        transform: translateX(2vw) scaleX(0.9);
+        /* Gives a bit of a wavy, wiggly movement */
+      }
+
+      50% {
+        transform: translateX(1vw) scaleX(1);
+      }
+    }
+
+    @keyframes shine {
+
+      0%,
+      100% {
+        background-position: 100% center;
+      }
+
+      50% {
+        background-position: 50% center;
+      }
+    }
+
+    @keyframes wiggle {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+
+
+    .container {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #card {
+      background-image: url("super-mario-bros-wonder-world-1-1-welcome-to-the-flower-kingdom-1.large.jpg");
+      height: 73vh;
+      background-repeat: no-repeat;
+      margin-left: 10vw;
+      margin-right: 10vw;
+      margin-right: 10vw;
+
+    }
+
+    .cheep {
+      position: absolute;
+      background-image: url("800px-CheepCheepNSMBU.png");
+      width: 15%;
+      height: 12%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: swim 1.5s infinite, shine 3s infinite;
+    }
+
+    #flag {
+      position: absolute;
+      background-image: url("SM3DL_Goal_pole_flag.png");
+      margin-top: 10%;
+      height: 80%;
+      width: 10%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: 80%;
+      z-index: 3;
+    }
+
+    #bianca {
+      position: absolute;
+      background-image: url("Bianca_adulta_PS2_2.png");
+      margin-top: 24%;
+      height: 80%;
+      width: 10%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: 70%;
+      z-index: 3;
+
+    }
+
+    .cloud {
+      position: absolute;
+      background-image: url("580b585b2edbce24c47b263b.png");
+      height: 50%;
+      width: 80%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-left: 40%;
+      margin-top: 27%;
+      z-index: 2;
+    }
+
+    .flower1 {
+      position: absolute;
+      background-image: url("Super_Mario_Bros._Wonder_artwork_Oshaberi_Flower.png");
+      height: 10%;
+      width: 10%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 2;
+      animation: wiggle 4s infinite;
+    }
+
+    #tab {
+      position: absolute;
+      background-image: url("5d1eb6be5cb160690ae33bda324cb156.png");
+      height: 50%;
+      width: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 5;
+    }
+
+    #tab img {
+      margin-left: 10vw;
+      height: 60%;
+      margin-top: 8vh;
+    }
+
+    .webpage {
+      position: absolute;
+      background-image: url("vaporwave-pink-marco-windows-aesthetic-close-word-text-screen-electronics-transparent-png-725471-removebg-preview.png");
+      height: 20%;
+      width: 20%;
+      margin-top: 25%;
+      margin-left: 25%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 6;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .content {
+      background-color: rgba(255, 255, 255, 0.8);
+      width: 15vw;
+      height: 15vh;
+      margin-top: 10%;
+      margin-left: 3%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #web2 {
+      margin-top: 30%;
+      margin-left: 30%;
+      z-index: 7
+    }
+
+    #web3 {
+      margin-top: 35%;
+      margin-left: 35%;
+      z-index: 8
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      /* Standard font of the early web */
+      background-color: #FFD1DC;
+      /* Bright pastel background color */
+    }
+
+    /* Shiny gradient button */
+    .button-y2k {
+      display: inline-block;
+      /* Bright gradient */
+      transition: transform .2s;
+    }
+
+    .button-y2k:hover {
+      transform: scale(1.1);
+      /* A slight zoom on hover */
+    }
+
+    /* Y2K styled text with shadow and gradient */
+    .y2k-text {
+      font-size: 24px;
+      background: linear-gradient(45deg, #FF88CC, #88FFCC);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+
+    /* Example of a futuristic container with curved borders and shadows */
+    .container-y2k {
+      padding: 20px;
+      border: 2px solid #FFF;
+      background-color: rgba(255, 255, 255, 0.8);
+      /* Semi-transparent white */
+      border-radius: 25px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Animations reminiscent of old tech, like flickering */
+    @keyframes flicker {
+
+      0%,
+      70%,
+      100% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 0.4;
+      }
+    }
+
+    .flicker-element {
+      animation: flicker 1s infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="cheep"></div>
+    <div class="cheep"></div>
+    <div class="cheep"></div>
+    <div class="cheep"></div>
+    <div class="cheep"></div>
+    <div id="flag"></div>
+    <div class="cloud"></div>
+    <div class="cloud" style="margin-left:3%; margin-top: 30%; z-index: 4; height: 60%"></div>
+    <div class="flower1"></div>
+    <div class="flower1"></div>
+    <div id="bianca"></div>
+    <div id="tab">
+      <img src="gbrf_8x10_f_540x540-pad_450x450_f8f8f8-removebg-preview.png">
+    </div>
+    <div class="webpage">
+      <div class="content flicker-element"><button class="tab button-y2k" data-content="tab2">Is today your
+          birthday?</button></div>
+    </div>
+    <div class="webpage" id="web2">
+      <div class="content flicker-element">
+        <div class="tab-content" id="tab2">
+          If today is your birthday, please enter your name:
+          <input type="text" id="nameInput" placeholder="Enter name">
+          <button id="submitName">Submit</button>
+        </div>
+      </div>
+    </div>
+    <div class="webpage" id="web3">
+      <div class="content">
+        <p>haha one step closer to death fucker</p>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script>
+    const time = Math.random() + .5; // I’m adding .5 here so the flicker isn’t too obnoxious
+    const cheepElements = document.querySelectorAll('.cheep');
+    cheepElements.forEach(element => {
+      // Do something with each 'cheep' element
+      element.style.setProperty('margin-left', Math.random() * 100 + 'vw');
+      element.style.setProperty('margin-top', Math.random() * 15 + 'vw');
+    });
+    const flower1Elements = document.querySelectorAll('.flower1');
+    flower1Elements.forEach(element => {
+      // Do something with each 'cheep' element
+      element.style.setProperty('margin-left', (Math.random() + 0.2) * 80 + 'vw');
+      element.style.setProperty('margin-top', (Math.random() + 1.8) * 15 + 'vw');
+    });
+    // Initially hide the second and third tabs
+    document.getElementById('web2').style.display = 'none';
+    document.getElementById('web3').style.display = 'none';
+
+    // Event listener for the birthday button
+    document.querySelector('.tab[data-content="tab2"]').addEventListener('click', function () {
+      document.getElementById('web2').style.display = 'block'; // Show the second tab
+    });
+
+    // Event listener for the submit name button
+    document.getElementById('submitName').addEventListener('click', function () {
+      const nameInputValue = document.getElementById('nameInput').value;
+      const correctName = "CorrectName"; // Replace with the desired correct name
+
+      if (nameInputValue === correctName) {
+        document.getElementById('web3').style.display = 'block'; // Show the third tab
+      } else {
+        alert('Incorrect name. Try again.');
+      }
+    });
+
+  </script>
+</body>
+
+</html>

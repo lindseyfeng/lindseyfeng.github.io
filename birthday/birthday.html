@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       margin: 0;
@@ -62,19 +63,24 @@
     }
 
     @keyframes wiggle {
-    0%, 100% {
+
+      0%,
+      100% {
         transform: rotate(0deg);
-    }
-    25% {
+      }
+
+      25% {
         transform: rotate(5deg);
-    }
-    50% {
+      }
+
+      50% {
         transform: rotate(0deg);
-    }
-    75% {
+      }
+
+      75% {
         transform: rotate(-5deg);
+      }
     }
-}
 
 
 
@@ -229,7 +235,6 @@
 
     /* Y2K styled text with shadow and gradient */
     .y2k-text {
-      font-size: 24px;
       background: linear-gradient(45deg, #FF88CC, #88FFCC);
       -webkit-background-clip: text;
       color: transparent;
@@ -245,6 +250,17 @@
       /* Semi-transparent white */
       border-radius: 25px;
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #demo {
+      margin-left:20%;
+      margin-right:20%;
+      text-align: center;
+      font-size: 20vh;
+      margin-top: 5%;
+      z-index: 1;
+      position: absolute;
+
     }
 
     /* Animations reminiscent of old tech, like flickering */
@@ -264,11 +280,15 @@
     .flicker-element {
       animation: flicker 1s infinite;
     }
+
   </style>
 </head>
 
 <body>
   <div class="container">
+    <!DOCTYPE HTML>
+
+    <p id="demo" class = "y2k-text"></p>
     <div class="cheep"></div>
     <div class="cheep"></div>
     <div class="cheep"></div>
@@ -331,14 +351,43 @@
     // Event listener for the submit name button
     document.getElementById('submitName').addEventListener('click', function () {
       const nameInputValue = document.getElementById('nameInput').value;
-      const correctName = "CorrectName"; // Replace with the desired correct name
+      const correctName = "Kenan Chen"; // Replace with the desired correct name
 
       if (nameInputValue === correctName) {
         document.getElementById('web3').style.display = 'block'; // Show the third tab
       } else {
-        alert('Incorrect name. Try again.');
+        alert('dont care if its your birthday today. Didnt build this for you');
       }
     });
+
+          // Set the date we're counting down to
+          var countDownDate = new Date("Nov 11, 2024 0:0:0").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function () {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
 
   </script>
 </body>

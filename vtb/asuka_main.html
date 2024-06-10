@@ -1,73 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Y2K Chatbox</title>
-<style>
-    body {
-        background: url('../img/y2k wallpaper.jpg') no-repeat center center fixed;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2K Chatbox</title>
+    <style>
+        body {
+            background: url('../img/y2k wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    .chatbox {
-    width: 50vw;
-    height: 3vh;             /* This might need to be adjusted to a larger height for practical usability */
-    border: 2px solid #4d2623;
-    background-color:rgba(246,164,163, 0.8);
-    padding: 1.5vw;
-    position: fixed;
-    left: 50%;
-    bottom: 5vh;
-    transform: translateX(-50%);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
+        .chatbox {
+            width: 50vw;
+            height: 8vh;
+            /* This might need to be adjusted to a larger height for practical usability */
+            border: 2px solid #4d2623;
+            background-color: rgba(246, 164, 163, 0.8);
+            padding: 1.5vw;
+            position: fixed;
+            left: 50%;
+            bottom: 5vh;
+            transform: translateX(-50%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .chatbox textarea {
-        width: calc(100% - 3vw);  /* Subtract horizontal padding from the total width */
-        height: calc(100% - 3vw); /* Subtract vertical padding from the total height */
-        border: none;             /* Removes the border from the textarea */
-        background: transparent;  /* Ensures the textarea does not have a different background */
-        padding: 0;               /* Resets padding inside the textarea */
-        box-shadow: none;         /* Removes any box shadow */
-        color: grey;           /* Inherits the text color from the .chatbox */
-        font: inherit;            /* Inherits font properties from .chatbox */
-        resize: none;             /* Prevents resizing of the textarea */
-        overflow: auto;           /* Allows scrolling inside the textarea if content overflows */
-    }
+        .chatbox textarea {
+            width: calc(100%);
+            /* Subtract horizontal padding from the total width */
+            height: calc(50%);
+            /* Subtract vertical padding from the total height */
+            border: none;
+            /* Removes the border from the textarea */
+            background: transparent;
+            /* Ensures the textarea does not have a different background */
+            padding: 0;
+            /* Resets padding inside the textarea */
+            box-shadow: none;
+            /* Removes any box shadow */
+            color: black;
+            /* Inherits the text color from the .chatbox */
+            font: inherit;
+            /* Inherits font properties from .chatbox */
+            resize: none;
+            /* Prevents resizing of the textarea */
+            overflow: auto;
+            /* Allows scrolling inside the textarea if content overflows */
+        }
 
-    .gif-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .gif-container img {
-        max-width: 100%;
-        max-height: 100%;
-    }
-</style>
+        .gif-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
 </head>
+
 <body>
-<div class="gif-container">
-    <img src="../img/asuka.gif" alt="Y2K GIF">
-</div>
-<div class="chatbox">
-    <textarea placeholder="Type your message here..."></textarea>
-    <button>Send</button>
-</div>
+    <div class="gif-container">
+        <img src="../img/asuka.gif" alt="Y2K GIF">
+    </div>
+    <div class="chatbox">
+        <textarea id="input-text" placeholder=""></textarea>
+        <button id="send-button">Send</button>
+        <div id="response-text">Response will appear here...</div>
+    </div>
+    <script>
+        function simulateTyping(elementId, text, speed) {
+            let i = 0;
+            const elem = document.getElementById(elementId);
+
+            function typingEffect() {
+                if (i < text.length) {
+                    elem.placeholder += text.charAt(i);
+                    i++;
+                    setTimeout(typingEffect, speed);
+                } else {
+                    // Reset after a delay and start typing again
+                    setTimeout(function () {
+                        elem.placeholder = ''; // Clear the placeholder
+                        i = 0; // Reset index
+                        typingEffect(); // Restart typing effect
+                    }, 30); // Delay before restart, adjust as needed
+                }
+            }
+
+            typingEffect();
+        }
+
+        // Initialize the typing effect
+        simulateTyping('input-text', 'Type your message here...', 150); // Adjust speed as needed
+
+
+
+        /////
+
+        async function query(data, parameters = {}, options = {}) {
+            alert("in query")
+            const response = await fetch(
+                "https://api-inference.huggingface.co/models/Qwen/Qwen2-0.5B",
+                {
+                    headers: { Authorization: "Bearer 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" },
+                    method: "POST",
+                    body: JSON.stringify({
+                        inputs: data.inputs,
+                        parameters: {
+                            min_length: parameters.min_length,
+                            max_length: parameters.max_length,
+                            top_k: parameters.top_k,
+                            top_p: parameters.top_p,
+                            temperature: parameters.temperature,
+                            repetition_penalty: parameters.repetition_penalty,
+                            max_time: parameters.max_time
+                        },
+                        options: {
+                            use_cache: options.use_cache,
+                            wait_for_model: options.wait_for_model
+                        }
+                    }),
+                }
+            );
+            const result = await response.json();
+            return result;
+        }
+
+        // query({ "inputs": "Can you please let us know more details about your " }).then((response) => {
+        //     console.log(JSON.stringify(response));
+        // });
+
+        function sendQuery(parameters = {}, options = {}) {
+            alert("in send query")
+            const inputData = { "inputs": document.getElementById('input-text').value };
+            query(inputData, parameters, options).then(response => {
+                console.log(JSON.stringify(response));
+                alert("Response: " + JSON.stringify(response));
+            }).catch(error => {
+                console.error('Error:', error);
+                alert("Failed to fetch response.");
+            });
+        }
+
+        document.getElementById('send-button').addEventListener('click', function () {
+            sendQuery({
+                min_length: 30,
+                max_length: 50,
+                temperature: 0.7
+            }, {
+                use_cache: true,
+                wait_for_model: true
+            });
+        });
+
+
+
+
+    </script>
 </body>
+
 </html>

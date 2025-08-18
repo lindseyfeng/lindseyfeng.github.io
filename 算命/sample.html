@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Fortune Teller</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            background: #f2f4f8;
+            padding-top: 80px;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 99%;
+            background: white;
+            padding: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+
+        .top-bar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .top-bar a:hover {
+            color: #0077cc;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh
+        }
+
+        .main-row {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 100px);
+        }
+
+        .gif-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 2em;
+            box-sizing: border-box;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: 90vh;
+            object-fit: contain;
+        }
+
+        .form-box {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 2em;
+            box-sizing: border-box;
+            margin-top: 2em;
+            width: 100%;
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar" id="topBar">
+        <div class="left-links">
+            <a href="#">中文</a>
+            <a href="#">English</a>
+        </div>
+        <div class="right-links">
+            <a href="#">八卦/Bagua</a>
+            <a href="#">塔罗牌/Tarot</a>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="main-row">
+            <div class="gif-container">
+                <img src="../img/asuka.gif" alt="Y2K GIF" />
+                <!-- <h1>今天算点什么? 👋</h1> -->
+            </div>
+
+            <div class="form-box" id="root">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const topBar = document.getElementById('topBar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                topBar.classList.add('scrolled');
+            } else {
+                topBar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <!-- React + Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        function getGreetingAndDate() {
+            const now = new Date();
+            const hour = now.getHours();
+
+            let greeting = '你好';
+            if (hour < 6) greeting = '凌晨好';
+            else if (hour < 12) greeting = '早上好';
+            else if (hour < 18) greeting = '下午好';
+            else greeting = '晚上好';
+
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][now.getDay()];
+
+            return `${greeting}，今天是 ${month}月${day}日，${weekday}`;
+        }
+
+        function App() {
+            const [dob, setDob] = React.useState('');
+            const [time, setTime] = React.useState('');
+            const [city, setCity] = React.useState('');
+            const [model, setModel] = React.useState('gpt4o');
+            const [result, setResult] = React.useState(null);
+            const [loading, setLoading] = React.useState(false);
+            const [error, setError] = React.useState(null);
+            const [gender, setGender] = React.useState('female');
+            const [topic, setTopic] = React.useState('');
+
+            async function handleSubmit(e) {
+                e.preventDefault();
+                setLoading(true);
+                setError(null);
+                setResult(null);
+                try {
+                    const params = new URLSearchParams({ dob, time, city, model, gender, topic });
+                    const resp = await fetch(`https://fortune.edge.mydomain.com/api?${params}`);
+                    if (!resp.ok) throw new Error(await resp.text());
+                    const data = await resp.json();
+                    setResult(data.message || JSON.stringify(data));
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+            const inputStyle = {
+                width: '100%',
+                padding: '0.5em',
+                fontSize: '1em',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                boxSizing: 'border-box',
+                appearance: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                backgroundColor: 'white',
+                height: '2.5em',
+                lineHeight: '2.5em'
+            };
+
+            return (
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    marginRight: '5vh'  // same as form's right margin
+                }}>
+                    <div style={{ marginBottom: '1em' }}>
+                        <h1 style={{ fontSize: '3em', margin: 0 }}>{getGreetingAndDate()}</h1>
+                    </div>
+                    <div style={{ marginBottom: '2.5em' }}>
+                        <h1>今天算点什么？👋</h1>
+                    </div>
+
+                    <form onSubmit={handleSubmit} style={{
+                        width: '100%',
+                        background: 'white',
+                        padding: '1.5em',
+                        borderRadius: '8px',
+                        boxShadow: '0 0 8px rgba(0,0,0,0.1)',
+                        boxSizing: 'border-box',
+                    }}>
+                        <div style={{ display: 'flex', gap: '1em' }}>
+                            <div style={{ flex: 1 }}>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生日期：</label>
+                                    <input type="date" value={dob} onChange={e => setDob(e.target.value)} required style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生时间：</label>
+                                    <input type="time" value={time} onChange={e => setTime(e.target.value)} required style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生地点：</label>
+                                    <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="北京儿童医院" style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>模型选择：</label>
+                                    <select
+                                        value={model}
+                                        onChange={e => setModel(e.target.value)}
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.5em',
+                                            fontSize: '1em',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            boxSizing: 'border-box',
+                                            appearance: 'none',
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'none',
+                                            lineHeight: '1.5em',
+                                            height: '2.5em',
+                                            backgroundColor: 'white',
+                                            backgroundImage: "url(\"data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>\")",
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundPosition: 'right 0.5em center',
+                                            backgroundSize: '1em'
+                                        }}
+                                    >
+                                        <option value="gpt4o">GPT‑4o</option>
+                                        <option value="llama3">Llama‑3‑8B</option>
+                                        <option value="mistral">Mistral‑7B</option>
+                                    </select>
+
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>性别：</label>
+                                    <select
+                                        value={gender}
+                                        onChange={e => setGender(e.target.value)}
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.5em',
+                                            fontSize: '1em',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            boxSizing: 'border-box',
+                                            appearance: 'none',
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'none',
+                                            lineHeight: '1.5em',
+                                            height: '2.5em',
+                                            backgroundColor: 'white',
+                                            backgroundImage: "url(\"data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>\")",
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundPosition: 'right 0.5em center',
+                                            backgroundSize: '1em'
+                                        }}
+                                    >
+                                        <option value="female">女</option>
+                                        <option value="male">男</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style={{ flex: 1 }}>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>在想什么：</label>
+                                    <input
+                                        type="text"
+                                        value={topic}
+                                        onChange={e => setTopic(e.target.value)}
+                                        placeholder="今天面试move on概率多大? ..."
+                                        style={{
+                                            ...inputStyle,      
+                                            height: '20em',      
+                                            resize: 'none'     
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" style={{
+                            background: '#4f46e5',
+                            color: 'white',
+                            border: 'none',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                            lineHeight: '2.5em',
+                            height: '2.5em',
+                            borderRadius: '6px',
+                            width: '100%',
+                            display: 'block'
+                        }}>
+                            {loading ? '算命中…' : '获取今日运势'}
+                        </button>
+
+                        {error && <p style={{ color: 'red', marginTop: '1em' }}>{error}</p>}
+                        {result && <div style={{ marginTop: '1.5em', whiteSpace: 'pre-line' }}>{result}</div>}
+
+                    </form>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(
+            <React.Fragment>
+                <App />
+            </React.Fragment>
+        );
+
+    </script>
+</body>
+
+</html>

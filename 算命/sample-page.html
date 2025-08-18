@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Fortune Teller</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            background: #f2f4f8;
+            padding-top: 80px;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 99%;
+            background: white;
+            padding: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+
+        .top-bar a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin: 0 12px;
+            transition: color 0.2s ease;
+        }
+
+        .top-bar a:hover {
+            color: #0077cc;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 90vh
+        }
+
+        .main-row {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 100px);
+        }
+
+        .gif-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 2em;
+            box-sizing: border-box;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: 90vh;
+            object-fit: contain;
+        }
+
+        .form-box {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 2em;
+            box-sizing: border-box;
+            margin-top: 2em;
+            width: 100%;
+            margin-left: auto;
+        }
+
+        #result-box {
+            display: None;
+            width: 100%;
+            min-height: 80vh;
+            background: white;
+            margin-top: 3em;
+            padding: 2em;
+            box-sizing: border-box;
+            border-top: 1px solid #eee;
+            overflow-y: auto;
+        }
+
+        .result-content {
+            font-size: 1.2em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        #close-result {
+            position: fixed;
+            top: 1em;
+            right: 1em;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .scroll-down-arrow {
+            animation: bounce 1.5s infinite;
+            color: #999;
+            display: None;
+            justify-content: center;
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 0.5em;
+            cursor: default;
+        }
+
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar" id="topBar">
+        <div class="left-links">
+            <a href="#">中文</a>
+            <a href="#">English</a>
+        </div>
+        <div class="right-links">
+            <a href="#">八卦/Bagua</a>
+            <a href="#">塔罗牌/Tarot</a>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="main-row">
+            <div class="gif-container">
+                <img src="../img/asuka.gif" alt="Y2K GIF" />
+                <!-- <h1>今天算点什么? 👋</h1> -->
+            </div>
+
+            <div class="form-box" id="root">
+            </div>
+        </div>
+    </div>
+
+    <div id="result-box">
+        <div class="result-content" id="result-content" style="
+            max-height: 60vh;
+            overflow-y: auto;
+            border: 2px dashed #aaa;
+            padding: 1em;
+            min-height: 10em;
+            background: #fdfdfd;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        ">
+            👀 运势将在这里显示...
+        </div>
+
+        <div style="margin-top: 1em; display: flex; gap: 0.5em; justify-content: center;">
+            <button onclick="document.getElementById('result-box').style.display='none'" style="
+                padding: 0.4em 0.8em;
+                font-size: 1em;
+                border: none;
+                border-radius: 4px;
+                background-color: #ff6b6b;
+                color: white;
+                cursor: pointer;
+
+              ">
+                收起结果
+            </button>
+
+            <button onclick="
+                document.getElementById('result-content').innerText = '';
+                document.getElementById('result-box').style.display='none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              " style="
+                padding: 0.4em 0.8em;
+                font-size: 1em;
+                border: none;
+                border-radius: 4px;
+                background-color: #4f46e5;
+                color: white;
+                cursor: pointer;
+              ">
+                不满意？重新测试
+            </button>
+        </div>
+
+    </div>
+
+
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            });
+
+            const target = document.getElementById('scrollAnimatedBox');
+            if (target) {
+                observer.observe(target);
+            }
+        });
+
+
+        const topBar = document.getElementById('topBar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                topBar.classList.add('scrolled');
+            } else {
+                topBar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <!-- React + Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        function getGreetingAndDate() {
+            const now = new Date();
+            const hour = now.getHours();
+
+            let greeting = '你好';
+            if (hour < 6) greeting = '凌晨好';
+            else if (hour < 12) greeting = '早上好';
+            else if (hour < 18) greeting = '下午好';
+            else greeting = '晚上好';
+
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][now.getDay()];
+
+            return `${greeting}，今天是 ${month}月${day}日，${weekday}`;
+        }
+
+        async function fetchFortuneViaHuggingFaceProxy({ dob, time, city, model, gender, topic }) {
+            const fullPrompt = `
+### System
+你是一位兼通《三命通会》《滴天髓》《周易正义》《紫微斗数全书》的资深命理师。  
+- 先用四柱八字排盘定长期格局；  
+- 再 **随机抽取 1 个本卦 + 随机动爻（0–1 条）**，保留卦辞 / 爻辞原文并给白话；  
+输出时请遵循：
+1. 用温和、尊重、不过度宿命论的口吻, 但必须听上去很高深；  
+2. 须引用《周易》，须在正文内保留卦辞 / 爻辞原文（15-40 字），并给出白话翻译；  
+3. 结尾必须加「免责声明：仅供娱乐参考，不可替代专业意见」。
+
+### User
+【个人信息】  
+- 出生日期：{{${dob}}}           
+- 出生时间：{{${time}}}           
+- 出生地点：{{${city}}}          
+- 性别：{{${gender}}}  
+
+【想了解的方向】  
+{{${topic}}}  
+
+
+### Assistant - 期望输出格式
+**① 核心结论（≤ 30 字）**  
+
+**② 八字排盘**  
+- 天干地支：……  
+- 五行分布：……  
+- 喜用神 & 忌神：……  
+> *引用*：若遇格局判断，引《滴天髓·论用神》一句原文并译。  
+
+**③ 运势分析（针对 {{${topic}}}）**  `;
+
+            const resp = await fetch("https://hf-api-tau.vercel.app/api/fortune", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    model: "Qwen/Qwen3-8B:featherless-ai",
+                    messages: [
+                        { role: "user", content: fullPrompt }
+                    ],
+                    chat_template_kwargs: { enable_thinking: false }
+                })
+            });
+
+
+            if (!resp.ok) {
+                const errText = await resp.text();
+                throw new Error(errText || '请求失败');
+            }
+
+            const data = await resp.json();
+            return (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || JSON.stringify(data);
+        }
+
+
+        function App() {
+            const [dob, setDob] = React.useState('');
+            const [time, setTime] = React.useState('');
+            const [city, setCity] = React.useState('');
+            const [model, setModel] = React.useState('gpt4o');
+            const [result, setResult] = React.useState(null);
+            const [loading, setLoading] = React.useState(false);
+            const [error, setError] = React.useState(null);
+            const [gender, setGender] = React.useState('female');
+            const [topic, setTopic] = React.useState('');
+
+            async function handleSubmit(e) {
+                e.preventDefault();
+                setLoading(true);
+                setError(null);
+                setResult(null);
+
+                try {
+                    const content = await fetchFortuneViaHuggingFaceProxy({
+                        dob: dob || "2000-01-01",
+                        time: time || "12:00",
+                        city: city || "北京儿童医院",
+                        gender: gender || "女",
+                        topic: topic || "今天面试move on概率多大?"
+                    });
+
+                    // Save to state
+                    setResult(content);
+
+                    // Put content in result-content div
+                    const resultContent = document.getElementById('result-content');
+                    if (resultContent) {
+                        resultContent.innerText = content;
+                    }
+
+                    // Show result box
+                    const resultBox = document.getElementById('result-box');
+                    if (resultBox) {
+                        resultBox.style.display = 'block';
+                    }
+
+                    // Show down arrow
+                    const arrow = document.querySelector('.scroll-down-arrow');
+                    if (arrow) {
+                        arrow.style.display = 'flex';
+                    }
+
+                } catch (err) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+
+
+            const inputStyle = {
+                width: '100%',
+                padding: '0.5em',
+                fontSize: '1em',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                boxSizing: 'border-box',
+                appearance: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none',
+                backgroundColor: 'white',
+                height: '2.5em',
+                lineHeight: '2.5em'
+            };
+
+            return (
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    marginLeft: '2em',  // same as form's right margin
+                    marginRight: '2em'  // same as form's right margin
+                }}>
+                    <div style={{ marginBottom: '1em' }}>
+                        <h1 style={{ fontSize: '3em', margin: 0 }}>{getGreetingAndDate()}</h1>
+                    </div>
+                    <div style={{ marginBottom: '2.5em' }}>
+                        <h1>今天算点什么？👋</h1>
+                    </div>
+
+                    <form onSubmit={handleSubmit} style={{
+                        width: '100%',
+                        background: 'white',
+                        padding: '1.5em',
+                        borderRadius: '8px',
+                        boxShadow: '0 0 8px rgba(0,0,0,0.1)',
+                        boxSizing: 'border-box',
+                    }}>
+                        <div style={{ display: 'flex', gap: '1em' }}>
+                            <div style={{ flex: 1 }}>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生日期：</label>
+                                    <input type="date" value={dob} onChange={e => setDob(e.target.value)} required style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生时间：</label>
+                                    <input type="time" value={time} onChange={e => setTime(e.target.value)} required style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>出生地点：</label>
+                                    <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="北京儿童医院" style={inputStyle} />
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>模型选择：</label>
+                                    <select
+                                        value={model}
+                                        onChange={e => setModel(e.target.value)}
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.5em',
+                                            fontSize: '1em',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            boxSizing: 'border-box',
+                                            appearance: 'none',
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'none',
+                                            lineHeight: '1.5em',
+                                            height: '2.5em',
+                                            backgroundColor: 'white',
+                                            backgroundImage: "url(\"data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>\")",
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundPosition: 'right 0.5em center',
+                                            backgroundSize: '1em'
+                                        }}
+                                    >
+                                        <option value="qwen3"> Qwen3‑8B</option>
+                                    </select>
+
+                                </div>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>性别：</label>
+                                    <select
+                                        value={gender}
+                                        onChange={e => setGender(e.target.value)}
+                                        style={{
+                                            width: '100%',
+                                            padding: '0.5em',
+                                            fontSize: '1em',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            boxSizing: 'border-box',
+                                            appearance: 'none',
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'none',
+                                            lineHeight: '1.5em',
+                                            height: '2.5em',
+                                            backgroundColor: 'white',
+                                            backgroundImage: "url(\"data:image/svg+xml;utf8,<svg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>\")",
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundPosition: 'right 0.5em center',
+                                            backgroundSize: '1em'
+                                        }}
+                                    >
+                                        <option value="female">女</option>
+                                        <option value="male">男</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style={{ flex: 1 }}>
+                                <div style={{ marginBottom: '1em' }}>
+                                    <label>在想什么：</label>
+                                    <input
+                                        type="text"
+                                        value={topic}
+                                        onChange={e => setTopic(e.target.value)}
+                                        placeholder="今天面试move on概率多大? ..."
+                                        style={{
+                                            ...inputStyle,
+                                            height: '20em',
+                                            resize: 'none'
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" style={{
+                            background: '#4f46e5',
+                            color: 'white',
+                            border: 'none',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                            lineHeight: '2.5em',
+                            height: '2.5em',
+                            borderRadius: '6px',
+                            width: '100%',
+                            display: 'block'
+                        }}>
+                            {loading ? '算命中…' : '获取今日运势'}
+                        </button>
+
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
+
+                        <div
+                            className="scroll-down-arrow"
+                            onClick={() => {
+                                const box = document.getElementById('result-box');
+                                if (box) {
+                                    box.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
+                        >
+                            ↓下划查看结果
+                        </div>
+                    </form>
+
+
+                </div>
+            );
+
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(
+            <React.Fragment>
+                <App />
+            </React.Fragment>
+        );
+
+    </script>
+</body>
+
+</html>

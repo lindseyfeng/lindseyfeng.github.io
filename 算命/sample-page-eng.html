@@ -142,7 +142,7 @@
             <a href="sample-page-eng.html">English</a>
         </div>
         <div class="right-links">
-            <a href="#">八卦/Bagua</a>
+            <a href="sample-page.html">八卦/Bagua</a>
             <a href="#">塔罗牌/Tarot</a>
         </div>
     </div>
@@ -152,7 +152,6 @@
         <div class="main-row">
             <div class="gif-container">
                 <img src="../img/asuka.gif" alt="Y2K GIF" />
-                <!-- <h1>今天算点什么? 👋</h1> -->
             </div>
 
             <div class="form-box" id="root">
@@ -171,11 +170,11 @@
             border-radius: 8px;
             white-space: pre-wrap;
         ">
-            👀 运势将在这里显示...
+            👀 Your fortune will appear here...
         </div>
 
         <div style="margin-top: 1em; display: flex; gap: 0.5em; justify-content: center;">
-            <button onclick="document.getElementById('result-box').style.display='none'" style="
+            <button onclick="document.getElementById('result-box').style.display='none'; document.querySelector('.scroll-down-arrow').style.display='none'" style="
                 padding: 0.4em 0.8em;
                 font-size: 1em;
                 border: none;
@@ -185,7 +184,7 @@
                 cursor: pointer;
 
               ">
-                收起结果
+                Hide results
             </button>
 
             <button onclick="
@@ -201,7 +200,7 @@
                 color: white;
                 cursor: pointer;
               ">
-                不满意？重新测试
+                Not satisfied? Try again
             </button>
         </div>
 
@@ -249,51 +248,70 @@
             const now = new Date();
             const hour = now.getHours();
 
-            let greeting = '你好';
-            if (hour < 6) greeting = '凌晨好';
-            else if (hour < 12) greeting = '早上好';
-            else if (hour < 18) greeting = '下午好';
-            else greeting = '晚上好';
+            let greeting;
+            if (hour < 6) greeting = "Late-night whispers";
+            else if (hour < 12) greeting = "A new morning";
+            else if (hour < 18) greeting = "A calm afternoon";
+            else greeting = "A quiet evening";
 
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][now.getDay()];
             const month = now.getMonth() + 1;
             const day = now.getDate();
-            const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][now.getDay()];
 
-            return `${greeting}，今天是 ${month}月${day}日，${weekday}`;
+            return `${greeting} • ${weekday} ${month}/${day}`;
         }
 
         async function fetchFortuneViaHuggingFaceProxy({ dob, time, city, model, gender, topic }) {
             const fullPrompt = `
 ### System
-你是一位兼通《三命通会》《滴天髓》《周易正义》《紫微斗数全书》的资深命理师。  
-- 先用四柱八字排盘定长期格局；  
-- 再 **随机抽取 1 个本卦 + 随机动爻（0–1 条）**，保留卦辞 / 爻辞原文并给白话；  
-输出时请遵循：
-1. 用温和、尊重、不过度宿命论的口吻, 但必须听上去很高深；  
-2. 须引用《周易》，须在正文内保留卦辞 / 爻辞原文（15-40 字），并给出白话翻译；  
-3. 结尾必须加「免责声明：仅供娱乐参考，不可替代专业意见」。
+You are a seasoned fortune consultant fluent in:
+- Four Pillars (Bazi) methods and long-term pattern reading,
+- I Ching (Zhouyi) interpretation.
+
+Workflow requirements:
+- First, infer the long-term framework from the Four Pillars (Bazi).
+- Then RANDOMLY draw: (1) one primary hexagram AND (2) optionally 0–1 changing line(s).
+- You MUST include one short direct quote from the I Ching (hexagram text OR line text) in the body (15–40 Chinese characters is okay even in an English reading), and then explain it in plain English.
+
+Tone & safety:
+1) Warm, respectful, not overly fatalistic, but must sound profound and knowledgeable.
+2) Include the I Ching quote in the main body and provide a clear plain-English explanation of what it implies.
+3) End with: "Disclaimer: For entertainment only and not a substitute for professional advice."
 
 ### User
-【个人信息】  
-- 出生日期：{{${dob}}}           
-- 出生时间：{{${time}}}           
-- 出生地点：{{${city}}}          
-- 性别：{{${gender}}}  
+[Personal Info]
+- Date of birth: ${dob}
+- Time of birth: ${time}
+- Place of birth: ${city}
+- Gender: ${gender}
 
-【想了解的方向】  
-{{${topic}}}  
+[What I want guidance on]
+${topic}
 
+### Assistant - Expected format
+**1) Core takeaway (≤ 30 words)**
 
-### Assistant - 期望输出格式
-**① 核心结论（≤ 30 字）**  
+**2) Bazi overview**
+- Pillars (Heavenly Stems & Earthly Branches): ...
+- Five elements balance: ...
+- Favorable elements / unfavorable elements: ...
+> *Quote requirement*: If you mention "useful element" judgments, include one short quote from a classic (can be in Chinese) and explain it in English.
 
-**② 八字排盘**  
-- 天干地支：……  
-- 五行分布：……  
-- 喜用神 & 忌神：……  
-> *引用*：若遇格局判断，引《滴天髓·论用神》一句原文并译。  
+**3) Reading for "${topic}"**
+- Short-term (today/this week):
+- Medium-term (next 1–3 months):
+- Practical suggestions (3 bullets max):
 
-**③ 运势分析（针对 {{${topic}}}）**  `;
+**4) I Ching draw**
+- Hexagram name/number: ...
+- Quote (15–40 chars): "..."
+- Plain-English meaning:
+- If there is a changing line, specify which line and why it matters.
+
+**5) Closing**
+Disclaimer: For entertainment only and not a substitute for professional advice.
+`;
+
 
             const resp = await fetch("https://hf-api-tau.vercel.app/api/fortune", {
                 method: "POST",
@@ -310,7 +328,7 @@
 
             if (!resp.ok) {
                 const errText = await resp.text();
-                throw new Error(errText || '请求失败');
+                throw new Error(errText || 'request failed');
             }
 
             const data = await resp.json();
@@ -339,9 +357,9 @@
                     const content = await fetchFortuneViaHuggingFaceProxy({
                         dob: dob || "2000-01-01",
                         time: time || "12:00",
-                        city: city || "北京儿童医院",
-                        gender: gender || "女",
-                        topic: topic || "今天面试move on概率多大?"
+                        city: city || "Beijing Children's Hospital",
+                        gender: gender || "female",
+                        topic: topic || "What are my chances to move on with today's interview..."
                     });
 
                     // Save to state
@@ -402,7 +420,7 @@
                         <h1 style={{ fontSize: '3em', margin: 0 }}>{getGreetingAndDate()}</h1>
                     </div>
                     <div style={{ marginBottom: '2.5em' }}>
-                        <h1>今天算点什么？👋</h1>
+                        <h1>What's on your mind today? 👋</h1>
                     </div>
 
                     <form onSubmit={handleSubmit} style={{
@@ -416,19 +434,19 @@
                         <div style={{ display: 'flex', gap: '1em' }}>
                             <div style={{ flex: 1 }}>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>出生日期：</label>
+                                    <label>Date of Birth：</label>
                                     <input type="date" value={dob} onChange={e => setDob(e.target.value)} required style={inputStyle} />
                                 </div>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>出生时间：</label>
+                                    <label>Time of birth：</label>
                                     <input type="time" value={time} onChange={e => setTime(e.target.value)} required style={inputStyle} />
                                 </div>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>出生地点：</label>
-                                    <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="北京儿童医院" style={inputStyle} />
+                                    <label>Place of birth: </label>
+                                    <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Beijing Children's Hospital" style={inputStyle} />
                                 </div>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>模型选择：</label>
+                                    <label>Model: </label>
                                     <select
                                         value={model}
                                         onChange={e => setModel(e.target.value)}
@@ -456,7 +474,7 @@
 
                                 </div>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>性别：</label>
+                                    <label>Gender: </label>
                                     <select
                                         value={gender}
                                         onChange={e => setGender(e.target.value)}
@@ -479,21 +497,21 @@
                                             backgroundSize: '1em'
                                         }}
                                     >
-                                        <option value="female">女</option>
-                                        <option value="male">男</option>
-                                        <option value="other">其他</option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div style={{ flex: 1 }}>
                                 <div style={{ marginBottom: '1em' }}>
-                                    <label>在想什么：</label>
+                                    <label>What's on your mind:</label>
                                     <input
                                         type="text"
                                         value={topic}
                                         onChange={e => setTopic(e.target.value)}
-                                        placeholder="今天面试move on概率多大? ..."
+                                        placeholder="How will my intervivew go..."
                                         style={{
                                             ...inputStyle,
                                             height: '20em',
@@ -516,7 +534,7 @@
                             width: '100%',
                             display: 'block'
                         }}>
-                            {loading ? '算命中…' : '获取今日运势'}
+                            {loading ? 'Calculating…' : "Get today's reading"}
                         </button>
 
                         {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -530,7 +548,7 @@
                                 }
                             }}
                         >
-                            ↓下划查看结果
+                            ↓Scroll for results
                         </div>
                     </form>
 

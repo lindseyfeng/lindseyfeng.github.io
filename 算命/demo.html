@@ -219,20 +219,78 @@
                 transform: translateY(8px);
             }
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Hide the menu by default */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            /* Sits right below the link */
+            left: 0;
+            background-color: white;
+            min-width: 7em;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1001;
+            overflow: hidden;
+        }
+
+        /* Style links inside the dropdown */
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0;
+            /* Override the 12px margin from .top-bar a */
+            font-size: 0.9em;
+        }
+
+        /* Hover effect for dropdown links */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #0077cc;
+        }
+
+        /* Show the menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Add a small arrow next to dropdown text */
+        .dropdown>a::after {
+            content: " ▾";
+            font-size: 0.8em;
+        }
     </style>
 </head>
 
 <body>
-    <div class="top-bar">
+    <div class="top-bar" id="topBar">
         <div class="left-links">
-            <a href="#">中文</a>
-            <a href="#">English</a>
+            <a href="sample-page.html">中文</a>
+            <a href="sample-page-eng.html">English</a>
         </div>
-        <div class="right-links">
-            <a href="#">八卦/Bagua</a>
-            <a href="#">塔罗牌/Tarot</a>
+        <div class="right-links" style="margin-right: 1em;">
+            <div class="dropdown">
+                <a href="#">八卦/Bagua</a>
+                <div class="dropdown-content">
+                    <a href="sample-page-eng.html">basic stuff</a>
+                    <a href="demo.html">how prompting helps</a>
+
+                </div>
+            </div>
+            <a href="sample-page.html">塔罗牌/Tarot</a>
+
+
         </div>
     </div>
+
 
     <div class="page">
         <div id="root"></div>
@@ -252,6 +310,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
+
     <script type="text/babel">
         function getGreetingAndDate() {
             const now = new Date();
@@ -270,7 +329,8 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     model: MODEL,
-                    messages: [{ role: "user", content: userContent }]
+                    messages: [{ role: "user", content: userContent }],
+                    chat_template_kwargs: { enable_thinking: false }
                 })
             });
             const data = await resp.json();
@@ -281,7 +341,7 @@
             const [dob, setDob] = React.useState('');
             const [time, setTime] = React.useState('');
             const [city, setCity] = React.useState('');
-            const [gender, setGender] = React.useState('');
+            const [gender, setGender] = React.useState('Female');
             const [topic, setTopic] = React.useState('');
 
             const [drafts, setDrafts] = React.useState(["", "", ""]);
@@ -289,8 +349,7 @@
             const [loading, setLoading] = React.useState(false);
             const [error, setError] = React.useState(null);
 
-            const fullPrompt = `
-### System
+            const fullPrompt = `### System
 You are a seasoned fortune consultant fluent in:
 - Four Pillars (Bazi) methods and long-term pattern reading,
 - I Ching (Zhouyi) interpretation.
@@ -339,46 +398,65 @@ ${topic}
 Disclaimer: For entertainment only and not a substitute for professional advice.
 `;
 
-            const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '8px', fontSize: '14px' };
-
             async function generateThreeDrafts() {
                 if (!topic) { setError("Please state your inquiry."); return; }
                 setError(null); setLoading(true);
                 try {
                     const [a, b, c] = await Promise.all([
-                        callLLM(fullPrompt + "\nStyle: Concise/Structured"),
-                        callLLM(fullPrompt + "\nStyle: Poetic/Mystical"),
-                        callLLM(fullPrompt + "\nStyle: Practical/Actionable")
+                        callLLM(fullPrompt + "\nDraft style: Novelty-first. Avoid generic fortune-telling phrases. Provide at least 2 non-obvious, concrete insights that are still plausible. Do not repeat common clichés."),
+                        callLLM(fullPrompt + "\nDraft style: Consistency-first. Minimize internal contradictions. If information is uncertain, state uncertainty and pick the most coherent reading. Ensure the Bazi elements and I Ching interpretation do not conflict."),
+                        callLLM(fullPrompt + "\nDraft style: Actionability-first. Produce 3 highly practical, low-regret suggestions tied to the reading. Avoid vague advice. Each suggestion must be specific, doable this week, and non-harmful.")
                     ]);
                     setDrafts([a, b, c]);
                 } catch (e) { setError("Failed to reach stars."); }
                 finally { setLoading(false); }
             }
 
-            async function synthesizeFinal() {
+            // FIX: This function now handles the button click, calls the AI, and updates the UI
+            async function handleConfirm() {
                 setLoading(true);
+                setError(null);
                 try {
-                    const final = await callLLM(`Synthesize a final response based on this choice: ${drafts[picked]}\nOriginal Prompt: ${fullPrompt}`);
-                    document.getElementById("result-content").innerText = final;
-                    document.getElementById("result-box").style.display = "block";
-                    document.querySelector(".scroll-down-arrow").style.display = "flex";
-                    document.getElementById("result-box").scrollIntoView({ behavior: "smooth" });
-                } catch (e) { setError("Synthesis failed."); }
-                finally { setLoading(false); }
+                    const synthesisPrompt = `
+### Task: Multi-Perspective Synthesis
+You have been provided with 3 separate draft interpretations for the same user query.
+[Draft 1]: ${drafts[0]}
+[Draft 2]: ${drafts[1]}
+[Draft 3]: ${drafts[2]}
+
+### Objective:
+Extract the most logically sound Bazi pillars and I Ching insights. Resolve contradictions. Produce a FINAL, high-density fortune that follows the same format as the other reading. 
+                `;
+                    const finalOutput = await callLLM(synthesisPrompt);
+
+                    // Update the result box in the HTML
+                    const resultBox = document.getElementById('result-box');
+                    const resultContent = document.getElementById('result-content');
+
+                    resultContent.innerText = finalOutput;
+                    resultBox.style.display = 'block';
+
+                    // Scroll down to the result
+                    resultBox.scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    setError("Synthesis failed.");
+                } finally {
+                    setLoading(false);
+                }
             }
+
+            const inputStyle = { width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '8px', fontSize: '14px' };
 
             return (
                 <div>
                     <h1>{getGreetingAndDate()}</h1>
-                    <p className="muted">Live preview the logic → pick a style → get your reading.</p>
+                    <p className="muted">Live preview the logic → get your reading.</p>
 
                     <div className="demo-wrap">
                         <img className="rin-sticker" src="rin.gif" alt="Rin" />
 
                         <div className="demo-card">
                             <div className="demo-grid">
-
-                                {/* LEFT: LIVE PROMPT & FORM */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                                     <div>
                                         <div className="demo-title">Live Prompt Preview</div>
@@ -409,10 +487,9 @@ Disclaimer: For entertainment only and not a substitute for professional advice.
                                     </div>
                                 </div>
 
-                                {/* RIGHT: DRAFTS */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                     <div className="demo-title">Reading Styles</div>
-                                    {["A (Concise)", "B (Poetic)", "C (Action)"].map((label, idx) => (
+                                    {["A (Novelty-first)", "B (Consistency-first)", "C (Actionability-first)"].map((label, idx) => (
                                         <div key={idx}>
                                             <label style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px', cursor: 'pointer' }}>
                                                 <input type="radio" checked={picked === idx} onChange={() => setPicked(idx)} />
@@ -424,19 +501,25 @@ Disclaimer: For entertainment only and not a substitute for professional advice.
                                     <button
                                         className="btn btn-secondary"
                                         style={{ width: '100%', marginTop: '10px' }}
-                                        onClick={synthesizeFinal}
+                                        onClick={handleConfirm}
                                         disabled={loading || !drafts[0]}
                                     >
-                                        Confirm & Synthesize Reading
+                                        {loading ? "Synthesizing..." : "Confirm & Synthesize Reading"}
                                     </button>
                                 </div>
-
                             </div>
 
                             {error && <div style={{ color: 'red', marginTop: '10px', textAlign: 'center' }}>{error}</div>}
 
-                            <div className="scroll-down-arrow" onClick={() => document.getElementById('result-box').scrollIntoView({ behavior: 'smooth' })}>
-                                ↓ Scroll for Final Results
+                            <div style={{ marginTop: '2em', borderTop: '2px solid #e2e8f0', paddingTop: '1em' }}>
+                                <h3 style={{ color: '#1e293b' }}>⚙️ Pipeline View: Hierarchical Synthesis</h3>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#64748b', fontSize: '0.9em' }}>
+                                    <div style={{ padding: '8px', background: '#dcfce7', borderRadius: '4px', border: '1px solid #22c55e' }}>3x Parallel Reasoning</div>
+                                    <span>➔</span>
+                                    <div style={{ padding: '8px', background: '#fef9c3', borderRadius: '4px', border: '1px solid #eab308' }}>Knowledge Aggregator</div>
+                                    <span>➔</span>
+                                    <div style={{ padding: '8px', background: '#dbeafe', borderRadius: '4px', border: '1px solid #3b82f6' }}>Final High-Density Output</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -447,6 +530,9 @@ Disclaimer: For entertainment only and not a substitute for professional advice.
         const root = ReactDOM.createRoot(document.getElementById("root"));
         root.render(<App />);
     </script>
+
+
+
 </body>
 
 </html>

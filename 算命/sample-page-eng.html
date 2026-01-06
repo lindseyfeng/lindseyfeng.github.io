@@ -132,6 +132,53 @@
                 transform: translateY(10px);
             }
         }
+
+        /* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hide the menu by default */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Sits right below the link */
+    left: 0;
+    background-color: white;
+    min-width: 7em;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    z-index: 1001;
+    overflow: hidden;
+}
+
+/* Style links inside the dropdown */
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    margin: 0; /* Override the 12px margin from .top-bar a */
+    font-size: 0.9em;
+}
+
+/* Hover effect for dropdown links */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #0077cc;
+}
+
+/* Show the menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Add a small arrow next to dropdown text */
+.dropdown > a::after {
+    content: " ▾";
+    font-size: 0.8em;
+}
     </style>
 </head>
 
@@ -141,9 +188,18 @@
             <a href="sample-page.html">中文</a>
             <a href="sample-page-eng.html">English</a>
         </div>
-        <div class="right-links">
-            <a href="sample-page.html">八卦/Bagua</a>
-            <a href="#">塔罗牌/Tarot</a>
+        <div class="right-links" style="margin-right: 1em;">
+            <div class="dropdown" >
+                <a href="#">八卦/Bagua</a>
+                <div class="dropdown-content">
+                    <a href="sample-page-eng.html">basic stuff</a>
+                    <a href="demo.html">how prompting helps</a>
+   
+                </div>
+            </div>
+            <a href="sample-page.html">塔罗牌/Tarot</a>
+            
+            
         </div>
     </div>
 

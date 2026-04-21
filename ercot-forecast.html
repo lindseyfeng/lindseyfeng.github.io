@@ -175,6 +175,14 @@
       <div class="reasoning-box" id="reasoning-box">—</div>
 
       <div class="updated-note" id="updated-note"></div>
+
+      <div id="history-section" style="display:none;">
+        <div class="section-label" style="margin-top:32px;">Accumulated MAE — agent vs persistence</div>
+        <div class="chart-wrapper" style="height:260px;">
+          <canvas id="maeChart"></canvas>
+        </div>
+        <div id="mae-summary" style="font-family:'Radley',serif; font-size:14px; color:#555; margin-top:-16px; margin-bottom:28px;"></div>
+      </div>
     </div>
   </div>
 
@@ -343,7 +351,97 @@
       }
     }
 
+    async function loadHistory() {
+      try {
+        const resp = await fetch("/history.json?t=" + Date.now());
+        if (!resp.ok) return;
+        const history = await resp.json();
+        if (!history.length) return;
+
+        const scored = history.filter(e => e.mae != null);
+        if (scored.length < 2) return;
+
+        document.getElementById("history-section").style.display = "block";
+
+        // Compute running (cumulative) MAE
+        let agentSum = 0, persSum = 0;
+        const labels = [], agentCumMAE = [], persCumMAE = [];
+        scored.forEach((e, i) => {
+          agentSum += e.mae;
+          persSum += (e.persistence_mae || e.mae);
+          labels.push(e.date.slice(5));  // MM-DD
+          agentCumMAE.push(+(agentSum / (i + 1)).toFixed(2));
+          persCumMAE.push(+(persSum / (i + 1)).toFixed(2));
+        });
+
+        const latest = agentCumMAE[agentCumMAE.length - 1];
+        const latestPers = persCumMAE[persCumMAE.length - 1];
+        const skill = ((1 - latest / latestPers) * 100).toFixed(1);
+        document.getElementById("mae-summary").textContent =
+          `${scored.length}-day avg — Agent: $${latest}/MWh  ·  Persistence: $${latestPers}/MWh  ·  Skill: ${skill > 0 ? "+" : ""}${skill}%`;
+
+        new Chart(document.getElementById("maeChart"), {
+          type: "line",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: "Agent MAE",
+                data: agentCumMAE,
+                borderColor: "#2d6a9f",
+                borderWidth: 2,
+                pointRadius: 2,
+                backgroundColor: "rgba(45,106,159,0.07)",
+                fill: true,
+                tension: 0.3,
+              },
+              {
+                label: "Persistence MAE",
+                data: persCumMAE,
+                borderColor: "#ccc",
+                borderDash: [5, 4],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                backgroundColor: "transparent",
+                tension: 0.3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}/MWh`,
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { color: "#f5f5f5" },
+                ticks: { font: { family: "Montserrat", size: 10 }, color: "#aaa", maxTicksLimit: 12 },
+              },
+              y: {
+                grid: { color: "#f5f5f5" },
+                ticks: {
+                  font: { family: "Montserrat", size: 11 }, color: "#888",
+                  callback: v => `$${v}`,
+                },
+                title: { display: true, text: "Cumul. MAE $/MWh", font: { family: "Montserrat", size: 10 }, color: "#aaa" },
+              },
+            },
+          },
+        });
+      } catch (e) {
+        console.warn("History not yet available:", e);
+      }
+    }
+
     loadForecast();
+    loadHistory();
   </script>
 </body>
 

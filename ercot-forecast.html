@@ -70,7 +70,7 @@
     }
     .chart-wrapper {
       position: relative;
-      height: 340px;
+      height: 300px;
       margin-bottom: 32px;
     }
     .section-label {
@@ -111,6 +111,14 @@
       width: 12px;
       height: 3px;
       border-radius: 2px;
+      display: inline-block;
+    }
+    .subscore {
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+      margin-top: -16px;
+      margin-bottom: 28px;
     }
     .updated-note {
       font-family: 'Radley', serif;
@@ -122,6 +130,11 @@
       font-family: 'Radley', serif;
       color: #c00;
       padding: 20px 0;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 32px 0;
     }
     @media (max-width: 768px) {
       .forecast-container { width: 92%; }
@@ -140,7 +153,7 @@
     <div class="forecast-title">ERCOT Day-Ahead Price Forecast</div>
     <div class="forecast-sub">
       HB_NORTH hub &nbsp;·&nbsp; powered by a two-stage LLM agent with quantitative skills
-      &nbsp;·&nbsp; <span id="target-date-label">loading...</span>
+      &nbsp;·&nbsp; runs daily at 12:30 PM CT after DAM clears
     </div>
 
     <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">
@@ -150,39 +163,65 @@
 
     <div id="content" style="display:none;">
 
+      <!-- ── Stats ─────────────────────────────────────────── -->
       <div class="stats-row" id="stats-row"></div>
 
+      <!-- ── Chart 1: How did we do today? ─────────────────── -->
+      <div id="eval-section" style="display:none;">
+        <div class="section-label">How did we do? &mdash; <span id="eval-date-label"></span></div>
+        <div class="legend-row">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#2d6a9f;"></div>
+            <span>Agent forecast (made yesterday)</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#5aaa6f;"></div>
+            <span>Actual DAM prices</span>
+          </div>
+          <div class="legend-item" id="eval-legend-persistence" style="display:none;">
+            <div class="legend-dot" style="background:#bbb;"></div>
+            <span>Persistence baseline</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="evalChart"></canvas>
+        </div>
+        <div class="subscore" id="eval-mae"></div>
+        <hr class="divider">
+      </div>
+
+      <!-- ── Chart 2: Tomorrow's forecast ──────────────────── -->
+      <div class="section-label">Tomorrow's forecast &mdash; <span id="forecast-date-label"></span></div>
       <div class="legend-row">
         <div class="legend-item">
-          <div class="legend-dot" style="background:#2d6a9f; height:3px;"></div>
-          <span>Tomorrow's forecast</span>
+          <div class="legend-dot" style="background:#2d6a9f;"></div>
+          <span>Agent forecast</span>
         </div>
-        <div class="legend-item" id="legend-actuals" style="display:none;">
-          <div class="legend-dot" style="background:#5aaa6f; height:3px;"></div>
-          <span>Today's actuals</span>
-        </div>
-        <div class="legend-item" id="legend-persistence" style="display:none;">
-          <div class="legend-dot" style="background:#ccc; height:2px; border-top: 2px dashed #ccc;"></div>
-          <span>Persistence (yesterday)</span>
+        <div class="legend-item" id="fcast-legend-today" style="display:none;">
+          <div class="legend-dot" style="background:#e8a838;"></div>
+          <span>Today's DAM prices (context)</span>
         </div>
       </div>
-
       <div class="chart-wrapper">
-        <canvas id="priceChart"></canvas>
+        <canvas id="forecastChart"></canvas>
       </div>
 
+      <!-- ── Reasoning ──────────────────────────────────────── -->
       <div class="section-label">Agent reasoning</div>
       <div class="reasoning-box" id="reasoning-box">—</div>
 
       <div class="updated-note" id="updated-note"></div>
 
+      <!-- ── Cumulative MAE over time ───────────────────────── -->
       <div id="history-section" style="display:none;">
-        <div class="section-label" style="margin-top:32px;">Accumulated MAE — agent vs persistence</div>
-        <div class="chart-wrapper" style="height:260px;">
+        <hr class="divider">
+        <div class="section-label">Accumulated MAE &mdash; agent vs persistence</div>
+        <div class="chart-wrapper" style="height:240px;">
           <canvas id="maeChart"></canvas>
         </div>
-        <div id="mae-summary" style="font-family:'Radley',serif; font-size:14px; color:#555; margin-top:-16px; margin-bottom:28px;"></div>
+        <div class="subscore" id="mae-summary"></div>
       </div>
+
     </div>
   </div>
 
@@ -199,37 +238,58 @@
 
   <section class="copyright">&copy; 2023</section>
 
-
   <script>
     const FORECAST_URL = "/forecast.json";
-
+    const HISTORY_URL  = "/history.json";
     const HOURS = Array.from({ length: 24 }, (_, i) => `HE${String(i + 1).padStart(2, "0")}`);
 
-    function fmtPrice(v) {
-      return v != null ? `$${v.toFixed(2)}` : "—";
+    function fmtPrice(v) { return v != null ? `$${v.toFixed(2)}` : "—"; }
+
+    function makeChartOpts(extra) {
+      return Object.assign({
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}/MWh`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            grid: { color: "#f0f0f0" },
+            ticks: { font: { family: "Montserrat", size: 11 }, color: "#888" },
+          },
+          y: {
+            grid: { color: "#f0f0f0" },
+            ticks: {
+              font: { family: "Montserrat", size: 11 },
+              color: "#888",
+              callback: v => `$${v}`,
+            },
+            title: { display: true, text: "$/MWh", font: { family: "Montserrat", size: 11 }, color: "#aaa" },
+          },
+        },
+      }, extra || {});
     }
 
     function renderStats(data) {
       const f = data.forecast;
       const stats = [
-        { label: "Daily avg", value: fmtPrice(f.daily_avg_usd_per_mwh), unit: "/MWh" },
+        { label: "Tomorrow avg", value: fmtPrice(f.daily_avg_usd_per_mwh), unit: "/MWh" },
         { label: "Evening peak avg", value: fmtPrice(f.peak_avg_usd_per_mwh), unit: "/MWh" },
         { label: "Off-peak avg", value: fmtPrice(f.offpeak_avg_usd_per_mwh), unit: "/MWh" },
       ];
       if (data.actuals_today) {
-        stats.push({
-          label: "Today actual avg",
-          value: fmtPrice(data.actuals_today.daily_avg_usd_per_mwh),
-          unit: "/MWh",
-        });
+        stats.push({ label: "Today actual avg", value: fmtPrice(data.actuals_today.daily_avg_usd_per_mwh), unit: "/MWh" });
       }
-      const conf = data.confidence;
-      if (conf != null) {
-        stats.push({ label: "Confidence", value: `${conf}/5`, unit: "" });
+      if (data.confidence != null) {
+        stats.push({ label: "Confidence", value: `${data.confidence}/5`, unit: "" });
       }
-
-      const row = document.getElementById("stats-row");
-      row.innerHTML = stats.map(s => `
+      document.getElementById("stats-row").innerHTML = stats.map(s => `
         <div class="stat-card">
           <div class="stat-label">${s.label}</div>
           <div class="stat-value">${s.value}<span class="stat-unit">${s.unit}</span></div>
@@ -237,10 +297,86 @@
       `).join("");
     }
 
-    function renderChart(data) {
+    function renderEvalChart(data, history) {
+      // Find yesterday's forecast for today using history.json
+      const todayDate = data.actuals_today && data.actuals_today.date;
+      if (!todayDate || !data.actuals_today.hourly_usd_per_mwh) return;
+
+      const prevEntry = history.find(e => e.target_date === todayDate);
+      const prevForecast = prevEntry && prevEntry.forecast_hourly;
+
+      document.getElementById("eval-section").style.display = "block";
+      document.getElementById("eval-date-label").textContent = todayDate;
+
+      const datasets = [];
+
+      if (prevForecast && prevForecast.length === 24) {
+        datasets.push({
+          label: "Agent forecast",
+          data: prevForecast,
+          borderColor: "#2d6a9f",
+          backgroundColor: "rgba(45,106,159,0.07)",
+          borderWidth: 2.5,
+          pointRadius: 3,
+          pointBackgroundColor: "#2d6a9f",
+          tension: 0.35,
+          fill: true,
+        });
+      }
+
+      datasets.push({
+        label: "Actual DAM prices",
+        data: data.actuals_today.hourly_usd_per_mwh,
+        borderColor: "#5aaa6f",
+        backgroundColor: "rgba(90,170,111,0.07)",
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: "#5aaa6f",
+        tension: 0.35,
+        fill: true,
+      });
+
+      if (data.persistence && data.persistence.hourly_usd_per_mwh) {
+        document.getElementById("eval-legend-persistence").style.display = "flex";
+        datasets.push({
+          label: "Persistence baseline",
+          data: data.persistence.hourly_usd_per_mwh,
+          borderColor: "#bbb",
+          borderDash: [5, 4],
+          borderWidth: 1.5,
+          pointRadius: 0,
+          backgroundColor: "transparent",
+          tension: 0.3,
+        });
+      }
+
+      new Chart(document.getElementById("evalChart"), {
+        type: "line",
+        data: { labels: HOURS, datasets },
+        options: makeChartOpts(),
+      });
+
+      // MAE annotation
+      if (prevForecast && prevForecast.length === 24) {
+        const actuals = data.actuals_today.hourly_usd_per_mwh;
+        const mae = prevForecast.reduce((s, v, i) => s + Math.abs(v - actuals[i]), 0) / 24;
+        let txt = `Agent MAE: $${mae.toFixed(2)}/MWh`;
+        if (data.persistence && data.persistence.hourly_usd_per_mwh) {
+          const pers = data.persistence.hourly_usd_per_mwh;
+          const pmae = pers.reduce((s, v, i) => s + Math.abs(v - actuals[i]), 0) / 24;
+          const skill = ((1 - mae / pmae) * 100).toFixed(1);
+          txt += `  ·  Persistence MAE: $${pmae.toFixed(2)}/MWh  ·  Skill: ${skill > 0 ? "+" : ""}${skill}%`;
+        }
+        document.getElementById("eval-mae").textContent = txt;
+      }
+    }
+
+    function renderForecastChart(data) {
+      document.getElementById("forecast-date-label").textContent = data.target_date;
+
       const datasets = [
         {
-          label: "Tomorrow's forecast",
+          label: "Agent forecast",
           data: data.forecast.hourly_usd_per_mwh,
           borderColor: "#2d6a9f",
           backgroundColor: "rgba(45,106,159,0.08)",
@@ -252,36 +388,76 @@
         },
       ];
 
-      if (data.actuals_today?.hourly_usd_per_mwh) {
-        document.getElementById("legend-actuals").style.display = "flex";
+      if (data.actuals_today && data.actuals_today.hourly_usd_per_mwh) {
+        document.getElementById("fcast-legend-today").style.display = "flex";
         datasets.push({
-          label: "Today's actuals",
+          label: "Today's DAM prices (context)",
           data: data.actuals_today.hourly_usd_per_mwh,
-          borderColor: "#5aaa6f",
-          borderWidth: 2,
-          pointRadius: 2,
-          backgroundColor: "transparent",
-          tension: 0.3,
-        });
-      }
-
-      if (data.persistence?.hourly_usd_per_mwh) {
-        document.getElementById("legend-persistence").style.display = "flex";
-        datasets.push({
-          label: "Persistence",
-          data: data.persistence.hourly_usd_per_mwh,
-          borderColor: "#bbb",
-          borderDash: [5, 4],
+          borderColor: "#e8a838",
           borderWidth: 1.5,
+          borderDash: [4, 3],
           pointRadius: 0,
           backgroundColor: "transparent",
           tension: 0.3,
         });
       }
 
-      new Chart(document.getElementById("priceChart"), {
+      new Chart(document.getElementById("forecastChart"), {
         type: "line",
         data: { labels: HOURS, datasets },
+        options: makeChartOpts(),
+      });
+    }
+
+    function renderMAEChart(history) {
+      const scored = history.filter(e => e.mae != null);
+      if (scored.length < 2) return;
+
+      document.getElementById("history-section").style.display = "block";
+
+      let agentSum = 0, persSum = 0;
+      const labels = [], agentCumMAE = [], persCumMAE = [];
+      scored.forEach((e, i) => {
+        agentSum += e.mae;
+        persSum += (e.persistence_mae || e.mae);
+        labels.push(e.date.slice(5));
+        agentCumMAE.push(+(agentSum / (i + 1)).toFixed(2));
+        persCumMAE.push(+(persSum / (i + 1)).toFixed(2));
+      });
+
+      const latest = agentCumMAE[agentCumMAE.length - 1];
+      const latestPers = persCumMAE[persCumMAE.length - 1];
+      const skill = ((1 - latest / latestPers) * 100).toFixed(1);
+      document.getElementById("mae-summary").textContent =
+        `${scored.length}-day avg — Agent: $${latest}/MWh  ·  Persistence: $${latestPers}/MWh  ·  Skill: ${skill > 0 ? "+" : ""}${skill}%`;
+
+      new Chart(document.getElementById("maeChart"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "Agent MAE",
+              data: agentCumMAE,
+              borderColor: "#2d6a9f",
+              borderWidth: 2,
+              pointRadius: 2,
+              backgroundColor: "rgba(45,106,159,0.07)",
+              fill: true,
+              tension: 0.3,
+            },
+            {
+              label: "Persistence MAE",
+              data: persCumMAE,
+              borderColor: "#ccc",
+              borderDash: [5, 4],
+              borderWidth: 1.5,
+              pointRadius: 0,
+              backgroundColor: "transparent",
+              tension: 0.3,
+            },
+          ],
+        },
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -296,152 +472,58 @@
           },
           scales: {
             x: {
-              grid: { color: "#f0f0f0" },
-              ticks: { font: { family: "Montserrat", size: 11 }, color: "#888" },
+              grid: { color: "#f5f5f5" },
+              ticks: { font: { family: "Montserrat", size: 10 }, color: "#aaa", maxTicksLimit: 12 },
             },
             y: {
-              grid: { color: "#f0f0f0" },
-              ticks: {
-                font: { family: "Montserrat", size: 11 },
-                color: "#888",
-                callback: v => `$${v}`,
-              },
-              title: {
-                display: true,
-                text: "$/MWh",
-                font: { family: "Montserrat", size: 11 },
-                color: "#aaa",
-              },
+              grid: { color: "#f5f5f5" },
+              ticks: { font: { family: "Montserrat", size: 11 }, color: "#888", callback: v => `$${v}` },
+              title: { display: true, text: "Cumul. MAE $/MWh", font: { family: "Montserrat", size: 10 }, color: "#aaa" },
             },
           },
         },
       });
     }
 
-    async function loadForecast() {
+    async function load() {
+      let data, history = [];
+
       try {
         const resp = await fetch(FORECAST_URL + "?t=" + Date.now());
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const data = await resp.json();
-
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("content").style.display = "block";
-
-        document.getElementById("target-date-label").textContent =
-          `forecast for ${data.target_date}`;
-
-        renderStats(data);
-        renderChart(data);
-
-        const reasoning = data.reasoning || "";
-        document.getElementById("reasoning-box").textContent =
-          reasoning || "No reasoning trace available.";
-
-        const genAt = new Date(data.generated_at);
-        document.getElementById("updated-note").textContent =
-          `Last updated: ${genAt.toUTCString()} · runs daily at 12:30 PM CT after DAM clears`;
-
+        data = await resp.json();
       } catch (e) {
         document.getElementById("loading").style.display = "none";
         const err = document.getElementById("error");
         err.style.display = "block";
         err.textContent =
-          "Forecast not yet available — the daily run hasn't completed yet, or the data is still loading. Check back after 1 PM CT.";
+          "Forecast not yet available — the daily run hasn't completed yet. Check back after 1 PM CT.";
         console.error(e);
+        return;
       }
-    }
 
-    async function loadHistory() {
       try {
-        const resp = await fetch("/history.json?t=" + Date.now());
-        if (!resp.ok) return;
-        const history = await resp.json();
-        if (!history.length) return;
+        const hresp = await fetch(HISTORY_URL + "?t=" + Date.now());
+        if (hresp.ok) history = await hresp.json();
+      } catch (_) { /* history optional */ }
 
-        const scored = history.filter(e => e.mae != null);
-        if (scored.length < 2) return;
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("content").style.display = "block";
 
-        document.getElementById("history-section").style.display = "block";
+      renderStats(data);
+      renderEvalChart(data, history);
+      renderForecastChart(data);
+      renderMAEChart(history);
 
-        // Compute running (cumulative) MAE
-        let agentSum = 0, persSum = 0;
-        const labels = [], agentCumMAE = [], persCumMAE = [];
-        scored.forEach((e, i) => {
-          agentSum += e.mae;
-          persSum += (e.persistence_mae || e.mae);
-          labels.push(e.date.slice(5));  // MM-DD
-          agentCumMAE.push(+(agentSum / (i + 1)).toFixed(2));
-          persCumMAE.push(+(persSum / (i + 1)).toFixed(2));
-        });
+      const reasoning = data.reasoning || "";
+      document.getElementById("reasoning-box").textContent = reasoning || "No reasoning trace available.";
 
-        const latest = agentCumMAE[agentCumMAE.length - 1];
-        const latestPers = persCumMAE[persCumMAE.length - 1];
-        const skill = ((1 - latest / latestPers) * 100).toFixed(1);
-        document.getElementById("mae-summary").textContent =
-          `${scored.length}-day avg — Agent: $${latest}/MWh  ·  Persistence: $${latestPers}/MWh  ·  Skill: ${skill > 0 ? "+" : ""}${skill}%`;
-
-        new Chart(document.getElementById("maeChart"), {
-          type: "line",
-          data: {
-            labels,
-            datasets: [
-              {
-                label: "Agent MAE",
-                data: agentCumMAE,
-                borderColor: "#2d6a9f",
-                borderWidth: 2,
-                pointRadius: 2,
-                backgroundColor: "rgba(45,106,159,0.07)",
-                fill: true,
-                tension: 0.3,
-              },
-              {
-                label: "Persistence MAE",
-                data: persCumMAE,
-                borderColor: "#ccc",
-                borderDash: [5, 4],
-                borderWidth: 1.5,
-                pointRadius: 0,
-                backgroundColor: "transparent",
-                tension: 0.3,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { mode: "index", intersect: false },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: {
-                  label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toFixed(2)}/MWh`,
-                },
-              },
-            },
-            scales: {
-              x: {
-                grid: { color: "#f5f5f5" },
-                ticks: { font: { family: "Montserrat", size: 10 }, color: "#aaa", maxTicksLimit: 12 },
-              },
-              y: {
-                grid: { color: "#f5f5f5" },
-                ticks: {
-                  font: { family: "Montserrat", size: 11 }, color: "#888",
-                  callback: v => `$${v}`,
-                },
-                title: { display: true, text: "Cumul. MAE $/MWh", font: { family: "Montserrat", size: 10 }, color: "#aaa" },
-              },
-            },
-          },
-        });
-      } catch (e) {
-        console.warn("History not yet available:", e);
-      }
+      const genAt = new Date(data.generated_at);
+      document.getElementById("updated-note").textContent =
+        `Last updated: ${genAt.toUTCString()}`;
     }
 
-    loadForecast();
-    loadHistory();
+    load();
   </script>
 </body>
 

@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-04-21T19:50:56+00:00",
+  "generated_at": "2026-04-21T20:00:11+00:00",
   "target_date": "2026-04-22",
   "hub": "HB_NORTH",
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      27.84,
-      28.82,
-      30.0,
-      34.18,
-      37.98,
-      50.0,
-      58.32,
-      55.37,
-      74.12,
-      48.31,
-      33.93,
-      31.95,
-      28.5,
-      22.67,
-      22.01,
-      22.52,
-      23.08,
+      22.0,
+      22.58,
+      24.81,
+      31.63,
+      36.93,
+      49.19,
+      40.16,
+      44.22,
+      36.77,
+      24.19,
+      18.62,
+      17.6,
+      14.44,
+      15.0,
+      13.95,
+      14.55,
+      17.67,
+      21.75,
       28.79,
       40.18,
       40.86,
       46.94,
       41.3,
-      30.74,
-      30.0
+      30.74
     ],
-    "daily_avg_usd_per_mwh": 37.02,
-    "peak_avg_usd_per_mwh": 35.97,
-    "offpeak_avg_usd_per_mwh": 40.31
+    "daily_avg_usd_per_mwh": 28.95,
+    "peak_avg_usd_per_mwh": 29.85,
+    "offpeak_avg_usd_per_mwh": 33.94
   },
   "actuals_today": {
     "date": "2026-04-21",
@@ -93,6 +93,6 @@
       30.74
     ]
   },
-  "reasoning": "The anchor daily average price of $36.12/MWh is based on the most recent data from April 21, 2026. Weather forecasts indicate mild temperatures in Dallas, which should not significantly impact load. ERCOT's load, wind, and solar forecasts suggest typical generation patterns for April. Natural gas prices remain stable, and no significant outages or grid constraints are expected. Given these factors, the forecasted prices for April 22, 2026, are expected to align closely with the anchor, with no major deviations anticipated.",
+  "reasoning": "The anchor daily average price of $28.95/MWh is based on the most recent data from April 20, 2026. Given the lack of specific data for April 22, 2026, and considering the typical seasonal patterns in ERCOT, the forecasted prices for April 22, 2026, are expected to closely align with the anchor price, with minor fluctuations due to expected weather conditions and typical weekday demand patterns. The confidence level is set at 4 due to the absence of specific forecasts for April 22, 2026, and reliance on historical data and typical patterns.",
   "confidence": 3
 }

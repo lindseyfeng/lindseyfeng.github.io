@@ -197,6 +197,10 @@
           <div class="legend-dot" style="background:#2d6a9f;"></div>
           <span>Agent forecast</span>
         </div>
+        <div class="legend-item" id="fcast-legend-today" style="display:none;">
+          <div class="legend-dot" style="background:#e8a838;"></div>
+          <span>Today's DAM prices (reference)</span>
+        </div>
       </div>
       <div class="chart-wrapper">
         <canvas id="forecastChart"></canvas>
@@ -372,22 +376,35 @@
     function renderForecastChart(data) {
       document.getElementById("forecast-date-label").textContent = data.target_date;
 
+      const datasets = [{
+        label: "Agent forecast",
+        data: data.forecast.hourly_usd_per_mwh,
+        borderColor: "#2d6a9f",
+        backgroundColor: "rgba(45,106,159,0.08)",
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: "#2d6a9f",
+        tension: 0.35,
+        fill: true,
+      }];
+
+      if (data.actuals_today && data.actuals_today.hourly_usd_per_mwh) {
+        document.getElementById("fcast-legend-today").style.display = "flex";
+        datasets.push({
+          label: "Today's DAM prices (reference)",
+          data: data.actuals_today.hourly_usd_per_mwh,
+          borderColor: "#e8a838",
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          pointRadius: 0,
+          backgroundColor: "transparent",
+          tension: 0.3,
+        });
+      }
+
       new Chart(document.getElementById("forecastChart"), {
         type: "line",
-        data: {
-          labels: HOURS,
-          datasets: [{
-            label: "Agent forecast",
-            data: data.forecast.hourly_usd_per_mwh,
-            borderColor: "#2d6a9f",
-            backgroundColor: "rgba(45,106,159,0.08)",
-            borderWidth: 2.5,
-            pointRadius: 3,
-            pointBackgroundColor: "#2d6a9f",
-            tension: 0.35,
-            fill: true,
-          }],
-        },
+        data: { labels: HOURS, datasets },
         options: makeChartOpts(),
       });
     }

@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-04-21T18:36:14+00:00",
+  "target_date": "2026-04-22",
+  "hub": "HB_NORTH",
+  "model": "gpt-4.1-mini",
+  "forecast": {
+    "hourly_usd_per_mwh": [
+      15.0,
+      15.5,
+      16.0,
+      16.5,
+      17.0,
+      17.5,
+      18.0,
+      19.0,
+      20.0,
+      21.0,
+      22.0,
+      23.0,
+      24.0,
+      25.0,
+      26.0,
+      27.0,
+      28.0,
+      29.0,
+      30.0,
+      31.0,
+      32.0,
+      33.0,
+      34.0,
+      35.0
+    ],
+    "daily_avg_usd_per_mwh": 23.94,
+    "peak_avg_usd_per_mwh": 30.0,
+    "offpeak_avg_usd_per_mwh": 16.81
+  },
+  "actuals_today": null,
+  "persistence": null,
+  "reasoning": "The anchor daily average price of $29.21/MWh is based on ERCOT Day-Ahead Price Data from April 18, 2026. Forecasted drivers include moderate temperatures in Dallas, typical April load and generation patterns, stable gas prices, and no significant outages or grid alerts. These factors suggest a slight decrease in the daily average price to $25.50/MWh, with hourly prices ranging from $15.00/MWh during off-peak hours to $35.00/MWh during peak hours, reflecting standard ERCOT price patterns for this time of year.",
+  "confidence": 3
+}

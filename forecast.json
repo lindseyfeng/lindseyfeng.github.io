@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      26.69,
-      23.89,
-      20.35,
-      20.05,
-      20.63,
-      23.58,
-      26.72,
-      26.15,
-      19.57,
-      15.6,
-      12.0,
-      11.03,
-      11.19,
-      11.44,
-      10.85,
+      26.74,
+      23.91,
+      20.31,
+      19.96,
+      20.51,
+      23.34,
+      24.95,
+      23.48,
+      17.95,
+      13.91,
+      12.12,
+      11.15,
+      11.25,
+      11.48,
+      10.89,
       12.9,
-      17.42,
-      20.94,
-      39.4,
-      49.44,
-      46.04,
-      38.1,
-      31.58,
-      24.08
+      14.65,
+      15.57,
+      31.97,
+      43.09,
+      40.61,
+      34.73,
+      30.67,
+      23.14
     ],
-    "daily_avg_usd_per_mwh": 23.32,
-    "peak_avg_usd_per_mwh": 34.65,
-    "offpeak_avg_usd_per_mwh": 23.51
+    "daily_avg_usd_per_mwh": 21.64,
+    "peak_avg_usd_per_mwh": 29.18,
+    "offpeak_avg_usd_per_mwh": 22.9
   },
   "actuals_today": {
     "date": "2026-04-26",
@@ -93,6 +93,6 @@
       22.74
     ]
   },
-  "reasoning": "Anchor_z is -0.42, indicating a slightly below-average anchor; regime is NORMAL. Formula default weights are wA=0.662, wB=0.235, wC=0.103. Recent error track record shows persistence errors within \u00b1$3/MWh and a mild positive bias, meaning anchor tracked actuals well; thus, no deviation from defaults applied.",
+  "reasoning": "Anchor z-score is -0.76 under NORMAL regime, formula default weights are wA=0.561, wB=0.335, wC=0.104. Recent 3-day error track shows trailing persistence error slightly positive, indicating anchor tracked slightly low. Increased wA from 0.561 to 0.61 (below max 0.662) to reflect better confidence in anchor. Redistribution proportional to reduce wB and wC accordingly.",
   "confidence": 3
 }

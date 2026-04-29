@@ -98,5 +98,13 @@
     "actual_avg": 64.4,
     "mae": null,
     "persistence_mae": 55.58
+  },
+  {
+    "date": "2026-04-29",
+    "target_date": "2026-04-29",
+    "forecast_avg": null,
+    "actual_avg": 39.91,
+    "mae": null,
+    "persistence_mae": 29.97
   }
 ]

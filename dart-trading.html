@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ERCOT DART Trading — Xinyu Feng</title>
+  <meta name="description" content="Live RT-DAM spread forecast and trading positions for ERCOT HB_NORTH" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css1/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css1/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    .dart-container {
+      width: 78%;
+      margin: 0 auto;
+      padding: 20px 0 40px;
+    }
+    .dart-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .dart-sub {
+      font-family: 'Radley', serif;
+      color: #777;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 14px 20px;
+      min-width: 160px;
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-top: 2px;
+    }
+    .stat-unit {
+      font-size: 13px;
+      color: #888;
+    }
+    .stat-pos { color: #2d8a4f; }
+    .stat-neg { color: #b94a4a; }
+    .chart-wrapper {
+      position: relative;
+      height: 300px;
+      margin-bottom: 32px;
+    }
+    .chart-wrapper.short { height: 220px; }
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .reasoning-box {
+      background: #fafafa;
+      border-left: 3px solid #ccc;
+      padding: 14px 18px;
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 28px;
+    }
+    .legend-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .legend-bar {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .subscore {
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+      margin-top: -16px;
+      margin-bottom: 28px;
+    }
+    .updated-note {
+      font-family: 'Radley', serif;
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .error-msg {
+      font-family: 'Radley', serif;
+      color: #c00;
+      padding: 20px 0;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 32px 0;
+    }
+    table.positions {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      border-collapse: collapse;
+      margin-bottom: 28px;
+      width: 100%;
+    }
+    table.positions th, table.positions td {
+      border: 1px solid #eee;
+      padding: 6px 8px;
+      text-align: right;
+    }
+    table.positions th {
+      background: #fafafa;
+      color: #555;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 10px;
+    }
+    table.positions td.long  { color: #2d6a9f; font-weight: 700; }
+    table.positions td.short { color: #cc7a2a; font-weight: 700; }
+    table.positions td.flat  { color: #aaa; }
+    @media (max-width: 768px) {
+      .dart-container { width: 94%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header-block row">
+    <div class="blog-title">
+      <h1>Hey.</h1>
+    </div>
+  </header>
+
+  <div class="dart-container">
+    <div class="dart-title">ERCOT DART Trading — Live Positions</div>
+    <div class="dart-sub">
+      RT-DAM spread agent (v3: leakage-safe + momentum + risk-aware sizing)
+      &nbsp;·&nbsp; HB_NORTH hub
+      &nbsp;·&nbsp; positions sized at 1 MW notional unit, ±$2/MWh threshold, 5 MW hourly cap
+      &nbsp;·&nbsp; runs daily at 12:30 PM CT after DAM clears
+    </div>
+
+    <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">
+      Loading DART forecast...
+    </div>
+    <div id="error" class="error-msg" style="display:none;"></div>
+
+    <div id="content" style="display:none;">
+
+      <!-- ── Stats ─────────────────────────────────────────── -->
+      <div class="stats-row" id="stats-row"></div>
+
+      <!-- ── Chart 1: How did we do? (yesterday's settled day) ── -->
+      <div id="eval-section" style="display:none;">
+        <div class="section-label">How did we trade? &mdash; <span id="eval-date-label"></span></div>
+        <div class="legend-row">
+          <div class="legend-item"><div class="legend-bar" style="background:#2d6a9f;"></div><span>Agent P&amp;L</span></div>
+          <div class="legend-item" id="eval-legend-pers" style="display:none;">
+            <div class="legend-bar" style="background:#bbb;"></div><span>Persistence P&amp;L</span>
+          </div>
+          <div class="legend-item"><div class="legend-dot" style="background:#5aaa6f;"></div><span>Realized RT-DAM spread ($/MWh, right axis)</span></div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="evalChart"></canvas>
+        </div>
+        <div class="subscore" id="eval-mae"></div>
+        <hr class="divider">
+      </div>
+
+      <!-- ── Chart 2: Tomorrow's positions ──────────────────── -->
+      <div class="section-label">Tomorrow's positions &mdash; <span id="forecast-date-label"></span></div>
+      <div class="legend-row">
+        <div class="legend-item"><div class="legend-bar" style="background:#2d6a9f;"></div><span>Long DART (buy DAM, sell RT)</span></div>
+        <div class="legend-item"><div class="legend-bar" style="background:#cc7a2a;"></div><span>Short DART (sell DAM, buy RT)</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#888;"></div><span>Forecast spread ($/MWh, right axis)</span></div>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="positionsChart"></canvas>
+      </div>
+
+      <!-- ── Position table ──────────────────────────────────── -->
+      <div class="section-label" style="margin-top:18px;">Per-hour position detail</div>
+      <div style="overflow-x:auto;">
+        <table class="positions" id="positionsTable">
+          <thead>
+            <tr>
+              <th>HE</th><th>DAM $</th><th>Forecast spread</th>
+              <th>Signal</th><th>Position MW</th><th>Pers. MW</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- ── Reasoning ──────────────────────────────────────── -->
+      <div class="section-label">Agent reasoning</div>
+      <div class="reasoning-box" id="reasoning-box">&mdash;</div>
+
+      <div class="updated-note" id="updated-note"></div>
+
+      <!-- ── Cumulative P&L ───────────────────────────────── -->
+      <div id="cum-section" style="display:none;">
+        <hr class="divider">
+        <div class="section-label">Cumulative P&amp;L &mdash; agent vs persistence</div>
+        <div class="chart-wrapper short">
+          <canvas id="cumChart"></canvas>
+        </div>
+        <div class="subscore" id="cum-summary"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="footer">
+    <div class="footer-inner row">
+      <div class="col-md-12" style="margin-top:-2.5vh;">
+        <a href="index.html">home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="contact.html">(unveil the curtain, and - tada!) "the one behind it all"</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./算命/sample-page.html">fortune-teller project</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./ercot-forecast.html">agentic ERCOT price forecast</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./dart-trading.html">DART trading</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </section>
+
+  <section class="copyright">&copy; 2023</section>
+
+  <script>
+    const FORECAST_URL = "/dart_forecast.json";
+    const HISTORY_URL  = "/dart_history.json";
+    const HOURS = Array.from({ length: 24 }, (_, i) => `HE${String(i + 1).padStart(2, "0")}`);
+
+    function fmtMoney(v, signed) {
+      if (v == null || isNaN(v)) return "—";
+      const sign = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
+      return `${sign}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+    }
+    function fmtSpread(v) {
+      if (v == null || isNaN(v)) return "—";
+      const sign = v > 0 ? "+" : (v < 0 ? "−" : "");
+      return `${sign}$${Math.abs(v).toFixed(2)}`;
+    }
+
+    function classForSignal(s) {
+      if (s > 0) return "long";
+      if (s < 0) return "short";
+      return "flat";
+    }
+    function labelForSignal(s) {
+      if (s > 0) return "LONG";
+      if (s < 0) return "SHORT";
+      return "—";
+    }
+
+    function colorForPosition(s, pos) {
+      if (s > 0) return "rgba(45,106,159,0.85)";   // blue, long
+      if (s < 0) return "rgba(204,122,42,0.85)";   // orange, short
+      return "rgba(200,200,200,0.4)";              // grey, flat
+    }
+
+    function renderStats(data, history) {
+      const a = data.agent;
+      const stats = [];
+      stats.push({
+        label: "Tomorrow expected EV",
+        value: fmtMoney(a.expected_pnl, true),
+        cls: a.expected_pnl >= 0 ? "stat-pos" : "stat-neg",
+      });
+      stats.push({
+        label: "Active positions",
+        value: `${a.summary.n_long}L / ${a.summary.n_short}S / ${a.summary.n_flat}F`,
+        cls: "",
+      });
+      stats.push({
+        label: "Notional",
+        value: `${a.summary.notional_mwh.toFixed(1)}`,
+        unit: " MWh",
+        cls: "",
+      });
+      stats.push({
+        label: "Confidence",
+        value: `${a.confidence}/5`,
+        cls: "",
+      });
+
+      // Cumulative + yesterday from history
+      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+      if (scored.length > 0) {
+        const last = scored[scored.length - 1];
+        stats.push({
+          label: `Yesterday (${last.target_date})`,
+          value: fmtMoney(last.agent.actual_pnl_total, true),
+          cls: last.agent.actual_pnl_total >= 0 ? "stat-pos" : "stat-neg",
+        });
+        const cum = scored.reduce((s, e) => s + e.agent.actual_pnl_total, 0);
+        stats.push({
+          label: `Cumulative (${scored.length}d)`,
+          value: fmtMoney(cum, true),
+          cls: cum >= 0 ? "stat-pos" : "stat-neg",
+        });
+        const persCum = scored.reduce(
+          (s, e) => s + (e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0),
+          0
+        );
+        const edge = cum - persCum;
+        stats.push({
+          label: "Edge vs persistence",
+          value: fmtMoney(edge, true),
+          cls: edge >= 0 ? "stat-pos" : "stat-neg",
+        });
+      }
+
+      document.getElementById("stats-row").innerHTML = stats.map(s => `
+        <div class="stat-card">
+          <div class="stat-label">${s.label}</div>
+          <div class="stat-value ${s.cls || ""}">${s.value}<span class="stat-unit">${s.unit || ""}</span></div>
+        </div>
+      `).join("");
+    }
+
+    function renderEvalChart(history) {
+      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_hourly);
+      if (scored.length === 0) return;
+      const last = scored[scored.length - 1];
+
+      document.getElementById("eval-section").style.display = "block";
+      document.getElementById("eval-date-label").textContent = last.target_date;
+
+      const datasets = [{
+        label: "Agent P&L",
+        type: "bar",
+        data: last.agent.actual_pnl_hourly,
+        backgroundColor: last.agent.actual_pnl_hourly.map(v =>
+          v >= 0 ? "rgba(45,106,159,0.75)" : "rgba(185,74,74,0.65)"
+        ),
+        borderWidth: 0,
+        yAxisID: "y",
+      }];
+
+      if (last.persistence && last.persistence.actual_pnl_hourly) {
+        document.getElementById("eval-legend-pers").style.display = "flex";
+        datasets.push({
+          label: "Persistence P&L",
+          type: "bar",
+          data: last.persistence.actual_pnl_hourly,
+          backgroundColor: "rgba(180,180,180,0.55)",
+          borderWidth: 0,
+          yAxisID: "y",
+        });
+      }
+
+      datasets.push({
+        label: "Realized spread",
+        type: "line",
+        data: last.actual_spread_hourly || [],
+        borderColor: "#5aaa6f",
+        backgroundColor: "rgba(90,170,111,0.07)",
+        borderWidth: 2,
+        pointRadius: 2,
+        tension: 0.3,
+        yAxisID: "y1",
+      });
+
+      new Chart(document.getElementById("evalChart"), {
+        data: { labels: HOURS, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  if (ctx.dataset.label === "Realized spread") {
+                    return ` Spread: $${ctx.parsed.y.toFixed(2)}/MWh`;
+                  }
+                  const sign = ctx.parsed.y >= 0 ? "+" : "−";
+                  return ` ${ctx.dataset.label}: ${sign}$${Math.abs(ctx.parsed.y).toFixed(2)}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: { grid: { color: "#f0f0f0" }, ticks: { font: { family: "Montserrat", size: 10 }, color: "#888" } },
+            y:  {
+              position: "left",
+              grid: { color: "#f0f0f0" },
+              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#888" },
+              title: { display: true, text: "P&L $", color: "#aaa", font: { family: "Montserrat", size: 11 } },
+            },
+            y1: {
+              position: "right",
+              grid: { display: false },
+              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#5aaa6f" },
+              title: { display: true, text: "Spread $/MWh", color: "#5aaa6f", font: { family: "Montserrat", size: 11 } },
+            },
+          },
+        },
+      });
+
+      const a = last.agent.actual_pnl_total;
+      const p = last.persistence && last.persistence.actual_pnl_total;
+      const hr = last.agent.hit_rate != null ? `${(last.agent.hit_rate * 100).toFixed(0)}%` : "—";
+      let txt = `Agent: ${fmtMoney(a, true)}  ·  hit rate ${hr}`;
+      if (p != null) {
+        const edge = a - p;
+        txt += `  ·  Persistence: ${fmtMoney(p, true)}  ·  Edge: ${fmtMoney(edge, true)}`;
+      }
+      document.getElementById("eval-mae").textContent = txt;
+    }
+
+    function renderPositionsChart(data) {
+      document.getElementById("forecast-date-label").textContent = data.target_date;
+      const a = data.agent;
+      const signed = a.positions_mw.map((mw, i) => mw * a.signals[i]);
+
+      new Chart(document.getElementById("positionsChart"), {
+        data: {
+          labels: HOURS,
+          datasets: [
+            {
+              label: "Position",
+              type: "bar",
+              data: signed,
+              backgroundColor: a.signals.map((s, i) => colorForPosition(s, a.positions_mw[i])),
+              borderWidth: 0,
+              yAxisID: "y",
+            },
+            {
+              label: "Forecast spread",
+              type: "line",
+              data: a.spread_forecast_hourly,
+              borderColor: "#888",
+              backgroundColor: "transparent",
+              borderWidth: 1.5,
+              borderDash: [4, 3],
+              pointRadius: 0,
+              tension: 0.3,
+              yAxisID: "y1",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  if (ctx.dataset.label === "Forecast spread") {
+                    return ` Forecast spread: ${fmtSpread(ctx.parsed.y)}/MWh`;
+                  }
+                  const sgn = ctx.parsed.y >= 0 ? "LONG" : "SHORT";
+                  return ` ${sgn} ${Math.abs(ctx.parsed.y).toFixed(2)} MW`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: { grid: { color: "#f0f0f0" }, ticks: { font: { family: "Montserrat", size: 10 }, color: "#888" } },
+            y: {
+              position: "left",
+              grid: { color: "#f0f0f0" },
+              ticks: { callback: v => `${v} MW`, font: { family: "Montserrat", size: 11 }, color: "#888" },
+              title: { display: true, text: "Position (signed MW)", color: "#aaa", font: { family: "Montserrat", size: 11 } },
+            },
+            y1: {
+              position: "right",
+              grid: { display: false },
+              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#888" },
+              title: { display: true, text: "Forecast spread $/MWh", color: "#aaa", font: { family: "Montserrat", size: 11 } },
+            },
+          },
+        },
+      });
+    }
+
+    function renderPositionsTable(data) {
+      const a = data.agent;
+      const p = data.persistence;
+      const tbody = document.querySelector("#positionsTable tbody");
+      tbody.innerHTML = a.signals.map((sig, i) => {
+        const cls = classForSignal(sig);
+        const persMW = p && p.positions_mw ? p.positions_mw[i].toFixed(2) : "—";
+        return `
+          <tr>
+            <td>HE${String(i + 1).padStart(2, "0")}</td>
+            <td>${data.dam_prices && data.dam_prices[i] != null ? "$" + data.dam_prices[i].toFixed(2) : "—"}</td>
+            <td>${fmtSpread(a.spread_forecast_hourly[i])}</td>
+            <td class="${cls}">${labelForSignal(sig)}</td>
+            <td class="${cls}">${a.positions_mw[i].toFixed(2)}</td>
+            <td>${persMW}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderCumChart(history) {
+      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+      if (scored.length < 2) return;
+
+      document.getElementById("cum-section").style.display = "block";
+
+      const labels = scored.map(e => e.target_date.slice(5));
+      let agentRun = 0, persRun = 0;
+      const agentCum = [], persCum = [];
+      scored.forEach(e => {
+        agentRun += e.agent.actual_pnl_total;
+        const p = e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0;
+        persRun += p;
+        agentCum.push(+agentRun.toFixed(2));
+        persCum.push(+persRun.toFixed(2));
+      });
+
+      const lastAgent = agentCum[agentCum.length - 1];
+      const lastPers  = persCum[persCum.length - 1];
+      const edge = lastAgent - lastPers;
+      document.getElementById("cum-summary").textContent =
+        `${scored.length}-day cumulative — Agent: ${fmtMoney(lastAgent, true)}  ·  Persistence: ${fmtMoney(lastPers, true)}  ·  Edge: ${fmtMoney(edge, true)}`;
+
+      new Chart(document.getElementById("cumChart"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "Agent",
+              data: agentCum,
+              borderColor: "#2d6a9f",
+              backgroundColor: "rgba(45,106,159,0.08)",
+              borderWidth: 2,
+              pointRadius: 2,
+              fill: true,
+              tension: 0.3,
+            },
+            {
+              label: "Persistence",
+              data: persCum,
+              borderColor: "#bbb",
+              borderDash: [5, 4],
+              borderWidth: 1.5,
+              pointRadius: 0,
+              backgroundColor: "transparent",
+              tension: 0.3,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtMoney(ctx.parsed.y, true)}` },
+            },
+          },
+          scales: {
+            x: { grid: { color: "#f5f5f5" }, ticks: { color: "#aaa", maxTicksLimit: 12, font: { family: "Montserrat", size: 10 } } },
+            y: {
+              grid: { color: "#f5f5f5" },
+              ticks: { callback: v => fmtMoney(v, false), font: { family: "Montserrat", size: 11 }, color: "#888" },
+              title: { display: true, text: "Cumulative P&L $", color: "#aaa", font: { family: "Montserrat", size: 10 } },
+            },
+          },
+        },
+      });
+    }
+
+    async function load() {
+      let data = null, history = [];
+
+      try {
+        const resp = await fetch(FORECAST_URL + "?t=" + Date.now());
+        if (resp.ok) data = await resp.json();
+      } catch (e) { console.warn("forecast fetch failed:", e); }
+
+      try {
+        const hresp = await fetch(HISTORY_URL + "?t=" + Date.now());
+        if (hresp.ok) history = await hresp.json();
+      } catch (_) { /* history optional */ }
+
+      document.getElementById("loading").style.display = "none";
+
+      if (!data && (!history || history.length === 0)) {
+        const err = document.getElementById("error");
+        err.style.display = "block";
+        err.textContent =
+          "DART forecast not yet available — the daily run hasn't completed yet. Check back after 1 PM CT.";
+        return;
+      }
+
+      document.getElementById("content").style.display = "block";
+
+      // If forecast.json is missing, fall back to the most recent history
+      // entry as a stand-in so the page still has something to show.
+      const display = data || _syntheticFromHistory(history);
+
+      renderStats(display, history);
+      renderEvalChart(history);
+
+      if (display && display.agent && display.agent.signals) {
+        renderPositionsChart(display);
+        renderPositionsTable(display);
+        document.getElementById("reasoning-box").textContent =
+          display.reasoning || "No reasoning trace available.";
+      } else {
+        document.querySelector(".section-label + .legend-row").style.display = "none";
+        document.getElementById("positionsChart").parentElement.style.display = "none";
+        document.getElementById("positionsTable").style.display = "none";
+        document.getElementById("reasoning-box").textContent =
+          "Today's forecast not available yet. The next daily run is at 12:30 PM CT.";
+      }
+
+      renderCumChart(history);
+
+      if (display && display.generated_at) {
+        const genAt = new Date(display.generated_at);
+        document.getElementById("updated-note").textContent =
+          `Last updated: ${genAt.toUTCString()}`;
+      }
+    }
+
+    function _syntheticFromHistory(history) {
+      if (!history || history.length === 0) return null;
+      const last = history[history.length - 1];
+      if (!last.agent || !last.agent.signals) return null;
+      return {
+        generated_at: last.run_date + "T18:00:00+00:00",
+        run_date: last.run_date,
+        target_date: last.target_date,
+        dam_prices: null,
+        agent: {
+          spread_forecast_hourly: last.agent.spread_forecast_hourly || [],
+          signals:                last.agent.signals || [],
+          positions_mw:           last.agent.positions_mw || [],
+          confidence:             last.agent.confidence ?? 3,
+          expected_pnl:           last.agent.expected_pnl || 0,
+          summary:                last.agent.summary || { n_long: 0, n_short: 0, n_flat: 24, notional_mwh: 0 },
+        },
+        persistence: last.persistence,
+        reasoning: last.reasoning || "",
+      };
+    }
+
+    load();
+  </script>
+</body>
+
+</html>

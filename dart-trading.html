@@ -286,8 +286,16 @@
         <table class="positions" id="positionsTable">
           <thead>
             <tr>
-              <th>HE</th><th>DAM $</th><th>Forecast spread</th>
-              <th>Signal</th><th>Position MW</th><th>Pers. MW</th>
+              <th rowspan="2">HE</th>
+              <th rowspan="2">DAM $</th>
+              <th colspan="2" style="background:#eef3f7; color:#2d6a9f;">Agent</th>
+              <th colspan="2" style="background:#fafafa; color:#888;">Persistence (yesterday)</th>
+            </tr>
+            <tr>
+              <th style="background:#f4f8fb;">Forecast spread</th>
+              <th style="background:#f4f8fb;">Position MW</th>
+              <th>Yest. spread</th>
+              <th>Position MW</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -585,15 +593,18 @@
       const tbody = document.querySelector("#positionsTable tbody");
       tbody.innerHTML = a.signals.map((sig, i) => {
         const cls = classForSignal(sig);
+        const persSig = p && p.signals ? p.signals[i] : 0;
+        const persCls = classForSignal(persSig);
+        const persSpread = p && p.spread_forecast_hourly ? p.spread_forecast_hourly[i] : null;
         const persMW = p && p.positions_mw ? p.positions_mw[i].toFixed(2) : "—";
         return `
           <tr>
             <td>HE${String(i + 1).padStart(2, "0")}</td>
             <td>${data.dam_prices && data.dam_prices[i] != null ? "$" + data.dam_prices[i].toFixed(2) : "—"}</td>
             <td>${fmtSpread(a.spread_forecast_hourly[i])}</td>
-            <td class="${cls}">${labelForSignal(sig)}</td>
-            <td class="${cls}">${a.positions_mw[i].toFixed(2)}</td>
-            <td>${persMW}</td>
+            <td class="${cls}">${labelForSignal(sig)} ${a.positions_mw[i].toFixed(2)}</td>
+            <td>${persSpread != null ? fmtSpread(persSpread) : "—"}</td>
+            <td class="${persCls}">${persSig !== 0 ? labelForSignal(persSig) + " " : ""}${persMW}</td>
           </tr>
         `;
       }).join("");

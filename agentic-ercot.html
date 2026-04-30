@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Agentic ERCOT — Xinyu Feng</title>
+  <meta name="description" content="Two LLM agents trading day-ahead and real-time electricity prices on ERCOT HB_NORTH" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css1/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css1/style.css">
+
+  <style>
+    .hub-container {
+      width: 78%;
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+    .hub-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hub-sub {
+      font-family: 'Radley', serif;
+      color: #777;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    @media (max-width: 820px) {
+      .cards { grid-template-columns: 1fr; }
+      .hub-container { width: 92%; }
+    }
+    .card {
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 22px 24px 20px;
+      background: #fff;
+      transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      border-color: #cfd8e0;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+    }
+    .card-pill {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: #eef3f7;
+      color: #2d6a9f;
+    }
+    .card-pill.dart { background: #fdf3ea; color: #b46720; }
+    .card-sub {
+      font-family: 'Radley', serif;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 18px;
+    }
+    .card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .stat {
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 5px;
+      padding: 10px 12px;
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #222;
+      margin-top: 3px;
+    }
+    .stat-pos { color: #2d8a4f; }
+    .stat-neg { color: #b94a4a; }
+    .card-foot {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #f1f1f1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #2d6a9f;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .card .arrow {
+      transition: transform 0.18s;
+      display: inline-block;
+      margin-left: 4px;
+    }
+    .card:hover .arrow { transform: translateX(4px); }
+    .card-foot-meta {
+      font-family: 'Radley', serif;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .loading {
+      font-family: 'Radley', serif;
+      color: #aaa;
+      font-style: italic;
+    }
+    .intro {
+      font-family: 'Radley', serif;
+      color: #555;
+      font-size: 14px;
+      line-height: 1.7;
+      background: #fafafa;
+      border-left: 3px solid #2d6a9f;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      border-radius: 0 4px 4px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header-block row">
+    <div class="blog-title">
+      <h1>Hey.</h1>
+    </div>
+  </header>
+
+  <div class="hub-container">
+    <div class="hub-title">Agentic ERCOT</div>
+    <div class="hub-sub">
+      Two LLM agents trading the Texas (ERCOT) electricity market for HB_NORTH.
+      Both run daily at 12:30 PM CT, after the day-ahead market clears.
+    </div>
+
+    <div class="intro">
+      The <b>Day-Ahead Forecast</b> agent predicts tomorrow's 24 hourly DAM clearing prices.
+      The <b>DART Trading</b> agent predicts tomorrow's RT&minus;DAM spread and sizes
+      hourly long/short positions accordingly. Both are scored daily against realized prices,
+      and both are benchmarked against a "no-skill" persistence baseline (assume tomorrow
+      looks like yesterday).
+    </div>
+
+    <div class="cards">
+
+      <!-- ── DAM card ───────────────────────────────────────── -->
+      <a href="./ercot-forecast.html" class="card" id="dam-card">
+        <div class="card-header">
+          <div class="card-title">Day-Ahead Forecast</div>
+          <div class="card-pill">DAM · MAE</div>
+        </div>
+        <div class="card-sub">24 hourly DAM clearing prices for tomorrow</div>
+        <div class="card-stats" id="dam-stats">
+          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-link">Open dashboard <span class="arrow">→</span></span>
+          <span class="card-foot-meta" id="dam-meta">&mdash;</span>
+        </div>
+      </a>
+
+      <!-- ── DART card ──────────────────────────────────────── -->
+      <a href="./dart-trading.html" class="card" id="dart-card">
+        <div class="card-header">
+          <div class="card-title">DART Trading</div>
+          <div class="card-pill dart">RT-DAM · P&amp;L</div>
+        </div>
+        <div class="card-sub">Hourly long/short positions on the RT-DAM spread</div>
+        <div class="card-stats" id="dart-stats">
+          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-link">Open dashboard <span class="arrow">→</span></span>
+          <span class="card-foot-meta" id="dart-meta">&mdash;</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <section class="footer">
+    <div class="footer-inner row">
+      <div class="col-md-12" style="margin-top:-2.5vh;">
+        <a href="index.html">home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="contact.html">(unveil the curtain, and - tada!) "the one behind it all"</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./算命/sample-page.html">fortune-teller project</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </section>
+
+  <section class="copyright">&copy; 2023</section>
+
+  <script>
+    function fmtMoney(v, signed) {
+      if (v == null || isNaN(v)) return "—";
+      const sign = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
+      return `${sign}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+    }
+    function setStats(elId, items) {
+      document.getElementById(elId).innerHTML = items.map(i => `
+        <div class="stat">
+          <div class="stat-label">${i.label}</div>
+          <div class="stat-value ${i.cls || ""}">${i.value}</div>
+        </div>
+      `).join("");
+    }
+
+    async function loadDAM() {
+      try {
+        const [fc, hist] = await Promise.all([
+          fetch("/forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
+          fetch("/history.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
+        ]);
+        if (!fc) throw new Error("no forecast");
+
+        const tomorrowAvg = (fc.forecast && fc.forecast.daily_avg_usd_per_mwh) || null;
+        const scored = (hist || []).filter(e => e.mae != null);
+        const last = scored.length ? scored[scored.length - 1] : null;
+        const cumMAE = scored.length
+          ? scored.reduce((s, e) => s + e.mae, 0) / scored.length
+          : null;
+        const cumPersMAE = scored.length
+          ? scored.reduce((s, e) => s + (e.persistence_mae != null ? e.persistence_mae : 0), 0) / scored.length
+          : null;
+        const skill = cumMAE != null && cumPersMAE
+          ? ((1 - cumMAE / cumPersMAE) * 100)
+          : null;
+
+        setStats("dam-stats", [
+          {
+            label: "Tomorrow avg",
+            value: tomorrowAvg != null ? `$${tomorrowAvg.toFixed(0)}` : "—",
+          },
+          {
+            label: "Today MAE",
+            value: last ? `$${last.mae.toFixed(1)}` : "—",
+          },
+          {
+            label: `Cum MAE (${scored.length}d)`,
+            value: cumMAE != null ? `$${cumMAE.toFixed(1)}` : "—",
+          },
+          {
+            label: "Skill vs pers.",
+            value: skill != null ? `${skill > 0 ? "+" : ""}${skill.toFixed(1)}%` : "—",
+            cls: skill != null && skill > 0 ? "stat-pos" : (skill != null && skill < 0 ? "stat-neg" : ""),
+          },
+        ]);
+        document.getElementById("dam-meta").textContent =
+          fc.target_date ? `for ${fc.target_date}` : "";
+      } catch (e) {
+        console.error("DAM load", e);
+        setStats("dam-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
+      }
+    }
+
+    async function loadDART() {
+      try {
+        const [fc, hist] = await Promise.all([
+          fetch("/dart_forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
+          fetch("/dart_history.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
+        ]);
+
+        const tomorrowEV = fc && fc.agent ? fc.agent.expected_pnl : null;
+        const summary = fc && fc.agent && fc.agent.summary ? fc.agent.summary : null;
+        const scored = (hist || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+        const cumAgent = scored.reduce((s, e) => s + e.agent.actual_pnl_total, 0);
+        const cumPers = scored.reduce(
+          (s, e) => s + (e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0),
+          0
+        );
+        const edge = cumAgent - cumPers;
+
+        setStats("dart-stats", [
+          {
+            label: "Tomorrow EV",
+            value: tomorrowEV != null ? fmtMoney(tomorrowEV, true) : "—",
+            cls: tomorrowEV != null && tomorrowEV >= 0 ? "stat-pos" : (tomorrowEV != null ? "stat-neg" : ""),
+          },
+          {
+            label: "Positions",
+            value: summary ? `${summary.n_long}L / ${summary.n_short}S` : "—",
+          },
+          {
+            label: `Cum P&L (${scored.length}d)`,
+            value: scored.length ? fmtMoney(cumAgent, true) : "$0",
+            cls: cumAgent > 0 ? "stat-pos" : (cumAgent < 0 ? "stat-neg" : ""),
+          },
+          {
+            label: "Edge vs pers.",
+            value: scored.length ? fmtMoney(edge, true) : "—",
+            cls: edge > 0 ? "stat-pos" : (edge < 0 ? "stat-neg" : ""),
+          },
+        ]);
+        document.getElementById("dart-meta").textContent =
+          fc && fc.target_date ? `for ${fc.target_date}` : "";
+      } catch (e) {
+        console.error("DART load", e);
+        setStats("dart-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
+      }
+    }
+
+    loadDAM();
+    loadDART();
+  </script>
+</body>
+
+</html>

@@ -82,7 +82,7 @@
         0.0
       ],
       "confidence": 4,
-      "expected_pnl": -169.22,
+      "expected_pnl": 169.22,
       "summary": {
         "n_long": 0,
         "n_short": 19,
@@ -198,7 +198,7 @@
         0.0,
         0.92
       ],
-      "expected_pnl": 44.93,
+      "expected_pnl": 54.95,
       "summary": {
         "n_long": 8,
         "n_short": 2,
@@ -346,7 +346,7 @@
         0.0
       ],
       "confidence": 4,
-      "expected_pnl": -148.49,
+      "expected_pnl": 148.49,
       "summary": {
         "n_long": 0,
         "n_short": 19,
@@ -462,7 +462,7 @@
         2.03,
         1.98
       ],
-      "expected_pnl": 158.8,
+      "expected_pnl": 174.91,
       "summary": {
         "n_long": 8,
         "n_short": 2,
@@ -610,7 +610,7 @@
         0.86
       ],
       "confidence": 4,
-      "expected_pnl": -167.68,
+      "expected_pnl": 193.76,
       "summary": {
         "n_long": 3,
         "n_short": 20,
@@ -726,7 +726,7 @@
         0.0,
         0.0
       ],
-      "expected_pnl": 546.89,
+      "expected_pnl": 551.35,
       "summary": {
         "n_long": 19,
         "n_short": 1,
@@ -874,7 +874,7 @@
         1.23
       ],
       "confidence": 4,
-      "expected_pnl": -178.06,
+      "expected_pnl": 201.58,
       "summary": {
         "n_long": 1,
         "n_short": 23,
@@ -990,7 +990,7 @@
         1.86,
         1.29
       ],
-      "expected_pnl": 236.39,
+      "expected_pnl": 373.64,
       "summary": {
         "n_long": 10,
         "n_short": 11,
@@ -1138,7 +1138,7 @@
         1.23
       ],
       "confidence": 4,
-      "expected_pnl": -203.14,
+      "expected_pnl": 203.14,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -1254,7 +1254,7 @@
         0.0,
         1.05
       ],
-      "expected_pnl": -215.38,
+      "expected_pnl": 266.77,
       "summary": {
         "n_long": 4,
         "n_short": 15,
@@ -1402,7 +1402,7 @@
         1.23
       ],
       "confidence": 4,
-      "expected_pnl": -201.61,
+      "expected_pnl": 201.61,
       "summary": {
         "n_long": 0,
         "n_short": 23,
@@ -1518,7 +1518,7 @@
         2.48,
         2.34
       ],
-      "expected_pnl": -425.71,
+      "expected_pnl": 425.71,
       "summary": {
         "n_long": 0,
         "n_short": 22,
@@ -1666,7 +1666,7 @@
         1.23
       ],
       "confidence": 4,
-      "expected_pnl": -212.01,
+      "expected_pnl": 212.01,
       "summary": {
         "n_long": 0,
         "n_short": 22,
@@ -1782,7 +1782,7 @@
         3.0,
         2.82
       ],
-      "expected_pnl": -354.94,
+      "expected_pnl": 354.94,
       "summary": {
         "n_long": 0,
         "n_short": 22,
@@ -1930,7 +1930,7 @@
         1.51
       ],
       "confidence": 4,
-      "expected_pnl": -259.35,
+      "expected_pnl": 259.35,
       "summary": {
         "n_long": 0,
         "n_short": 23,
@@ -2079,7 +2079,7 @@
         1.72
       ],
       "confidence": 4,
-      "expected_pnl": -219.45,
+      "expected_pnl": 265.53,
       "summary": {
         "n_long": 1,
         "n_short": 22,
@@ -2195,7 +2195,7 @@
         2.32,
         1.68
       ],
-      "expected_pnl": -34.53,
+      "expected_pnl": 171.06,
       "summary": {
         "n_long": 8,
         "n_short": 9,
@@ -2343,7 +2343,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -261.11,
+      "expected_pnl": 261.11,
       "summary": {
         "n_long": 0,
         "n_short": 23,
@@ -2459,7 +2459,7 @@
         3.0,
         1.31
       ],
-      "expected_pnl": -55.26,
+      "expected_pnl": 315.71,
       "summary": {
         "n_long": 12,
         "n_short": 8,
@@ -2607,7 +2607,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -293.65,
+      "expected_pnl": 293.65,
       "summary": {
         "n_long": 0,
         "n_short": 23,
@@ -2723,7 +2723,7 @@
         0.0,
         0.0
       ],
-      "expected_pnl": -136.38,
+      "expected_pnl": 386.65,
       "summary": {
         "n_long": 7,
         "n_short": 13,
@@ -2871,7 +2871,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -329.91,
+      "expected_pnl": 329.91,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -2987,7 +2987,7 @@
         1.86,
         2.27
       ],
-      "expected_pnl": -540.83,
+      "expected_pnl": 552.96,
       "summary": {
         "n_long": 2,
         "n_short": 21,
@@ -3135,7 +3135,7 @@
         1.68
       ],
       "confidence": 3,
-      "expected_pnl": -252.82,
+      "expected_pnl": 252.82,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -3251,7 +3251,7 @@
         0.0,
         0.0
       ],
-      "expected_pnl": 99.49,
+      "expected_pnl": 298.31,
       "summary": {
         "n_long": 7,
         "n_short": 10,
@@ -3399,7 +3399,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -347.19,
+      "expected_pnl": 347.19,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -3515,7 +3515,7 @@
         1.86,
         0.0
       ],
-      "expected_pnl": 38.42,
+      "expected_pnl": 276.56,
       "summary": {
         "n_long": 3,
         "n_short": 12,
@@ -3663,7 +3663,7 @@
         1.74
       ],
       "confidence": 4,
-      "expected_pnl": -344.6,
+      "expected_pnl": 344.6,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -3779,7 +3779,7 @@
         3.0,
         2.56
       ],
-      "expected_pnl": -20.07,
+      "expected_pnl": 482.88,
       "summary": {
         "n_long": 9,
         "n_short": 11,
@@ -3927,7 +3927,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -358.41,
+      "expected_pnl": 358.41,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -4043,7 +4043,7 @@
         2.43,
         1.46
       ],
-      "expected_pnl": 259.43,
+      "expected_pnl": 619.33,
       "summary": {
         "n_long": 11,
         "n_short": 9,
@@ -4191,7 +4191,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -370.87,
+      "expected_pnl": 370.87,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -4307,7 +4307,7 @@
         1.86,
         0.0
       ],
-      "expected_pnl": -444.81,
+      "expected_pnl": 506.23,
       "summary": {
         "n_long": 2,
         "n_short": 15,
@@ -4455,7 +4455,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -387.55,
+      "expected_pnl": 387.55,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -4571,7 +4571,7 @@
         2.22,
         1.97
       ],
-      "expected_pnl": -154.41,
+      "expected_pnl": 444.48,
       "summary": {
         "n_long": 8,
         "n_short": 12,
@@ -4719,7 +4719,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -394.08,
+      "expected_pnl": 394.08,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -4835,7 +4835,7 @@
         3.0,
         3.0
       ],
-      "expected_pnl": -1047.56,
+      "expected_pnl": 1047.56,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -4983,7 +4983,7 @@
         1.68
       ],
       "confidence": 3,
-      "expected_pnl": -325.78,
+      "expected_pnl": 325.78,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -5099,7 +5099,7 @@
         3.0,
         2.93
       ],
-      "expected_pnl": -1223.7,
+      "expected_pnl": 1223.7,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -5247,7 +5247,7 @@
         2.24
       ],
       "confidence": 4,
-      "expected_pnl": -428.42,
+      "expected_pnl": 428.42,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -5363,7 +5363,7 @@
         2.03,
         0.83
       ],
-      "expected_pnl": -452.91,
+      "expected_pnl": 456.18,
       "summary": {
         "n_long": 1,
         "n_short": 22,
@@ -5511,7 +5511,7 @@
         1.94
       ],
       "confidence": 4,
-      "expected_pnl": -412.92,
+      "expected_pnl": 412.92,
       "summary": {
         "n_long": 0,
         "n_short": 23,
@@ -5627,7 +5627,7 @@
         1.86,
         1.48
       ],
-      "expected_pnl": -644.57,
+      "expected_pnl": 644.57,
       "summary": {
         "n_long": 0,
         "n_short": 22,
@@ -5775,7 +5775,7 @@
         1.94
       ],
       "confidence": 4,
-      "expected_pnl": -479.31,
+      "expected_pnl": 479.31,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -5891,7 +5891,7 @@
         3.0,
         3.0
       ],
-      "expected_pnl": 3854.94,
+      "expected_pnl": 4066.68,
       "summary": {
         "n_long": 10,
         "n_short": 8,
@@ -6039,7 +6039,7 @@
         1.48
       ],
       "confidence": 3,
-      "expected_pnl": 8.46,
+      "expected_pnl": 429.15,
       "summary": {
         "n_long": 5,
         "n_short": 19,
@@ -6155,7 +6155,7 @@
         1.86,
         0.0
       ],
-      "expected_pnl": 1506.24,
+      "expected_pnl": 1595.29,
       "summary": {
         "n_long": 20,
         "n_short": 2,
@@ -6303,7 +6303,7 @@
         1.98
       ],
       "confidence": 4,
-      "expected_pnl": -544.89,
+      "expected_pnl": 544.89,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -6419,7 +6419,7 @@
         3.0,
         1.97
       ],
-      "expected_pnl": -220.28,
+      "expected_pnl": 232.69,
       "summary": {
         "n_long": 3,
         "n_short": 19,
@@ -6567,7 +6567,7 @@
         1.98
       ],
       "confidence": 4,
-      "expected_pnl": -527.46,
+      "expected_pnl": 527.46,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -6683,7 +6683,7 @@
         2.24,
         1.31
       ],
-      "expected_pnl": -176.49,
+      "expected_pnl": 208.41,
       "summary": {
         "n_long": 3,
         "n_short": 16,
@@ -6831,7 +6831,7 @@
         1.98
       ],
       "confidence": 4,
-      "expected_pnl": -514.62,
+      "expected_pnl": 514.62,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -6947,7 +6947,7 @@
         1.86,
         0.0
       ],
-      "expected_pnl": -176.68,
+      "expected_pnl": 252.31,
       "summary": {
         "n_long": 3,
         "n_short": 14,
@@ -7095,7 +7095,7 @@
         2.47
       ],
       "confidence": 5,
-      "expected_pnl": -694.84,
+      "expected_pnl": 694.84,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -7211,7 +7211,7 @@
         1.86,
         0.86
       ],
-      "expected_pnl": -394.1,
+      "expected_pnl": 401.45,
       "summary": {
         "n_long": 1,
         "n_short": 20,
@@ -7359,7 +7359,7 @@
         1.94
       ],
       "confidence": 4,
-      "expected_pnl": -535.53,
+      "expected_pnl": 535.53,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -7475,7 +7475,7 @@
         1.86,
         0.77
       ],
-      "expected_pnl": -506.09,
+      "expected_pnl": 506.09,
       "summary": {
         "n_long": 0,
         "n_short": 24,
@@ -7623,7 +7623,7 @@
         1.74
       ],
       "confidence": 4,
-      "expected_pnl": -441.13,
+      "expected_pnl": 518.89,
       "summary": {
         "n_long": 1,
         "n_short": 23,
@@ -7739,7 +7739,7 @@
         3.0,
         0.92
       ],
-      "expected_pnl": 559.35,
+      "expected_pnl": 570.12,
       "summary": {
         "n_long": 15,
         "n_short": 2,
@@ -7803,5 +7803,188 @@
     ],
     "edge": -262.99,
     "reasoning": "Pre-cutoff web search found no compelling evidence of solar/wind underperformance, load spikes, forced outages, or scarcity for 2026-03-31. Persistence and hourly mean signals agree strongly on negative spread for most hours, reflecting typical overforecasting of renewables and load for this spring shoulder day. Largest negative spreads expected during HE10-21 due to midday solar overforecast and no late evening ramp stress. Confidence level is high due to agreement across signals and lack of stress evidence."
+  },
+  {
+    "run_date": "2026-04-30",
+    "target_date": "2026-05-01",
+    "agent": {
+      "spread_forecast_hourly": [
+        -27.99,
+        -17.58,
+        -15.96,
+        -13.68,
+        -17.99,
+        -15.84,
+        -10.8,
+        -12.59,
+        -14.22,
+        -13.14,
+        -11.8,
+        -16.4,
+        -16.2,
+        -16.2,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8,
+        -16.8
+      ],
+      "signals": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "positions_mw": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ],
+      "confidence": 3,
+      "expected_pnl": 1165.17,
+      "summary": {
+        "n_long": 0,
+        "n_short": 24,
+        "n_flat": 0,
+        "notional_mwh": 72.0
+      }
+    },
+    "persistence": {
+      "ref_date": "2026-04-29",
+      "spread_forecast_hourly": [
+        -11.35,
+        -7.62,
+        -6.82,
+        -8.3,
+        -6.49,
+        -5.26,
+        1.8,
+        -2.04,
+        5.99,
+        2.98,
+        1.94,
+        -9.91,
+        -14.36,
+        -8.31,
+        5.73,
+        20.93,
+        0.51,
+        3.05,
+        -4.73,
+        -16.04,
+        -23.72,
+        -24.16,
+        -16.37,
+        -3.33
+      ],
+      "signals": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        0,
+        -1,
+        1,
+        1,
+        0,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        0,
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "positions_mw": [
+        3.0,
+        2.29,
+        2.05,
+        2.49,
+        1.95,
+        1.58,
+        0.0,
+        0.61,
+        1.8,
+        0.89,
+        0.0,
+        2.97,
+        3.0,
+        2.49,
+        1.72,
+        3.0,
+        0.0,
+        2.6,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        1.0
+      ],
+      "expected_pnl": 553.96,
+      "summary": {
+        "n_long": 5,
+        "n_short": 16,
+        "n_flat": 3,
+        "notional_mwh": 48.44
+      }
+    },
+    "actual_spread_hourly": null,
+    "edge": null,
+    "reasoning": ""
   }
 ]

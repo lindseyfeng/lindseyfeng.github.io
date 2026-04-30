@@ -171,6 +171,47 @@
     @media (max-width: 768px) {
       .dart-container { width: 94%; }
     }
+
+    /* ── Agent tabs (shared with ercot-forecast.html) ────────── */
+    .agent-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 22px;
+    }
+    .agent-tabs .tab {
+      flex: 0 0 auto;
+      padding: 12px 22px 14px;
+      text-decoration: none;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .agent-tabs .tab:hover { color: #444; background: #fafafa; }
+    .agent-tabs .tab .tab-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .agent-tabs .tab .tab-sub {
+      display: block;
+      font-family: 'Radley', serif;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+    .agent-tabs .tab.tab-active {
+      color: #222;
+      border-bottom-color: #2d6a9f;
+    }
+    .agent-tabs .tab.tab-active .tab-sub { color: #777; }
+    @media (max-width: 600px) {
+      .agent-tabs .tab { padding: 10px 14px; }
+      .agent-tabs .tab .tab-label { font-size: 12px; }
+      .agent-tabs .tab .tab-sub { font-size: 11px; }
+    }
   </style>
 </head>
 
@@ -182,6 +223,17 @@
   </header>
 
   <div class="dart-container">
+    <nav class="agent-tabs">
+      <a href="./ercot-forecast.html" class="tab">
+        <span class="tab-label">Day-Ahead Forecast</span>
+        <span class="tab-sub">DAM price · MAE</span>
+      </a>
+      <a href="./dart-trading.html" class="tab tab-active">
+        <span class="tab-label">DART Trading</span>
+        <span class="tab-sub">RT-DAM spread · P&amp;L</span>
+      </a>
+    </nav>
+
     <div class="dart-title">ERCOT DART Trading — Live Positions</div>
     <div class="dart-sub">
       RT-DAM spread agent (v3: leakage-safe + momentum + risk-aware sizing)

@@ -363,9 +363,9 @@
     "date": "2026-04-29",
     "target_date": "2026-04-30",
     "forecast_avg": 41.7,
-    "actual_avg": null,
-    "mae": null,
-    "persistence_mae": null,
+    "actual_avg": 40.98,
+    "mae": 11.71,
+    "persistence_mae": 11.61,
     "forecast_hourly": [
       35.25,
       31.28,
@@ -417,6 +417,40 @@
       62.3,
       53.48,
       35.67
+    ]
+  },
+  {
+    "date": "2026-04-30",
+    "target_date": "2026-05-01",
+    "forecast_avg": 37.5,
+    "actual_avg": null,
+    "mae": null,
+    "persistence_mae": null,
+    "forecast_hourly": [
+      32.68,
+      33.07,
+      32.2,
+      33.15,
+      34.88,
+      40.89,
+      48.29,
+      49.3,
+      48.32,
+      39.71,
+      33.71,
+      32.0,
+      30.59,
+      31.81,
+      31.61,
+      33.22,
+      35.33,
+      48.52,
+      36.04,
+      38.96,
+      38.37,
+      45.39,
+      39.71,
+      32.13
     ]
   }
 ]

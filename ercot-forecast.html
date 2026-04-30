@@ -303,6 +303,15 @@
 
       const prevEntry = history.find(e => e.target_date === todayDate);
       const prevForecast = prevEntry && prevEntry.forecast_hourly;
+      // Persistence baseline for evaluating today = D-1 actuals (the anchor
+      // that was available when yesterday's forecast was made).  Stored on
+      // each scored history entry as `persistence_hourly`.  Fall back to
+      // `data.persistence` only if the history entry is missing it.
+      const prevPersistence =
+        (prevEntry && prevEntry.persistence_hourly) ||
+        (data.persistence && data.persistence.date !== todayDate
+          ? data.persistence.hourly_usd_per_mwh
+          : null);
 
       document.getElementById("eval-section").style.display = "block";
       document.getElementById("eval-date-label").textContent = todayDate;
@@ -335,11 +344,11 @@
         fill: true,
       });
 
-      if (data.persistence && data.persistence.hourly_usd_per_mwh) {
+      if (prevPersistence && prevPersistence.length === 24) {
         document.getElementById("eval-legend-persistence").style.display = "flex";
         datasets.push({
           label: "Persistence baseline",
-          data: data.persistence.hourly_usd_per_mwh,
+          data: prevPersistence,
           borderColor: "#bbb",
           borderDash: [5, 4],
           borderWidth: 1.5,
@@ -360,11 +369,11 @@
         const actuals = data.actuals_today.hourly_usd_per_mwh;
         const mae = prevForecast.reduce((s, v, i) => s + Math.abs(v - actuals[i]), 0) / 24;
         let txt = `Agent MAE: $${mae.toFixed(2)}/MWh`;
-        if (data.persistence && data.persistence.hourly_usd_per_mwh) {
-          const pers = data.persistence.hourly_usd_per_mwh;
-          const pmae = pers.reduce((s, v, i) => s + Math.abs(v - actuals[i]), 0) / 24;
+        if (prevPersistence && prevPersistence.length === 24) {
+          const pmae = prevPersistence.reduce((s, v, i) => s + Math.abs(v - actuals[i]), 0) / 24;
           const skill = ((1 - mae / pmae) * 100).toFixed(1);
-          txt += `  ·  Persistence MAE: $${pmae.toFixed(2)}/MWh  ·  Skill: ${skill > 0 ? "+" : ""}${skill}%`;
+          const skillNum = parseFloat(skill);
+          txt += `  ·  Persistence MAE: $${pmae.toFixed(2)}/MWh  ·  Skill: ${skillNum > 0 ? "+" : ""}${skill}%`;
         }
         document.getElementById("eval-mae").textContent = txt;
       } else {

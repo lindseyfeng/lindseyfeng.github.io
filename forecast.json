@@ -11,28 +11,28 @@
       20.11,
       20.59,
       22.17,
-      22.71,
-      23.68,
-      21.93,
-      19.73,
-      21.56,
-      22.09,
-      25.23,
-      26.33,
-      25.15,
-      28.26,
-      43.06,
-      52.62,
-      72.23,
+      23.58,
+      24.55,
+      22.8,
+      20.6,
+      22.43,
+      22.96,
+      26.1,
+      27.19,
+      26.02,
+      29.12,
+      44.79,
+      54.36,
+      73.97,
       93.67,
-      83.12,
+      84.85,
       87.74,
-      59.8,
-      44.7
+      61.54,
+      45.57
     ],
-    "daily_avg_usd_per_mwh": 37.4,
-    "peak_avg_usd_per_mwh": 68.94,
-    "offpeak_avg_usd_per_mwh": 21.31
+    "daily_avg_usd_per_mwh": 38.16,
+    "peak_avg_usd_per_mwh": 70.33,
+    "offpeak_avg_usd_per_mwh": 21.53
   },
   "actuals_today": {
     "date": "2026-05-05",
@@ -93,6 +93,6 @@
       45.43
     ]
   },
-  "reasoning": "The anchor_z is +0.24\u03c3, corresponding to a volatile regime context. Formula defaults recommend weights wA=0.700, wB=0.166, wC=0.134. Recent error track record shows persistence average error of -1.17 over last 3 days with mixed small errors, indicating the anchor tracked actuals well. Therefore, no adjustment to weights was made.",
+  "reasoning": "The anchor_z value is +0.29 indicating a slightly above-average regime volatility; the formula default weights under this regime context are wA=0.682, wB=0.184, wC=0.134. The recent error track record shows the anchor tracked actuals well with no consistent overshoot or undershoot patterns, so no weight adjustment was applied. The final forecast is a blend according to the formula defaults.",
   "confidence": 3
 }

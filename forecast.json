@@ -93,6 +93,6 @@
       45.43
     ]
   },
-  "reasoning": "The anchor_z is +0.24 indicating a mildly elevated price regime with volatility flagged. Formula default weights are wA=0.700, wB=0.166, wC=0.134, with max wA=0.842 allowed. Recent persistence errors show well-tracked anchor with errors within \u00b13 $/MWh over last 3 days, so no adjustment was warranted. Thus, formula defaults were used exactly.",
+  "reasoning": "The anchor_z is +0.24\u03c3, corresponding to a volatile regime context. Formula defaults recommend weights wA=0.700, wB=0.166, wC=0.134. Recent error track record shows persistence average error of -1.17 over last 3 days with mixed small errors, indicating the anchor tracked actuals well. Therefore, no adjustment to weights was made.",
   "confidence": 3
 }

@@ -246,6 +246,7 @@
       Loading DART forecast...
     </div>
     <div id="error" class="error-msg" style="display:none;"></div>
+    <div class="updated-note" id="countdown-note"></div>
 
     <div id="content" style="display:none;">
 
@@ -307,7 +308,6 @@
       <div class="reasoning-box" id="reasoning-box">&mdash;</div>
 
       <div class="updated-note" id="updated-note"></div>
-      <div class="updated-note" id="countdown-note"></div>
 
       <!-- ── Cumulative P&L ───────────────────────────────── -->
       <div id="cum-section" style="display:none;">
@@ -790,6 +790,7 @@
     }
 
     load();
+    startCountdown();
   </script>
 </body>
 

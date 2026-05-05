@@ -212,6 +212,7 @@
       Loading forecast...
     </div>
     <div id="error" class="error-msg" style="display:none;"></div>
+    <div class="updated-note" id="countdown-note"></div>
 
     <div id="content" style="display:none;">
 
@@ -263,7 +264,6 @@
       <div class="reasoning-box" id="reasoning-box">—</div>
 
       <div class="updated-note" id="updated-note"></div>
-      <div class="updated-note" id="countdown-note"></div>
 
       <!-- ── Cumulative MAE over time ───────────────────────── -->
       <div id="history-section" style="display:none;">
@@ -616,6 +616,7 @@
     }
 
     load();
+    startCountdown();
   </script>
 </body>
 

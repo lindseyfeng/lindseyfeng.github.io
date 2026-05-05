@@ -263,6 +263,7 @@
       <div class="reasoning-box" id="reasoning-box">—</div>
 
       <div class="updated-note" id="updated-note"></div>
+      <div class="updated-note" id="countdown-note"></div>
 
       <!-- ── Cumulative MAE over time ───────────────────────── -->
       <div id="history-section" style="display:none;">
@@ -582,6 +583,36 @@
       const genAt = new Date(data.generated_at);
       document.getElementById("updated-note").textContent =
         `Last updated: ${genAt.toUTCString()}`;
+      startCountdown();
+    }
+
+    function getNextRunUTC() {
+      const now = new Date();
+      const todayBase = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+      const run1 = new Date(todayBase + 20 * 3600000);
+      const run2 = new Date(todayBase + 22 * 3600000);
+      if (now < run1) return run1;
+      if (now < run2) return run2;
+      return new Date(todayBase + 24 * 3600000 + 20 * 3600000);
+    }
+
+    function startCountdown() {
+      function tick() {
+        const next = getNextRunUTC();
+        const diff = Math.max(0, next - new Date());
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        const timeStr = next.toLocaleString('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+        const parts = [];
+        if (h > 0) parts.push(`${h}h`);
+        if (m > 0 || h > 0) parts.push(`${m}m`);
+        parts.push(`${s}s`);
+        const el = document.getElementById("countdown-note");
+        if (el) el.textContent = `Next update in: ${parts.join(' ')} (${timeStr})`;
+      }
+      tick();
+      setInterval(tick, 1000);
     }
 
     load();

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      40.67,
-      36.29,
+      41.13,
       36.63,
-      38.44,
-      36.44,
-      42.97,
-      53.41,
-      52.63,
-      48.51,
-      41.66,
-      38.87,
-      36.2,
-      33.88,
-      31.95,
-      29.9,
-      28.34,
-      31.96,
-      37.31,
-      43.48,
-      48.95,
-      46.87,
-      45.31,
-      30.87,
-      23.66
+      37.02,
+      38.93,
+      36.83,
+      43.4,
+      54.36,
+      53.52,
+      49.55,
+      42.67,
+      39.98,
+      37.23,
+      34.78,
+      32.69,
+      30.48,
+      29.57,
+      32.36,
+      37.67,
+      43.81,
+      48.97,
+      46.9,
+      45.24,
+      30.6,
+      23.47
     ],
-    "daily_avg_usd_per_mwh": 38.97,
-    "peak_avg_usd_per_mwh": 41.71,
-    "offpeak_avg_usd_per_mwh": 42.19
+    "daily_avg_usd_per_mwh": 39.49,
+    "peak_avg_usd_per_mwh": 41.94,
+    "offpeak_avg_usd_per_mwh": 42.73
   },
   "actuals_today": {
     "date": "2026-05-06",
@@ -93,6 +93,6 @@
       20.73
     ]
   },
-  "reasoning": "Anchor z=+0.93 sigma indicating a volatile regime with moderate spike-reversion suggested. Formula default weights wA=0.509, wB=0.363, wC=0.127 were used without deviation because recent error track record showed mixed and small persistence errors without a clear pattern to adjust stage1_anchor weight. The anchor daily average is $41.26, the blended forecast average is $38.94, direction down relative to anchor daily avg, confidence at 5 for formula default adherence.",
+  "reasoning": "Anchor_z is +0.93 indicating a volatile regime; formula default weights were wA=0.509, wB=0.364, wC=0.127. The anchor's recent error pattern showed small undershoots within \u00b13 $/MWh, justifying an increase of wA by +0.10 to 0.609. This respects the max allowable wA of 0.621. The blend slightly favors the stage1 anchor given its stable recent performance.",
   "confidence": 3
 }

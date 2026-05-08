@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      22.89,
+      22.9,
       23.04,
       22.92,
       21.26,
       21.11,
       23.07,
-      27.66,
-      28.26,
-      24.38,
-      21.97,
-      21.36,
-      20.03,
-      19.1,
-      18.47,
-      19.16,
-      19.93,
-      23.46,
-      33.89,
-      48.85,
-      59.8,
-      56.11,
-      48.77,
-      39.13,
-      33.93
+      28.54,
+      29.13,
+      25.25,
+      22.84,
+      23.11,
+      21.79,
+      20.86,
+      20.23,
+      20.92,
+      21.69,
+      26.1,
+      35.63,
+      50.59,
+      61.56,
+      57.87,
+      51.42,
+      39.15,
+      33.94
     ],
-    "daily_avg_usd_per_mwh": 29.11,
-    "peak_avg_usd_per_mwh": 44.42,
-    "offpeak_avg_usd_per_mwh": 23.78
+    "daily_avg_usd_per_mwh": 30.21,
+    "peak_avg_usd_per_mwh": 46.35,
+    "offpeak_avg_usd_per_mwh": 24.0
   },
   "actuals_today": {
     "date": "2026-05-08",
@@ -93,6 +93,6 @@
       30.79
     ]
   },
-  "reasoning": "Anchor_z is +0.35 with regime NORMAL, indicating moderate trust in the stage-1 anchor. Formula defaults are wA=0.676, wB=0.206, wC=0.118. Recent error track shows persistence overshot actuals by +2.82 last 3 days but tracked well within \u00b13, so no deviation from defaults was made.",
+  "reasoning": "The anchor_z value is +0.48 indicating a moderate upward deviation, placing the regime context as NORMAL. The formula default weights computed were wA=0.631, wB=0.250, and wC=0.119 with a max wA of 0.750. The recent error track record shows persistence errors within \u00b13 $/MWh and no consistent overshoot or undershoot pattern, so no weight adjustment was made. The blend follows the formula defaults exactly.",
   "confidence": 3
 }

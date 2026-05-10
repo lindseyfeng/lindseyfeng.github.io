@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
+      18.86,
+      19.07,
+      18.58,
+      18.52,
+      19.86,
+      20.28,
+      23.32,
+      22.55,
+      18.29,
+      14.68,
+      17.34,
+      18.21,
+      17.85,
       18.8,
-      19.03,
-      18.55,
-      18.46,
-      19.8,
-      20.13,
-      22.56,
-      20.54,
-      15.95,
-      13.29,
-      15.11,
-      15.77,
-      15.42,
-      16.73,
-      16.47,
-      16.6,
-      20.46,
-      23.44,
-      53.15,
-      126.06,
-      118.88,
-      122.19,
-      107.01,
-      35.32
+      18.99,
+      19.64,
+      24.11,
+      27.82,
+      52.23,
+      120.45,
+      113.7,
+      116.61,
+      103.83,
+      35.29
     ],
-    "daily_avg_usd_per_mwh": 37.07,
-    "peak_avg_usd_per_mwh": 68.4,
-    "offpeak_avg_usd_per_mwh": 19.73
+    "daily_avg_usd_per_mwh": 37.45,
+    "peak_avg_usd_per_mwh": 67.66,
+    "offpeak_avg_usd_per_mwh": 20.13
   },
   "actuals_today": {
     "date": "2026-05-10",
@@ -93,6 +93,6 @@
       31.09
     ]
   },
-  "reasoning": "Anchor z=1.46 (SPIKE regime) sets formula default weights (wA=0.445, wB=0.439, wC=0.116). Recent persistence error shows small positive bias (+1.51 last 3 days) meaning anchor slightly overshot actuals but consistently tracked well, justifying increasing wA by 0.10 within max allowed 0.546. The final weights blend anchor moderately towards spike reversion and dow mean, lowering risk of overshooting the spike while leveraging the reliable anchor signal.",
+  "reasoning": "Anchor_z is +1.67 indicating a SPIKE regime with formula default weights wA=0.431, wB=0.453, wC=0.116. No adjustment was made as the recent persistence errors showed anchor tracked actuals well with small bias (+1.51 last 3 days). The spike-reverted weight appropriately reduces reliance on the stage-1 anchor given the large positive deviation.",
   "confidence": 3
 }

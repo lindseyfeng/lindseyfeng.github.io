@@ -11,28 +11,28 @@
       28.52,
       28.81,
       32.85,
-      36.98,
+      37.77,
       37.56,
-      29.62,
+      28.83,
       23.95,
       24.1,
-      22.15,
-      21.9,
-      21.95,
-      22.14,
-      22.99,
-      27.11,
-      32.65,
-      62.37,
-      111.6,
-      102.72,
-      83.33,
-      52.33,
-      31.58
+      21.42,
+      21.18,
+      21.23,
+      22.13,
+      22.98,
+      27.1,
+      32.64,
+      63.71,
+      111.5,
+      102.64,
+      84.65,
+      52.31,
+      32.33
     ],
-    "daily_avg_usd_per_mwh": 39.63,
-    "peak_avg_usd_per_mwh": 67.29,
-    "offpeak_avg_usd_per_mwh": 32.34
+    "daily_avg_usd_per_mwh": 39.68,
+    "peak_avg_usd_per_mwh": 67.52,
+    "offpeak_avg_usd_per_mwh": 32.44
   },
   "actuals_today": {
     "date": "2026-05-11",
@@ -93,6 +93,6 @@
       30.2
     ]
   },
-  "reasoning": "Anchor_z = +1.66 (SPIKE regime) yields formula defaults wA=0.434, wB=0.454, wC=0.112. Recent persistence errors show anchor undershot actuals by about -4 $/MWh, so slightly increased wA from 0.434 to 0.484 (max allowed 0.531) to capture the bullish bias. Weights sum to 1.0. Blend daily avg 39.37 vs formula 39.39, direction is down relative to anchor avg (41.62).",
+  "reasoning": "The anchor_z value is 1.67 indicating a spike regime context. The formula default weights were wA=0.433, wB=0.455, wC=0.112. Based on recent error track record showing persistence undershot actuals last 3 days, wA was increased by 0.05 (within max wA 0.531) to 0.483, decreasing wB accordingly, while wC stayed fixed. This adjustment reflects the anchor's moderately strong recent performance and balances spike reversion.",
   "confidence": 3
 }

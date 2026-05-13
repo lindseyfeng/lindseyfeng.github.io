@@ -11,28 +11,28 @@
       18.46,
       19.77,
       25.8,
-      30.27,
-      23.07,
+      28.49,
+      21.43,
       12.64,
-      8.63,
-      13.78,
+      7.74,
+      12.89,
       15.89,
-      16.43,
-      18.21,
-      18.99,
-      17.35,
-      20.4,
-      23.37,
+      17.32,
+      19.11,
+      19.88,
+      17.34,
+      21.29,
+      24.26,
       32.44,
-      63.51,
+      62.62,
       50.76,
-      42.55,
-      24.27,
-      19.72
+      43.44,
+      23.37,
+      18.82
     ],
-    "daily_avg_usd_per_mwh": 23.82,
-    "peak_avg_usd_per_mwh": 38.1,
-    "offpeak_avg_usd_per_mwh": 21.59
+    "daily_avg_usd_per_mwh": 23.71,
+    "peak_avg_usd_per_mwh": 38.27,
+    "offpeak_avg_usd_per_mwh": 21.17
   },
   "actuals_today": {
     "date": "2026-05-13",
@@ -93,6 +93,6 @@
       18.0
     ]
   },
-  "reasoning": "Anchor_z was -0.36 indicating a small negative deviation from the 7-day mean in a NORMAL regime. The formula default weights were wA=0.678, wB=0.214, wC=0.107. Recent error track record shows persistence errors small and mixed with average last-3-day error of -0.06, indicating the Stage-1 anchor tracked actuals well. Therefore, no deviation from formula defaults was made.",
+  "reasoning": "Anchor_z is -0.38, regime NORMAL indicates a typical moderate negative deviation from 7-day mean. Formula default weights (wA=0.672, wB=0.221, wC=0.107) were used without deviation because the recent 3-day persistence error is near zero (-0.06), signaling good tracking by the Stage-1 anchor. No consistent overshoot or undershoot pattern in errors to justify adjustment.",
   "confidence": 3
 }

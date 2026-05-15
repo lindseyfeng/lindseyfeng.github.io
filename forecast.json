@@ -11,28 +11,28 @@
       19.66,
       19.69,
       19.84,
-      21.55,
-      21.09,
+      22.44,
+      21.98,
       17.81,
       15.14,
       17.5,
       21.36,
-      21.53,
+      20.63,
       24.15,
-      25.81,
-      24.76,
-      30.46,
+      26.71,
+      25.65,
+      32.24,
       35.15,
-      45.61,
-      44.05,
+      43.82,
+      43.16,
       39.2,
-      36.11,
+      37.0,
       30.66,
-      24.55
+      25.44
     ],
-    "daily_avg_usd_per_mwh": 25.83,
-    "peak_avg_usd_per_mwh": 38.89,
-    "offpeak_avg_usd_per_mwh": 20.77
+    "daily_avg_usd_per_mwh": 25.98,
+    "peak_avg_usd_per_mwh": 38.71,
+    "offpeak_avg_usd_per_mwh": 20.99
   },
   "actuals_today": {
     "date": "2026-05-15",
@@ -93,6 +93,6 @@
       22.74
     ]
   },
-  "reasoning": "The anchor_z of +0.16 indicates a NORMAL regime with moderate upward trend. The formula defaults weights are wA=0.756, wB=0.137, wC=0.107 with Max wA=0.850. The recent error track shows persistence errors small and mixed, with no consistent overshoot or undershoot pattern, supporting no adjustment. Therefore, formula defaults were used exactly for the blend.",
+  "reasoning": "Anchor_z=0.18 placed regime in NORMAL context with formula default weights wA=0.746, wB=0.147, wC=0.107. Recent error track shows persistence bias close to zero and errors small (\u00b1$3), indicating good recent tracking, so no deviation from formula defaults was applied.",
   "confidence": 3
 }

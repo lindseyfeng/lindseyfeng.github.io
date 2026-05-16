@@ -11,27 +11,27 @@
       19.51,
       18.78,
       19.97,
-      20.6,
+      20.59,
       21.14,
       14.98,
       8.56,
-      10.49,
-      13.86,
-      17.13,
+      11.39,
+      14.76,
+      18.02,
       21.32,
-      20.92,
-      18.29,
-      22.49,
-      25.28,
-      31.03,
-      39.37,
-      38.88,
+      21.36,
+      18.3,
+      23.38,
+      25.73,
+      32.82,
+      41.16,
+      39.77,
       34.52,
       31.39,
       26.15
     ],
-    "daily_avg_usd_per_mwh": 22.52,
-    "peak_avg_usd_per_mwh": 31.41,
+    "daily_avg_usd_per_mwh": 22.9,
+    "peak_avg_usd_per_mwh": 32.57,
     "offpeak_avg_usd_per_mwh": 20.74
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       24.44
     ]
   },
-  "reasoning": "The anchor_z value is approx -0.08, placing the regime context in NORMAL. The formula default weights are wA=0.787, wB=0.106, wC=0.106. The recent error track record shows small persistence average error (+0.25), indicating the stage1 anchor tracked actuals well without consistent overshoot or undershoot. Therefore, no deviation from formula defaults was performed.",
+  "reasoning": "Anchor_z is -0.01 indicating a NORMAL regime context with the anchor very close to the 7-day mean. The formula default weights are wA=0.812, wB=0.082, wC=0.106, and these were followed without deviation. The recent error track record shows the Stage-1 anchor tracked actuals well over the last 3 days with errors within \u00b1$3/MWh, so no adjustment needed. Therefore, the forecast is a blend favoring the Stage-1 anchor as appropriate.",
   "confidence": 3
 }

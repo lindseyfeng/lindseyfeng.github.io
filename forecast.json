@@ -12,27 +12,27 @@
       20.95,
       25.52,
       27.83,
-      26.84,
-      22.53,
-      21.86,
+      27.22,
+      23.68,
+      22.62,
       21.61,
       23.61,
       23.29,
       25.9,
       26.66,
-      26.76,
-      30.58,
-      32.82,
-      43.15,
+      27.09,
+      29.97,
+      31.9,
+      42.13,
       85.93,
       77.46,
       67.98,
       51.03,
       29.78
     ],
-    "daily_avg_usd_per_mwh": 33.3,
-    "peak_avg_usd_per_mwh": 53.99,
-    "offpeak_avg_usd_per_mwh": 23.54
+    "daily_avg_usd_per_mwh": 33.31,
+    "peak_avg_usd_per_mwh": 53.48,
+    "offpeak_avg_usd_per_mwh": 23.59
   },
   "actuals_today": {
     "date": "2026-05-18",
@@ -93,6 +93,6 @@
       29.0
     ]
   },
-  "reasoning": "Anchor z-score is +5.83\u03c3 indicating a SPIKE regime context. The formula default blend weights are wA=0.414, wB=0.497, wC=0.089 with a Max wA cap of 0.500; these were used without deviation because the error track record shows persistence errors within \u00b13 over last 3 days, indicating the anchor tracked actuals well. Thus, no adjustment to weights was warranted.",
+  "reasoning": "The anchor_z is +5.82 indicating a SPIKE regime with formula default weights wA=0.414, wB=0.497, wC=0.089. The Stage-1 anchor daily average is $36.82 which is a significant outlier above the 7-day mean. The recent error track record shows persistence errors within \u00b1$3/MWh and no consistent overshoot, so the formula defaults were used without deviation.",
   "confidence": 3
 }

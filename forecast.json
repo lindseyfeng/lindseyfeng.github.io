@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.98,
-      25.92,
-      24.9,
-      24.29,
-      25.86,
-      24.57,
-      26.41,
-      23.75,
-      18.98,
-      17.37,
-      18.71,
-      19.57,
-      20.02,
-      21.73,
-      22.18,
-      22.69,
+      29.11,
+      26.02,
+      25.02,
+      24.39,
+      26.02,
+      24.52,
+      25.53,
+      22.75,
+      18.09,
+      16.57,
+      18.8,
+      19.76,
+      20.26,
+      21.9,
+      22.24,
+      22.63,
       26.38,
-      29.41,
-      57.65,
-      129.18,
-      123.44,
-      118.9,
-      105.57,
-      41.18
+      29.44,
+      58.26,
+      132.75,
+      126.55,
+      121.92,
+      106.98,
+      41.01
     ],
-    "daily_avg_usd_per_mwh": 41.57,
-    "peak_avg_usd_per_mwh": 73.21,
-    "offpeak_avg_usd_per_mwh": 25.59
+    "daily_avg_usd_per_mwh": 41.95,
+    "peak_avg_usd_per_mwh": 74.68,
+    "offpeak_avg_usd_per_mwh": 25.42
   },
   "actuals_today": {
     "date": "2026-05-24",
@@ -93,6 +93,6 @@
       30.25
     ]
   },
-  "reasoning": "",
+  "reasoning": "Anchor z=4.39 sigma, SPIKE regime context. Formula default weights: wA=0.410, wB=0.492, wC=0.098. Increased wA to 0.500 maximum allowed due to last 3 days errors within \u00b13 $/MWh, indicating anchor tracked actuals well. Weighted blend computed accordingly.",
   "confidence": 3
 }

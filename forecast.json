@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       24.52,
       21.98,
-      21.23,
+      21.24,
       21.64,
       22.25,
       25.31,
-      26.22,
-      20.84,
-      14.78,
-      13.65,
-      15.44,
-      16.42,
-      18.7,
-      21.03,
-      20.66,
-      20.47,
-      20.35,
-      23.25,
-      45.57,
-      98.2,
-      91.61,
-      82.45,
-      59.09,
-      28.4
+      27.97,
+      22.66,
+      16.63,
+      15.48,
+      16.39,
+      16.52,
+      17.91,
+      20.2,
+      20.68,
+      21.36,
+      23.72,
+      26.16,
+      45.22,
+      96.31,
+      90.15,
+      81.18,
+      58.65,
+      28.54
     ],
-    "daily_avg_usd_per_mwh": 32.25,
-    "peak_avg_usd_per_mwh": 55.8,
-    "offpeak_avg_usd_per_mwh": 23.0
+    "daily_avg_usd_per_mwh": 32.61,
+    "peak_avg_usd_per_mwh": 56.31,
+    "offpeak_avg_usd_per_mwh": 23.45
   },
   "actuals_today": {
     "date": "2026-05-25",
@@ -93,6 +93,6 @@
       25.33
     ]
   },
-  "reasoning": "The anchor_z is +0.86 (moderate outlier) indicating partial reversion is appropriate. Formula default weights are wA=0.541, wB=0.360, wC=0.099 with Max wA=0.637. Recent persistence errors show the anchor tracked actuals well (errors mostly within \u00b13 $/MWh), no adjustment made from formula defaults. The forecast is hence a blend reflecting the regime NORMAL with moderate spike reversion.",
+  "reasoning": "",
   "confidence": 3
 }

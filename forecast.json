@@ -11,28 +11,28 @@
       27.81,
       28.99,
       34.18,
-      38.54,
-      30.71,
-      22.21,
-      22.74,
-      25.12,
-      27.87,
-      30.16,
-      32.68,
-      34.25,
-      35.28,
-      37.37,
-      40.45,
-      49.09,
-      55.69,
-      57.87,
-      55.9,
-      53.71,
-      37.37
+      38.5,
+      30.69,
+      22.2,
+      22.73,
+      25.06,
+      27.77,
+      29.23,
+      32.56,
+      34.13,
+      35.16,
+      37.23,
+      40.27,
+      48.94,
+      55.67,
+      57.88,
+      55.83,
+      53.64,
+      37.35
     ],
-    "daily_avg_usd_per_mwh": 36.31,
-    "peak_avg_usd_per_mwh": 48.09,
-    "offpeak_avg_usd_per_mwh": 31.71
+    "daily_avg_usd_per_mwh": 36.22,
+    "peak_avg_usd_per_mwh": 48.0,
+    "offpeak_avg_usd_per_mwh": 31.7
   },
   "actuals_today": {
     "date": "2026-05-28",
@@ -93,6 +93,6 @@
       36.04
     ]
   },
-  "reasoning": "Anchor z=+1.16 (SPIKE regime) implies formula defaults wA=0.481, wB=0.408, wC=0.111. Recent errors show a persistence bias undershooting actuals by about $6/MWh last 3 days, so increased wA to max allowed 0.581 to trust the Stage-1 anchor more and reduce reversion. Blend weights set accordingly, resulting forecast daily avg $35.73 down slightly from Stage-1 anchor avg $37.75 due to partial weighting on spike reversion and dow mean.",
+  "reasoning": "Anchor_z is +1.15 indicating a SPIKE regime, formula defaults wA=0.482, wB=0.407, wC=0.111. Recent persistence error average last 3 days -6.13 shows undershoot bias and mixed errors supportive of increasing wA moderately. Max wA allowed is 0.582, so wA increased to 0.55. Other weights adjusted proportionally maintaining sum of 1.0. Final daily avg forecast $35.74 is slightly below stage1 anchor average of $37.70 indicating partial reversion.",
   "confidence": 3
 }

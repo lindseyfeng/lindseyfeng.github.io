@@ -11,28 +11,28 @@
       23.18,
       23.71,
       24.39,
-      27.21,
-      22.67,
-      16.4,
-      15.46,
-      16.8,
-      18.45,
-      22.31,
-      25.91,
-      30.09,
-      30.68,
-      33.69,
-      35.68,
-      45.79,
-      61.85,
-      61.08,
-      54.34,
-      38.56,
-      27.96
+      28.1,
+      23.57,
+      17.29,
+      16.36,
+      16.81,
+      17.57,
+      20.54,
+      24.13,
+      29.22,
+      30.7,
+      33.7,
+      34.45,
+      45.81,
+      61.86,
+      61.1,
+      54.36,
+      38.57,
+      27.97
     ],
-    "daily_avg_usd_per_mwh": 30.58,
-    "peak_avg_usd_per_mwh": 47.62,
-    "offpeak_avg_usd_per_mwh": 24.87
+    "daily_avg_usd_per_mwh": 30.47,
+    "peak_avg_usd_per_mwh": 47.38,
+    "offpeak_avg_usd_per_mwh": 25.09
   },
   "actuals_today": {
     "date": "2026-05-29",
@@ -93,6 +93,6 @@
       26.14
     ]
   },
-  "reasoning": "The anchor_z is +0.18 indicating a slightly above average regime, classified as NORMAL. Formula defaults set weights wA=0.745, wB=0.147, wC=0.107 with Max wA=0.85. Recent error tracking shows persistence overshot actuals on last 3 days but errors small (+0.19 avg), so no deviation is warranted. We use formula defaults exactly.",
+  "reasoning": "The anchor_z of +0.16 indicates a normal regime context for the forecast. The formula default weights are wA=0.754, wB=0.139, and wC=0.107 with maximum allowed wA at 0.850. Recent persistence errors show the anchor tracked well with a small average positive bias (+0.19) over the last 3 days, so no deviation from the formula defaults was warranted. Thus, the blend closely follows the stage-1 skill anchor with minor contributions from spike reversion and day-of-week means.",
   "confidence": 3
 }

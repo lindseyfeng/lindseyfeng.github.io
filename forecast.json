@@ -11,28 +11,28 @@
       21.29,
       21.5,
       23.12,
-      21.92,
-      19.42,
-      16.05,
+      21.9,
+      19.4,
+      16.04,
       15.57,
       17.24,
-      19.58,
-      21.57,
-      22.02,
-      21.4,
-      23.0,
-      25.61,
-      29.44,
-      35.61,
-      44.48,
-      47.18,
-      40.79,
-      29.86,
-      25.88
+      19.6,
+      21.59,
+      22.03,
+      21.39,
+      22.99,
+      26.5,
+      30.36,
+      37.37,
+      46.15,
+      47.96,
+      40.7,
+      29.79,
+      25.85
     ],
-    "daily_avg_usd_per_mwh": 25.38,
-    "peak_avg_usd_per_mwh": 36.46,
-    "offpeak_avg_usd_per_mwh": 21.74
+    "daily_avg_usd_per_mwh": 25.63,
+    "peak_avg_usd_per_mwh": 37.67,
+    "offpeak_avg_usd_per_mwh": 21.73
   },
   "actuals_today": {
     "date": "2026-05-30",
@@ -93,6 +93,6 @@
       23.66
     ]
   },
-  "reasoning": "The anchor_z is -0.58, indicating a moderate negative deviation in the anchor relative to the 7-day mean, assigning a NORMAL regime context. Formula default weights are stage1_anchor=0.606, spike_reverted=0.284, dow_mean=0.110 with Max wA of 0.715. Recent error track shows a persistence overshoot bias but no clear consistent error pattern justifying deviation. Therefore, formula defaults were used exactly.",
+  "reasoning": "",
   "confidence": 3
 }

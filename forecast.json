@@ -11,28 +11,28 @@
       25.06,
       29.67,
       34.7,
-      38.56,
-      31.61,
-      22.61,
-      21.08,
-      23.78,
-      25.42,
-      27.78,
-      28.54,
-      28.8,
-      30.45,
+      39.45,
+      32.5,
+      23.5,
+      21.98,
+      21.1,
+      22.73,
+      24.2,
+      24.97,
+      26.12,
+      27.77,
       32.95,
-      35.07,
-      43.52,
+      35.97,
+      44.41,
       52.76,
       51.9,
       49.91,
       40.14,
       33.08
     ],
-    "daily_avg_usd_per_mwh": 32.58,
-    "peak_avg_usd_per_mwh": 43.24,
-    "offpeak_avg_usd_per_mwh": 29.27
+    "daily_avg_usd_per_mwh": 32.06,
+    "peak_avg_usd_per_mwh": 43.6,
+    "offpeak_avg_usd_per_mwh": 29.5
   },
   "actuals_today": {
     "date": "2026-06-02",
@@ -93,6 +93,6 @@
       31.62
     ]
   },
-  "reasoning": "Anchor_z=+0.24 in NORMAL regime context implies moderate confidence in the Stage-1 anchor. The formula defaults weights are wA=0.723, wB=0.171, wC=0.106. Recent error track shows persistence errors averaging -2.27 over last 3 days, indicating the Stage-1 anchor tracked well; thus no deviation from formula defaults was made.",
+  "reasoning": "Anchor_z is +0.15 indicating a slightly above average but normal regime context. The formula defaults select weights wA=0.758, wB=0.136, wC=0.105 with a max wA cap of 0.850. Recent persistence errors indicate the anchor tracked actuals well with small bias, so no deviation from default weights was justified. Output is the formula default blend consistent with the stable error track record.",
   "confidence": 3
 }

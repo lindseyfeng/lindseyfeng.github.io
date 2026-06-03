@@ -314,8 +314,8 @@
     async function loadDART() {
       try {
         const [fc, hist] = await Promise.all([
-          fetch("/dart_forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
-          fetch("/dart_history.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
+          fetch("/dart_forecast_v2.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
+          fetch("/dart_history_v2.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
         ]);
 
         const tomorrowEV = fc && fc.agent ? fc.agent.expected_pnl : null;

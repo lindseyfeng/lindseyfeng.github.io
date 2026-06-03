@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      30.78,
+      30.74,
       27.52,
-      30.02,
-      31.07,
-      34.51,
-      36.38,
-      37.99,
-      34.43,
-      27.2,
-      25.2,
-      22.9,
-      23.32,
-      23.92,
-      28.06,
-      27.99,
-      29.13,
-      36.37,
-      38.4,
-      48.15,
-      62.82,
-      63.92,
-      59.72,
-      46.25,
-      36.81
+      29.95,
+      30.97,
+      34.37,
+      36.26,
+      38.95,
+      34.52,
+      26.39,
+      25.23,
+      19.46,
+      18.95,
+      19.52,
+      24.53,
+      25.3,
+      26.42,
+      36.42,
+      38.58,
+      48.31,
+      62.89,
+      63.97,
+      59.79,
+      47.16,
+      37.72
     ],
-    "daily_avg_usd_per_mwh": 35.95,
-    "peak_avg_usd_per_mwh": 49.93,
-    "offpeak_avg_usd_per_mwh": 32.84
+    "daily_avg_usd_per_mwh": 35.16,
+    "peak_avg_usd_per_mwh": 50.03,
+    "offpeak_avg_usd_per_mwh": 32.91
   },
   "actuals_today": {
     "date": "2026-06-03",
@@ -93,6 +93,6 @@
       36.82
     ]
   },
-  "reasoning": "Anchor_z is +0.98 indicating a moderately high anchor in a NORMAL regime. Formula default weights were wA=0.512, wB=0.380, wC=0.107. Recent error track shows persistence errors within \u00b13/MWh, signaling good anchor tracking; thus, wA was increased to max allowed 0.612. This reflects trust in the Stage-1 anchor with partial reversion. No conflicting error pattern detected.",
+  "reasoning": "The anchor_z is 0.82, regime context is NORMAL. The formula default weights are wA=0.543, wB=0.350, wC=0.107. Due to a consistent mild overshoot (persistence avg error last 3 days = -2.94), I increased wA to 0.645 (max allowed), reducing wB and wC proportionally. The error pattern showed anchor tracked well without large misses. Confidence is highest at 5.",
   "confidence": 3
 }

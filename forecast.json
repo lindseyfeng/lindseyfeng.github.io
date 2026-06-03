@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      30.74,
+      30.75,
       27.52,
-      29.95,
-      30.97,
-      34.37,
-      36.26,
-      38.95,
-      34.52,
-      26.39,
-      25.23,
-      19.46,
-      18.95,
-      19.52,
-      24.53,
-      25.3,
-      26.42,
-      36.42,
-      38.58,
-      48.31,
-      62.89,
-      63.97,
-      59.79,
-      47.16,
-      37.72
+      29.97,
+      31.0,
+      34.41,
+      36.3,
+      37.69,
+      34.1,
+      25.99,
+      24.87,
+      25.86,
+      27.17,
+      27.86,
+      31.91,
+      31.13,
+      32.32,
+      37.56,
+      39.29,
+      49.13,
+      64.25,
+      65.33,
+      60.89,
+      47.66,
+      37.28
     ],
-    "daily_avg_usd_per_mwh": 35.16,
-    "peak_avg_usd_per_mwh": 50.03,
-    "offpeak_avg_usd_per_mwh": 32.91
+    "daily_avg_usd_per_mwh": 37.09,
+    "peak_avg_usd_per_mwh": 51.11,
+    "offpeak_avg_usd_per_mwh": 32.72
   },
   "actuals_today": {
     "date": "2026-06-03",
@@ -93,6 +93,6 @@
       36.82
     ]
   },
-  "reasoning": "The anchor_z is 0.82, regime context is NORMAL. The formula default weights are wA=0.543, wB=0.350, wC=0.107. Due to a consistent mild overshoot (persistence avg error last 3 days = -2.94), I increased wA to 0.645 (max allowed), reducing wB and wC proportionally. The error pattern showed anchor tracked well without large misses. Confidence is highest at 5.",
+  "reasoning": "anchor_z=1.26 in SPIKE regime suggests partial spike reversion; formula defaults wA=0.47, wB=0.42, wC=0.11. Recent persistence errors show anchor tracked well with no consistent overshoot; therefore increased wA from 0.47 to 0.57 (max allowed 0.567) and decreased others proportionally. This reflects confidence in Stage-1 anchor with moderate spike reversion.",
   "confidence": 3
 }

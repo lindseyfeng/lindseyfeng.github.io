@@ -294,34 +294,32 @@
       </div>
 
       <!-- ── Position table ──────────────────────────────────── -->
-      <div class="section-label" style="margin-top:18px;">Per-hour position detail</div>
+      <div class="section-label" style="margin-top:18px;">Per-hour signal breakdown</div>
       <div style="overflow-x:auto;">
         <table class="positions" id="positionsTable">
           <thead>
             <tr>
               <th rowspan="2">HE</th>
               <th rowspan="2">DAM $</th>
-              <th colspan="2" style="background:#eef3f7; color:#2d6a9f;">Agent</th>
-              <th colspan="2" style="background:#fafafa; color:#888;">Persistence (yesterday)</th>
+              <th colspan="2" style="background:#f0f4f8; color:#555;">Signals</th>
+              <th colspan="3" style="background:#eef3f7; color:#2d6a9f;">LLM → Harness</th>
+              <th colspan="2" style="background:#f4f8f4; color:#2d7a4a;">Position</th>
+              <th colspan="2" style="background:#fafafa; color:#888;">Persistence</th>
             </tr>
             <tr>
-              <th style="background:#f4f8fb;">Forecast spread</th>
-              <th style="background:#f4f8fb;">MW (1 fixed)</th>
-              <th>Yest. spread</th>
-              <th>Position MW</th>
+              <th style="background:#f4f6f8; font-size:10px;">Bandit</th>
+              <th style="background:#f4f6f8; font-size:10px;">LR</th>
+              <th style="background:#f4f8fb; font-size:10px;">LLM raw</th>
+              <th style="background:#f4f8fb; font-size:10px;">Harness</th>
+              <th style="background:#f4f8fb; font-size:10px;">Flipped?</th>
+              <th style="background:#f4fbf4; font-size:10px;">Conf.</th>
+              <th style="background:#f4fbf4; font-size:10px;">MW</th>
+              <th style="font-size:10px;">Spread</th>
+              <th style="font-size:10px;">MW</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
-      </div>
-
-      <!-- Bandit confidence heatmap -->
-      <div id="bandit-section" style="display:none; margin-bottom:28px;">
-        <div class="section-label">Bandit hour confidence</div>
-        <div id="bandit-heatmap" style="display:flex; gap:3px; flex-wrap:nowrap; overflow-x:auto; margin-bottom:8px;"></div>
-        <div style="font-family:'Radley',serif; font-size:12px; color:#aaa;">
-          Each cell = per-hour confidence (0–1) from TSBandit72. Red = high confidence short, blue = high confidence long, grey = low confidence.
-        </div>
       </div>
 
       <!-- ── Reasoning ──────────────────────────────────────── -->
@@ -612,19 +610,44 @@
     function renderPositionsTable(data) {
       const a = data.agent;
       const p = data.persistence;
+      const perHour = a.per_hour || [];
       const tbody = document.querySelector("#positionsTable tbody");
+
+      function dirLabel(d) {
+        if (d === 1 || d === "1")  return '<span style="color:#2d6a9f;font-weight:700;">▲ L</span>';
+        if (d === -1 || d === "-1") return '<span style="color:#cc7a2a;font-weight:700;">▼ S</span>';
+        return '<span style="color:#ccc;">—</span>';
+      }
+      function flipBadge(f) {
+        return f ? '<span style="background:#f39c12;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;">FLIP</span>' : '';
+      }
+      function confBar(c) {
+        if (c == null) return '—';
+        const pct = Math.round(c * 100);
+        const col = c >= 0.7 ? '#2d8a4f' : (c >= 0.5 ? '#e0a030' : '#aaa');
+        return `<span style="font-size:10px;color:${col};">${pct}%</span>`;
+      }
+
       tbody.innerHTML = a.signals.map((sig, i) => {
+        const ph = perHour[i] || {};
         const cls = classForSignal(sig);
         const persSig = p && p.signals ? p.signals[i] : 0;
         const persCls = classForSignal(persSig);
         const persSpread = p && p.spread_forecast_hourly ? p.spread_forecast_hourly[i] : null;
         const persMW = p && p.positions_mw ? p.positions_mw[i].toFixed(2) : "—";
+        const mw = a.positions_mw[i];
+        const dam = data.dam_prices && data.dam_prices[i] != null ? "$" + data.dam_prices[i].toFixed(2) : "—";
         return `
           <tr>
             <td>HE${String(i + 1).padStart(2, "0")}</td>
-            <td>${data.dam_prices && data.dam_prices[i] != null ? "$" + data.dam_prices[i].toFixed(2) : "—"}</td>
-            <td>${fmtSpread(a.spread_forecast_hourly[i])}</td>
-            <td class="${cls}">${labelForSignal(sig)} ${a.positions_mw[i].toFixed(2)}</td>
+            <td>${dam}</td>
+            <td style="text-align:center;">${dirLabel(ph.bandit_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.bandit_p_long != null ? (ph.bandit_p_long*100).toFixed(0)+'%L' : ''}</span></td>
+            <td style="text-align:center;">${dirLabel(ph.lr_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.lr_prob != null ? (ph.lr_prob*100).toFixed(0)+'%' : ''}</span></td>
+            <td>${ph.llm_raw != null ? fmtSpread(ph.llm_raw) : fmtSpread(a.spread_forecast_hourly[i])}</td>
+            <td class="${cls}">${fmtSpread(a.spread_forecast_hourly[i])}</td>
+            <td style="text-align:center;">${flipBadge(ph.flipped)}</td>
+            <td style="text-align:center;">${confBar(ph.confidence)}</td>
+            <td class="${cls}">${labelForSignal(sig)} ${mw != null ? mw.toFixed(2) : '1.00'}</td>
             <td>${persSpread != null ? fmtSpread(persSpread) : "—"}</td>
             <td class="${persCls}">${persSig !== 0 ? labelForSignal(persSig) + " " : ""}${persMW}</td>
           </tr>

@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       25.89,
       23.34,
+      23.27,
+      24.29,
+      26.09,
+      26.91,
+      30.67,
+      29.3,
+      23.04,
       23.28,
-      24.4,
+      25.26,
+      25.95,
       26.29,
-      27.09,
-      30.98,
-      29.74,
-      22.49,
-      22.9,
-      26.31,
-      26.93,
-      27.17,
-      28.84,
-      31.62,
-      33.0,
-      34.91,
-      36.17,
-      41.36,
-      47.04,
-      47.84,
-      43.77,
-      31.64,
-      25.05
+      28.04,
+      30.75,
+      32.13,
+      34.53,
+      37.46,
+      46.73,
+      53.16,
+      53.11,
+      48.31,
+      33.76,
+      27.09
     ],
-    "daily_avg_usd_per_mwh": 30.75,
-    "peak_avg_usd_per_mwh": 41.46,
-    "offpeak_avg_usd_per_mwh": 26.38
+    "daily_avg_usd_per_mwh": 31.61,
+    "peak_avg_usd_per_mwh": 45.0,
+    "offpeak_avg_usd_per_mwh": 26.22
   },
   "actuals_today": {
     "date": "2026-06-04",
@@ -93,6 +93,6 @@
       23.93
     ]
   },
-  "reasoning": "Anchor_z value is +0.57 indicating moderate deviation; formula default weights were wA=0.619, wB=0.287, wC=0.094. The persistence errors over last 3 days are small and mixed within \u00b13 $/MWh, supporting an increase of wA by +0.10 per policy. Max wA allowed is 0.718, so used 0.719 capped by max. Error track shows anchor tracked actuals well, justifying higher weight on stage1 anchor.",
+  "reasoning": "anchor_z=0.95 (regime= NORMAL) gave formula defaults wA=0.524, wB=0.381, wC=0.096. The persistence error track record showed small positive error +1.30 indicating anchor slightly overshot actuals but tracked well. Given max wA=0.617, raised wA moderately to 0.60 for increased trust in anchor shape and magnitude. Weights wB and wC decreased proportionally. Blend daily avg 31.52 close to formula default 31.56.",
   "confidence": 3
 }

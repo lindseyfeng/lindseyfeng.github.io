@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      33.04,
+      33.03,
       28.42,
       28.1,
       28.16,
-      28.12,
+      28.11,
       26.1,
       27.53,
-      26.71,
-      20.69,
+      27.63,
+      21.6,
       20.49,
-      18.43,
-      19.41,
-      22.67,
-      24.24,
-      22.51,
-      25.22,
-      28.36,
-      31.61,
-      37.33,
-      58.25,
-      62.16,
-      46.79,
-      35.23,
-      27.08
+      22.08,
+      23.97,
+      27.23,
+      27.89,
+      25.24,
+      27.95,
+      31.09,
+      33.71,
+      40.07,
+      58.26,
+      62.17,
+      46.8,
+      36.15,
+      27.99
     ],
-    "daily_avg_usd_per_mwh": 30.28,
-    "peak_avg_usd_per_mwh": 43.54,
-    "offpeak_avg_usd_per_mwh": 28.27
+    "daily_avg_usd_per_mwh": 31.66,
+    "peak_avg_usd_per_mwh": 45.06,
+    "offpeak_avg_usd_per_mwh": 28.39
   },
   "actuals_today": {
     "date": "2026-06-07",
@@ -93,6 +93,6 @@
       25.88
     ]
   },
-  "reasoning": "The anchor_z is -0.07 indicating a normal regime with the anchor near the 7-day mean. Formula default weights are wA=0.805, wB=0.108, wC=0.087. The recent error track record shows persistence errors average +0.31 with small bias, indicating the anchor tracks actuals well without consistent overshoot or undershoot, so no adjustment made from formula defaults.",
+  "reasoning": "Anchor_z value is +0.48\u03c3 indicating a moderate positive deviation in normal regime context. The formula default weights (wA=0.651, wB=0.261, wC=0.088) were retained without deviation. The recent error track record shows that the anchor tracked actuals well with persistence average error +0.31, indicating no strong bias requiring adjustment.",
   "confidence": 3
 }

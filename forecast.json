@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       33.03,
       28.42,
-      28.1,
-      28.16,
+      28.09,
+      28.15,
       28.11,
       26.1,
-      27.53,
-      27.63,
-      21.6,
-      20.49,
-      18.43,
-      19.41,
-      22.67,
-      24.24,
-      22.51,
-      25.21,
-      21.97,
-      21.57,
-      31.29,
-      58.26,
-      62.17,
-      46.8,
-      34.32,
-      26.17
+      28.49,
+      27.64,
+      21.61,
+      21.39,
+      22.94,
+      23.92,
+      27.13,
+      28.73,
+      27.07,
+      29.74,
+      32.82,
+      33.58,
+      40.86,
+      57.96,
+      61.85,
+      46.86,
+      36.2,
+      28.05
     ],
-    "daily_avg_usd_per_mwh": 29.34,
-    "peak_avg_usd_per_mwh": 39.05,
-    "offpeak_avg_usd_per_mwh": 28.39
+    "daily_avg_usd_per_mwh": 32.03,
+    "peak_avg_usd_per_mwh": 45.41,
+    "offpeak_avg_usd_per_mwh": 28.5
   },
   "actuals_today": {
     "date": "2026-06-07",
@@ -93,6 +93,6 @@
       25.88
     ]
   },
-  "reasoning": "The anchor_z is -0.45 in a NORMAL regime context. The formula default weights are wA=0.662, wB=0.250, wC=0.088; these were used without deviation. The recent error track record shows persistence errors averaging +0.31 with well-tracked anchor errors, providing no justification for weight adjustment.",
+  "reasoning": "",
   "confidence": 3
 }

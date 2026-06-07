@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      33.53,
-      28.73,
-      28.45,
-      28.55,
-      28.48,
-      26.03,
-      27.39,
-      26.74,
-      20.78,
+      33.07,
+      28.44,
+      28.12,
+      28.18,
+      28.14,
+      26.09,
+      27.52,
+      26.72,
       20.69,
-      21.44,
-      22.45,
-      25.91,
-      27.32,
-      25.38,
-      28.35,
-      30.63,
-      33.16,
-      38.07,
-      57.52,
-      61.43,
-      46.06,
-      34.94,
-      26.91
+      20.5,
+      18.44,
+      19.41,
+      22.69,
+      24.25,
+      22.5,
+      25.23,
+      25.63,
+      27.06,
+      31.82,
+      58.21,
+      62.12,
+      46.75,
+      34.3,
+      26.15
     ],
-    "daily_avg_usd_per_mwh": 31.21,
-    "peak_avg_usd_per_mwh": 44.16,
-    "offpeak_avg_usd_per_mwh": 28.49
+    "daily_avg_usd_per_mwh": 29.67,
+    "peak_avg_usd_per_mwh": 40.97,
+    "offpeak_avg_usd_per_mwh": 28.29
   },
   "actuals_today": {
     "date": "2026-06-07",
@@ -93,6 +93,6 @@
       25.88
     ]
   },
-  "reasoning": "The anchor_z value is +0.26 with an overall NORMAL regime context. Formula default weights were wA=0.731, wB=0.182, wC=0.087 with a max wA of 0.834 allowing an increase by +0.10. Recent persistence error pattern shows the stage1 anchor tracked actuals well over the last 3 days (errors within \u00b1$3/MWh, avg +0.31), justifying increasing wA from 0.731 to 0.831. The spike-reverted and day-of-week weights were adjusted downward proportionally. The adjusted blend respects constraints and improves confidence.",
+  "reasoning": "Anchor_z is -0.32 indicating normal regime context; formula default weights wA=0.709, wB=0.203, wC=0.088 were adjusted by increasing wA to 0.75 given a consistent good error track record (small positive error ~+0.31 over last 3 days). No overshoot pattern identified. The increase was modest and within the max allowed wA of 0.811. Forecast is near daily avg of anchor, direction flat. No data gaps.",
   "confidence": 3
 }

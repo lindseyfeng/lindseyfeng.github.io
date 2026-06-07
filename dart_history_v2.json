@@ -15,11 +15,11 @@
         -5.0,
         -5.0,
         -5.0,
+        2.5,
         -5.0,
-        -5.0,
-        -5.0,
-        -5.0,
-        -5.0,
+        2.5,
+        2.5,
+        2.5,
         -5.0,
         -5.0,
         -5.0,
@@ -67,11 +67,11 @@
         -1,
         -1,
         -1,
+        1,
         -1,
-        -1,
-        -1,
-        -1,
-        -1,
+        1,
+        1,
+        1,
         -1,
         -1,
         -1,
@@ -134,10 +134,10 @@
         0.9
       ],
       "confidence": 5,
-      "expected_pnl": 120.0,
+      "expected_pnl": 110.0,
       "summary": {
-        "n_long": 0,
-        "n_short": 24,
+        "n_long": 4,
+        "n_short": 20,
         "n_flat": 0,
         "notional_mwh": 24.0
       },
@@ -299,8 +299,8 @@
         {
           "hour": 12,
           "llm_raw": -5.0,
-          "harness": -5.0,
-          "flipped": false,
+          "harness": 2.5,
+          "flipped": true,
           "lr_dir": 1,
           "lr_prob": 0.568,
           "bandit_dir": 1,
@@ -308,7 +308,7 @@
           "bandit_p_short": 0.375,
           "confidence": 0.9,
           "position_mw": 1.0,
-          "signal": -1
+          "signal": 1
         },
         {
           "hour": 13,
@@ -327,8 +327,8 @@
         {
           "hour": 14,
           "llm_raw": -5.0,
-          "harness": -5.0,
-          "flipped": false,
+          "harness": 2.5,
+          "flipped": true,
           "lr_dir": 1,
           "lr_prob": 0.551,
           "bandit_dir": 1,
@@ -336,13 +336,13 @@
           "bandit_p_short": 0.312,
           "confidence": 0.9,
           "position_mw": 1.0,
-          "signal": -1
+          "signal": 1
         },
         {
           "hour": 15,
           "llm_raw": -5.0,
-          "harness": -5.0,
-          "flipped": false,
+          "harness": 2.5,
+          "flipped": true,
           "lr_dir": 1,
           "lr_prob": 0.58,
           "bandit_dir": 1,
@@ -350,13 +350,13 @@
           "bandit_p_short": 0.312,
           "confidence": 0.9,
           "position_mw": 1.0,
-          "signal": -1
+          "signal": 1
         },
         {
           "hour": 16,
           "llm_raw": -5.0,
-          "harness": -5.0,
-          "flipped": false,
+          "harness": 2.5,
+          "flipped": true,
           "lr_dir": 1,
           "lr_prob": 0.577,
           "bandit_dir": 1,
@@ -364,7 +364,7 @@
           "bandit_p_short": 0.312,
           "confidence": 0.9,
           "position_mw": 1.0,
-          "signal": -1
+          "signal": 1
         },
         {
           "hour": 17,

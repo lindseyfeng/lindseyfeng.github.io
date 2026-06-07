@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       33.03,
       28.42,
-      28.1,
-      28.16,
+      28.09,
+      28.15,
       28.11,
       26.1,
-      27.53,
-      26.71,
-      20.69,
-      20.49,
-      21.17,
-      22.14,
-      25.4,
-      26.97,
-      25.24,
-      27.95,
-      30.18,
-      33.43,
-      39.16,
-      58.26,
-      62.17,
-      46.8,
-      35.23,
-      27.08
+      28.51,
+      27.65,
+      21.61,
+      21.39,
+      22.92,
+      23.9,
+      27.09,
+      28.7,
+      27.08,
+      29.72,
+      32.78,
+      33.53,
+      42.53,
+      57.81,
+      61.7,
+      46.88,
+      37.11,
+      28.96
     ],
-    "daily_avg_usd_per_mwh": 31.19,
-    "peak_avg_usd_per_mwh": 44.64,
-    "offpeak_avg_usd_per_mwh": 28.27
+    "daily_avg_usd_per_mwh": 32.16,
+    "peak_avg_usd_per_mwh": 45.67,
+    "offpeak_avg_usd_per_mwh": 28.51
   },
   "actuals_today": {
     "date": "2026-06-07",
@@ -93,6 +93,6 @@
       25.88
     ]
   },
-  "reasoning": "Anchor_z is +0.29 and regime is NORMAL, leading to formula default weights of wA=0.719, wB=0.194, wC=0.088 with Max wA=0.821. Recent persistence error averages +0.31 indicate the anchor tracked actual prices well without consistent bias, so no deviation from defaults was made.",
+  "reasoning": "The anchor_z value is +0.71 indicating a mildly elevated regime context (NORMAL). The formula default blend weights are wA=0.582, wB=0.329, wC=0.089, and these were used without deviation. The recent error track record showed persistence errors averaging +0.31 (small overshoot), indicating the anchor tracked actuals well with no consistent bias requiring adjustment.",
   "confidence": 3
 }

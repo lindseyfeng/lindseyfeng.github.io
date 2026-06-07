@@ -15,23 +15,23 @@
       27.63,
       21.6,
       20.49,
-      22.08,
-      23.97,
-      27.23,
-      27.89,
-      25.24,
-      27.95,
-      31.09,
-      33.71,
-      40.07,
+      18.43,
+      19.41,
+      22.67,
+      24.24,
+      22.51,
+      25.21,
+      21.97,
+      21.57,
+      31.29,
       58.26,
       62.17,
       46.8,
-      36.15,
-      27.99
+      34.32,
+      26.17
     ],
-    "daily_avg_usd_per_mwh": 31.66,
-    "peak_avg_usd_per_mwh": 45.06,
+    "daily_avg_usd_per_mwh": 29.34,
+    "peak_avg_usd_per_mwh": 39.05,
     "offpeak_avg_usd_per_mwh": 28.39
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       25.88
     ]
   },
-  "reasoning": "Anchor_z value is +0.48\u03c3 indicating a moderate positive deviation in normal regime context. The formula default weights (wA=0.651, wB=0.261, wC=0.088) were retained without deviation. The recent error track record shows that the anchor tracked actuals well with persistence average error +0.31, indicating no strong bias requiring adjustment.",
+  "reasoning": "The anchor_z is -0.45 in a NORMAL regime context. The formula default weights are wA=0.662, wB=0.250, wC=0.088; these were used without deviation. The recent error track record shows persistence errors averaging +0.31 with well-tracked anchor errors, providing no justification for weight adjustment.",
   "confidence": 3
 }

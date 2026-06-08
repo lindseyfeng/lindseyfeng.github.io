@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      24.88,
-      23.18,
+      24.84,
+      23.15,
       21.72,
-      21.21,
-      22.21,
-      23.77,
-      24.55,
-      22.12,
-      19.18,
-      18.81,
-      19.09,
-      20.53,
-      20.67,
-      22.64,
-      25.46,
-      26.5,
-      27.91,
-      26.31,
-      34.94,
-      44.79,
-      45.47,
-      41.87,
-      35.13,
-      27.61
+      21.22,
+      22.24,
+      23.85,
+      24.28,
+      21.84,
+      18.92,
+      18.57,
+      21.53,
+      23.93,
+      24.0,
+      26.87,
+      29.35,
+      30.81,
+      33.12,
+      33.15,
+      42.45,
+      54.08,
+      50.68,
+      43.27,
+      36.92,
+      29.36
     ],
-    "daily_avg_usd_per_mwh": 26.69,
-    "peak_avg_usd_per_mwh": 35.88,
-    "offpeak_avg_usd_per_mwh": 22.96
+    "daily_avg_usd_per_mwh": 29.17,
+    "peak_avg_usd_per_mwh": 42.7,
+    "offpeak_avg_usd_per_mwh": 22.89
   },
   "actuals_today": {
     "date": "2026-06-08",
@@ -93,6 +93,6 @@
       26.94
     ]
   },
-  "reasoning": "The anchor_z of -1.04 indicates a CRASH regime context with formula default weights wA=0.509, wB=0.399, wC=0.092. Given that the persistence errors over the last three days are moderate (+1.11), indicating the anchor tracked actuals well, I increased wA by +0.09 to the allowed maximum 0.599 and proportionally reduced wB and wC. This reflects confidence in the stage1 anchor with partial spike reversion.",
+  "reasoning": "The anchor_z is -0.11 indicating a NORMAL regime context with the anchor close to the 7-day mean. The formula default weights are wA=0.790, wB=0.122, wC=0.089 with a Max wA allowed of 0.850. The recent 3-day persistence error shows a small positive bias (+1.11), indicating the anchor tracked actuals well within \u00b1$3/MWh, so no deviation was applied. The blend uses formula defaults exactly as recommended.",
   "confidence": 3
 }

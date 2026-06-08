@@ -93,6 +93,6 @@
       26.94
     ]
   },
-  "reasoning": "Anchor_z is -0.24, indicating a normal regime with the Stage-1 anchor close to the 7-day mean. Formula computed default weights are wA=0.737, wB=0.174, wC=0.089; no deviation from defaults was made. Recent error track record shows persistence overshot actuals by only +1.11 over the last 3 days, indicating the anchor tracked well without significant bias.",
+  "reasoning": "Anchor_z is -0.24 indicating a normal regime context. Formula-computed default weights are wA=0.737, wB=0.174, wC=0.089, which we used without deviation. Recent error track record shows persistence errors within \u00b13 $/MWh and no clear overshoot bias, supporting no weight adjustment.",
   "confidence": 3
 }

@@ -93,6 +93,6 @@
       26.94
     ]
   },
-  "reasoning": "Anchor_z is -0.24 indicating a typical NORMAL regime context. Formula default weights are stage1_anchor=0.737, spike_reverted=0.174, dow_mean=0.089; no deviation applied due to well-tracked recent error pattern with persistence errors averaging +1.11 over last 3 days supporting anchor as-is. The anchor was close to recent actuals with no large overshoot pattern, so formula defaults were trusted exactly.",
+  "reasoning": "Anchor_z is -0.24, indicating a normal regime with the Stage-1 anchor close to the 7-day mean. Formula computed default weights are wA=0.737, wB=0.174, wC=0.089; no deviation from defaults was made. Recent error track record shows persistence overshot actuals by only +1.11 over the last 3 days, indicating the anchor tracked well without significant bias.",
   "confidence": 3
 }

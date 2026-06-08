@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      24.87,
-      23.18,
+      24.84,
+      23.15,
       21.72,
-      21.21,
-      22.21,
-      23.78,
-      24.55,
-      22.13,
-      19.17,
-      18.81,
-      19.08,
-      20.52,
-      20.66,
-      22.63,
-      25.45,
-      26.49,
-      27.9,
-      26.3,
-      34.94,
-      44.81,
-      45.49,
-      41.89,
-      35.14,
-      27.62
+      21.23,
+      22.24,
+      23.85,
+      26.11,
+      23.66,
+      20.74,
+      20.39,
+      21.52,
+      23.01,
+      23.08,
+      25.04,
+      27.96,
+      28.98,
+      32.2,
+      31.32,
+      41.19,
+      51.35,
+      48.87,
+      42.37,
+      36.93,
+      29.37
     ],
-    "daily_avg_usd_per_mwh": 26.69,
-    "peak_avg_usd_per_mwh": 35.89,
-    "offpeak_avg_usd_per_mwh": 22.96
+    "daily_avg_usd_per_mwh": 28.8,
+    "peak_avg_usd_per_mwh": 40.99,
+    "offpeak_avg_usd_per_mwh": 23.35
   },
   "actuals_today": {
     "date": "2026-06-08",
@@ -93,6 +93,6 @@
       26.94
     ]
   },
-  "reasoning": "The anchor_z is -1.04 indicating a CRASH regime context near 1\u03c3 below mean. Formula defaults are wA=0.509, wB=0.399, wC=0.092. Persistence error track record of last 3 days shows anchor overshot actuals slightly (+1.11 MWh) but tracked well within \u00b13 MWh, supporting increased trust in anchor weight. Raised wA to max allowed 0.599, reducing wB and wC proportionally. No other adjustments needed.",
+  "reasoning": "Anchor_z is -0.24 indicating a typical NORMAL regime context. Formula default weights are stage1_anchor=0.737, spike_reverted=0.174, dow_mean=0.089; no deviation applied due to well-tracked recent error pattern with persistence errors averaging +1.11 over last 3 days supporting anchor as-is. The anchor was close to recent actuals with no large overshoot pattern, so formula defaults were trusted exactly.",
   "confidence": 3
 }

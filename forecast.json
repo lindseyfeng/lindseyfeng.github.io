@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      26.01,
-      23.77,
+      26.0,
+      23.76,
       23.43,
-      23.05,
-      22.94,
-      24.95,
-      25.93,
-      22.68,
-      18.09,
-      16.86,
-      20.85,
-      24.63,
-      27.75,
-      28.68,
-      29.39,
-      30.03,
-      35.07,
-      36.69,
-      47.0,
-      60.4,
-      58.85,
-      50.72,
-      39.02,
-      29.66
+      23.04,
+      22.93,
+      24.94,
+      25.9,
+      22.66,
+      18.06,
+      16.84,
+      19.94,
+      23.74,
+      26.87,
+      27.8,
+      28.51,
+      29.14,
+      33.3,
+      34.92,
+      45.28,
+      58.68,
+      57.11,
+      48.95,
+      38.12,
+      28.75
     ],
-    "daily_avg_usd_per_mwh": 31.1,
-    "peak_avg_usd_per_mwh": 47.6,
-    "offpeak_avg_usd_per_mwh": 24.09
+    "daily_avg_usd_per_mwh": 30.36,
+    "peak_avg_usd_per_mwh": 45.86,
+    "offpeak_avg_usd_per_mwh": 24.08
   },
   "actuals_today": {
     "date": "2026-06-09",
@@ -93,6 +93,6 @@
       26.37
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z of +0.28 indicates a normal regime with a slight upward deviation. The formula default weights were stage1_anchor=0.722, spike_reverted=0.187, dow_mean=0.090. Recent error track record shows the anchor tracked actuals well with average errors within \u00b13 MWh over the last 3 days, so no adjustment was made from formula defaults.",
   "confidence": 3
 }

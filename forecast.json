@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      26.53,
-      25.09,
-      24.61,
-      22.75,
-      24.0,
-      24.94,
-      25.49,
-      22.81,
+      26.67,
+      25.17,
+      24.64,
+      22.9,
+      24.13,
+      25.14,
+      26.13,
+      22.97,
       20.96,
-      19.89,
-      23.44,
-      26.31,
-      28.26,
-      29.59,
-      30.65,
-      31.47,
-      37.35,
-      37.11,
-      45.97,
-      57.03,
-      54.64,
-      46.97,
-      40.06,
-      30.71
+      20.23,
+      22.66,
+      25.58,
+      26.76,
+      28.5,
+      29.93,
+      31.17,
+      36.22,
+      34.14,
+      41.22,
+      53.37,
+      51.96,
+      45.07,
+      39.54,
+      30.77
     ],
-    "daily_avg_usd_per_mwh": 31.53,
-    "peak_avg_usd_per_mwh": 46.42,
-    "offpeak_avg_usd_per_mwh": 24.53
+    "daily_avg_usd_per_mwh": 30.66,
+    "peak_avg_usd_per_mwh": 43.38,
+    "offpeak_avg_usd_per_mwh": 24.72
   },
   "actuals_today": {
     "date": "2026-06-10",
@@ -93,6 +93,6 @@
       29.21
     ]
   },
-  "reasoning": "The anchor_z is +1.66, regime context SPIKE; formula default weights were wA=0.445, wB=0.466, wC=0.089. Recent error track shows persistence errors near zero last 3 days, indicating good anchor tracking. Therefore, wA increased by 0.10 to 0.545, with wB and wC reduced proportionally. Blend daily avg is $31.53, slightly below anchor avg $32.48 indicating a down direction relative to candidate A.",
+  "reasoning": "The anchor_z value is +1.07 indicating a SPIKE regime context. Formula default weights are wA=0.506, wB=0.406, wC=0.088, with Max wA allowed = 0.594. Recent persistence errors show the anchor tracked well over the last 3 days (errors within \u00b1$3/MWh), so no adjustment was made from formula defaults. Therefore, the blend uses the formula defaults exactly.",
   "confidence": 3
 }

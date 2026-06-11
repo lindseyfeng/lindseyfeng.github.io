@@ -297,8 +297,8 @@
     <div class="dart-title">ERCOT DART Trading — Live Positions<span style="background:#2d6a9f;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:10px;vertical-align:middle;">v4 BANDIT</span></div>
     <div class="dart-sub">
       Agentic RT−DAM spread forecaster &nbsp;·&nbsp; HB_NORTH hub &nbsp;·&nbsp;
-      signals: LR direction model + TSBandit72 per-hour win-rate tiebreaker + regime detector &nbsp;·&nbsp;
-      post-process harness: LR overnight alignment + bandit consensus override &nbsp;·&nbsp;
+      priors fed to the LLM: 14-day regime mean + LR direction model + TSBandit72 win-rate + spike-risk LR &nbsp;·&nbsp;
+      <b>no post-process harness</b> — the LLM reasons over the priors and decides each hour itself &nbsp;·&nbsp;
       fixed 1 MW · ±$2/MWh threshold &nbsp;·&nbsp; runs daily 3 PM CT after DAM clears
     </div>
 
@@ -349,19 +349,17 @@
             <tr>
               <th rowspan="2">HE</th>
               <th rowspan="2">DAM $</th>
-              <th colspan="2" style="background:#f0f4f8; color:#555;">Signals</th>
-              <th colspan="3" style="background:#eef3f7; color:#2d6a9f;">LLM → Harness</th>
-              <th colspan="2" style="background:#f4f8f4; color:#2d7a4a;">Position</th>
+              <th colspan="2" style="background:#f0f4f8; color:#555;">Quant priors</th>
+              <th colspan="2" style="background:#eef3f7; color:#2d6a9f;">LLM decision</th>
+              <th rowspan="2" style="background:#f4f8f4; color:#2d7a4a;">Position MW</th>
+              <th rowspan="2" style="background:#fbf7f0; color:#9a6a2a; min-width:200px;">Why — LLM rationale</th>
               <th colspan="2" style="background:#fafafa; color:#888;">Persistence</th>
             </tr>
             <tr>
               <th style="background:#f4f6f8; font-size:10px;">Bandit</th>
               <th style="background:#f4f6f8; font-size:10px;">LR</th>
-              <th style="background:#f4f8fb; font-size:10px;">LLM raw</th>
-              <th style="background:#f4f8fb; font-size:10px;">Harness</th>
-              <th style="background:#f4f8fb; font-size:10px;">Flipped?</th>
-              <th style="background:#f4fbf4; font-size:10px;">Conf.</th>
-              <th style="background:#f4fbf4; font-size:10px;">MW</th>
+              <th style="background:#f4f8fb; font-size:10px;">Spread</th>
+              <th style="background:#f4f8fb; font-size:10px;">Conf.</th>
               <th style="font-size:10px;">Spread</th>
               <th style="font-size:10px;">MW</th>
             </tr>
@@ -423,6 +421,11 @@
       if (v == null || isNaN(v)) return "—";
       const sign = v > 0 ? "+" : (v < 0 ? "−" : "");
       return `${sign}$${Math.abs(v).toFixed(2)}`;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     }
 
     function classForSignal(s) {
@@ -698,11 +701,10 @@
             <td>${dam}</td>
             <td style="text-align:center;">${dirLabel(ph.bandit_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.bandit_p_long != null ? (ph.bandit_p_long*100).toFixed(0)+'%L' : ''}</span></td>
             <td style="text-align:center;">${dirLabel(ph.lr_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.lr_prob != null ? (ph.lr_prob*100).toFixed(0)+'%' : ''}</span></td>
-            <td>${ph.llm_raw != null ? fmtSpread(ph.llm_raw) : fmtSpread(a.spread_forecast_hourly[i])}</td>
             <td class="${cls}">${fmtSpread(a.spread_forecast_hourly[i])}</td>
-            <td style="text-align:center;">${flipBadge(ph.flipped)}</td>
             <td style="text-align:center;">${confBar(ph.confidence)}</td>
             <td class="${cls}">${labelForSignal(sig)} ${mw != null ? mw.toFixed(2) : '1.00'}</td>
+            <td style="font-size:10px; color:#555; text-align:left; line-height:1.35;">${ph.reason ? escapeHtml(ph.reason) : '<span style="color:#bbb;">—</span>'}</td>
             <td>${persSpread != null ? fmtSpread(persSpread) : "—"}</td>
             <td class="${persCls}">${persSig !== 0 ? labelForSignal(persSig) + " " : ""}${persMW}</td>
           </tr>
@@ -768,8 +770,6 @@
             <td style="text-align:left">${he}</td>
             <td>${act != null ? (act>=0?'+':'')+act.toFixed(2) : '—'}</td>
             <td>${phi.llm_raw != null ? (phi.llm_raw>=0?'+':'')+phi.llm_raw.toFixed(2) : '—'}</td>
-            <td>${phi.harness != null ? (phi.harness>=0?'+':'')+phi.harness.toFixed(2) : '—'}</td>
-            <td>${phi.flipped ? '<span style="color:#e07b39;font-weight:700">FLIP</span>' : ''}</td>
             <td>${phi.bandit_dir != null ? (phi.bandit_dir>0?'▲L':phi.bandit_dir<0?'▼S':'—') : '—'}</td>
             <td>${phi.lr_dir != null ? (phi.lr_dir>0?'▲L':phi.lr_dir<0?'▼S':'—') : '—'}</td>
             <td>${phi.confidence != null ? Math.round(phi.confidence*100)+'%' : '—'}</td>
@@ -777,6 +777,7 @@
             <td class="${apCls}">${ap != null ? (ap>=0?'+':'')+ap.toFixed(2) : '—'}</td>
             <td class="${pSigCls}">${pSig>0?'LONG':pSig<0?'SHORT':'—'}</td>
             <td class="${ppCls}">${pp != null ? (pp>=0?'+':'')+pp.toFixed(2) : '—'}</td>
+            <td style="text-align:left;font-size:10px;color:#666;max-width:240px;">${phi.reason ? escapeHtml(phi.reason) : '—'}</td>
           </tr>`;
         }).join('');
 
@@ -796,9 +797,9 @@
             <div style="overflow-x:auto;">
             <table class="day-tbl">
               <thead><tr>
-                <th>HE</th><th>Actual $</th><th>LLM raw</th><th>Harness</th><th>Flip</th>
+                <th>HE</th><th>Actual $</th><th>Forecast</th>
                 <th>Bandit</th><th>LR</th><th>Conf</th>
-                <th>Signal</th><th>Agent P&amp;L</th><th>Pers sig</th><th>Pers P&amp;L</th>
+                <th>Signal</th><th>Agent P&amp;L</th><th>Pers sig</th><th>Pers P&amp;L</th><th>Why</th>
               </tr></thead>
               <tbody>${tableRows}</tbody>
             </table>

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      34.6,
-      29.69,
-      30.61,
-      30.22,
-      32.37,
-      34.04,
-      33.25,
-      31.42,
-      26.07,
-      25.34,
-      24.78,
-      26.0,
-      27.58,
+      34.22,
       29.47,
-      30.22,
-      30.46,
-      31.3,
-      32.84,
-      39.31,
-      47.64,
-      49.9,
-      47.17,
-      42.13,
-      31.09
+      30.32,
+      29.95,
+      31.98,
+      33.62,
+      32.77,
+      30.39,
+      25.68,
+      24.87,
+      24.28,
+      25.51,
+      27.1,
+      28.98,
+      29.74,
+      30.0,
+      30.83,
+      32.33,
+      38.83,
+      47.21,
+      49.44,
+      46.68,
+      40.95,
+      30.22
     ],
-    "daily_avg_usd_per_mwh": 33.23,
-    "peak_avg_usd_per_mwh": 40.2,
-    "offpeak_avg_usd_per_mwh": 32.02
+    "daily_avg_usd_per_mwh": 32.72,
+    "peak_avg_usd_per_mwh": 39.73,
+    "offpeak_avg_usd_per_mwh": 31.59
   },
   "actuals_today": {
     "date": "2026-06-12",
@@ -93,6 +93,6 @@
       29.25
     ]
   },
-  "reasoning": "Anchor_z is +1.43\u03c3 indicating partial spike regime bias. Formula defaults from calibration block gave wA=0.459, wB=0.447, wC=0.093. Given recent 3-day persistence errors show consistent small negative bias (-2.18) meaning the Stage-1 anchor did not overshoot actuals, I increased wA by 0.10 to 0.559 staying within max allowed 0.549 + 0.01 margin, adjusting wB and wC proportionally down. Error track record justifies this slight increase as the anchor performed well recently.",
+  "reasoning": "",
   "confidence": 3
 }

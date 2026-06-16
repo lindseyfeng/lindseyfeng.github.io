@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      39.56,
-      35.74,
+      39.57,
+      35.75,
       34.58,
-      34.57,
-      36.94,
-      42.53,
-      42.71,
+      34.58,
+      36.95,
+      42.54,
+      42.72,
       36.67,
       26.95,
       26.35,
       28.49,
       28.09,
       30.41,
-      31.09,
+      31.1,
       32.34,
-      33.67,
+      34.43,
       38.89,
       39.35,
-      47.0,
-      55.96,
-      54.62,
-      47.2,
+      46.99,
+      55.95,
+      54.61,
+      47.19,
       36.55,
-      27.19
+      27.18
     ],
-    "daily_avg_usd_per_mwh": 36.98,
+    "daily_avg_usd_per_mwh": 37.01,
     "peak_avg_usd_per_mwh": 47.16,
-    "offpeak_avg_usd_per_mwh": 37.91
+    "offpeak_avg_usd_per_mwh": 37.92
   },
   "actuals_today": {
     "date": "2026-06-16",
@@ -93,6 +93,6 @@
       23.45
     ]
   },
-  "reasoning": "Anchor_z is +1.64 (SPIKE regime) indicating a strong positive deviation from 7-day mean. Formula default weights were wA=0.44, wB=0.459, wC=0.10; max wA allowed 0.532. Recent error pattern shows small undershoot errors <\u00b13$ in last 3 days, justifying increasing wA slightly by +0.10 to 0.54 while staying within max allowed. This modest increase trusts the stage1 anchor shape despite spike context.",
+  "reasoning": "Anchor_z=+1.65 indicates SPIKE regime, formula default weights wA=0.440, wB=0.460, wC=0.100. Recent error track shows last 3 days' persistence errors within \u00b13 MWh with undershooting bias, justifying increasing wA by +0.092 up to max 0.532. Applied adjusted weights accordingly for a slight decrease in daily avg forecast versus Stage-1 anchor, reflecting partial spike reversion blending.",
   "confidence": 3
 }

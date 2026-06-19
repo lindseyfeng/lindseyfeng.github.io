@@ -11,28 +11,28 @@
       34.16,
       35.21,
       38.71,
-      36.17,
-      32.86,
-      29.6,
+      36.95,
+      33.64,
+      29.59,
       29.28,
-      30.59,
-      31.19,
-      32.37,
-      32.97,
-      34.07,
-      35.07,
-      35.63,
-      36.75,
-      42.08,
-      51.54,
-      54.94,
-      52.73,
-      48.65,
-      42.8
+      30.58,
+      31.17,
+      32.35,
+      32.95,
+      34.05,
+      35.05,
+      35.61,
+      36.73,
+      42.06,
+      51.52,
+      54.93,
+      52.72,
+      48.64,
+      42.78
     ],
-    "daily_avg_usd_per_mwh": 37.99,
-    "peak_avg_usd_per_mwh": 44.19,
-    "offpeak_avg_usd_per_mwh": 36.44
+    "daily_avg_usd_per_mwh": 38.05,
+    "peak_avg_usd_per_mwh": 44.17,
+    "offpeak_avg_usd_per_mwh": 36.64
   },
   "actuals_today": {
     "date": "2026-06-19",
@@ -93,6 +93,6 @@
       51.04
     ]
   },
-  "reasoning": "The anchor_z is +1.50, signaling a SPIKE regime. The formula default weights are wA=0.446, wB=0.445, wC=0.109 with a max wA of 0.543. The recent error track record shows persistence errors around -2.15 and no consistent overshoot or undershoot pattern refined enough to adjust weights. Therefore, the formula defaults are used exactly. Anchor daily average is 40.74, forecast blends down to 37.99 reflecting partial reversion, with a confidence of 5.",
+  "reasoning": "Anchor_z = +1.51, regime context SPIKE. Formula default weights are wA=0.445, wB=0.446, wC=0.109 with a max wA of 0.542. Recent 3-day persistence errors are small (-2.15 on average) and show the anchor tracked actuals well, so no deviation from formula defaults was applied.",
   "confidence": 3
 }

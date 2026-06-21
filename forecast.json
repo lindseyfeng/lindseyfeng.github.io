@@ -11,28 +11,28 @@
       20.8,
       19.85,
       20.88,
-      21.97,
+      22.04,
+      20.23,
+      12.96,
+      13.29,
+      16.04,
       20.17,
-      12.89,
-      13.21,
-      16.8,
-      20.97,
-      23.41,
-      23.66,
-      24.26,
-      24.18,
-      28.19,
-      29.5,
-      32.75,
-      45.55,
-      48.6,
+      22.59,
+      23.68,
+      23.45,
+      23.38,
+      26.55,
+      27.84,
+      31.93,
+      45.56,
+      48.64,
       48.55,
-      38.68,
-      29.37
+      38.72,
+      29.4
     ],
-    "daily_avg_usd_per_mwh": 26.33,
-    "peak_avg_usd_per_mwh": 36.92,
-    "offpeak_avg_usd_per_mwh": 21.43
+    "daily_avg_usd_per_mwh": 26.01,
+    "peak_avg_usd_per_mwh": 36.1,
+    "offpeak_avg_usd_per_mwh": 21.44
   },
   "actuals_today": {
     "date": "2026-06-21",
@@ -93,6 +93,6 @@
       27.11
     ]
   },
-  "reasoning": "The anchor_z value is -0.77 indicating a normal regime with moderate deviation. Formula default weights of wA=0.554, wB=0.336, and wC=0.110 were used, within the max allowed wA=0.659. Recent error track record showed persistence tracked actuals well with small mixed errors, so no deviation from formula weights was needed.",
+  "reasoning": "Anchor_z = -0.83 indicates the stage-1 anchor is a moderate negative outlier; default NORMAL regime applies. Formula default weights are wA=0.540, wB=0.350, wC=0.110 with Max wA=0.643, reflecting partial spike reversion. Recent error pattern shows persistence overshot actuals by +2.79 over last 3 days, indicating anchor tracked well without strong bias. Therefore, weights remain unchanged from formula defaults.",
   "confidence": 3
 }

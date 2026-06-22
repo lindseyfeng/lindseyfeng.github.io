@@ -10,29 +10,29 @@
       22.55,
       23.02,
       24.28,
-      26.74,
-      28.33,
-      25.74,
-      20.96,
-      21.71,
-      25.13,
+      26.73,
+      26.54,
+      23.95,
+      19.17,
+      19.93,
+      24.25,
       26.39,
-      27.46,
-      27.71,
+      28.36,
+      28.61,
       27.19,
-      28.48,
+      27.58,
       30.45,
       32.16,
-      36.77,
-      56.62,
-      64.43,
-      56.85,
-      55.21,
-      43.46
+      38.56,
+      61.1,
+      64.84,
+      59.54,
+      55.23,
+      43.47
     ],
-    "daily_avg_usd_per_mwh": 32.51,
-    "peak_avg_usd_per_mwh": 44.09,
-    "offpeak_avg_usd_per_mwh": 24.91
+    "daily_avg_usd_per_mwh": 32.61,
+    "peak_avg_usd_per_mwh": 45.42,
+    "offpeak_avg_usd_per_mwh": 24.46
   },
   "actuals_today": {
     "date": "2026-06-22",
@@ -93,6 +93,6 @@
       41.77
     ]
   },
-  "reasoning": "The anchor_z is +0.46 indicating a moderate positive deviation in market regime labeled as NORMAL. The formula default weights are wA=0.647, wB=0.246, wC=0.107, which we used without deviation since the recent persistence error track showed mixed small errors and no consistent overruns. The anchor overshot actuals recently but not sufficiently to change weights beyond defaults.",
+  "reasoning": "Anchor z=+0.47 in NORMAL regime context yields formula default weights wA=0.642, wB=0.252, wC=0.107. Recent persistence errors show the anchor overshot actuals by about $4.05/MWh, indicating slight overestimation, but errors are mixed and within \u00b1$5/MWh, so default weights were retained without adjustment. No consistent error pattern justified deviation.",
   "confidence": 3
 }

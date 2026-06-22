@@ -294,12 +294,13 @@
       </a>
     </nav>
 
-    <div class="dart-title">ERCOT DART Trading — Live Positions<span style="background:#2d6a9f;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:10px;vertical-align:middle;">v4 BANDIT</span></div>
+    <div class="dart-title">ERCOT DART Trading — Live Positions<span style="background:#2d6a9f;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:10px;vertical-align:middle;">v5 HYBRID</span></div>
     <div class="dart-sub">
-      Agentic RT−DAM spread forecaster &nbsp;·&nbsp; HB_NORTH hub &nbsp;·&nbsp;
-      priors fed to the LLM: 14-day regime mean + LR direction model + TSBandit72 win-rate + spike-risk LR &nbsp;·&nbsp;
-      <b>no post-process harness</b> — the LLM reasons over the priors and decides each hour itself &nbsp;·&nbsp;
-      fixed 1 MW · ±$2/MWh threshold &nbsp;·&nbsp; runs daily 3 PM CT after DAM clears
+      Hybrid LLM + statistical RT−DAM spread forecaster &nbsp;·&nbsp; HB_NORTH hub &nbsp;·&nbsp;
+      the <b>LLM owns the bulk</b> (priors fed in: 14-day %positive, LR direction, TSBandit72 win-rate, spike-risk LR) &nbsp;·&nbsp;
+      a <b>router + sign-LR</b> overrides direction only on hours likely to be large (&gt;$20), and <b>abstains when its
+      conviction is weak</b> — deferring those back to the LLM &nbsp;·&nbsp;
+      confidence × magnitude sizing · ±$2/MWh threshold &nbsp;·&nbsp; runs daily 3 PM CT after DAM clears
     </div>
 
     <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">

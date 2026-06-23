@@ -11,28 +11,28 @@
       29.61,
       30.25,
       32.3,
-      35.39,
-      31.55,
-      25.33,
-      23.4,
-      25.2,
-      26.49,
-      27.42,
-      27.46,
-      26.75,
-      25.32,
-      27.89,
-      29.59,
-      34.29,
-      50.61,
-      50.02,
-      45.82,
-      35.11,
-      28.96
+      36.06,
+      31.38,
+      25.19,
+      24.18,
+      26.69,
+      27.13,
+      28.08,
+      28.13,
+      28.31,
+      27.82,
+      31.1,
+      31.04,
+      35.71,
+      52.8,
+      53.36,
+      50.09,
+      36.25,
+      30.84
     ],
-    "daily_avg_usd_per_mwh": 32.19,
-    "peak_avg_usd_per_mwh": 38.48,
-    "offpeak_avg_usd_per_mwh": 32.87
+    "daily_avg_usd_per_mwh": 33.34,
+    "peak_avg_usd_per_mwh": 40.8,
+    "offpeak_avg_usd_per_mwh": 32.93
   },
   "actuals_today": {
     "date": "2026-06-23",
@@ -93,6 +93,6 @@
       27.61
     ]
   },
-  "reasoning": "The regime flag is NORMAL with anchor_z=+0.54 indicating a moderate positive deviation from the 7-day mean. Formula default weights are wA=0.619, wB=0.275, wC=0.106, with Max wA=0.727; we made no deviation from default weights. The recent 3-day persistence errors are small (-0.24), indicating the stage-1 anchor tracked actuals well, justifying no adjustment.",
+  "reasoning": "The anchor_z value is +0.79 with regime NORMAL, indicating the Stage-1 anchor is about 0.79 standard deviations above the 7-day mean, calling for moderate spike reversion. The formula default weights are wA=0.552, wB=0.342, wC=0.106; no deviation was applied as recent persistence errors show the anchor tracked actuals well within \u00b1$3/MWh. Error track record over the last 3 days has small biases averaging -0.24, indicating reliable anchor performance.",
   "confidence": 3
 }

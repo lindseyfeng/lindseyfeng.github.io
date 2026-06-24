@@ -11,28 +11,28 @@
       23.44,
       24.29,
       25.21,
-      30.41,
-      26.8,
-      21.15,
-      20.38,
-      24.51,
-      26.48,
-      27.81,
-      30.62,
-      31.2,
-      30.83,
-      34.17,
-      35.91,
-      42.61,
-      61.46,
-      60.89,
-      52.86,
-      42.08,
-      31.53
+      29.5,
+      25.9,
+      20.25,
+      19.49,
+      25.35,
+      28.19,
+      28.64,
+      30.54,
+      31.12,
+      30.76,
+      35.81,
+      37.51,
+      44.19,
+      63.01,
+      62.51,
+      54.57,
+      42.1,
+      31.56
     ],
-    "daily_avg_usd_per_mwh": 32.44,
-    "peak_avg_usd_per_mwh": 47.01,
-    "offpeak_avg_usd_per_mwh": 25.51
+    "daily_avg_usd_per_mwh": 32.83,
+    "peak_avg_usd_per_mwh": 48.61,
+    "offpeak_avg_usd_per_mwh": 25.29
   },
   "actuals_today": {
     "date": "2026-06-24",
@@ -93,6 +93,6 @@
       28.05
     ]
   },
-  "reasoning": "The anchor_z is +0.50 sigma representing a moderately above-average regime (NORMAL). The formula default weights are wA=0.635, wB=0.261, wC=0.104, and no deviation was made because the persistence error track record over the last 3 days shows small errors (\u00b1$3/MWh) and good tracking of actuals. Therefore, the formula defaults were used exactly, reflecting confidence in the stage-1 skill anchor and partial spike reversion.",
+  "reasoning": "Anchor_z is +0.58 indicating moderate deviation; regime is NORMAL. Formula default weights: wA=0.608, wB=0.288, wC=0.104; no deviation applied. Recent 3-day error pattern shows persistence tracked well (errors within \u00b13 $/MWh), so no anchor weight adjustment needed.",
   "confidence": 3
 }

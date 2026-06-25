@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.09,
-      26.99,
-      25.32,
-      25.08,
-      25.29,
-      27.38,
-      28.02,
-      25.46,
-      21.69,
-      22.11,
-      24.61,
-      27.52,
-      25.39,
-      26.71,
-      29.38,
-      32.04,
-      39.25,
-      37.47,
+      27.9,
+      26.92,
+      25.21,
+      24.99,
+      25.15,
+      27.21,
+      27.89,
+      25.33,
+      21.56,
+      22.02,
+      27.24,
+      31.08,
+      28.89,
+      29.27,
+      31.01,
+      33.69,
+      40.78,
+      39.9,
+      43.43,
+      54.19,
+      56.89,
+      50.22,
       41.09,
-      51.82,
-      54.39,
-      48.71,
-      40.33,
-      36.74
+      37.65
     ],
-    "daily_avg_usd_per_mwh": 32.12,
-    "peak_avg_usd_per_mwh": 44.8,
-    "offpeak_avg_usd_per_mwh": 26.45
+    "daily_avg_usd_per_mwh": 33.31,
+    "peak_avg_usd_per_mwh": 47.04,
+    "offpeak_avg_usd_per_mwh": 26.33
   },
   "actuals_today": {
     "date": "2026-06-25",
@@ -93,6 +93,6 @@
       35.0
     ]
   },
-  "reasoning": "Anchor_z is +0.46\u03c3 indicating a moderate upward regime signal labeled NORMAL. Formula default weights are wA=0.649, wB=0.247, wC=0.104 with a Max wA allowed at 0.758; no deviation applied. The recent 3-day error track record shows anchor persistence errors near zero (+0.02 avg), indicating the anchor has tracked well, so we keep defaults.",
+  "reasoning": "Anchor_z at +0.72 places regime in NORMAL context. Formula default weights were wA=0.570, wB=0.325, wC=0.105; due to excellent recent error pattern with persistence errors near zero, increased wA by +0.10 to 0.670 without exceeding max allowed 0.673. Persistence error last 3 days close to zero (+0.02), indicating strong track record, justifying shift toward stage1 anchor for more confidence.",
   "confidence": 3
 }

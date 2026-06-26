@@ -12,27 +12,27 @@
       25.03,
       25.61,
       26.94,
-      25.55,
-      22.35,
-      21.35,
-      24.85,
-      26.36,
-      27.07,
-      27.6,
-      28.96,
-      29.36,
-      31.31,
-      31.29,
-      35.53,
-      46.42,
-      49.27,
-      46.91,
-      38.81,
-      31.87
+      24.74,
+      21.56,
+      21.36,
+      24.9,
+      25.66,
+      26.38,
+      27.65,
+      29.75,
+      30.15,
+      31.38,
+      31.37,
+      35.62,
+      46.47,
+      49.12,
+      46.97,
+      38.05,
+      31.89
     ],
-    "daily_avg_usd_per_mwh": 30.2,
-    "peak_avg_usd_per_mwh": 38.76,
-    "offpeak_avg_usd_per_mwh": 25.68
+    "daily_avg_usd_per_mwh": 30.12,
+    "peak_avg_usd_per_mwh": 38.79,
+    "offpeak_avg_usd_per_mwh": 25.58
   },
   "actuals_today": {
     "date": "2026-06-26",
@@ -93,6 +93,6 @@
       29.68
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z of +1.48 indicates a SPIKE regime context, calling for partial spike reversion. The formula default weights were wA=0.457, wB=0.454, and wC=0.089, with Max wA allowed=0.544. The recent error track record shows persistence errors within \u00b1$3/MWh and a small positive bias (+0.50) indicating the anchor tracked actuals well. No consistent overshoot or undershoot pattern was found to justify deviation; hence, formula defaults were used.",
   "confidence": 3
 }

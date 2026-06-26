@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
+      26.53,
+      25.36,
+      25.59,
+      24.86,
+      25.03,
+      25.61,
+      26.94,
+      25.55,
+      22.35,
+      21.35,
+      24.85,
       26.36,
-      25.2,
-      25.5,
-      24.71,
-      24.93,
-      25.45,
-      27.76,
-      25.62,
-      22.52,
-      22.33,
-      24.52,
-      25.27,
-      25.95,
-      27.28,
-      29.46,
-      29.85,
-      32.0,
-      32.03,
-      36.29,
-      47.02,
-      49.66,
-      47.55,
-      38.28,
-      32.13
+      27.07,
+      27.6,
+      28.96,
+      29.36,
+      31.31,
+      31.29,
+      35.53,
+      46.42,
+      49.27,
+      46.91,
+      38.81,
+      31.87
     ],
-    "daily_avg_usd_per_mwh": 30.32,
-    "peak_avg_usd_per_mwh": 39.4,
-    "offpeak_avg_usd_per_mwh": 25.69
+    "daily_avg_usd_per_mwh": 30.2,
+    "peak_avg_usd_per_mwh": 38.76,
+    "offpeak_avg_usd_per_mwh": 25.68
   },
   "actuals_today": {
     "date": "2026-06-26",
@@ -93,6 +93,6 @@
       29.68
     ]
   },
-  "reasoning": "Anchor_z is +1.45 with SPIKE regime context. Formula default weights: wA=0.460, wB=0.451, wC=0.089. Recent persistence errors show anchor tracked well last 3 days (errors within \u00b1$3/MWh with slight positive bias). Increased wA by +0.10 to 0.560 within max allowed to lean more on stage1 anchor. Error-track record justifies moderate increase in wA.",
+  "reasoning": "",
   "confidence": 3
 }

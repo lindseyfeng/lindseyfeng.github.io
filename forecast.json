@@ -11,28 +11,28 @@
       22.43,
       23.71,
       24.06,
-      23.95,
-      22.59,
-      18.63,
-      16.86,
-      15.59,
-      17.14,
-      20.15,
-      19.59,
-      20.81,
-      20.98,
-      17.85,
-      17.72,
-      21.82,
-      35.67,
-      36.84,
-      34.03,
-      33.92,
-      27.83
+      24.71,
+      22.61,
+      18.78,
+      17.7,
+      19.56,
+      21.05,
+      24.47,
+      23.61,
+      24.87,
+      24.93,
+      26.01,
+      26.81,
+      28.98,
+      43.81,
+      43.82,
+      41.08,
+      35.09,
+      29.19
     ],
-    "daily_avg_usd_per_mwh": 23.49,
-    "peak_avg_usd_per_mwh": 25.98,
-    "offpeak_avg_usd_per_mwh": 23.54
+    "daily_avg_usd_per_mwh": 26.62,
+    "peak_avg_usd_per_mwh": 33.89,
+    "offpeak_avg_usd_per_mwh": 23.64
   },
   "actuals_today": {
     "date": "2026-06-27",
@@ -93,6 +93,6 @@
       27.17
     ]
   },
-  "reasoning": "The anchor_z value is -1.37 indicating a CRASH regime context. The formula default weights were wA=0.466, wB=0.442, wC=0.092, which we used without deviation. The recent error track record shows persistence errors averaging +1.61 over the last 3 days, indicating the anchor tracked well. Therefore, no adjustment was made to weights from formula defaults.",
+  "reasoning": "The anchor_z value is 0.01 indicating a NORMAL regime with a market condition very close to average. The formula-computed default weights are wA=0.830, wB=0.082, and wC=0.088, with a Max wA allowed of 0.850. Recent error track record shows persistence errors of +1.61 implying the anchor tracked actuals well without a clear bias requiring adjustment. Therefore, weights are left at formula defaults.",
   "confidence": 3
 }

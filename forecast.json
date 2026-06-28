@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      24.29,
-      23.62,
-      23.35,
+      24.28,
+      23.61,
+      23.34,
       23.18,
-      22.8,
-      23.1,
-      24.12,
-      22.27,
-      20.14,
-      17.52,
-      16.66,
-      18.37,
-      21.63,
-      24.54,
-      22.88,
-      23.54,
-      21.77,
-      22.7,
-      25.44,
-      41.79,
-      48.4,
-      43.79,
-      37.51,
-      27.14
+      22.79,
+      23.09,
+      23.17,
+      20.42,
+      18.32,
+      16.58,
+      18.41,
+      20.13,
+      23.44,
+      26.4,
+      24.68,
+      25.34,
+      26.23,
+      28.12,
+      31.73,
+      45.89,
+      48.45,
+      43.83,
+      37.48,
+      27.97
     ],
-    "daily_avg_usd_per_mwh": 25.86,
-    "peak_avg_usd_per_mwh": 32.02,
-    "offpeak_avg_usd_per_mwh": 23.34
+    "daily_avg_usd_per_mwh": 26.95,
+    "peak_avg_usd_per_mwh": 36.08,
+    "offpeak_avg_usd_per_mwh": 22.98
   },
   "actuals_today": {
     "date": "2026-06-28",
@@ -93,6 +93,6 @@
       26.35
     ]
   },
-  "reasoning": "The anchor_z value is -0.65 indicating a mild regime deviation classified as NORMAL. The formula-computed default weights were wA=0.600, wB=0.313, wC=0.088 with a max allowable wA of 0.692. We kept these defaults with no deviation because recent persistence errors showed the anchor tracked well with small bias (errors within \u00b11.65 over last 3 days). No consistent pattern warranted weight adjustment.",
+  "reasoning": "The anchor_z value is -0.16 (slightly below 7-day mean) placing the regime context in NORMAL. The formula default weights are wA=0.772, wB=0.142, wC=0.086 with max wA=0.850, so we apply these exactly without deviation. Recent persistence errors show the anchor tracked actuals well within \u00b1$3/MWh with no strong bias to adjust weights. Thus, formula default weights are appropriate for the blend.",
   "confidence": 3
 }

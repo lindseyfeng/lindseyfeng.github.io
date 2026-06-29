@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.68,
-      24.27,
-      23.28,
-      22.32,
-      22.76,
-      24.48,
-      25.28,
-      24.69,
+      25.75,
+      24.32,
+      23.33,
       22.37,
-      23.24,
-      21.29,
-      22.82,
-      24.66,
-      23.94,
-      25.85,
-      24.95,
-      29.64,
-      31.41,
-      35.23,
-      52.23,
-      51.0,
-      42.33,
-      37.47,
-      28.82
+      22.83,
+      24.57,
+      25.44,
+      23.82,
+      21.32,
+      22.86,
+      25.29,
+      26.82,
+      28.57,
+      28.09,
+      29.89,
+      29.17,
+      32.23,
+      33.61,
+      38.12,
+      52.96,
+      52.66,
+      45.16,
+      37.95,
+      29.54
     ],
-    "daily_avg_usd_per_mwh": 28.75,
-    "peak_avg_usd_per_mwh": 39.9,
-    "offpeak_avg_usd_per_mwh": 24.1
+    "daily_avg_usd_per_mwh": 30.28,
+    "peak_avg_usd_per_mwh": 41.92,
+    "offpeak_avg_usd_per_mwh": 24.05
   },
   "actuals_today": {
     "date": "2026-06-29",
@@ -93,6 +93,6 @@
       27.98
     ]
   },
-  "reasoning": "The anchor_z=0.91 indicates a moderately bullish regime 'NORMAL'. The formula default weights were wA=0.536, wB=0.377, wC=0.087; no deviation was made. Recent persistence errors show small positive bias (+0.31 last 3 days), indicating the anchor tracked actuals well within \u00b1$3/MWh. Thus, the default blend was trusted.",
+  "reasoning": "Anchor_z=2.05 places this in SPIKE regime, formula weights wA=0.429, wB=0.483, wC=0.089. Persistence errors show good tracking (<\u00b13) last 3 days, justifying a moderate increase of wA by +0.05 to 0.479 but below max 0.515. Blend shifts slightly toward stage-1 anchor reflecting recent good accuracy.",
   "confidence": 3
 }

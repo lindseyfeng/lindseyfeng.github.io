@@ -6,33 +6,33 @@
   "forecast": {
     "hourly_usd_per_mwh": [
       24.74,
-      23.37,
+      23.36,
       23.03,
       21.64,
-      21.93,
-      23.15,
+      21.92,
+      23.14,
+      23.0,
+      21.14,
+      18.07,
+      17.52,
+      20.44,
+      21.88,
       25.46,
-      23.57,
-      19.7,
-      19.17,
-      21.66,
-      23.11,
-      26.4,
-      28.13,
-      28.4,
-      28.39,
-      30.4,
-      30.92,
-      36.96,
-      50.96,
-      50.93,
-      45.46,
-      37.58,
-      29.06
+      27.25,
+      27.36,
+      27.3,
+      29.72,
+      30.43,
+      36.92,
+      50.85,
+      50.66,
+      45.03,
+      35.24,
+      27.4
     ],
-    "daily_avg_usd_per_mwh": 28.92,
-    "peak_avg_usd_per_mwh": 40.03,
-    "offpeak_avg_usd_per_mwh": 23.36
+    "daily_avg_usd_per_mwh": 28.06,
+    "peak_avg_usd_per_mwh": 39.72,
+    "offpeak_avg_usd_per_mwh": 22.75
   },
   "actuals_today": {
     "date": "2026-06-30",
@@ -93,6 +93,6 @@
       27.02
     ]
   },
-  "reasoning": "anchor_z is +1.76 in SPIKE regime context; formula default weights are wA=0.441, wB=0.472, wC=0.087, which we used without deviation. Recent error track shows persistence overshot actuals by about -0.75 on average last 3 days, indicating anchor tracked well so no adjustment to wA was made.",
+  "reasoning": "The anchor_z is +1.00 indicating a SPIKE regime context; formula default weights (wA=0.519, wB=0.395, wC=0.086) were used without deviation. The recent error track record shows the anchor tracked actuals well over the last 3 days with small errors, justifying no change. Thus, the forecast is a weighted blend of stage1 anchor and reversion to address spike effects.",
   "confidence": 3
 }

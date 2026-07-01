@@ -5,33 +5,33 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      26.76,
-      24.82,
+      26.77,
+      24.83,
       23.99,
-      23.39,
-      23.24,
-      24.8,
+      23.4,
+      23.23,
+      24.79,
       25.95,
-      23.3,
+      23.29,
       18.82,
-      18.0,
+      17.97,
       21.71,
       23.92,
-      27.8,
-      30.89,
-      30.7,
-      31.09,
-      34.52,
-      33.65,
-      37.04,
-      51.84,
-      52.9,
-      48.19,
-      41.03,
-      32.7
+      27.85,
+      30.23,
+      30.02,
+      30.38,
+      34.54,
+      33.66,
+      36.98,
+      51.82,
+      52.84,
+      48.11,
+      40.96,
+      32.64
     ],
-    "daily_avg_usd_per_mwh": 30.46,
-    "peak_avg_usd_per_mwh": 41.99,
+    "daily_avg_usd_per_mwh": 30.36,
+    "peak_avg_usd_per_mwh": 41.97,
     "offpeak_avg_usd_per_mwh": 24.53
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       31.16
     ]
   },
-  "reasoning": "Anchor_z is +2.89 indicating a SPIKE regime. Formula default weights are wA=0.418, wB=0.495, wC=0.087 with max wA allowed = 0.503. Because recent persistence errors indicate the anchor tracked actuals well within \u00b1$3/MWh over last 3 days, wA was increased to 0.503, redistributing slightly to wB and wC. The blend reflects this adjusted weight respecting calibration and data-driven limits.",
+  "reasoning": "The anchor_z is +2.83 indicating a SPIKE regime with formula default weights wA=0.418, wB=0.495, wC=0.087. Recent error track record shows persistence errors within \u00b13 and a slight negative bias (-1.04), indicating the anchor tracks actuals well. Therefore, wA was increased from 0.418 up to the max allowed 0.503. Weights sum to 1.0 and forecast daily average $30.12 is consistent with the blended anchors.",
   "confidence": 3
 }

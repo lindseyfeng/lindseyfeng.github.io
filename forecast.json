@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       26.76,
       24.82,
-      23.98,
+      23.99,
       23.39,
       23.24,
       24.8,
-      24.38,
-      20.93,
-      16.43,
-      16.41,
-      19.6,
-      21.82,
-      25.74,
-      28.87,
-      28.65,
-      29.04,
-      32.0,
-      30.44,
-      33.84,
-      50.03,
-      51.11,
-      46.38,
-      40.36,
-      32.77
+      25.95,
+      23.3,
+      18.82,
+      18.0,
+      21.71,
+      23.92,
+      27.8,
+      30.89,
+      30.7,
+      31.09,
+      34.52,
+      33.65,
+      37.04,
+      51.84,
+      52.9,
+      48.19,
+      41.03,
+      32.7
     ],
-    "daily_avg_usd_per_mwh": 28.99,
-    "peak_avg_usd_per_mwh": 39.48,
-    "offpeak_avg_usd_per_mwh": 24.04
+    "daily_avg_usd_per_mwh": 30.46,
+    "peak_avg_usd_per_mwh": 41.99,
+    "offpeak_avg_usd_per_mwh": 24.53
   },
   "actuals_today": {
     "date": "2026-07-01",
@@ -93,6 +93,6 @@
       31.16
     ]
   },
-  "reasoning": "Anchor_z is +1.84 indicating a SPIKE regime, formula defaults are wA=0.437, wB=0.476, wC=0.086. Recent persistence errors show the anchor tracked well with errors mostly within \u00b1$3/MWh, justifying a slight increase of wA to 0.487 (below max 0.522). Error-track-record does not indicate overshoot, so small positive adjustment to wA is applied.",
+  "reasoning": "Anchor_z is +2.89 indicating a SPIKE regime. Formula default weights are wA=0.418, wB=0.495, wC=0.087 with max wA allowed = 0.503. Because recent persistence errors indicate the anchor tracked actuals well within \u00b1$3/MWh over last 3 days, wA was increased to 0.503, redistributing slightly to wB and wC. The blend reflects this adjusted weight respecting calibration and data-driven limits.",
   "confidence": 3
 }

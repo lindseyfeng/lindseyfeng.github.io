@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      27.91,
-      24.69,
-      23.74,
-      23.18,
-      23.63,
-      25.22,
-      26.91,
-      24.6,
-      21.01,
-      18.73,
-      20.14,
-      22.06,
-      25.43,
+      27.88,
+      24.65,
+      23.7,
+      23.14,
+      23.59,
+      25.16,
+      27.28,
+      25.37,
+      21.78,
+      19.08,
+      20.1,
+      22.03,
+      25.42,
       27.63,
-      28.96,
-      28.91,
-      33.16,
-      34.78,
-      41.2,
-      53.28,
-      50.48,
-      44.64,
-      38.01,
-      31.81
+      29.32,
+      29.63,
+      32.5,
+      33.47,
+      40.0,
+      52.52,
+      47.8,
+      42.58,
+      37.19,
+      31.02
     ],
-    "daily_avg_usd_per_mwh": 30.0,
-    "peak_avg_usd_per_mwh": 42.58,
-    "offpeak_avg_usd_per_mwh": 24.98
+    "daily_avg_usd_per_mwh": 29.7,
+    "peak_avg_usd_per_mwh": 41.26,
+    "offpeak_avg_usd_per_mwh": 25.1
   },
   "actuals_today": {
     "date": "2026-07-02",
@@ -93,6 +93,6 @@
       29.19
     ]
   },
-  "reasoning": "The anchor_z is +3.02 with regime context SPIKE. Formula default weights were wA=0.418, wB=0.497, wC=0.085. Due to persistence errors showing strong tracking within \u00b10.5 over last 3 days and no overshoot bias, wA was increased toward the max allowed 0.502, setting wA=0.5, wB=0.42, wC=0.08. This adjustment improves reliance on the skillful anchor given stable recent errors.",
+  "reasoning": "Anchor_z=2.76 classified as SPIKE regime; formula default weights were wA=0.420, wB=0.496, wC=0.085. Recent persistence error pattern showed very small bias (~-0.08 over last 3 days), indicating the anchor tracked well. Therefore, increased wA by +0.10 to 0.52, decreasing wB and wC proportionally, within max allowed wA=0.504+0.10=0.604. Produced blended forecast accordingly with slight downward adjustment relative to Stage-1 anchor daily avg.",
   "confidence": 3
 }

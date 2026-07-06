@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      36.94,
-      31.54,
+      36.96,
+      31.55,
+      30.73,
+      31.68,
+      31.92,
+      34.62,
+      40.67,
+      31.13,
+      24.26,
+      24.73,
+      23.98,
+      23.67,
+      28.23,
       30.72,
-      31.66,
-      31.9,
-      34.6,
-      40.43,
-      30.99,
-      24.17,
-      24.6,
-      28.37,
-      28.87,
-      32.37,
-      33.5,
-      34.84,
-      35.86,
-      36.91,
-      36.57,
-      42.78,
-      56.35,
-      56.64,
-      50.95,
-      44.68,
-      36.32
+      32.69,
+      35.95,
+      37.16,
+      36.81,
+      43.01,
+      56.54,
+      56.79,
+      51.15,
+      44.6,
+      34.02
     ],
-    "daily_avg_usd_per_mwh": 36.36,
-    "peak_avg_usd_per_mwh": 45.85,
-    "offpeak_avg_usd_per_mwh": 33.6
+    "daily_avg_usd_per_mwh": 35.57,
+    "peak_avg_usd_per_mwh": 46.06,
+    "offpeak_avg_usd_per_mwh": 33.66
   },
   "actuals_today": {
     "date": "2026-07-06",
@@ -93,6 +93,6 @@
       34.9
     ]
   },
-  "reasoning": "Anchor_z=1.87 sigma, regime SPIKE indicated partial spike reversion needed. Formula default weights were wA=0.428, wB=0.469, wC=0.102. Recent error track record shows persistence anchor overshot actuals by ~4 USD/MWh on last 3 days, indicating Stage1 anchor slightly too high. We increased wA to 0.521 (max allowed) to modestly favor Stage1 anchor while still mostly blending spike-reverted anchor. This adjustment respects calibration limits and error patterns.",
+  "reasoning": "Anchor_z=1.62 indicates a SPIKE regime with default formula weights wA=0.441, wB=0.457, wC=0.102. Recent persistence errors show undershoot bias averaging -4.07 over last 3 days, justifying raising wA to the max allowed 0.534 for more reliance on Stage-1 anchor. Weights for spike_reverted and dow_mean reduced proportionally to maintain sum=1. Blend reflects partial reversion from spike but leans more on skilled anchor due to error pattern.",
   "confidence": 3
 }

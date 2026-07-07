@@ -386,6 +386,16 @@
         <div class="subscore" id="cum-summary"></div>
       </div>
 
+      <!-- ── Agent vs non-agentic baselines ─────────────────── -->
+      <div id="baseline-section" style="display:none;">
+        <hr class="divider">
+        <div class="section-label">Live: agent vs non-agentic baselines &mdash; cumulative P&amp;L</div>
+        <div class="chart-wrapper short">
+          <canvas id="baselineChart"></canvas>
+        </div>
+        <div class="subscore" id="baseline-summary"></div>
+      </div>
+
       <!-- ── Daily results log ──────────────────────────────── -->
       <div id="history-section" style="display:none;">
         <hr class="divider">
@@ -412,6 +422,7 @@
   <script>
     const FORECAST_URL = "/dart_forecast_v2.json";
     const HISTORY_URL  = "/dart_history_v2.json";
+    const BASELINES_HISTORY_URL = "/baselines_history.json";
     const HOURS = Array.from({ length: 24 }, (_, i) => `HE${String(i + 1).padStart(2, "0")}`);
 
     function fmtMoney(v, signed) {
@@ -883,8 +894,93 @@
       });
     }
 
+    function renderBaselineChart(agentHistory, baselineHistory) {
+      const settled = (baselineHistory || []).filter(e => e.pnl && typeof e.pnl === "object");
+      const section = document.getElementById("baseline-section");
+      const summary = document.getElementById("baseline-summary");
+      const wrapper = document.getElementById("baselineChart").parentElement;
+
+      // Not enough settled days yet — show the section with an "accruing" note.
+      if (settled.length < 1) {
+        if ((baselineHistory || []).length) {
+          section.style.display = "block";
+          wrapper.style.display = "none";
+          summary.textContent =
+            "Baseline track record is accruing — first settled results appear ~2 days after launch.";
+        }
+        return;
+      }
+
+      const agentByDate = {};
+      (agentHistory || []).forEach(e => {
+        if (e.agent && e.agent.actual_pnl_total != null)
+          agentByDate[e.target_date] = e.agent.actual_pnl_total;
+      });
+
+      const names = ["btz_dpds", "bandit_ts", "hls", "persistence"];
+      const nice = { btz_dpds: "BTZ-DPDS", bandit_ts: "Bandit-TS", hls: "HLS", persistence: "Persistence" };
+      const colors = { agent: "#2d6a9f", btz_dpds: "#c0703a", bandit_ts: "#6aa06a", hls: "#a06ab0", persistence: "#bbb" };
+
+      section.style.display = "block";
+      wrapper.style.display = "";
+
+      const labels = settled.map(e => e.target_date.slice(5));
+      const run = { agent: 0 }, cum = { agent: [] };
+      names.forEach(n => { run[n] = 0; cum[n] = []; });
+      settled.forEach(e => {
+        run.agent += (agentByDate[e.target_date] || 0);
+        cum.agent.push(+run.agent.toFixed(2));
+        names.forEach(n => {
+          run[n] += (e.pnl[n] != null ? e.pnl[n] : 0);
+          cum[n].push(+run[n].toFixed(2));
+        });
+      });
+
+      const last = k => cum[k][cum[k].length - 1];
+      summary.textContent = `${settled.length}-day live cumulative — ` +
+        ["agent", ...names].map(k =>
+          `${k === "agent" ? "Agent" : nice[k]}: ${fmtMoney(last(k), true)}`).join("  ·  ");
+
+      const ds = (key, label, o = {}) => ({
+        label, data: cum[key], borderColor: colors[key],
+        borderWidth: o.w || 1.5, pointRadius: o.pr != null ? o.pr : 0,
+        borderDash: o.dash || [], backgroundColor: o.bg || "transparent",
+        fill: !!o.bg, tension: 0.3,
+      });
+
+      new Chart(document.getElementById("baselineChart"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            ds("agent", "Agent", { w: 2.5, pr: 2, bg: "rgba(45,106,159,0.08)" }),
+            ds("btz_dpds", "BTZ-DPDS", { w: 2 }),
+            ds("bandit_ts", "Bandit-TS"),
+            ds("hls", "HLS"),
+            ds("persistence", "Persistence", { dash: [5, 4] }),
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: true, position: "bottom",
+              labels: { boxWidth: 12, font: { family: "Montserrat", size: 10 }, color: "#888" } },
+            tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtMoney(ctx.parsed.y, true)}` } },
+          },
+          scales: {
+            x: { grid: { color: "#f5f5f5" }, ticks: { color: "#aaa", maxTicksLimit: 12, font: { family: "Montserrat", size: 10 } } },
+            y: { grid: { color: "#f5f5f5" },
+              ticks: { callback: v => fmtMoney(v, false), font: { family: "Montserrat", size: 11 }, color: "#888" },
+              title: { display: true, text: "Cumulative P&L $", color: "#aaa", font: { family: "Montserrat", size: 10 } } },
+          },
+        },
+      });
+    }
+
     async function load() {
-      let data = null, history = [];
+      let data = null, history = [], baselineHistory = [];
 
       try {
         const resp = await fetch(FORECAST_URL + "?t=" + Date.now());
@@ -895,6 +991,11 @@
         const hresp = await fetch(HISTORY_URL + "?t=" + Date.now());
         if (hresp.ok) history = await hresp.json();
       } catch (_) { /* history optional */ }
+
+      try {
+        const bresp = await fetch(BASELINES_HISTORY_URL + "?t=" + Date.now());
+        if (bresp.ok) baselineHistory = await bresp.json();
+      } catch (_) { /* baselines optional */ }
 
       document.getElementById("loading").style.display = "none";
 
@@ -930,6 +1031,7 @@
       }
 
       renderCumChart(history);
+      renderBaselineChart(history, baselineHistory);
       renderHistoryLog(history);
 
       if (display && display.generated_at) {

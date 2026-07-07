@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>DART Baselines — Per-Hour Decisions — Xinyu Feng</title>
+  <meta name="description" content="Day-by-day, per-hour trading decisions for the agent and non-agentic baselines on ERCOT HB_NORTH" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css1/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css1/style.css">
+
+  <style>
+    .dart-container { width: 82%; margin: 0 auto; padding: 20px 0 40px; }
+    .dart-title { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .dart-sub { font-family: 'Radley', serif; color: #777; font-size: 15px; margin-bottom: 24px; }
+    .section-label { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: #555;
+      letter-spacing: 0.05em; text-transform: uppercase; margin: 22px 0 10px; }
+
+    .agent-tabs { display: flex; gap: 6px; border-bottom: 1px solid #eee; margin-bottom: 24px; flex-wrap: wrap; }
+    .agent-tabs .tab { padding: 12px 18px; text-decoration: none; border-bottom: 2px solid transparent;
+      font-family: 'Montserrat', sans-serif; font-size: 13px; color: #bbb; }
+    .agent-tabs .tab .tab-sub { display: block; font-family: 'Radley', serif; font-size: 12px; color: #ccc; margin-top: 2px; }
+    .agent-tabs .tab.tab-active { color: #222; border-bottom-color: #2d6a9f; }
+    .agent-tabs .tab.tab-active .tab-sub { color: #777; }
+
+    /* day selector chips */
+    .date-chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; }
+    .date-chip { font-family: 'Montserrat', sans-serif; font-size: 11px; padding: 5px 11px; border: 1px solid #ddd;
+      border-radius: 14px; cursor: pointer; white-space: nowrap; color: #666; background: #fff; }
+    .date-chip:hover { border-color: #2d6a9f; color: #2d6a9f; }
+    .date-chip.active { background: #2d6a9f; color: #fff; border-color: #2d6a9f; }
+
+    /* day summary cards */
+    .stats-row { display: flex; gap: 12px; margin: 6px 0 20px; flex-wrap: wrap; }
+    .stat-card { background: #f9f9f9; border: 1px solid #e8e8e8; border-radius: 6px; padding: 10px 16px; min-width: 120px; }
+    .stat-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #999;
+      letter-spacing: 0.05em; text-transform: uppercase; }
+    .stat-value { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: #222; margin-top: 2px; }
+
+    /* the grid */
+    .scroll-x { overflow-x: auto; border: 1px solid #eee; border-radius: 6px; }
+    .grid-table { border-collapse: collapse; font-family: 'Montserrat', sans-serif; font-size: 11px; width: 100%; }
+    .grid-table th, .grid-table td { border: 1px solid #f0f0f0; padding: 4px 5px; text-align: center; min-width: 30px; }
+    .grid-table th { color: #999; font-weight: 700; background: #fafafa; font-size: 10px; }
+    .grid-table .row-head { text-align: left; font-weight: 700; color: #444; white-space: nowrap;
+      position: sticky; left: 0; background: #fff; z-index: 2; min-width: 92px; box-shadow: 1px 0 0 #eee; }
+    .grid-table thead .row-head { background: #fafafa; z-index: 3; }
+    .grid-table .col-pnl { min-width: 62px; font-weight: 700; border-left: 2px solid #eee; }
+
+    .dir-long { color: #2d8a4f; } .dir-short { color: #b94a4a; } .dir-flat { color: #ccc; }
+    .cell-correct { background: rgba(45,138,79,0.10); }
+    .cell-wrong   { background: rgba(185,74,74,0.10); }
+    .spread-pos { color: #2d8a4f; } .spread-neg { color: #b94a4a; }
+    .spread-trade { font-weight: 700; }
+    .pos { color: #2d8a4f; } .neg { color: #b94a4a; }
+    .row-actual td { background: #fcfcfc; font-weight: 700; }
+
+    .legend { font-family: 'Radley', serif; font-size: 13px; color: #777; margin: 12px 0 0; line-height: 1.7; }
+    .legend b { font-family: 'Montserrat', sans-serif; font-size: 11px; }
+    .glyph-long { color: #2d8a4f; font-weight: 700; } .glyph-short { color: #b94a4a; font-weight: 700; }
+    .updated-note { font-family: 'Radley', serif; color: #aaa; font-size: 13px; margin-top: 18px; }
+    #error { font-family: 'Radley', serif; color: #b94a4a; padding: 20px 0; display: none; }
+  </style>
+</head>
+
+<body>
+  <header class="header-block row">
+    <div class="blog-title"><h1>Hey.</h1></div>
+  </header>
+
+  <div class="dart-container">
+    <nav class="agent-tabs">
+      <a href="./ercot-forecast.html" class="tab"><span class="tab-label">Day-Ahead Forecast</span><span class="tab-sub">DAM price · MAE</span></a>
+      <a href="./dart-trading-v2.html" class="tab"><span class="tab-label">DART Trading v2</span><span class="tab-sub">agent vs baselines</span></a>
+      <a href="./baselines-detail.html" class="tab tab-active"><span class="tab-label">Per-Hour Decisions</span><span class="tab-sub">day-by-day grid</span></a>
+    </nav>
+
+    <div class="dart-title">Per-Hour Decisions — Agent vs Baselines</div>
+    <div class="dart-sub">
+      Every strategy's hour-by-hour call for a given day on ERCOT HB_NORTH &mdash; the agent
+      (LLM + sign-LR hybrid) and four non-agentic baselines (BTZ-DPDS, Bandit-TS, HLS, Persistence),
+      scored against the realized RT&minus;DAM spread. Flat 1 MW, tradeable hours are |spread|&gt;$2.
+    </div>
+
+    <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">Loading decisions…</div>
+    <div id="error"></div>
+
+    <div id="content" style="display:none;">
+      <div class="section-label">Pick a day</div>
+      <div class="date-chips" id="date-chips"></div>
+
+      <div class="section-label" id="day-label" style="margin-top:18px;"></div>
+      <div class="stats-row" id="day-stats"></div>
+
+      <div class="scroll-x">
+        <table class="grid-table" id="grid"></table>
+      </div>
+
+      <div class="legend">
+        <b class="glyph-long">▲</b> long (bet spread &gt; 0) &nbsp;·&nbsp;
+        <b class="glyph-short">▼</b> short (bet spread &lt; 0) &nbsp;·&nbsp;
+        <b class="dir-flat">·</b> flat / abstain &nbsp;&nbsp;|&nbsp;&nbsp;
+        green cell = call was <b>right</b> on a tradeable hour, red = <b>wrong</b>.
+        The <b>Actual</b> row is the realized spread ($/MWh); bold = tradeable (|spread|&gt;$2).
+        <b>Day P&amp;L</b> = &sum; direction &times; actual over tradeable hours (flat 1 MW).
+      </div>
+
+      <div class="updated-note" id="updated-note"></div>
+    </div>
+  </div>
+
+  <section class="footer">
+    <div class="footer-inner row">
+      <div class="col-md-12" style="margin-top:-2.5vh;">
+        <a href="index.html">home</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./dart-trading-v2.html">DART trading v2</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./agentic-ercot.html">agentic ERCOT</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </section>
+  <section class="copyright">&copy; 2023</section>
+
+  <script>
+    const BASELINES_URL = "/baselines_history.json";
+    const AGENT_URL = "/dart_history_v2.json";
+    const ORDER = ["agent", "btz_dpds", "bandit_ts", "hls", "persistence"];
+    const NICE = { agent: "Agent", btz_dpds: "BTZ-DPDS", bandit_ts: "Bandit-TS", hls: "HLS", persistence: "Persistence" };
+    const HES = Array.from({ length: 24 }, (_, i) => "HE" + String(i + 1).padStart(2, "0"));
+    const THRESH = 2.0;
+
+    function money(v, signed) {
+      if (v == null || isNaN(v)) return "—";
+      const s = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
+      return s + "$" + Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 });
+    }
+    function glyph(d) { return d > 0 ? "▲" : (d < 0 ? "▼" : "·"); }
+    function dirClass(d) { return d > 0 ? "dir-long" : (d < 0 ? "dir-short" : "dir-flat"); }
+
+    let byDate = {};   // date -> { actual:[24], dirs:{strat:[24]}, pnl:{strat:num} }
+    let dates = [];
+
+    function buildModel(baselineHist, agentHist) {
+      const agentByDate = {};
+      (agentHist || []).forEach(e => {
+        const a = e.agent;
+        if (a && a.actual_pnl_total != null && Array.isArray(a.signals))
+          agentByDate[e.target_date] = a;
+      });
+      (baselineHist || []).forEach(e => {
+        if (!e.pnl || !e.actual_spread_hourly) return;   // settled only
+        const rec = { actual: e.actual_spread_hourly, dirs: {}, pnl: {} };
+        Object.entries(e.baselines || {}).forEach(([name, b]) => {
+          if (b && b.directions) { rec.dirs[name] = b.directions; rec.pnl[name] = e.pnl[name]; }
+        });
+        const a = agentByDate[e.target_date];
+        if (a) { rec.dirs.agent = a.signals; rec.pnl.agent = a.actual_pnl_total; }
+        byDate[e.target_date] = rec;
+      });
+      dates = Object.keys(byDate).sort();
+    }
+
+    function renderChips(active) {
+      const box = document.getElementById("date-chips");
+      box.innerHTML = "";
+      dates.forEach(d => {
+        const el = document.createElement("div");
+        el.className = "date-chip" + (d === active ? " active" : "");
+        el.textContent = d.slice(5);
+        el.title = d;
+        el.onclick = () => renderDay(d);
+        box.appendChild(el);
+      });
+      // scroll active chip into view
+      const act = box.querySelector(".date-chip.active");
+      if (act) act.scrollIntoView({ inline: "center", block: "nearest" });
+    }
+
+    function renderDay(date) {
+      const rec = byDate[date];
+      renderChips(date);
+      document.getElementById("day-label").textContent = "Decisions — " + date;
+
+      // day summary cards
+      const strats = ORDER.filter(s => rec.dirs[s]);
+      document.getElementById("day-stats").innerHTML = strats.map(s => {
+        const v = rec.pnl[s];
+        const cls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
+        return `<div class="stat-card"><div class="stat-label">${NICE[s]}</div>
+          <div class="stat-value ${cls}">${money(v, true)}</div></div>`;
+      }).join("");
+
+      // grid
+      let head = `<thead><tr><th class="row-head">Strategy</th>` +
+        HES.map(h => `<th>${h}</th>`).join("") + `<th class="col-pnl">Day P&amp;L</th></tr></thead>`;
+
+      // actual row
+      let actualCells = rec.actual.map(v => {
+        const trade = Math.abs(v) > THRESH;
+        const cls = (v > 0 ? "spread-pos" : "spread-neg") + (trade ? " spread-trade" : "");
+        return `<td class="${cls}">${v.toFixed(1)}</td>`;
+      }).join("");
+      let daySpread = rec.actual.reduce((a, v) => a + (Math.abs(v) > THRESH ? Math.abs(v) : 0), 0);
+      let rows = `<tr class="row-actual"><td class="row-head">Actual spread</td>${actualCells}` +
+        `<td class="col-pnl" title="sum of |spread| on tradeable hours">±${daySpread.toFixed(0)}</td></tr>`;
+
+      // strategy rows
+      strats.forEach(s => {
+        const dirs = rec.dirs[s];
+        const cells = dirs.map((d, h) => {
+          const a = rec.actual[h];
+          const trade = Math.abs(a) > THRESH;
+          let bg = "";
+          if (d !== 0 && trade) bg = (d * a > 0) ? " cell-correct" : " cell-wrong";
+          return `<td class="${dirClass(d)}${bg}">${glyph(d)}</td>`;
+        }).join("");
+        const v = rec.pnl[s];
+        const pcls = v > 0 ? "pos" : (v < 0 ? "neg" : "");
+        rows += `<tr><td class="row-head">${NICE[s]}</td>${cells}` +
+          `<td class="col-pnl ${pcls}">${money(v, true)}</td></tr>`;
+      });
+
+      document.getElementById("grid").innerHTML = head + "<tbody>" + rows + "</tbody>";
+    }
+
+    async function load() {
+      let baselineHist = [], agentHist = [];
+      try {
+        const r = await fetch(BASELINES_URL + "?t=" + Date.now());
+        if (r.ok) baselineHist = await r.json();
+      } catch (_) {}
+      try {
+        const r = await fetch(AGENT_URL + "?t=" + Date.now());
+        if (r.ok) agentHist = await r.json();
+      } catch (_) {}
+
+      document.getElementById("loading").style.display = "none";
+      buildModel(baselineHist, agentHist);
+
+      if (!dates.length) {
+        const e = document.getElementById("error");
+        e.style.display = "block";
+        e.textContent = "No settled baseline days yet — check back once the daily runs have settled.";
+        return;
+      }
+      document.getElementById("content").style.display = "block";
+      renderDay(dates[dates.length - 1]);   // most recent settled day
+      document.getElementById("updated-note").textContent =
+        dates.length + " settled days · " + dates[0] + " → " + dates[dates.length - 1];
+    }
+
+    load();
+  </script>
+</body>
+</html>

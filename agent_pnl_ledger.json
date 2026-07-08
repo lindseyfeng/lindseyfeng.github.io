@@ -1,0 +1,156 @@
+{
+  "hub": "HB_NORTH",
+  "days": [
+    {
+      "date": "2026-06-07",
+      "agent_pnl": 246.05,
+      "persistence_pnl": 101.7
+    },
+    {
+      "date": "2026-06-08",
+      "agent_pnl": -105.21,
+      "persistence_pnl": 61.95
+    },
+    {
+      "date": "2026-06-09",
+      "agent_pnl": 97.15,
+      "persistence_pnl": -14.05
+    },
+    {
+      "date": "2026-06-10",
+      "agent_pnl": 126.06,
+      "persistence_pnl": -30.46
+    },
+    {
+      "date": "2026-06-11",
+      "agent_pnl": 115.71,
+      "persistence_pnl": 27.01
+    },
+    {
+      "date": "2026-06-12",
+      "agent_pnl": -5.71,
+      "persistence_pnl": 68.3
+    },
+    {
+      "date": "2026-06-13",
+      "agent_pnl": 43.9,
+      "persistence_pnl": 14.52
+    },
+    {
+      "date": "2026-06-14",
+      "agent_pnl": 39.16,
+      "persistence_pnl": -54.7
+    },
+    {
+      "date": "2026-06-16",
+      "agent_pnl": -202.28,
+      "persistence_pnl": -56.62
+    },
+    {
+      "date": "2026-06-17",
+      "agent_pnl": 40.82,
+      "persistence_pnl": -54.09
+    },
+    {
+      "date": "2026-06-18",
+      "agent_pnl": 13.8,
+      "persistence_pnl": 43.8
+    },
+    {
+      "date": "2026-06-19",
+      "agent_pnl": 214.16,
+      "persistence_pnl": 121.77
+    },
+    {
+      "date": "2026-06-20",
+      "agent_pnl": 11.24,
+      "persistence_pnl": -1.98
+    },
+    {
+      "date": "2026-06-21",
+      "agent_pnl": -16.81,
+      "persistence_pnl": -9.57
+    },
+    {
+      "date": "2026-06-22",
+      "agent_pnl": -46.42,
+      "persistence_pnl": 39.71
+    },
+    {
+      "date": "2026-06-23",
+      "agent_pnl": 4.9,
+      "persistence_pnl": 17.88
+    },
+    {
+      "date": "2026-06-24",
+      "agent_pnl": 32.39,
+      "persistence_pnl": -1.52
+    },
+    {
+      "date": "2026-06-25",
+      "agent_pnl": 61.21,
+      "persistence_pnl": -39.1
+    },
+    {
+      "date": "2026-06-26",
+      "agent_pnl": 81.87,
+      "persistence_pnl": 0.23
+    },
+    {
+      "date": "2026-06-27",
+      "agent_pnl": 6.51,
+      "persistence_pnl": -34.84
+    },
+    {
+      "date": "2026-06-28",
+      "agent_pnl": -0.8,
+      "persistence_pnl": -10.03
+    },
+    {
+      "date": "2026-06-29",
+      "agent_pnl": -10.77,
+      "persistence_pnl": 9.85
+    },
+    {
+      "date": "2026-06-30",
+      "agent_pnl": 69.76,
+      "persistence_pnl": -10.14
+    },
+    {
+      "date": "2026-07-01",
+      "agent_pnl": 22.12,
+      "persistence_pnl": 19.91
+    },
+    {
+      "date": "2026-07-02",
+      "agent_pnl": 55.53,
+      "persistence_pnl": 31.71
+    },
+    {
+      "date": "2026-07-03",
+      "agent_pnl": 13.31,
+      "persistence_pnl": 27.41
+    },
+    {
+      "date": "2026-07-04",
+      "agent_pnl": -38.72,
+      "persistence_pnl": -15.09
+    },
+    {
+      "date": "2026-07-05",
+      "agent_pnl": 216.09,
+      "persistence_pnl": 94.25
+    },
+    {
+      "date": "2026-07-06",
+      "agent_pnl": 20.73,
+      "persistence_pnl": -40.97
+    },
+    {
+      "date": "2026-07-07",
+      "agent_pnl": 56.43,
+      "persistence_pnl": 6.06
+    }
+  ],
+  "updated": "2026-07-07"
+}

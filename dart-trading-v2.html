@@ -427,6 +427,7 @@
     const FORECAST_URL = "/dart_forecast_v2.json";
     const HISTORY_URL  = "/dart_history_v2.json";
     const BASELINES_HISTORY_URL = "/baselines_history.json";
+    const LEDGER_URL = "/agent_pnl_ledger.json";  // durable (untrimmed) agent P&L record
     const HOURS = Array.from({ length: 24 }, (_, i) => `HE${String(i + 1).padStart(2, "0")}`);
 
     function fmtMoney(v, signed) {
@@ -826,8 +827,19 @@
       }).join('');
     }
 
-    function renderCumChart(history) {
-      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+    function renderCumChart(history, ledger) {
+      // Prefer the durable ledger (never trimmed) over the rolling 30-day history,
+      // so the cumulative reflects the FULL track record, not a shrinking window.
+      let scored;
+      if (ledger && Array.isArray(ledger.days) && ledger.days.length) {
+        scored = ledger.days.map(d => ({
+          target_date: d.date,
+          agent: { actual_pnl_total: d.agent_pnl },
+          persistence: { actual_pnl_total: d.persistence_pnl },
+        }));
+      } else {
+        scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+      }
       if (scored.length < 2) return;
 
       document.getElementById("cum-section").style.display = "block";
@@ -898,7 +910,7 @@
       });
     }
 
-    function renderBaselineChart(agentHistory, baselineHistory) {
+    function renderBaselineChart(agentSource, baselineHistory) {
       const settled = (baselineHistory || []).filter(e => e.pnl && typeof e.pnl === "object");
       const section = document.getElementById("baseline-section");
       const summary = document.getElementById("baseline-summary");
@@ -915,11 +927,16 @@
         return;
       }
 
+      // Agent per-day P&L from the durable ledger (preferred) or the rolling history.
       const agentByDate = {};
-      (agentHistory || []).forEach(e => {
-        if (e.agent && e.agent.actual_pnl_total != null)
-          agentByDate[e.target_date] = e.agent.actual_pnl_total;
-      });
+      if (agentSource && Array.isArray(agentSource.days)) {
+        agentSource.days.forEach(d => { if (d.agent_pnl != null) agentByDate[d.date] = d.agent_pnl; });
+      } else {
+        (agentSource || []).forEach(e => {
+          if (e.agent && e.agent.actual_pnl_total != null)
+            agentByDate[e.target_date] = e.agent.actual_pnl_total;
+        });
+      }
 
       const names = ["btz_dpds", "bandit_ts", "hls", "persistence"];
       const nice = { btz_dpds: "BTZ-DPDS", bandit_ts: "Bandit-TS", hls: "HLS", persistence: "Persistence" };
@@ -984,7 +1001,7 @@
     }
 
     async function load() {
-      let data = null, history = [], baselineHistory = [];
+      let data = null, history = [], baselineHistory = [], ledger = null;
 
       try {
         const resp = await fetch(FORECAST_URL + "?t=" + Date.now());
@@ -1000,6 +1017,11 @@
         const bresp = await fetch(BASELINES_HISTORY_URL + "?t=" + Date.now());
         if (bresp.ok) baselineHistory = await bresp.json();
       } catch (_) { /* baselines optional */ }
+
+      try {
+        const lresp = await fetch(LEDGER_URL + "?t=" + Date.now());
+        if (lresp.ok) ledger = await lresp.json();
+      } catch (_) { /* ledger optional */ }
 
       document.getElementById("loading").style.display = "none";
 
@@ -1034,8 +1056,8 @@
           "Today's forecast not available yet. The next daily run is at 3 PM CT.";
       }
 
-      renderCumChart(history);
-      renderBaselineChart(history, baselineHistory);
+      renderCumChart(history, ledger);
+      renderBaselineChart(ledger || history, baselineHistory);
       renderHistoryLog(history);
 
       if (display && display.generated_at) {

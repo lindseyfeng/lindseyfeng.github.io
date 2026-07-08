@@ -221,6 +221,22 @@
         </div>
       </a>
 
+      <!-- ── Per-Hour Decisions card ────────────────────────── -->
+      <a href="./baselines-detail.html" class="card" id="baseline-card">
+        <div class="card-header">
+          <div class="card-title">Per-Hour Decisions <span style="background:#b46720;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;">agent vs baselines</span></div>
+          <div class="card-pill dart">day-by-day grid</div>
+        </div>
+        <div class="card-sub">Hour-by-hour calls: agent vs BTZ-DPDS, Bandit-TS, HLS &amp; Persistence, scored on the realized spread</div>
+        <div class="card-stats" id="baseline-stats">
+          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="card-link">Open grid <span class="arrow">→</span></span>
+          <span class="card-foot-meta" id="baseline-meta">&mdash;</span>
+        </div>
+      </a>
+
       <!-- ── DART v1 archived card ──────────────────────────── -->
       <a href="./dart-trading-v1.html" class="card" style="opacity:0.6;">
         <div class="card-header">
@@ -313,19 +329,27 @@
 
     async function loadDART() {
       try {
-        const [fc, hist] = await Promise.all([
+        const [fc, hist, ledger] = await Promise.all([
           fetch("/dart_forecast_v2.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
           fetch("/dart_history_v2.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
+          fetch("/agent_pnl_ledger.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
         ]);
 
         const tomorrowEV = fc && fc.agent ? fc.agent.expected_pnl : null;
         const summary = fc && fc.agent && fc.agent.summary ? fc.agent.summary : null;
-        const scored = (hist || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
-        const cumAgent = scored.reduce((s, e) => s + e.agent.actual_pnl_total, 0);
-        const cumPers = scored.reduce(
-          (s, e) => s + (e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0),
-          0
-        );
+        // Prefer the durable ledger (never trimmed) for the cumulative track record,
+        // so the front page doesn't shrink as days roll off the 30-day window.
+        let cumAgent, cumPers, nDays;
+        if (ledger && Array.isArray(ledger.days) && ledger.days.length) {
+          cumAgent = ledger.days.reduce((s, d) => s + (d.agent_pnl || 0), 0);
+          cumPers = ledger.days.reduce((s, d) => s + (d.persistence_pnl || 0), 0);
+          nDays = ledger.days.length;
+        } else {
+          const scored = (hist || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
+          cumAgent = scored.reduce((s, e) => s + e.agent.actual_pnl_total, 0);
+          cumPers = scored.reduce((s, e) => s + (e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0), 0);
+          nDays = scored.length;
+        }
         const edge = cumAgent - cumPers;
 
         setStats("dart-stats", [
@@ -339,13 +363,13 @@
             value: summary ? `${summary.n_long}L / ${summary.n_short}S` : "—",
           },
           {
-            label: `Cum P&L (${scored.length}d)`,
-            value: scored.length ? fmtMoney(cumAgent, true) : "$0",
+            label: `Cum P&L (${nDays}d)`,
+            value: nDays ? fmtMoney(cumAgent, true) : "$0",
             cls: cumAgent > 0 ? "stat-pos" : (cumAgent < 0 ? "stat-neg" : ""),
           },
           {
             label: "Edge vs pers.",
-            value: scored.length ? fmtMoney(edge, true) : "—",
+            value: nDays ? fmtMoney(edge, true) : "—",
             cls: edge > 0 ? "stat-pos" : (edge < 0 ? "stat-neg" : ""),
           },
         ]);
@@ -357,8 +381,41 @@
       }
     }
 
+    async function loadBaselines() {
+      try {
+        const [bh, ledger] = await Promise.all([
+          fetch("/baselines_history.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
+          fetch("/agent_pnl_ledger.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
+        ]);
+        const settled = (bh || []).filter(e => e.pnl && typeof e.pnl === "object");
+        if (!settled.length) {
+          setStats("baseline-stats", [{ label: "Status", value: "accruing…", cls: "" }]);
+          return;
+        }
+        const names = ["btz_dpds", "bandit_ts", "hls", "persistence"];
+        const nice = { btz_dpds: "DPDS", bandit_ts: "Bandit", hls: "HLS", persistence: "Persist" };
+        const cum = {};
+        names.forEach(n => cum[n] = settled.reduce((s, e) => s + (e.pnl[n] || 0), 0));
+        const agentByDate = {};
+        if (ledger && Array.isArray(ledger.days)) ledger.days.forEach(d => agentByDate[d.date] = d.agent_pnl);
+        const dates = new Set(settled.map(e => e.target_date));
+        const cumAgent = Object.entries(agentByDate).filter(([d]) => dates.has(d)).reduce((s, [, v]) => s + (v || 0), 0);
+        let best = names[0]; names.forEach(n => { if (cum[n] > cum[best]) best = n; });
+        setStats("baseline-stats", [
+          { label: `Agent (${settled.length}d)`, value: fmtMoney(cumAgent, true), cls: cumAgent > 0 ? "stat-pos" : (cumAgent < 0 ? "stat-neg" : "") },
+          { label: "Top baseline", value: `${nice[best]} ${fmtMoney(cum[best], true)}`, cls: cum[best] > 0 ? "stat-pos" : "" },
+          { label: "Agent − best", value: fmtMoney(cumAgent - cum[best], true), cls: (cumAgent - cum[best]) >= 0 ? "stat-pos" : "stat-neg" },
+        ]);
+        document.getElementById("baseline-meta").textContent = `${settled.length} settled days`;
+      } catch (e) {
+        console.error("baselines load", e);
+        setStats("baseline-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
+      }
+    }
+
     loadDAM();
     loadDART();
+    loadBaselines();
   </script>
 </body>
 

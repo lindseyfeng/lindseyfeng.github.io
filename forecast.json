@@ -5,7 +5,7 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      27.97,
+      27.96,
       25.55,
       23.73,
       23.24,
@@ -13,25 +13,25 @@
       24.2,
       25.46,
       23.46,
-      18.89,
-      17.18,
-      21.28,
-      25.04,
-      28.02,
-      31.05,
-      31.43,
-      31.3,
-      34.54,
-      35.39,
-      39.11,
-      51.16,
-      50.12,
-      46.2,
-      36.83,
-      29.58
+      18.88,
+      17.19,
+      22.18,
+      25.93,
+      28.91,
+      31.94,
+      32.32,
+      32.19,
+      36.33,
+      38.08,
+      41.81,
+      53.87,
+      52.83,
+      48.9,
+      37.75,
+      29.6
     ],
-    "daily_avg_usd_per_mwh": 30.18,
-    "peak_avg_usd_per_mwh": 42.06,
+    "daily_avg_usd_per_mwh": 31.08,
+    "peak_avg_usd_per_mwh": 44.58,
     "offpeak_avg_usd_per_mwh": 24.64
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       26.81
     ]
   },
-  "reasoning": "Anchor_z is +0.10 (slightly above 7-day mean), regime context NORMAL. Formula default weights are wA=0.784, wB=0.119, wC=0.097 with max wA allowed 0.850; no deviation applied. Recent persistence error shows tracking well with no consistent overshoot or undershoot pattern. Hence, output is formula default blend.",
+  "reasoning": "The anchor_z is +0.32 with regime NORMAL. The formula-computed default weights are wA=0.701, wB=0.200, wC=0.098, with max wA allowed = 0.812. Recent error track record shows persistence errors averaging +2.58 over last 3 days indicating the anchor tracked actuals well without consistent overshoot or undershoot, so no weight adjustment applied.",
   "confidence": 3
 }

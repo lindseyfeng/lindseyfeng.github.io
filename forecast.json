@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.8,
-      24.32,
-      23.84,
-      23.51,
-      23.62,
-      24.81,
-      26.51,
-      24.22,
-      18.26,
-      16.32,
-      19.21,
-      21.69,
-      24.11,
+      25.77,
+      24.29,
+      23.82,
+      23.48,
+      23.59,
+      24.79,
+      26.07,
+      23.34,
+      17.82,
+      15.87,
+      18.33,
+      21.73,
       25.06,
-      26.78,
-      27.91,
-      31.17,
+      26.46,
+      28.19,
+      28.88,
       31.25,
-      34.59,
-      45.04,
-      47.41,
-      44.78,
-      38.44,
-      31.56
+      30.89,
+      34.68,
+      45.11,
+      47.94,
+      44.39,
+      38.5,
+      30.7
     ],
-    "daily_avg_usd_per_mwh": 28.34,
-    "peak_avg_usd_per_mwh": 37.89,
-    "offpeak_avg_usd_per_mwh": 24.58
+    "daily_avg_usd_per_mwh": 28.37,
+    "peak_avg_usd_per_mwh": 37.97,
+    "offpeak_avg_usd_per_mwh": 24.39
   },
   "actuals_today": {
     "date": "2026-07-10",
@@ -93,6 +93,6 @@
       30.0
     ]
   },
-  "reasoning": "Anchor_z is -0.18 with regime NORMAL, indicating a typical market context. Formula default weights are wA=0.751, wB=0.150, wC=0.099, which we used without deviation. The persistence error track record shows the anchor tracked recent actuals well within \u00b13 $/MWh, so no adjustment to weights was justified.",
+  "reasoning": "The anchor_z value is -0.18 representing a NORMAL regime context. Formula default weights were wA=0.751, wB=0.150, wC=0.099 with Max wA=0.850. Due to persistence errors generally within \u00b1$3/MWh and good tracking by stage1 anchor, wA was slightly increased by 0.01 to 0.761. No consistent over- or under-shoot pattern was found to justify greater deviation. The resulting blend leans primarily on stage1 anchor as expected in a normal regime.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.77,
-      24.29,
-      23.82,
-      23.48,
-      23.59,
-      24.79,
-      26.07,
-      23.34,
-      17.82,
+      25.8,
+      24.32,
+      23.84,
+      23.51,
+      23.62,
+      24.81,
+      26.06,
+      23.32,
+      17.81,
       15.87,
-      18.33,
-      21.73,
-      25.06,
-      26.46,
-      28.19,
-      28.88,
+      19.21,
+      22.59,
+      25.91,
+      26.86,
+      27.68,
+      27.91,
+      31.17,
       31.25,
-      30.89,
-      34.68,
-      45.11,
-      47.94,
-      44.39,
-      38.5,
-      30.7
+      34.59,
+      44.14,
+      46.51,
+      42.97,
+      37.54,
+      30.21
     ],
-    "daily_avg_usd_per_mwh": 28.37,
-    "peak_avg_usd_per_mwh": 37.97,
-    "offpeak_avg_usd_per_mwh": 24.39
+    "daily_avg_usd_per_mwh": 28.23,
+    "peak_avg_usd_per_mwh": 37.53,
+    "offpeak_avg_usd_per_mwh": 24.41
   },
   "actuals_today": {
     "date": "2026-07-10",
@@ -93,6 +93,6 @@
       30.0
     ]
   },
-  "reasoning": "The anchor_z value is -0.18 representing a NORMAL regime context. Formula default weights were wA=0.751, wB=0.150, wC=0.099 with Max wA=0.850. Due to persistence errors generally within \u00b1$3/MWh and good tracking by stage1 anchor, wA was slightly increased by 0.01 to 0.761. No consistent over- or under-shoot pattern was found to justify greater deviation. The resulting blend leans primarily on stage1 anchor as expected in a normal regime.",
+  "reasoning": "The anchor_z value is -0.21 indicating a typical regime (NORMAL). The formula default weights were wA=0.741 (stage1), wB=0.160 (spike reverted), and wC=0.099 (day-of-week mean). The recent error track record shows persistence errors are small and the anchor tracked actuals well with no consistent overshoot or undershoot, so no deviation from formula defaults was made. The daily average forecast is slightly lower than the anchor daily average reflecting the blend with spike-reversion and day-of-week anchors.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      34.6,
-      29.7,
+      34.61,
+      29.71,
       28.93,
-      31.31,
-      30.57,
+      31.32,
+      30.58,
       31.63,
-      29.57,
-      25.57,
-      21.9,
-      23.1,
-      25.63,
-      26.99,
-      30.46,
-      32.38,
-      32.87,
-      33.66,
-      37.04,
-      39.09,
-      42.28,
-      48.31,
-      48.14,
-      49.52,
-      49.96,
-      43.84
+      30.41,
+      25.55,
+      21.87,
+      23.92,
+      26.38,
+      26.94,
+      29.61,
+      31.54,
+      32.84,
+      34.43,
+      38.53,
+      38.99,
+      43.71,
+      50.61,
+      49.24,
+      50.21,
+      47.38,
+      42.11
     ],
-    "daily_avg_usd_per_mwh": 34.46,
-    "peak_avg_usd_per_mwh": 42.97,
-    "offpeak_avg_usd_per_mwh": 30.23
+    "daily_avg_usd_per_mwh": 34.63,
+    "peak_avg_usd_per_mwh": 44.22,
+    "offpeak_avg_usd_per_mwh": 30.34
   },
   "actuals_today": {
     "date": "2026-07-12",
@@ -93,6 +93,6 @@
       43.76
     ]
   },
-  "reasoning": "Anchor_z is +1.26 sigma consistent with SPIKE regime; formula default weights were wA=0.474, wB=0.427, wC=0.100. Due to recent persistence errors within \u00b13 $/MWh for the last 3 days, stage1_anchor weight increased by +0.093 to 0.567, respecting max wA cap 0.567. This adjustment reflects good recent anchor performance. No strong overshoot or bias pattern was found.",
+  "reasoning": "Anchor z=+1.32 (SPIKE regime context) triggered formula defaults wA=0.467, wB=0.433, wC=0.100. Given the persistence errors last 3 days were small and mixed, the decision was to slightly increase wA to 0.560 (max allowed) to reflect strong recent anchor accuracy. Weights on spike-reverted and DOW were reduced proportionally. Resulting forecast daily avg $34.49 is slightly below candidate A avg of $35.44, direction down. Confidence set to 4 for slight deviation with consistent error pattern.",
   "confidence": 3
 }

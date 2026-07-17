@@ -351,9 +351,9 @@
       <div class="section-label" style="margin-top:18px;">Per-hour signal breakdown</div>
       <div style="font-size:11px; color:#888; margin:2px 0 8px; line-height:1.4;">
         <b style="color:#6a4a9a;">Conviction</b> = calibrated P(trade is directionally right), from an
-        online-fit map of ensemble agreement, volatility, and (inverted) LLM confidence. Hours below the
-        <b>0.55</b> gate are <span style="color:#b94a4a;">GATED</span> — the agent skips them (position 0),
-        concentrating on the hours where it actually has an edge.
+        online-fit map of ensemble agreement, volatility, and (inverted) LLM confidence. Shown for
+        monitoring — the trade <b>gate is currently off</b> (a fixed threshold over-gated on the live
+        distribution), so no hours are skipped on conviction alone; direction comes from the ensemble vote.
       </div>
       <div style="overflow-x:auto;">
         <table class="positions" id="positionsTable">

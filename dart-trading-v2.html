@@ -847,6 +847,11 @@
       }).join('');
     }
 
+    // Counterfactual: new design (ensemble direction + volatility budget, no gate)
+    // re-scored offline on logged signals for the 28 settleable days (2026-06-18..07-15).
+    // Early days (pre-06-18) have no logged signals, so the line follows Actual there.
+    const CF_NEW_PNL = { "2026-06-18": 103.83, "2026-06-19": 113.78, "2026-06-20": -3.16, "2026-06-21": 27.26, "2026-06-22": -98.23, "2026-06-23": -121.3, "2026-06-24": 12.05, "2026-06-25": -0.81, "2026-06-26": 92.51, "2026-06-27": 3.63, "2026-06-28": -13.23, "2026-06-29": 28.94, "2026-06-30": 60.27, "2026-07-01": 25.55, "2026-07-02": 87.61, "2026-07-03": 109.28, "2026-07-04": -41.03, "2026-07-05": 268.9, "2026-07-06": 233.13, "2026-07-07": 57.1, "2026-07-08": -67.01, "2026-07-09": -56.17, "2026-07-10": -30.9, "2026-07-11": 82.92, "2026-07-12": 51.48, "2026-07-13": 95.05, "2026-07-14": -79.31, "2026-07-15": -62.34 };
+
     function renderCumChart(history, ledger) {
       // Prefer the durable ledger (never trimmed) over the rolling 30-day history,
       // so the cumulative reflects the FULL track record, not a shrinking window.
@@ -865,21 +870,29 @@
       document.getElementById("cum-section").style.display = "block";
 
       const labels = scored.map(e => e.target_date.slice(5));
-      let agentRun = 0, persRun = 0;
-      const agentCum = [], persCum = [];
+      let agentRun = 0, persRun = 0, newRun = 0;
+      const agentCum = [], persCum = [], newCum = [];
+      let cfDays = 0;
       scored.forEach(e => {
         agentRun += e.agent.actual_pnl_total;
         const p = e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0;
         persRun += p;
+        // counterfactual: use re-scored new-design P&L where available, else the actual
+        const cf = CF_NEW_PNL[e.target_date];
+        if (cf != null) cfDays++;
+        newRun += (cf != null ? cf : e.agent.actual_pnl_total);
         agentCum.push(+agentRun.toFixed(2));
         persCum.push(+persRun.toFixed(2));
+        newCum.push(+newRun.toFixed(2));
       });
 
       const lastAgent = agentCum[agentCum.length - 1];
       const lastPers  = persCum[persCum.length - 1];
+      const lastNew   = newCum[newCum.length - 1];
       const edge = lastAgent - lastPers;
-      document.getElementById("cum-summary").textContent =
-        `${scored.length}-day cumulative — Agent: ${fmtMoney(lastAgent, true)}  ·  Persistence: ${fmtMoney(lastPers, true)}  ·  Edge: ${fmtMoney(edge, true)}`;
+      document.getElementById("cum-summary").innerHTML =
+        `${scored.length}-day cumulative — Agent: ${fmtMoney(lastAgent, true)}  ·  Persistence: ${fmtMoney(lastPers, true)}  ·  Edge: ${fmtMoney(edge, true)}`
+        + `<br><span style="color:#6a4a9a;">New design (counterfactual, ${cfDays}-day re-score): ${fmtMoney(lastNew, true)} &nbsp; (${fmtMoney(lastNew - lastAgent, true)} vs actual)</span>`;
 
       new Chart(document.getElementById("cumChart"), {
         type: "line",
@@ -894,6 +907,16 @@
               borderWidth: 2,
               pointRadius: 2,
               fill: true,
+              tension: 0.3,
+            },
+            {
+              label: "New design (counterfactual)",
+              data: newCum,
+              borderColor: "#6a4a9a",
+              borderDash: [6, 3],
+              borderWidth: 2,
+              pointRadius: 0,
+              backgroundColor: "transparent",
               tension: 0.3,
             },
             {

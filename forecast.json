@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.1,
+      28.09,
       25.56,
       24.59,
-      24.44,
-      24.66,
+      24.43,
+      24.65,
       25.5,
-      26.43,
-      24.4,
-      22.65,
-      20.17,
-      20.76,
-      20.54,
+      26.36,
+      24.36,
+      22.66,
+      20.14,
       21.64,
-      21.87,
-      23.34,
-      23.46,
-      25.09,
-      26.27,
-      30.21,
-      40.25,
-      41.37,
-      41.02,
-      37.53,
-      30.73
+      21.41,
+      22.5,
+      22.72,
+      24.21,
+      24.31,
+      26.87,
+      28.99,
+      32.98,
+      43.09,
+      44.19,
+      42.92,
+      38.43,
+      31.58
     ],
-    "daily_avg_usd_per_mwh": 27.11,
-    "peak_avg_usd_per_mwh": 32.64,
-    "offpeak_avg_usd_per_mwh": 25.46
+    "daily_avg_usd_per_mwh": 28.01,
+    "peak_avg_usd_per_mwh": 35.22,
+    "offpeak_avg_usd_per_mwh": 25.44
   },
   "actuals_today": {
     "date": "2026-07-17",
@@ -93,6 +93,6 @@
       29.79
     ]
   },
-  "reasoning": "The anchor_z is -0.65 indicating a mild negative deviation from the 7-day mean, regime labeled NORMAL, and the formula default weights are wA=0.597, wB=0.312, wC=0.091. Recent persistence errors show the anchor tracked well within small error bounds (\u00b1$3/MWh) last 3 days, so no deviation from default weights was applied.",
+  "reasoning": "Anchor_z is -0.34 indicating the anchor is slightly below the 7-day mean, regime context is NORMAL. Formula default weights are wA=0.701, wB=0.209, wC=0.090. Recent error track record shows persistence overshot actuals slightly by +1.12, indicating the anchor tracked actuals well, so no deviation from defaults was made.",
   "confidence": 3
 }

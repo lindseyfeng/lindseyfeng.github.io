@@ -349,6 +349,12 @@
 
       <!-- ── Position table ──────────────────────────────────── -->
       <div class="section-label" style="margin-top:18px;">Per-hour signal breakdown</div>
+      <div style="font-size:11px; color:#888; margin:2px 0 8px; line-height:1.4;">
+        <b style="color:#6a4a9a;">Conviction</b> = calibrated P(trade is directionally right), from an
+        online-fit map of ensemble agreement, volatility, and (inverted) LLM confidence. Hours below the
+        <b>0.55</b> gate are <span style="color:#b94a4a;">GATED</span> — the agent skips them (position 0),
+        concentrating on the hours where it actually has an edge.
+      </div>
       <div style="overflow-x:auto;">
         <table class="positions" id="positionsTable">
           <thead>
@@ -357,6 +363,7 @@
               <th rowspan="2">DAM $</th>
               <th colspan="2" style="background:#f0f4f8; color:#555;">Quant priors</th>
               <th colspan="2" style="background:#eef3f7; color:#2d6a9f;">LLM decision</th>
+              <th rowspan="2" style="background:#f3f0f8; color:#6a4a9a; min-width:78px;">Conviction<br><span style="font-size:9px; font-weight:400; color:#9a8ab5;">P&#770; · gate .55</span></th>
               <th rowspan="2" style="background:#f4f8f4; color:#2d7a4a;">Position MW</th>
               <th rowspan="2" style="background:#fbf7f0; color:#9a6a2a; min-width:200px;">Why — LLM rationale</th>
               <th colspan="2" style="background:#fafafa; color:#888;">Persistence</th>
@@ -703,6 +710,18 @@
         const col = c >= 0.7 ? '#2d8a4f' : (c >= 0.5 ? '#e0a030' : '#aaa');
         return `<span style="font-size:10px;color:${col};">${pct}%</span>`;
       }
+      // Calibrated conviction P̂ = P(trade is directionally right). Gated hours
+      // (agent wanted to trade but P̂ < gate → position 0) are shown struck-out.
+      function convCell(c, gated) {
+        if (c == null) return '<span style="color:#ccc;">—</span>';
+        const pct = Math.round(c * 100);
+        if (gated) {
+          return `<span style="font-size:11px;font-weight:700;color:#b94a4a;text-decoration:line-through;">${pct}%</span>`
+               + ` <span style="background:#b94a4a;color:#fff;font-size:8px;padding:1px 4px;border-radius:3px;vertical-align:middle;">GATED</span>`;
+        }
+        const col = c >= 0.60 ? '#2d8a4f' : '#e0a030';
+        return `<span style="font-size:12px;font-weight:700;color:${col};">${pct}%</span>`;
+      }
 
       tbody.innerHTML = a.signals.map((sig, i) => {
         const ph = perHour[i] || {};
@@ -721,6 +740,7 @@
             <td style="text-align:center;">${dirLabel(ph.lr_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.lr_prob != null ? (ph.lr_prob*100).toFixed(0)+'%' : ''}</span></td>
             <td class="${cls}">${fmtSpread(a.spread_forecast_hourly[i])}</td>
             <td style="text-align:center;">${confBar(ph.confidence)}</td>
+            <td style="text-align:center;">${convCell(ph.conviction, sig !== 0 && mw === 0)}</td>
             <td class="${cls}">${labelForSignal(sig)} ${mw != null ? mw.toFixed(2) : '1.00'}</td>
             <td style="font-size:10px; color:#555; text-align:left; line-height:1.35;">${ph.reason ? escapeHtml(ph.reason) : '<span style="color:#bbb;">—</span>'}</td>
             <td>${persSpread != null ? fmtSpread(persSpread) : "—"}</td>

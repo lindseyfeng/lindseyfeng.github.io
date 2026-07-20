@@ -11,28 +11,28 @@
       26.36,
       26.2,
       27.53,
-      29.81,
-      25.78,
+      29.03,
+      25.0,
       19.59,
       19.74,
-      22.78,
-      25.17,
-      27.87,
-      31.29,
-      31.77,
-      32.28,
-      32.5,
-      32.61,
-      36.66,
-      47.96,
-      50.54,
-      46.2,
-      42.54,
-      35.56
+      23.46,
+      25.85,
+      28.54,
+      31.26,
+      31.75,
+      32.26,
+      32.47,
+      32.58,
+      36.63,
+      47.94,
+      50.52,
+      46.17,
+      42.79,
+      36.29
     ],
-    "daily_avg_usd_per_mwh": 31.67,
-    "peak_avg_usd_per_mwh": 40.05,
-    "offpeak_avg_usd_per_mwh": 28.12
+    "daily_avg_usd_per_mwh": 31.72,
+    "peak_avg_usd_per_mwh": 40.03,
+    "offpeak_avg_usd_per_mwh": 27.93
   },
   "actuals_today": {
     "date": "2026-07-20",
@@ -93,6 +93,6 @@
       34.94
     ]
   },
-  "reasoning": "The anchor_z is +1.95 (SPIKE regime), with formula default weights wA=0.431, wB=0.478, wC=0.091 and max wA permitted=0.518. Recent error track record shows persistence that tracked well with small bias, no consistent overshoot or undershoot larger than \u00b13. Therefore, formula defaults are used without deviation.",
+  "reasoning": "The anchor_z for candidate A is +1.98, indicating a SPIKE regime context. The formula default weights are wA=0.430, wB=0.480, wC=0.091, with a maximum allowed wA of 0.517. Recent persistence errors show the stage1 anchor tracked well (errors within about \u00b13) with no consistent overshoot or undershoot, so no adjustment to weights was made. Thus, the formula defaults were applied.",
   "confidence": 3
 }

@@ -16,22 +16,22 @@
       21.02,
       21.81,
       27.25,
-      33.19,
-      37.54,
-      42.0,
-      45.28,
-      43.74,
-      47.86,
-      48.65,
-      51.65,
-      66.08,
+      33.18,
+      37.53,
+      41.99,
+      45.27,
+      43.72,
+      47.84,
+      48.63,
+      51.63,
+      66.09,
       67.43,
-      63.28,
-      58.81,
-      41.91
+      63.27,
+      58.8,
+      42.74
     ],
-    "daily_avg_usd_per_mwh": 38.93,
-    "peak_avg_usd_per_mwh": 56.33,
+    "daily_avg_usd_per_mwh": 38.96,
+    "peak_avg_usd_per_mwh": 56.32,
     "offpeak_avg_usd_per_mwh": 27.09
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       41.35
     ]
   },
-  "reasoning": "Anchor_z is 0.83 indicating a volatile regime context. Formula default weights are wA=0.531, wB=0.343, wC=0.126 with max wA allowed 0.644. The recent error track record does not show a consistent overshoot or undershoot by the Stage-1 anchor, so no deviation from the formula default weights was made. The persistence errors last 3 days were mixed but did not exceed thresholds for adjustment.",
+  "reasoning": "The anchor_z is +0.83 indicating a volatile regime context. The formula default weights are wA=0.53, wB=0.344, wC=0.126. The recent error track record shows mixed errors without consistent overshoot or undershoot; therefore, no deviation from the formula defaults was applied.",
   "confidence": 3
 }

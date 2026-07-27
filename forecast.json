@@ -93,6 +93,6 @@
       31.38
     ]
   },
-  "reasoning": "The anchor_z is -0.30 indicating the anchor is slightly below the 7-day mean in a VOLATILE regime, yielding formula default weights of wA=0.682, wB=0.186, wC=0.132. Recent error track shows mixed but small persistence errors (~+1.15 over 3 days) indicating the anchor tracked actuals well, so no deviation from formula defaults was made. Confidence is at highest level due to clear error pattern and agreement among candidates.",
+  "reasoning": "The anchor_z value is -0.30 indicating a VOLATILE regime with a Stage 1 anchor daily average of $33.91/MWh. The formula-computed default weights are wA=0.682, wB=0.186, wC=0.132 with a max wA of 0.819. Recent error track record shows the anchor tracked well with persistence errors averaging +1.15 over the last 3 days, so no adjustment to weights was made.",
   "confidence": 3
 }

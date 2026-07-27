@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       25.11,
       23.57,
-      22.54,
+      22.53,
       22.26,
       22.56,
-      23.27,
+      23.26,
       25.63,
-      22.73,
-      18.78,
+      23.6,
+      19.65,
       18.07,
-      23.86,
-      27.03,
-      29.13,
-      32.7,
-      33.79,
+      23.87,
+      27.9,
+      30.87,
+      34.44,
+      34.66,
       34.7,
-      40.05,
-      42.21,
-      47.55,
-      74.07,
-      77.66,
-      61.56,
-      42.59,
-      33.38
+      40.06,
+      42.23,
+      45.82,
+      70.58,
+      74.18,
+      58.08,
+      42.58,
+      32.51
     ],
-    "daily_avg_usd_per_mwh": 34.37,
-    "peak_avg_usd_per_mwh": 56.31,
-    "offpeak_avg_usd_per_mwh": 23.46
+    "daily_avg_usd_per_mwh": 34.11,
+    "peak_avg_usd_per_mwh": 54.57,
+    "offpeak_avg_usd_per_mwh": 23.57
   },
   "actuals_today": {
     "date": "2026-07-27",
@@ -93,6 +93,6 @@
       31.38
     ]
   },
-  "reasoning": "The anchor_z=-0.28 indicates a regime flagged as VOLATILE with moderate deviation from the 7-day mean. The formula default weights (wA=0.688, wB=0.179, wC=0.132) reflect partial reliance on the stage-1 anchor with moderate spike reversion and day-of-week mean influence. The recent error track record showed the anchor tracking actuals well within \u00b13$/MWh with a slight positive persistence bias, so no weight adjustments were made. Output uses formula defaults exactly.",
+  "reasoning": "The anchor_z is -0.30 indicating the anchor is slightly below the 7-day mean in a VOLATILE regime, yielding formula default weights of wA=0.682, wB=0.186, wC=0.132. Recent error track shows mixed but small persistence errors (~+1.15 over 3 days) indicating the anchor tracked actuals well, so no deviation from formula defaults was made. Confidence is at highest level due to clear error pattern and agreement among candidates.",
   "confidence": 3
 }

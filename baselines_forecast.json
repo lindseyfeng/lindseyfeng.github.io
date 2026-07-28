@@ -1,19 +1,19 @@
 {
-  "run_date": "2026-07-27",
-  "target_date": "2026-07-28",
+  "run_date": "2026-07-28",
+  "target_date": "2026-07-29",
   "position_mw": 1,
   "baselines": {
     "persistence": {
       "directions": [
         -1,
         -1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
         -1,
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,

@@ -12,15 +12,15 @@
       24.0,
       24.5,
       26.33,
-      25.43,
-      20.13,
-      18.79,
-      24.14,
-      28.36,
-      31.19,
-      33.67,
-      35.37,
-      34.65,
+      24.56,
+      18.39,
+      17.92,
+      23.26,
+      27.49,
+      30.31,
+      32.8,
+      34.5,
+      33.78,
       39.21,
       40.43,
       47.0,
@@ -30,9 +30,9 @@
       47.82,
       34.45
     ],
-    "daily_avg_usd_per_mwh": 35.48,
+    "daily_avg_usd_per_mwh": 35.11,
     "peak_avg_usd_per_mwh": 55.97,
-    "offpeak_avg_usd_per_mwh": 24.76
+    "offpeak_avg_usd_per_mwh": 24.65
   },
   "actuals_today": {
     "date": "2026-07-28",
@@ -93,6 +93,6 @@
       32.29
     ]
   },
-  "reasoning": "The anchor_z value is +0.03 (close to mean) indicating the stage1 anchor is typical under volatile regime. The formula default blend weights are wA=0.786, wB=0.086, wC=0.128 and we used these exactly. Recent error track record indicates persistence errors are small and tracking well, so no deviation applied.",
+  "reasoning": "The anchor_z is 0.00 with a VOLATILE regime context indicating a typical anchor state. The formula default weights are wA=0.797, wB=0.075, wC=0.128, and no deviation was applied. Persistence errors over the last three days were small (-1.28 average), showing the anchor tracked actuals well, so no adjustment to weights was justified.",
   "confidence": 3
 }

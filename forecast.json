@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.4,
-      25.85,
+      28.41,
+      25.86,
       24.54,
-      24.36,
-      25.24,
-      27.64,
-      32.35,
-      29.15,
-      22.45,
-      22.65,
-      18.51,
-      20.39,
-      23.23,
-      27.07,
-      28.06,
-      30.61,
-      36.4,
-      36.4,
-      41.43,
-      55.05,
-      55.14,
-      49.74,
-      45.33,
-      35.63
+      24.37,
+      25.25,
+      27.65,
+      32.1,
+      28.88,
+      22.29,
+      22.41,
+      26.81,
+      29.48,
+      31.91,
+      34.59,
+      34.74,
+      35.3,
+      35.72,
+      35.63,
+      40.69,
+      54.66,
+      55.22,
+      49.53,
+      44.88,
+      36.18
     ],
-    "daily_avg_usd_per_mwh": 31.9,
-    "peak_avg_usd_per_mwh": 44.88,
-    "offpeak_avg_usd_per_mwh": 27.19
+    "daily_avg_usd_per_mwh": 33.63,
+    "peak_avg_usd_per_mwh": 44.38,
+    "offpeak_avg_usd_per_mwh": 27.13
   },
   "actuals_today": {
     "date": "2026-07-29",
@@ -93,6 +93,6 @@
       34.19
     ]
   },
-  "reasoning": "The anchor_z is +0.42\u03c3 in a NORMAL regime, leading to formula default weights (wA=0.666, wB=0.237, wC=0.097). Recent persistence errors show a mild undershoot, no consistent overshoot pattern to adjust wA. Therefore, weights kept at formula default. The anchor daily avg is $32.23, forecast blends to $31.90 (slightly down), matching expectations with high confidence due to stable recent errors.",
+  "reasoning": "Anchor_z is +0.95 indicating a moderately elevated regime context labeled NORMAL. Formula default weights are wA=0.522, wB=0.380, wC=0.099; no deviation from these defaults was made. Recent error track record shows mixed small errors with persistence underestimating actuals, so no clear pattern to increase or decrease wA.",
   "confidence": 3
 }

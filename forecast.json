@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.41,
+      28.4,
       25.86,
       24.54,
-      24.37,
-      25.25,
+      24.36,
+      25.24,
       27.65,
-      32.1,
-      28.88,
-      22.29,
-      22.41,
-      26.81,
-      29.48,
-      31.91,
-      34.59,
-      34.74,
-      35.3,
-      35.72,
-      35.63,
-      40.69,
-      54.66,
-      55.22,
-      49.53,
-      44.88,
-      36.18
+      31.26,
+      28.04,
+      22.3,
+      22.43,
+      26.04,
+      29.54,
+      31.96,
+      34.64,
+      34.78,
+      35.34,
+      35.78,
+      35.69,
+      40.75,
+      54.69,
+      55.23,
+      49.55,
+      44.92,
+      36.21
     ],
-    "daily_avg_usd_per_mwh": 33.63,
-    "peak_avg_usd_per_mwh": 44.38,
-    "offpeak_avg_usd_per_mwh": 27.13
+    "daily_avg_usd_per_mwh": 33.55,
+    "peak_avg_usd_per_mwh": 44.43,
+    "offpeak_avg_usd_per_mwh": 26.92
   },
   "actuals_today": {
     "date": "2026-07-29",
@@ -93,6 +93,6 @@
       34.19
     ]
   },
-  "reasoning": "Anchor_z is +0.95 indicating a moderately elevated regime context labeled NORMAL. Formula default weights are wA=0.522, wB=0.380, wC=0.099; no deviation from these defaults was made. Recent error track record shows mixed small errors with persistence underestimating actuals, so no clear pattern to increase or decrease wA.",
+  "reasoning": "",
   "confidence": 3
 }

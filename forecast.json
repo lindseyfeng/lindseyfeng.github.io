@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      29.39,
+      29.42,
       25.8,
       24.83,
       24.42,
       24.57,
-      26.39,
-      33.34,
-      29.18,
-      23.31,
-      21.42,
-      25.03,
-      27.53,
-      30.15,
-      33.75,
-      35.16,
-      36.16,
-      36.21,
-      35.3,
-      39.66,
-      49.57,
-      51.66,
-      49.01,
-      43.87,
-      32.53
+      26.41,
+      33.46,
+      29.27,
+      23.36,
+      21.48,
+      25.98,
+      28.79,
+      31.12,
+      33.9,
+      35.31,
+      36.31,
+      36.36,
+      35.45,
+      39.81,
+      49.73,
+      51.83,
+      49.17,
+      44.86,
+      32.59
     ],
-    "daily_avg_usd_per_mwh": 32.84,
-    "peak_avg_usd_per_mwh": 42.48,
-    "offpeak_avg_usd_per_mwh": 27.24
+    "daily_avg_usd_per_mwh": 33.09,
+    "peak_avg_usd_per_mwh": 42.64,
+    "offpeak_avg_usd_per_mwh": 27.27
   },
   "actuals_today": {
     "date": "2026-07-30",
@@ -93,6 +93,6 @@
       31.0
     ]
   },
-  "reasoning": "",
+  "reasoning": "Anchor_z is +1.01, regime SPIKE context; formula default weights wA=0.513, wB=0.391, wC=0.096. Recent error tracking shows persistence overshot actuals by ~1.46 MWh over last 3 days but overall tracked well. Increased wA by +0.05 to 0.563 within max allowed 0.606. Weights adjusted accordingly; the forecast daily avg at 33.06 is slightly down versus anchor daily avg 33.88. Deviation justified by mild trend of undershooting the overshoot.",
   "confidence": 3
 }

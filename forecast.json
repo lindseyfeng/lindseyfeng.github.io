@@ -7,32 +7,32 @@
     "hourly_usd_per_mwh": [
       39.46,
       36.22,
-      31.97,
+      31.96,
       30.42,
       29.86,
       29.72,
-      31.52,
-      25.48,
-      20.03,
-      19.7,
-      21.57,
-      22.75,
-      23.68,
-      26.18,
-      27.05,
-      29.94,
-      35.14,
-      38.72,
-      48.57,
-      71.78,
-      72.79,
-      60.63,
-      42.28,
-      33.22
+      32.26,
+      27.18,
+      21.75,
+      20.54,
+      23.18,
+      25.28,
+      27.16,
+      29.71,
+      29.78,
+      31.76,
+      37.57,
+      41.76,
+      48.21,
+      71.73,
+      72.8,
+      60.9,
+      43.61,
+      33.39
     ],
-    "daily_avg_usd_per_mwh": 35.36,
-    "peak_avg_usd_per_mwh": 53.4,
-    "offpeak_avg_usd_per_mwh": 31.83
+    "daily_avg_usd_per_mwh": 36.51,
+    "peak_avg_usd_per_mwh": 54.41,
+    "offpeak_avg_usd_per_mwh": 32.13
   },
   "actuals_today": {
     "date": "2026-08-02",
@@ -93,6 +93,6 @@
       31.11
     ]
   },
-  "reasoning": "The anchor_z of +0.43\u03c3 in a NORMAL regime context led to formula default blending weights (0.664, 0.243, 0.093). Recent error track record shows persistence errors within \u00b13 $/MWh and balanced bias, so no weight adjustment on stage1_anchor was warranted. Hence, the formula default weights were used exactly.",
+  "reasoning": "With an anchor_z of +0.81 indicating a moderate upward deviation and NORMAL regime, the formula defaults weights are wA=0.555, wB=0.351, wC=0.094. Recent persistence errors show the anchor tracking well within \u00b13 $/MWh in the last 3 days, so no weight adjustment was made. The blend follows the formula defaults exactly.",
   "confidence": 3
 }

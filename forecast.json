@@ -5,33 +5,33 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.44,
-      22.63,
-      21.63,
-      20.89,
+      25.45,
+      22.64,
+      21.64,
+      20.9,
       20.97,
+      23.85,
       23.84,
-      23.83,
-      21.7,
+      21.71,
       17.92,
       16.3,
-      18.78,
-      20.74,
-      24.15,
-      25.88,
-      28.53,
-      29.25,
-      35.73,
-      35.69,
-      42.29,
-      79.57,
-      80.51,
-      67.03,
-      38.02,
-      28.84
+      17.88,
+      19.84,
+      23.25,
+      24.99,
+      26.73,
+      28.35,
+      33.93,
+      32.99,
+      39.59,
+      79.59,
+      80.52,
+      67.04,
+      38.04,
+      27.95
     ],
-    "daily_avg_usd_per_mwh": 32.09,
-    "peak_avg_usd_per_mwh": 54.76,
+    "daily_avg_usd_per_mwh": 31.5,
+    "peak_avg_usd_per_mwh": 53.32,
     "offpeak_avg_usd_per_mwh": 22.62
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       26.2
     ]
   },
-  "reasoning": "The anchor_z value is -0.36 indicating a normal regime context. The formula computed default weights are wA=0.686, wB=0.215, wC=0.099, and the max allowed wA is 0.795. Recent error track record shows that persistence overshot actuals by about $5/MWh on average the last 3 days, but Stage-1 anchor avg is closer to actuals with mixed minor overshoot, so no deviation was applied. Formula defaults were used exactly.",
+  "reasoning": "The anchor_z is -0.50 indicating moderate deviation and NORMAL regime. The formula defaults weights are wA=0.638, wB=0.262, wC=0.100. Recent error track shows persistence overshot actuals by ~+5 $/MWh last 3 days, justifying a slight increase in wA by +0.10 to 0.738, within max allowed 0.743. This adjustment blends more toward Stage1 anchor given consistent good tracking despite slight overshoot.",
   "confidence": 3
 }

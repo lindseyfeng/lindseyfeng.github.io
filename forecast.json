@@ -11,28 +11,28 @@
       19.01,
       19.43,
       21.13,
-      22.97,
-      21.62,
+      23.86,
+      22.52,
       16.86,
       14.88,
       19.03,
-      21.54,
-      25.77,
-      30.14,
-      33.08,
+      22.43,
+      27.57,
+      31.94,
+      33.98,
       34.69,
-      37.65,
-      40.38,
-      46.08,
+      39.44,
+      42.18,
+      49.67,
       77.99,
       84.3,
       63.07,
-      40.34,
-      32.22
+      42.14,
+      33.12
     ],
-    "daily_avg_usd_per_mwh": 32.62,
-    "peak_avg_usd_per_mwh": 57.28,
-    "offpeak_avg_usd_per_mwh": 20.61
+    "daily_avg_usd_per_mwh": 33.33,
+    "peak_avg_usd_per_mwh": 58.72,
+    "offpeak_avg_usd_per_mwh": 20.83
   },
   "actuals_today": {
     "date": "2026-08-04",
@@ -93,6 +93,6 @@
       29.76
     ]
   },
-  "reasoning": "Anchor_z is -0.13 indicating anchor close to recent 7-day mean in a NORMAL regime. Formula default weights are wA=0.770, wB=0.128, wC=0.102 with max wA allowed 0.850. Recent persistence errors show overshoot bias but mixed error magnitudes prevent safe adjustment. Thus, weights are used as formula defaults without deviation.",
+  "reasoning": "The anchor_z value near 0.01 and NORMAL regime indicate a typical market context. The formula default weights are wA=0.816, wB=0.082, wC=0.101 with Max wA 0.85, which we used exactly. The persistence error shows the anchor slightly overshot actuals by about 3.7/MWh on average the last 3 days, but errors are mixed and under the threshold for changing weights, so no deviation applied.",
   "confidence": 3
 }

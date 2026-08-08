@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.33,
-      25.76,
-      25.39,
-      24.42,
-      24.27,
-      24.78,
-      25.51,
-      24.56,
-      20.35,
-      18.95,
-      19.6,
-      22.36,
-      23.9,
-      25.35,
+      28.09,
       25.54,
-      26.65,
-      30.52,
-      32.01,
-      40.54,
-      48.81,
-      47.88,
-      42.46,
-      35.6,
-      29.36
+      25.25,
+      24.27,
+      24.14,
+      24.68,
+      25.48,
+      25.54,
+      21.34,
+      18.96,
+      20.4,
+      24.1,
+      25.67,
+      27.12,
+      26.44,
+      26.64,
+      31.41,
+      33.79,
+      43.21,
+      51.38,
+      49.5,
+      43.23,
+      36.17,
+      29.07
     ],
-    "daily_avg_usd_per_mwh": 28.87,
-    "peak_avg_usd_per_mwh": 39.95,
-    "offpeak_avg_usd_per_mwh": 25.38
+    "daily_avg_usd_per_mwh": 29.64,
+    "peak_avg_usd_per_mwh": 41.86,
+    "offpeak_avg_usd_per_mwh": 25.37
   },
   "actuals_today": {
     "date": "2026-08-08",
@@ -93,6 +93,6 @@
       26.74
     ]
   },
-  "reasoning": "Anchor_z is +0.54 (slightly above 7-day mean), regime set to NORMAL. Formula default weights are wA=0.629, wB=0.278, wC=0.093, with max wA allowed 0.728. Recent persistence errors are small and mixed, averaging -0.14 last 3 days, indicating the anchor tracked actuals well. No adjustment made from formula defaults due to lack of a clear error pattern.",
+  "reasoning": "Anchor z=+0.81 signals partial reversion with default weights wA=0.554, wB=0.352, wC=0.094; recent error track record shows persistence errors small and mixed within \u00b1$3/MWh last 3 days indicating anchor tracks well, so wA increased toward max allowed 0.648 (here to 0.65 clamped) to give more trust to stage1 anchor; spike reversion weight lowered correspondingly; final blend daily avg forecast 29.64 close to linear combination 29.62.",
   "confidence": 3
 }

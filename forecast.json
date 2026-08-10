@@ -11,16 +11,16 @@
       21.41,
       21.94,
       23.65,
-      24.97,
-      22.97,
-      19.62,
-      17.64,
-      20.26,
-      23.54,
-      26.63,
+      23.43,
+      21.44,
+      18.08,
+      16.11,
+      19.59,
+      22.87,
+      25.96,
       30.34,
-      34.14,
-      34.88,
+      34.81,
+      35.55,
       37.07,
       38.26,
       46.72,
@@ -28,11 +28,11 @@
       69.36,
       61.75,
       39.44,
-      31.06
+      30.34
     ],
-    "daily_avg_usd_per_mwh": 32.66,
+    "daily_avg_usd_per_mwh": 32.35,
     "peak_avg_usd_per_mwh": 52.21,
-    "offpeak_avg_usd_per_mwh": 22.94
+    "offpeak_avg_usd_per_mwh": 22.55
   },
   "actuals_today": {
     "date": "2026-08-10",
@@ -93,6 +93,6 @@
       28.35
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z value is 7.64 sigma, indicating a SPIKE regime context. Formula default weights are wA=0.418, wB=0.501, wC=0.081, and no deviation from defaults was made. The recent error track record shows persistence errors within \u00b13/MWh and generally well-tracked anchor actuals over the last 3 days, justifying no adjustment.",
   "confidence": 3
 }

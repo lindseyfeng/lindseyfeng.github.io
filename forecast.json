@@ -11,28 +11,28 @@
       21.1,
       20.92,
       22.48,
-      23.19,
-      20.96,
-      17.79,
-      16.35,
-      19.43,
-      23.08,
-      23.23,
-      24.37,
-      26.35,
-      27.14,
-      32.6,
-      32.42,
-      39.48,
-      46.7,
-      45.11,
-      41.19,
-      34.07,
-      27.61
+      23.62,
+      21.85,
+      18.71,
+      16.83,
+      19.58,
+      23.28,
+      23.33,
+      23.96,
+      26.82,
+      27.16,
+      31.87,
+      31.24,
+      37.89,
+      45.09,
+      43.86,
+      40.33,
+      34.06,
+      27.15
     ],
-    "daily_avg_usd_per_mwh": 27.25,
-    "peak_avg_usd_per_mwh": 39.26,
-    "offpeak_avg_usd_per_mwh": 22.12
+    "daily_avg_usd_per_mwh": 27.06,
+    "peak_avg_usd_per_mwh": 37.99,
+    "offpeak_avg_usd_per_mwh": 22.29
   },
   "actuals_today": {
     "date": "2026-08-12",
@@ -93,6 +93,6 @@
       25.37
     ]
   },
-  "reasoning": "The anchor_z value is +0.80\u03c3, indicating a moderately high but not extreme regime, classified as NORMAL. Formula defaults weights are wA=0.564, wB=0.355, wC=0.081 with Max wA allowed at 0.651. Recent error track record showed persistence overshot actuals by +0.64 MWh over last 3 days, meaning the anchor tracked well, so no adjustment was made. We used the formula default weights exactly from the calibration block.",
+  "reasoning": "Anchor_z is +0.60 indicating a moderately elevated stage1 skill anchor in a NORMAL regime. Formula defaults assign weights wA=0.618, wB=0.301, wC=0.080, with max wA allowed at 0.707. Recent error track record shows persistence errors averaging +0.64 over last 3 days, indicating the anchor tracked well, so no deviation from default weights applied.",
   "confidence": 3
 }

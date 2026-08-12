@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.83,
-      22.55,
-      21.78,
-      21.04,
-      20.86,
-      22.41,
-      23.12,
-      20.93,
-      17.75,
-      16.29,
-      16.75,
-      19.54,
-      19.78,
+      23.91,
+      22.61,
+      21.83,
+      21.1,
+      20.92,
+      22.48,
+      23.19,
       20.96,
-      23.81,
-      24.6,
-      27.54,
-      26.53,
-      32.76,
-      40.17,
-      41.56,
-      37.56,
-      32.34,
-      25.87
+      17.79,
+      16.35,
+      19.43,
+      23.08,
+      23.23,
+      24.37,
+      26.35,
+      27.14,
+      32.6,
+      32.42,
+      39.48,
+      46.7,
+      45.11,
+      41.19,
+      34.07,
+      27.61
     ],
-    "daily_avg_usd_per_mwh": 25.01,
-    "peak_avg_usd_per_mwh": 33.71,
-    "offpeak_avg_usd_per_mwh": 22.06
+    "daily_avg_usd_per_mwh": 27.25,
+    "peak_avg_usd_per_mwh": 39.26,
+    "offpeak_avg_usd_per_mwh": 22.12
   },
   "actuals_today": {
     "date": "2026-08-12",
@@ -93,6 +93,6 @@
       25.37
     ]
   },
-  "reasoning": "Anchor_z is -1.10 (CRASH regime), formula defaults were wA=0.506, wB=0.412, wC=0.082. Recent persistence errors show the anchor tracked well with a slight overshoot bias, allowing wA to increase up to 0.59 max. Adjusted wA upward to 0.59 to reflect good anchor performance and redistributed weights proportionally. Applied blend yields a forecast daily average modestly above the stage1 anchor, consistent with mild upward momentum signals.",
+  "reasoning": "The anchor_z value is +0.80\u03c3, indicating a moderately high but not extreme regime, classified as NORMAL. Formula defaults weights are wA=0.564, wB=0.355, wC=0.081 with Max wA allowed at 0.651. Recent error track record showed persistence overshot actuals by +0.64 MWh over last 3 days, meaning the anchor tracked well, so no adjustment was made. We used the formula default weights exactly from the calibration block.",
   "confidence": 3
 }

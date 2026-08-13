@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.95,
-      22.32,
+      23.96,
+      22.33,
       21.3,
-      20.02,
+      20.03,
       20.8,
-      22.29,
-      23.54,
-      21.9,
-      17.82,
-      16.14,
-      18.19,
-      20.49,
-      21.99,
-      24.67,
-      27.05,
-      29.9,
-      32.97,
-      32.87,
-      37.61,
-      45.68,
-      46.75,
-      46.37,
-      38.62,
-      29.02
+      22.3,
+      23.51,
+      22.25,
+      18.96,
+      16.87,
+      18.58,
+      21.26,
+      23.25,
+      26.27,
+      28.65,
+      30.93,
+      34.42,
+      34.56,
+      38.94,
+      46.49,
+      46.13,
+      45.45,
+      38.27,
+      28.95
     ],
-    "daily_avg_usd_per_mwh": 27.59,
-    "peak_avg_usd_per_mwh": 39.18,
-    "offpeak_avg_usd_per_mwh": 22.02
+    "daily_avg_usd_per_mwh": 28.1,
+    "peak_avg_usd_per_mwh": 40.11,
+    "offpeak_avg_usd_per_mwh": 22.06
   },
   "actuals_today": {
     "date": "2026-08-13",
@@ -93,6 +93,6 @@
       27.6
     ]
   },
-  "reasoning": "Stage1 anchor z=+1.11 within SPIKE regime context; formula default weights wA=0.503, wB=0.415, wC=0.081; recent error track shows persistence errors +1.01 avg last 3 days indicating good track record, so wA increased by +0.08 within max limit (0.588). Blended forecast weighted accordingly.",
+  "reasoning": "",
   "confidence": 3
 }

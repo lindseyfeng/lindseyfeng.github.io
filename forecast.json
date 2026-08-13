@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.96,
-      22.33,
-      21.3,
-      20.03,
-      20.8,
-      22.3,
-      23.51,
-      22.25,
+      23.83,
+      22.24,
+      21.22,
+      19.92,
+      20.71,
+      22.21,
+      23.42,
+      22.21,
       18.96,
-      16.87,
-      18.58,
-      21.26,
-      23.25,
-      26.27,
-      28.65,
-      30.93,
-      34.42,
-      34.56,
-      38.94,
-      46.49,
-      46.13,
-      45.45,
-      38.27,
-      28.95
+      17.27,
+      19.41,
+      22.11,
+      24.04,
+      26.3,
+      28.71,
+      31.79,
+      35.36,
+      34.85,
+      39.09,
+      46.37,
+      45.96,
+      45.32,
+      38.06,
+      28.41
     ],
-    "daily_avg_usd_per_mwh": 28.1,
-    "peak_avg_usd_per_mwh": 40.11,
-    "offpeak_avg_usd_per_mwh": 22.06
+    "daily_avg_usd_per_mwh": 28.24,
+    "peak_avg_usd_per_mwh": 40.33,
+    "offpeak_avg_usd_per_mwh": 21.97
   },
   "actuals_today": {
     "date": "2026-08-13",
@@ -93,6 +93,6 @@
       27.6
     ]
   },
-  "reasoning": "",
+  "reasoning": "Anchor_z was +2.07 indicating a SPIKE regime; formula default weights were wA=0.431, wB=0.487, wC=0.082. Persistence error track record over last 3 days showed good tracking within \u00b1$3/MWh, justifying increasing wA by +0.083 to 0.514 (within max allowed 0.514). Weights on spike_reverted and dow_mean adjusted proportionally. Final blend leans slightly more on stage1 anchor, reflecting confidence in recent track record.",
   "confidence": 3
 }

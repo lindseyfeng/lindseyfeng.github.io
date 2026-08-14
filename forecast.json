@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      24.63,
-      23.22,
-      22.24,
-      22.05,
-      21.72,
-      22.77,
+      24.7,
+      23.27,
+      22.28,
+      22.09,
+      21.76,
+      22.79,
       24.85,
-      24.25,
-      20.68,
-      16.47,
-      19.29,
-      22.24,
-      25.57,
-      27.33,
-      29.45,
-      30.82,
+      24.23,
+      20.67,
+      16.49,
+      18.58,
+      21.52,
+      24.84,
+      26.6,
+      28.71,
+      30.08,
+      32.91,
       33.61,
-      34.79,
-      42.78,
-      51.28,
-      47.46,
-      45.06,
-      38.58,
-      31.39
+      41.97,
+      48.02,
+      44.87,
+      43.14,
+      37.94,
+      30.71
     ],
-    "daily_avg_usd_per_mwh": 29.27,
-    "peak_avg_usd_per_mwh": 41.98,
-    "offpeak_avg_usd_per_mwh": 23.22
+    "daily_avg_usd_per_mwh": 28.61,
+    "peak_avg_usd_per_mwh": 40.28,
+    "offpeak_avg_usd_per_mwh": 23.25
   },
   "actuals_today": {
     "date": "2026-08-14",
@@ -93,6 +93,6 @@
       29.9
     ]
   },
-  "reasoning": "Anchor_z is 3.82, regime context SPIKE. Formula default weights were wA=0.418, wB=0.501, wC=0.081. Based on recent persistence errors showing good tracking within \u00b1$3/MWh, we increased wA to the max allowed 0.500, reducing wB and wC accordingly. The recent error track record justified increasing confidence in the stage1 anchor component. No contradictions found.",
+  "reasoning": "Anchor_z is +3.00 indicating SPIKE regime context, formula defaults were wA=0.420, wB=0.499, wC=0.081. Recent error track shows persistence (anchor) tracked actuals well (errors within \u00b1$3/MWh). Therefore, wA was increased by +0.10 within max allowed cap to 0.520, reducing reliance on spike_reverted anchor. Blend weights sum to 1.0 with improved confidence.",
   "confidence": 3
 }

@@ -11,28 +11,28 @@
       22.62,
       22.01,
       22.97,
-      24.58,
+      23.82,
       22.58,
-      17.84,
-      15.06,
+      19.37,
+      15.83,
       17.65,
       20.99,
       25.8,
-      29.11,
+      29.1,
       31.89,
       32.84,
-      35.57,
-      37.35,
-      44.2,
-      59.96,
-      59.2,
-      51.59,
+      35.56,
+      37.34,
+      44.19,
+      59.95,
+      59.19,
+      51.58,
       44.51,
       32.62
     ],
-    "daily_avg_usd_per_mwh": 30.92,
-    "peak_avg_usd_per_mwh": 47.26,
-    "offpeak_avg_usd_per_mwh": 23.23
+    "daily_avg_usd_per_mwh": 30.98,
+    "peak_avg_usd_per_mwh": 47.25,
+    "offpeak_avg_usd_per_mwh": 23.14
   },
   "actuals_today": {
     "date": "2026-08-16",
@@ -93,6 +93,6 @@
       31.96
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z value is +3.03 indicating a SPIKE regime context. The formula default weights are wA=0.417, wB=0.496, wC=0.087, and the Max wA allowed is 0.502. We did not deviate from these defaults since the persistence error track record over the last 3 days shows the anchor tracked actuals well with errors within \u00b1$3/MWh (avg error -1.84), indicating no bias requiring weight adjustment.",
   "confidence": 3
 }

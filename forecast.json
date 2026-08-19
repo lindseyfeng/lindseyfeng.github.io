@@ -6,33 +6,33 @@
   "forecast": {
     "hourly_usd_per_mwh": [
       25.35,
-      22.8,
+      22.79,
       21.66,
       21.76,
       21.64,
-      22.58,
-      22.77,
+      22.57,
+      22.76,
       20.7,
-      16.88,
+      16.87,
       14.94,
-      19.98,
-      23.23,
-      28.76,
-      36.77,
-      40.47,
-      42.88,
-      47.93,
-      47.31,
-      53.09,
-      66.57,
-      67.16,
-      63.88,
-      45.07,
-      33.99
+      18.2,
+      21.45,
+      26.98,
+      35.0,
+      38.7,
+      41.12,
+      47.95,
+      47.33,
+      53.11,
+      66.59,
+      67.18,
+      63.9,
+      43.3,
+      33.1
     ],
-    "daily_avg_usd_per_mwh": 34.51,
-    "peak_avg_usd_per_mwh": 56.41,
-    "offpeak_avg_usd_per_mwh": 22.41
+    "daily_avg_usd_per_mwh": 33.96,
+    "peak_avg_usd_per_mwh": 56.43,
+    "offpeak_avg_usd_per_mwh": 22.4
   },
   "actuals_today": {
     "date": "2026-08-19",
@@ -93,6 +93,6 @@
       31.49
     ]
   },
-  "reasoning": "The anchor_z of +0.47 in a NORMAL regime context yields formula default weights wA=0.640, wB=0.249, wC=0.111. The recent error track record shows persistence errors averaging -1.72 over last 3 days, indicating the anchor tracked well without overshooting, so no adjustment to wA was made. Hence the output uses formula defaults exactly.",
+  "reasoning": "The anchor_z value is +0.38 indicating a slightly elevated but normal regime. Formula default weights are stage1=0.670, spike_reverted=0.220, dow_mean=0.111. Recent error track record shows the anchor tracked actuals well with persistence errors averaging -1.72, indicating no consistent overshoot or undershoot; thus no deviation from formula defaults was made.",
   "confidence": 3
 }

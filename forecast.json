@@ -11,15 +11,15 @@
       23.91,
       23.52,
       25.7,
-      28.87,
-      28.09,
-      22.02,
-      20.59,
-      20.35,
-      23.37,
-      28.34,
-      33.83,
-      39.99,
+      27.98,
+      27.2,
+      21.13,
+      19.7,
+      23.89,
+      27.8,
+      33.65,
+      39.15,
+      43.35,
       44.31,
       46.09,
       46.89,
@@ -27,12 +27,12 @@
       71.12,
       69.21,
       67.52,
-      46.82,
-      31.47
+      48.59,
+      33.24
     ],
-    "daily_avg_usd_per_mwh": 36.42,
+    "daily_avg_usd_per_mwh": 37.34,
     "peak_avg_usd_per_mwh": 57.95,
-    "offpeak_avg_usd_per_mwh": 25.73
+    "offpeak_avg_usd_per_mwh": 25.5
   },
   "actuals_today": {
     "date": "2026-08-21",
@@ -93,6 +93,6 @@
       31.0
     ]
   },
-  "reasoning": "The anchor_z value is -0.04 (near zero) indicating a normal market regime. The formula-computed default weights are wA=0.794, wB=0.092, wC=0.114, with a max wA allowed of 0.85. Since the recent error track record does not show a clear consistent pattern requiring adjustment, the forecast uses the formula default weights exactly. Recent persistence errors show mixed signals, so no deviation from formula defaults is justified.",
+  "reasoning": "The anchor_z was +0.08 indicating a normal regime context and formula default weights are wA=0.779, wB=0.107, wC=0.114. The recent error track record showed mixed but mostly small errors without a consistent overshoot or undershoot pattern, so no deviation from formula defaults was justified. Persistence bias suggested undershooting rather than overshooting.",
   "confidence": 3
 }

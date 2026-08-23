@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      30.4,
-      26.57,
-      23.99,
-      23.15,
-      22.9,
-      23.34,
+      30.55,
+      26.66,
+      24.04,
+      23.18,
+      22.91,
+      23.3,
       24.8,
-      23.91,
-      20.85,
-      17.87,
-      20.21,
-      23.87,
-      27.29,
-      33.56,
-      35.0,
-      34.24,
-      41.32,
-      48.43,
-      62.5,
-      84.07,
-      75.23,
-      62.11,
-      39.69,
-      30.77
+      23.95,
+      20.97,
+      17.92,
+      21.25,
+      24.98,
+      29.3,
+      35.68,
+      37.01,
+      36.12,
+      43.35,
+      49.59,
+      62.48,
+      83.82,
+      76.56,
+      63.44,
+      39.32,
+      30.74
     ],
-    "daily_avg_usd_per_mwh": 35.67,
-    "peak_avg_usd_per_mwh": 62.31,
-    "offpeak_avg_usd_per_mwh": 24.88
+    "daily_avg_usd_per_mwh": 36.33,
+    "peak_avg_usd_per_mwh": 63.16,
+    "offpeak_avg_usd_per_mwh": 24.92
   },
   "actuals_today": {
     "date": "2026-08-23",
@@ -93,6 +93,6 @@
       28.71
     ]
   },
-  "reasoning": "The anchor_z was -0.66, yielding a normal regime context with formula default weights wA=0.586, wB=0.307, wC=0.107. The anchor had a slight persistence overshoot bias in the last 3 days but not enough to justify deviation. The error track record showed mixed small errors without consistent pattern to adjust weights. Therefore, formula default weights were used.",
+  "reasoning": "The anchor_z for this date is -0.54 with regime context NORMAL. Formula default weights were wA=0.619, wB=0.274, wC=0.107. Due to a recent persistence bias where the anchor overshot actuals by about +5 $/MWh on average for the last 3 days, wA was increased by 0.10 (from 0.619 to 0.719) but capped by max allowed 0.727. The recent error track record showed consistent small positive errors indicating the anchor model slightly overshot, justifying mild increase in wA for better fit. The blend preserves shape and medium upward momentum in peak hours. Confidence is 4 due to adjustment from default based on clear error pattern.",
   "confidence": 3
 }

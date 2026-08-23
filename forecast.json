@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      30.55,
-      26.66,
-      24.04,
-      23.18,
-      22.91,
-      23.3,
+      30.65,
+      26.73,
+      24.07,
+      23.21,
+      22.92,
+      23.27,
       24.8,
-      23.95,
-      20.97,
-      17.92,
-      21.25,
-      24.98,
-      29.3,
-      35.68,
-      37.01,
-      36.12,
-      43.35,
-      49.59,
-      62.48,
-      83.82,
-      76.56,
-      63.44,
-      39.32,
-      30.74
+      23.98,
+      21.04,
+      17.95,
+      21.34,
+      25.11,
+      29.45,
+      35.9,
+      37.17,
+      36.23,
+      45.43,
+      49.88,
+      62.68,
+      83.97,
+      78.45,
+      65.25,
+      39.14,
+      30.73
     ],
-    "daily_avg_usd_per_mwh": 36.33,
-    "peak_avg_usd_per_mwh": 63.16,
-    "offpeak_avg_usd_per_mwh": 24.92
+    "daily_avg_usd_per_mwh": 36.64,
+    "peak_avg_usd_per_mwh": 64.08,
+    "offpeak_avg_usd_per_mwh": 24.95
   },
   "actuals_today": {
     "date": "2026-08-23",
@@ -93,6 +93,6 @@
       28.71
     ]
   },
-  "reasoning": "The anchor_z for this date is -0.54 with regime context NORMAL. Formula default weights were wA=0.619, wB=0.274, wC=0.107. Due to a recent persistence bias where the anchor overshot actuals by about +5 $/MWh on average for the last 3 days, wA was increased by 0.10 (from 0.619 to 0.719) but capped by max allowed 0.727. The recent error track record showed consistent small positive errors indicating the anchor model slightly overshot, justifying mild increase in wA for better fit. The blend preserves shape and medium upward momentum in peak hours. Confidence is 4 due to adjustment from default based on clear error pattern.",
+  "reasoning": "Anchor z = -0.50 with regime NORMAL; formula defaults wA=0.631, wB=0.262, wC=0.107. Recent 3-day persistence errors indicate anchor overshot actuals by about $5+/MWh, suggesting slight downward adjustment. Increased wA to max allowed 0.741 to temper anchor bias, slightly lowering spike_reverted and dow_mean weights. This adjustment aligns with observed consistent overshoot error pattern in persistence (error track record).",
   "confidence": 3
 }

@@ -93,6 +93,6 @@
       33.37
     ]
   },
-  "reasoning": "The anchor_z value is -0.79 indicating a moderately below-average anchor, placing the regime context as NORMAL. Formula default weights were wA=0.552, wB=0.343, wC=0.105. The recent error track record shows persistence has tracked actuals well with minor overshoot errors mostly within \u00b13 $/MWh in the last 3 days, so no deviation from formula defaults was made.",
+  "reasoning": "The anchor_z value is -0.79 indicating a regime NORMAL with moderate deviation from recent mean. Formula defaults computed weights as wA=0.552, wB=0.343, wC=0.105. Recent error track record shows persistence errors are small and bias is tracked well, so no deviation was applied from formula default weights. Outputting blend accordingly.",
   "confidence": 3
 }

@@ -385,7 +385,12 @@
       "date": "2026-08-24",
       "agent_pnl": -368.3,
       "persistence_pnl": -130.28
+    },
+    {
+      "date": "2026-08-25",
+      "agent_pnl": 401.6,
+      "persistence_pnl": -85.95
     }
   ],
-  "updated": "2026-08-24"
+  "updated": "2026-08-25"
 }

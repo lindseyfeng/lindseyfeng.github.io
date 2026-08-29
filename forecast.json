@@ -11,28 +11,28 @@
       25.11,
       23.63,
       23.74,
-      25.21,
-      24.68,
-      19.85,
-      17.64,
-      16.46,
-      17.71,
-      21.5,
-      25.99,
-      28.75,
-      31.58,
-      30.42,
-      33.01,
-      51.45,
-      66.53,
-      58.97,
-      50.45,
-      37.34,
-      29.44
+      24.21,
+      22.92,
+      18.12,
+      16.73,
+      17.89,
+      19.07,
+      22.82,
+      27.29,
+      30.01,
+      32.88,
+      35.21,
+      39.98,
+      59.39,
+      73.15,
+      64.11,
+      54.23,
+      37.41,
+      29.9
     ],
-    "daily_avg_usd_per_mwh": 31.12,
-    "peak_avg_usd_per_mwh": 48.08,
-    "offpeak_avg_usd_per_mwh": 26.23
+    "daily_avg_usd_per_mwh": 32.72,
+    "peak_avg_usd_per_mwh": 54.37,
+    "offpeak_avg_usd_per_mwh": 25.89
   },
   "actuals_today": {
     "date": "2026-08-29",
@@ -93,6 +93,6 @@
       28.45
     ]
   },
-  "reasoning": "The anchor_z value is -1.11 sigma reflecting a CRASH regime context. The formula default weights calculated were wA=0.482, wB=0.396, and wC=0.123 with a maximum allowed wA of 0.589. Recent persistence errors showed the anchor overshot actuals by about +8.4 on average last 3 days, indicating some overshoot, but no consistent multi-day pattern sufficient to adjust the weights was found, so the formula defaults were used without deviation.",
+  "reasoning": "The anchor_z is -0.84 indicating a moderately below-average anchor, placing the regime in NORMAL. Formula defaults weights were wA=0.531, wB=0.347, and wC=0.122, with Max wA allowed at 0.641. Recent error track shows persistence overshot actuals by about +8.4 MWh over last 3 days indicating possible anchor high bias, but not a consistent pattern to adjust weights. Therefore, formula default weights were used unchanged.",
   "confidence": 3
 }

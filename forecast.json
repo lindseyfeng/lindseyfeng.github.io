@@ -11,28 +11,28 @@
       25.11,
       23.63,
       23.74,
-      24.11,
-      22.85,
-      18.07,
-      16.69,
-      18.68,
-      20.67,
-      25.25,
+      23.27,
+      22.0,
+      17.22,
+      15.84,
+      17.84,
+      19.83,
+      24.4,
       29.71,
-      31.57,
-      33.61,
-      37.51,
-      43.08,
-      63.06,
-      75.68,
-      65.81,
-      55.15,
-      37.88,
-      29.72
+      32.42,
+      34.46,
+      37.52,
+      43.09,
+      63.1,
+      75.77,
+      65.91,
+      55.25,
+      37.93,
+      29.75
     ],
-    "daily_avg_usd_per_mwh": 33.71,
-    "peak_avg_usd_per_mwh": 57.03,
-    "offpeak_avg_usd_per_mwh": 25.87
+    "daily_avg_usd_per_mwh": 33.55,
+    "peak_avg_usd_per_mwh": 57.08,
+    "offpeak_avg_usd_per_mwh": 25.65
   },
   "actuals_today": {
     "date": "2026-08-29",
@@ -93,6 +93,6 @@
       28.45
     ]
   },
-  "reasoning": "Anchor_z = -0.70 indicating a moderate negative deviation from 7-day mean, regime context NORMAL. Formula default weights: wA=0.565, wB=0.314, wC=0.122; no deviation applied. Recent error track record shows persistence overshot actuals by +8.4 over last 3 days, indicating anchor likely high but no strong enough pattern to reduce wA below formula. We therefore use formula defaults exactly.",
+  "reasoning": "Anchor_z is -0.72 indicating a mild negative deviation from the 7-day mean in a NORMAL regime context. The formula default weights are wA=0.559, wB=0.319, and wC=0.122 with a max allowable wA=0.673, and no deviation from these defaults was applied. Recent error track shows an overshoot pattern with persistence error averaging +8.4 last 3 days, implying the anchor tends to be slightly high, which justifies trusting partial reversion by the formula, so scale weights accordingly without manual adjustment.",
   "confidence": 3
 }

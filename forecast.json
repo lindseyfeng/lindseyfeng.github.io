@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.37,
-      21.88,
-      21.15,
-      20.12,
-      19.86,
+      23.31,
+      21.84,
+      21.12,
+      20.08,
+      19.8,
+      19.87,
       19.97,
-      21.8,
-      21.72,
-      17.43,
-      13.0,
-      16.29,
-      19.95,
-      22.26,
-      26.57,
-      30.11,
-      31.95,
-      36.7,
-      40.66,
-      55.09,
-      68.72,
-      60.27,
-      51.53,
-      38.6,
-      27.3
+      19.01,
+      14.73,
+      11.15,
+      15.43,
+      19.11,
+      22.28,
+      27.46,
+      31.87,
+      33.73,
+      35.91,
+      39.05,
+      54.39,
+      69.67,
+      61.97,
+      53.2,
+      38.53,
+      27.29
     ],
-    "daily_avg_usd_per_mwh": 30.26,
-    "peak_avg_usd_per_mwh": 52.29,
-    "offpeak_avg_usd_per_mwh": 21.23
+    "daily_avg_usd_per_mwh": 30.03,
+    "peak_avg_usd_per_mwh": 52.2,
+    "offpeak_avg_usd_per_mwh": 20.62
   },
   "actuals_today": {
     "date": "2026-08-30",
@@ -93,6 +93,6 @@
       24.43
     ]
   },
-  "reasoning": "Anchor_z is -0.93 indicating a moderately volatile regime. Formula default weights were wA=0.51, wB=0.365, wC=0.126. Error track record shows persistence anchor consistently overshot actuals by +9.1/MWh over last 3 days, justifying increasing wA by 0.10 to 0.61, capped by max wA at 0.621. Adjusted weights produce a forecast daily average slightly above anchor average, reflecting moderate upward bias with cautious confidence.",
+  "reasoning": "The regime context is VOLATILE with anchor_z = -0.96 sigma indicating moderate deviation from 7-day mean. The formula defaults were wA=0.505, wB=0.369, wC=0.126. Observing the recent 3-day persistence errors showing consistent overshoot (+9.1 $/MWh average), we increased wA by +0.10 up to the max allowed 0.616 to better track actuals, reducing dow_mean weight. This adjustment reflects the observed pattern of anchor overshoot.",
   "confidence": 3
 }

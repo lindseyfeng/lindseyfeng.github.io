@@ -11,27 +11,27 @@
       24.2,
       23.42,
       27.3,
-      32.67,
-      30.41,
+      32.68,
+      30.42,
       23.4,
       20.91,
-      16.06,
-      18.16,
-      23.86,
-      31.58,
-      36.08,
-      38.23,
-      49.48,
-      56.53,
-      73.95,
-      76.91,
-      64.7,
-      55.96,
-      41.41,
-      32.97
+      19.56,
+      22.55,
+      28.25,
+      35.09,
+      38.71,
+      40.87,
+      48.61,
+      54.79,
+      71.34,
+      75.15,
+      63.81,
+      55.07,
+      40.52,
+      32.09
     ],
-    "daily_avg_usd_per_mwh": 36.29,
-    "peak_avg_usd_per_mwh": 64.31,
+    "daily_avg_usd_per_mwh": 36.73,
+    "peak_avg_usd_per_mwh": 62.74,
     "offpeak_avg_usd_per_mwh": 26.34
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       30.47
     ]
   },
-  "reasoning": "Anchor z-value is -0.22 (regime VOLATILE), indicating a typical anchor close to 7-day mean. Formula default weights are wA=0.719, wB=0.157, wC=0.124 with max wA allowed=0.85. Recent persistence errors indicate the anchor tracked well with small negative bias, so no deviation from formula defaults applied.",
+  "reasoning": "anchor_z is -0.17 indicating an anchor near the 7-day mean in a VOLATILE regime. Formula default weights are (wA=0.735, wB=0.141, wC=0.123) with Max wA=0.850 and we used these defaults exactly. The recent error track shows good anchor tracking with persistence errors within \u00b13/MWh and no consistent bias, so no adjustment was made.",
   "confidence": 3
 }

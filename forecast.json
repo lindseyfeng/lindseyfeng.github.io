@@ -16,11 +16,11 @@
       23.4,
       20.91,
       23.95,
-      27.81,
-      34.39,
+      26.93,
+      33.51,
       41.23,
-      43.98,
-      45.25,
+      44.85,
+      46.13,
       53.0,
       60.05,
       78.35,
@@ -93,6 +93,6 @@
       30.47
     ]
   },
-  "reasoning": "The anchor_z is +0.10 standard deviations indicating a slightly elevated but typical price regime (VOLATILE). The formula default weights are wA=0.762, wB=0.115, wC=0.123, with Max wA allowed 0.850, so stage1 weight is within allowed max. Recent persistence errors show the anchor tracked actuals well (errors within \u00b13 $/MWh last days), so no adjustment made. The default formula blend was used.",
+  "reasoning": "Anchor_z value is +0.10, indicating a slightly above-average price regime labeled as VOLATILE. The formula default weights are wA=0.762, wB=0.115, wC=0.123 with a max wA of 0.850, and no deviation was applied. Recent error track record shows persistence errors within \u00b13 with a slight bias that anchor tracked well, justifying no adjustment from defaults.",
   "confidence": 3
 }

@@ -15,23 +15,23 @@
       30.42,
       23.4,
       20.91,
-      19.56,
-      22.55,
-      28.25,
-      35.09,
-      38.71,
-      40.87,
-      48.61,
-      54.79,
-      71.34,
-      75.15,
-      63.81,
-      55.07,
-      40.52,
-      32.09
+      23.95,
+      27.81,
+      34.39,
+      41.23,
+      43.98,
+      45.25,
+      53.0,
+      60.05,
+      78.35,
+      81.29,
+      69.07,
+      59.45,
+      42.27,
+      33.84
     ],
-    "daily_avg_usd_per_mwh": 36.73,
-    "peak_avg_usd_per_mwh": 62.74,
+    "daily_avg_usd_per_mwh": 39.54,
+    "peak_avg_usd_per_mwh": 68.35,
     "offpeak_avg_usd_per_mwh": 26.34
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       30.47
     ]
   },
-  "reasoning": "anchor_z is -0.17 indicating an anchor near the 7-day mean in a VOLATILE regime. Formula default weights are (wA=0.735, wB=0.141, wC=0.123) with Max wA=0.850 and we used these defaults exactly. The recent error track shows good anchor tracking with persistence errors within \u00b13/MWh and no consistent bias, so no adjustment was made.",
+  "reasoning": "The anchor_z is +0.10 standard deviations indicating a slightly elevated but typical price regime (VOLATILE). The formula default weights are wA=0.762, wB=0.115, wC=0.123, with Max wA allowed 0.850, so stage1 weight is within allowed max. Recent persistence errors show the anchor tracked actuals well (errors within \u00b13 $/MWh last days), so no adjustment made. The default formula blend was used.",
   "confidence": 3
 }

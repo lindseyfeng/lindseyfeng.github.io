@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      29.61,
-      27.15,
-      27.46,
-      26.82,
-      26.94,
-      29.08,
-      30.72,
+      29.59,
+      27.13,
+      27.42,
+      26.79,
+      26.9,
       29.03,
-      23.47,
-      21.56,
-      23.01,
-      25.17,
-      29.84,
-      34.07,
-      36.4,
-      38.42,
-      40.6,
-      43.22,
-      56.49,
-      70.67,
-      63.69,
-      56.57,
-      40.78,
-      36.0
+      30.65,
+      28.96,
+      23.41,
+      21.5,
+      23.13,
+      25.94,
+      29.96,
+      34.0,
+      37.01,
+      38.35,
+      40.53,
+      43.15,
+      56.42,
+      72.0,
+      64.3,
+      57.31,
+      40.77,
+      35.93
     ],
-    "daily_avg_usd_per_mwh": 36.12,
-    "peak_avg_usd_per_mwh": 54.93,
-    "offpeak_avg_usd_per_mwh": 28.35
+    "daily_avg_usd_per_mwh": 36.26,
+    "peak_avg_usd_per_mwh": 55.28,
+    "offpeak_avg_usd_per_mwh": 28.31
   },
   "actuals_today": {
     "date": "2026-09-05",
@@ -93,6 +93,6 @@
       35.15
     ]
   },
-  "reasoning": "Anchor z=1.14 reflecting SPIKE regime with formula default weights wA=0.492, wB=0.414, wC=0.094. Recent error track record shows persistence anchor tracked actuals well last 3 days (errors < \u00b13), permitting slight increase in wA by +0.06 to 0.55 within max allowed 0.583. Weighted blend computed accordingly with daily avg 35.75, slightly below stage1 anchor avg 36.87 reflecting partial reversion. Confidence high due to consistent moderate errors and clear calibration math.",
+  "reasoning": "Anchor_z is +1.21, regime SPIKE context lowers wA to 0.482 formula default via continuous computation. Formula weights were wA=0.482, wB=0.423, wC=0.094 with max wA allowed 0.573. Recent error track record showed the anchor tracked actuals well with minor overshoot (+0.45 $/MWh persistence bias) over last 3 days, justifying upward adjustment of wA by +0.091 to the max allowed 0.573. We blended accordingly, increasing reliance on stage1 anchor. No large or consistent overshoot or bias to reduce wA.",
   "confidence": 3
 }

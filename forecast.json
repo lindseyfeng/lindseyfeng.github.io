@@ -11,28 +11,28 @@
       31.48,
       32.12,
       33.94,
-      34.01,
-      32.24,
-      24.38,
-      21.87,
-      22.82,
-      25.01,
-      29.37,
-      33.91,
-      37.69,
-      39.34,
-      44.43,
-      49.19,
-      64.05,
-      73.39,
-      67.81,
-      59.38,
-      49.78,
-      38.13
+      34.0,
+      32.98,
+      25.14,
+      21.86,
+      23.49,
+      26.34,
+      30.7,
+      35.25,
+      38.35,
+      40.0,
+      44.42,
+      49.18,
+      64.03,
+      73.37,
+      67.78,
+      59.35,
+      49.76,
+      37.4
     ],
-    "daily_avg_usd_per_mwh": 38.93,
-    "peak_avg_usd_per_mwh": 59.77,
-    "offpeak_avg_usd_per_mwh": 31.72
+    "daily_avg_usd_per_mwh": 39.2,
+    "peak_avg_usd_per_mwh": 59.76,
+    "offpeak_avg_usd_per_mwh": 31.81
   },
   "actuals_today": {
     "date": "2026-09-06",
@@ -93,6 +93,6 @@
       37.85
     ]
   },
-  "reasoning": "The anchor_z of 3.06 indicates a SPIKE regime context. The formula default weights were wA=0.417, wB=0.496, wC=0.087. Recent persistence errors over the last 3 days are small (-0.69 avg), indicating the anchor tracked actuals well, so no deviation from default weights was made.",
+  "reasoning": "The anchor_z is +3.26, indicating a SPIKE regime. Formula default weights were wA=0.416, wB=0.497, wC=0.087. Recent error track shows persistence errors averaged -0.69 in last 3 days, meaning anchor tracked well, so no deviation from formula defaults. Weighting leans more on spike-reverted anchor due to extreme anchor_z outlier.",
   "confidence": 3
 }

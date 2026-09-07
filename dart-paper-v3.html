@@ -350,7 +350,7 @@
       <div class="lb-row" id="lb-stats">
         <div class="lb"><div class="lb-l">v2 as traded</div><div class="lb-v" id="s-v2">&#8230;</div><div class="lb-s" id="m-v2">&nbsp;</div></div>
         <div class="lb"><div class="lb-l">always-INC &#215; &#963;^1.5</div><div class="lb-v" id="s-pr">&#8230;</div><div class="lb-s" id="m-pr">&nbsp;</div></div>
-        <div class="lb lb-lead"><div class="lb-l">v3 &#183; {LLM,mean7,mean14}</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
+        <div class="lb lb-lead"><div class="lb-l">v3 &#183; 5-voter ensemble</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
         <div class="lb"><div class="lb-l">confidence effect</div><div class="lb-v" id="s-ce">&#8230;</div><div class="lb-s">weights only</div></div>
         <div class="lb"><div class="lb-l">direction effect</div><div class="lb-v" id="s-de">&#8230;</div><div class="lb-s">direction only</div></div>
       </div>
@@ -368,7 +368,10 @@
       <div class="pcard-h">Leaderboard &#183; every direction rule, same universe and weights</div>
       <table class="board"><tbody id="board-body"><tr><td>&#8230;</td></tr></tbody></table>
       <div class="pnote" id="board-note">Each row swaps only the direction. Universe, daily budget and
-      the &#963;^1.5 &#215; confidence weights are identical, so the column is a clean read on direction alone.</div>
+      the &#963;^1.5 &#215; confidence weights are identical, so the column is a clean read on direction alone.
+      <b>bandit*</b> is the Thompson bandit rebuilt around a Normal posterior over the spread rather than a
+      Beta over a win rate: same arms, but it learns the expected payoff instead of which side wins more often.
+      That one change moves it from &#8722;$2,519 to &#8722;$204.</div>
     </div>
 
     <div class="pcard">
@@ -564,9 +567,12 @@
 
 
         // leaderboard
-        var LB = { v3:'v3 {LLM, mean7, mean14}', v2:'v2 live (as traded)', llm:'LLM alone',
-                   bandit:'Thompson bandit', lr:'supervised LR', mean7:'trailing mean, 7d',
-                   mean14:'trailing mean, 14d', persistence:'persistence', short:'always-INC' };
+        var LB = { v3:'v3 {LLM, bandit*, mean 7/10/14}', v2:'v2 live (as traded)',
+                   llm:'LLM alone', bandit:'Thompson bandit (old, hit-rate)',
+                   bandit_fixed:'Thompson bandit* (fixed)', lr:'supervised LR',
+                   mean7:'trailing mean, 7d', mean10:'trailing mean, 10d',
+                   mean14:'trailing mean, 14d', persistence:'persistence',
+                   short:'always-INC' };
         var board = d.leaderboard || [];
         if (board.length) {
           var mx = Math.max.apply(null, board.map(function (r) { return Math.abs(r.pnl); })) || 1;

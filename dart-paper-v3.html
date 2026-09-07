@@ -371,7 +371,14 @@
       the &#963;^1.5 &#215; confidence weights are identical, so the column is a clean read on direction alone.
       <b>bandit*</b> is the Thompson bandit rebuilt around a Normal posterior over the spread rather than a
       Beta over a win rate: same arms, but it learns the expected payoff instead of which side wins more often.
-      That one change moves it from &#8722;$2,519 to &#8722;$204.</div>
+      That one change moves it from &#8722;$2,519 to &#8722;$204.
+      <br><br>The voter set was chosen on <b>redundancy, not on this column</b>. Over 91 days v3's daily
+      standard deviation is $243, so a 91-day total carries a standard deviation of $2,317, and every
+      drop-or-add variant tried spanned about $1,500, which is 0.65&#963;. What separates the priors is
+      how much they agree: bandit* matches mean14 93% of the time, mean10 92% and mean7 89%, because a
+      recency-weighted posterior mean <i>is</i> a trailing mean. Voting four near-duplicates is one voter
+      with extra confidence. So mean10 was dropped as a 92% duplicate, and persistence added as the only
+      prior that genuinely disagrees with the rest, at 56&#8211;66% agreement, despite being weak alone.</div>
     </div>
 
     <div class="pcard">
@@ -567,11 +574,11 @@
 
 
         // leaderboard
-        var LB = { v3:'v3 {LLM, bandit*, mean 7/10/14}', v2:'v2 live (as traded)',
+        var LB = { v3:'v3 {LLM, bandit*, mean7, mean14, persistence}', v2:'v2 live (as traded)',
                    llm:'LLM alone', bandit:'Thompson bandit (old, hit-rate)',
                    bandit_fixed:'Thompson bandit* (fixed)', lr:'supervised LR',
-                   mean7:'trailing mean, 7d', mean10:'trailing mean, 10d',
-                   mean14:'trailing mean, 14d', persistence:'persistence',
+                   mean7:'trailing mean, 7d', mean14:'trailing mean, 14d',
+                   persistence:'persistence',
                    short:'always-INC' };
         var board = d.leaderboard || [];
         if (board.length) {

@@ -295,6 +295,25 @@
       font-size:11.5px; color:#777; }
     .lb-legend i { display:inline-block; width:11px; height:3px; border-radius:2px; margin-right:7px;
       vertical-align:middle; }
+    .lb-split { display:flex; gap:14px; flex-wrap:wrap; margin-top:16px; }
+    .lb-sp { flex:1 1 260px; border-left:3px solid #e8e8e8; padding:2px 0 2px 12px; }
+    .lb-sp.after { border-left-color:#b3402f; }
+    .lb-sp-h { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; color:#888; }
+    .lb-sp-b { font-family:'Radley',serif; font-size:12.5px; color:#555; line-height:1.6; margin-top:4px; }
+    .daylog { width:100%; border-collapse:collapse; font-family:'Montserrat',sans-serif; font-size:11.5px;
+      margin-top:6px; }
+    .daylog th { position:sticky; top:0; background:#fff; text-align:right; font-size:10px; color:#999;
+      font-weight:700; padding:7px 8px; border-bottom:1px solid #e8e8e8; }
+    .daylog th:first-child { text-align:left; }
+    .daylog td { text-align:right; padding:6px 8px; border-bottom:1px solid #f5f5f5; color:#333;
+      font-variant-numeric:tabular-nums; }
+    .daylog td:first-child { text-align:left; font-family:'Radley',serif; color:#666; }
+    .daylog tr.brk td { border-top:2px solid #b3402f; }
+    .daylog tr.brk td:first-child::after { content:' \2190 premium inverts'; color:#b3402f; font-size:10px;
+      font-family:'Montserrat',sans-serif; font-weight:700; }
+    .daylog .neg { color:#b3402f; } .daylog .pos { color:#1b7a3f; }
+    .daylog .cum { background:#fafafa; font-weight:700; }
+    .daywrap { max-height:460px; overflow:auto; border:1px solid #f0f0f0; border-radius:6px; }
     .pnote { font-family:'Radley',serif; font-size:13px; color:#777; line-height:1.65; margin-top:14px; }
   </style>
 </head>
@@ -334,7 +353,21 @@
         <span><i style="background:#9a9a9a"></i>always-INC &#215; &#963;^1.5</span>
         <span><i style="background:#2d6a9f"></i>v3 &#183; &#215; confidence</span>
       </div>
+      <div class="lb-split" id="lb-split"></div>
       <div class="pnote" id="lb-note">Loading the live ledger&#8230;</div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">Day by day</div>
+      <div class="daywrap">
+        <table class="daylog" id="daylog">
+          <thead><tr><th>date</th><th>v2</th><th>prior</th><th>v3</th>
+            <th class="cum">cum v2</th><th class="cum">cum prior</th><th class="cum">cum v3</th></tr></thead>
+          <tbody id="daylog-body"><tr><td colspan="7">&#8230;</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pnote">Every settled day since the live deployment began. Daily P&amp;L on the left,
+      running total on the right.</div>
     </div>
 
     <div class="pcard">
@@ -497,6 +530,37 @@
           'so the three books deploy the same notional and differ only in direction and weight. ' +
           'Updated ' + (d.updated || '').replace('T', ' ').replace('Z', ' UTC') + '.';
 
+
+        // regime split
+        var days = d.days;
+        var brk = d.regime_break || '2026-08-06';
+        var sum = function (rows, k) { return rows.reduce(function (a, r) { return a + r[k]; }, 0); };
+        var pre = days.filter(function (r) { return r.date < brk; });
+        var post = days.filter(function (r) { return r.date >= brk; });
+        var panel = function (cls, title, rows) {
+          if (!rows.length) return '';
+          return '<div class="lb-sp ' + cls + '"><div class="lb-sp-h">' + title + ' &#183; ' + rows.length + ' days</div>' +
+            '<div class="lb-sp-b">v2 ' + money(sum(rows, 'v2')) + ' &#183; prior ' + money(sum(rows, 'prior')) +
+            ' &#183; <b>v3 ' + money(sum(rows, 'v3')) + '</b><br>confidence effect ' +
+            money(sum(rows, 'v3') - sum(rows, 'prior')) + '</div></div>';
+        };
+        document.getElementById('lb-split').innerHTML =
+          panel('', 'before ' + brk, pre) + panel('after', 'from ' + brk, post);
+
+        // day-by-day table
+        var c2 = 0, cp = 0, c3 = 0, rows = [];
+        var cell = function (v) {
+          return '<td class="' + (v < 0 ? 'neg' : v > 0 ? 'pos' : '') + '">' + money(v) + '</td>';
+        };
+        days.forEach(function (r) {
+          c2 += r.v2; cp += r.prior; c3 += r.v3;
+          rows.push('<tr' + (r.date === brk ? ' class="brk"' : '') + '><td>' + r.date + '</td>' +
+            cell(r.v2) + cell(r.prior) + cell(r.v3) +
+            '<td class="cum">' + money(c2) + '</td><td class="cum">' + money(cp) +
+            '</td><td class="cum">' + money(c3) + '</td></tr>');
+        });
+        document.getElementById('daylog-body').innerHTML = rows.reverse().join('');
+
         // cumulative series
         var days = d.days, keys = ['v2', 'prior', 'v3'], series = {}, lo = 0, hi = 0;
         keys.forEach(function (k) {
@@ -526,6 +590,13 @@
           out.push('<text x="' + X(i) + '" y="' + (H - 12) + '" text-anchor="middle" font-family="Montserrat,sans-serif" ' +
             'font-size="10" fill="#aaa">' + days[i].date.slice(5) + '</text>');
         });
+        var bi = days.findIndex(function (r) { return r.date >= (d.regime_break || '2026-08-06'); });
+        if (bi > 0) {
+          out.push('<line x1="' + X(bi) + '" y1="' + T + '" x2="' + X(bi) + '" y2="' + (H - B) +
+            '" stroke="#b3402f" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>');
+          out.push('<text x="' + (X(bi) + 5) + '" y="' + (T + 11) + '" font-family="Montserrat,sans-serif" ' +
+            'font-size="9.5" fill="#b3402f">premium inverts</text>');
+        }
         keys.forEach(function (k) {
           out.push('<polyline fill="none" stroke="' + C[k] + '" stroke-width="' + (k === 'v3' ? 2.6 : 1.8) +
             '" stroke-linejoin="round" points="' +

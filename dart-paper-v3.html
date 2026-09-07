@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Prior-Guided LLM Agent v3 — Xinyu Feng</title>
+  <meta name="description" content="Live RT-DAM spread forecast and trading positions for ERCOT HB_NORTH" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Radley:400,400italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="css1/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css1/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    .dart-container {
+      width: 78%;
+      margin: 0 auto;
+      padding: 20px 0 40px;
+    }
+    .dart-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .dart-sub {
+      font-family: 'Radley', serif;
+      color: #777;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: #f9f9f9;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 14px 20px;
+      min-width: 160px;
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #999;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #222;
+      margin-top: 2px;
+    }
+    .stat-unit {
+      font-size: 13px;
+      color: #888;
+    }
+    .stat-pos { color: #2d8a4f; }
+    .stat-neg { color: #b94a4a; }
+    .chart-wrapper {
+      position: relative;
+      height: 300px;
+      margin-bottom: 32px;
+    }
+    .chart-wrapper.short { height: 220px; }
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .reasoning-box {
+      background: #fafafa;
+      border-left: 3px solid #ccc;
+      padding: 14px 18px;
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 28px;
+    }
+    .legend-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .legend-bar {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .subscore {
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+      margin-top: -16px;
+      margin-bottom: 28px;
+    }
+    .updated-note {
+      font-family: 'Radley', serif;
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    #countdown-note {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2d6a9f;
+      margin-bottom: 20px;
+      margin-top: 4px;
+    }
+    .error-msg {
+      font-family: 'Radley', serif;
+      color: #c00;
+      padding: 20px 0;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 32px 0;
+    }
+    .day-row {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .day-row summary {
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      background: #fafafa;
+      list-style: none;
+      user-select: none;
+    }
+    .day-row summary::-webkit-details-marker { display: none; }
+    .day-row summary .dr-date { font-weight: 700; color: #333; min-width: 90px; }
+    .day-row summary .dr-chip {
+      padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700;
+    }
+    .day-row summary .dr-pos { background:#e8f5ec; color:#2d8a4f; }
+    .day-row summary .dr-neg { background:#fdecea; color:#b94a4a; }
+    .day-row summary .dr-na  { background:#f3f3f3; color:#aaa; }
+    .day-row summary .dr-val { color: #555; font-size: 11px; }
+    .day-row .day-detail {
+      padding: 12px 14px;
+      border-top: 1px solid #f0f0f0;
+      overflow-x: auto;
+    }
+    table.day-tbl {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table.day-tbl th, table.day-tbl td {
+      border: 1px solid #eee;
+      padding: 4px 7px;
+      text-align: right;
+    }
+    table.day-tbl th { background:#f8f8f8; color:#888; font-size:10px; text-transform:uppercase; }
+    table.day-tbl td.long  { color:#2d6a9f; font-weight:700; }
+    table.day-tbl td.short { color:#cc7a2a; font-weight:700; }
+    table.day-tbl td.win   { color:#2d8a4f; }
+    table.day-tbl td.lose  { color:#b94a4a; }
+    table.positions {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      border-collapse: collapse;
+      margin-bottom: 28px;
+      width: 100%;
+    }
+    table.positions th, table.positions td {
+      border: 1px solid #eee;
+      padding: 6px 8px;
+      text-align: right;
+    }
+    table.positions th {
+      background: #fafafa;
+      color: #555;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 10px;
+    }
+    table.positions td.long  { color: #2d6a9f; font-weight: 700; }
+    table.positions td.short { color: #cc7a2a; font-weight: 700; }
+    table.positions td.flat  { color: #aaa; }
+    @media (max-width: 768px) {
+      .dart-container { width: 94%; }
+    }
+
+    /* ── Agent tabs (shared with ercot-forecast.html) ────────── */
+    .agent-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 22px;
+    }
+    .agent-tabs .tab {
+      flex: 0 0 auto;
+      padding: 12px 22px 14px;
+      text-decoration: none;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .agent-tabs .tab:hover { color: #444; background: #fafafa; }
+    .agent-tabs .tab .tab-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .agent-tabs .tab .tab-sub {
+      display: block;
+      font-family: 'Radley', serif;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+    .agent-tabs .tab.tab-active {
+      color: #222;
+      border-bottom-color: #2d6a9f;
+    }
+    .agent-tabs .tab.tab-active .tab-sub { color: #777; }
+    @media (max-width: 600px) {
+      .agent-tabs .tab { padding: 10px 14px; }
+      .agent-tabs .tab .tab-label { font-size: 12px; }
+      .agent-tabs .tab .tab-sub { font-size: 11px; }
+    }
+  </style>
+  <style>
+    .vbadge { background:#2d6a9f; color:#fff; font-family:'Montserrat',sans-serif; font-size:10px;
+      font-weight:700; padding:2px 8px; border-radius:10px; margin-left:10px; vertical-align:middle; }
+    .pcard { border:1px solid #e8e8e8; border-radius:8px; padding:20px 22px; background:#fff; margin-bottom:22px; }
+    .pcard-h { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700; color:#222;
+      letter-spacing:.02em; margin-bottom:16px; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    @media (max-width:820px) { .grid2 { grid-template-columns:1fr; } }
+    .ptab { width:100%; border-collapse:collapse; font-family:'Montserrat',sans-serif; font-size:12.5px; }
+    .ptab th { text-align:right; font-size:11px; color:#999; font-weight:700; padding:0 0 8px;
+      border-bottom:1px solid #eee; }
+    .ptab th:first-child { text-align:left; }
+    .ptab td { text-align:right; padding:9px 0; border-bottom:1px solid #f4f4f4; color:#222; }
+    .ptab td:first-child { text-align:left; font-family:'Radley',serif; color:#555; }
+    .ptab .good { color:#1b7a3f; font-weight:700; }
+    .ptab .bad { color:#b3402f; font-weight:700; }
+    .pnote { font-family:'Radley',serif; font-size:13px; color:#777; line-height:1.65; margin-top:14px; }
+  </style>
+</head>
+<body>
+  <header class="header-block row">
+    <div class="blog-title"><h1>Hey.</h1></div>
+  </header>
+
+  <div class="dart-container">
+    <nav class="agent-tabs">
+      <a href="./ercot-forecast.html" class="tab"><span class="tab-label">Day-Ahead Forecast</span><span class="tab-sub">DAM price &#183; MAE</span></a>
+      <a href="./dart-trading.html" class="tab" style="color:#bbb; border-bottom-color: transparent;"><span class="tab-label">DART Trading v1</span><span class="tab-sub">LLM-only &#183; archived</span></a>
+      <a href="./dart-trading-v2.html" class="tab"><span class="tab-label">DART Trading v2</span><span class="tab-sub">bandit &#183; fixed 1 MW</span></a>
+      <a href="./dart-paper-v3.html" class="tab tab-active"><span class="tab-label">Paper v3</span><span class="tab-sub">two channels &#183; out of sample</span></a>
+      <a href="./baselines-detail.html" class="tab" style="color:#bbb; border-bottom-color: transparent;"><span class="tab-label">Per-Hour Decisions</span><span class="tab-sub">day-by-day grid</span></a>
+    </nav>
+
+    <div class="dart-title">A Prior-Guided LLM Agent for Virtual Bidding<span class="vbadge">v3</span></div>
+    <div class="dart-sub">
+      What changed in v3: the language model's contribution is reported as <b>position sizing</b>, not directional
+      corroboration. v2 led with corroboration and treated sizing as a second axis. Testing both channels on data
+      published after the evaluation window closed reverses that ordering.
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">Where the result moves</div>
+      <svg viewBox="0 0 900 560" width="100%" role="img" aria-label="v2 versus v3 workflow" style="max-width:900px">
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c8c8c8"/></marker></defs>
+  <text x="30" y="34" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#777">v2 &#183; as published</text>
+  <text x="480" y="34" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#222">v3 &#183; after the out-of-sample test</text>
+  <line x1="450" y1="18" x2="450" y2="540" stroke="#ececec" stroke-width="1"/>
+  <rect x="30" y="72" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="97" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Statistical proposers</text>
+  <text x="46" y="117" font-family="Radley,serif" font-size="12" fill="#777">logistic regression + Thompson bandit</text>
+  <text x="404" y="130" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">12,215 cand./run</text>
+
+  <path d="M 225 138 L 225 158" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="30" y="168" width="390" height="66" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="46" y="193" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">LLM corroboration</text>
+  <text x="46" y="213" font-family="Radley,serif" font-size="12" fill="#3d7ba8">LLM must independently propose the same long</text>
+  <text x="404" y="226" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#1b4d75">retains 1,351</text>
+
+  <path d="M 225 234 L 225 254" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="30" y="264" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="289" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Payoff screen</text>
+  <text x="46" y="309" font-family="Radley,serif" font-size="12" fill="#777">trailing asymmetry must imply EV &gt; 0</text>
+  <text x="404" y="322" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">82.0% removed</text>
+
+  <path d="M 225 330 L 225 350" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="30" y="360" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="385" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Direction</text>
+  <text x="46" y="405" font-family="Radley,serif" font-size="12" fill="#777">DEC on retained switches, else always-INC</text>
+  <text x="404" y="418" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">+$871</text>
+
+  <path d="M 225 426 L 225 446" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="30" y="456" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Allocation</text>
+  <text x="46" y="501" font-family="Radley,serif" font-size="12" fill="#777">budget weight &#963;^1.5 &#215; confidence</text>
+  <text x="404" y="514" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">+$5,769</text>
+
+  <rect x="480" y="72" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="496" y="97" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Statistical proposers</text>
+  <text x="496" y="117" font-family="Radley,serif" font-size="12" fill="#777">unchanged</text>
+  <text x="854" y="130" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">12,215 cand./run</text>
+
+  <path d="M 675 138 L 675 158" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="480" y="168" width="390" height="66" rx="7" fill="#fafafa" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="496" y="193" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#aaa">LLM corroboration</text>
+  <text x="496" y="213" font-family="Radley,serif" font-size="12" fill="#bbb">in-sample only; 14 of 429 retained out of sample</text>
+  <text x="854" y="226" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#aaa">+$18 OOS</text>
+
+  <path d="M 675 234 L 675 254" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="480" y="264" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="496" y="289" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Payoff screen</text>
+  <text x="496" y="309" font-family="Radley,serif" font-size="12" fill="#777">unchanged; correctly rejects 415 no-edge longs</text>
+  <text x="854" y="322" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">&#8722;$421 avoided</text>
+
+  <path d="M 675 330 L 675 350" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="480" y="360" width="390" height="66" rx="7" fill="#fafafa" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="496" y="385" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#aaa">Direction</text>
+  <text x="496" y="405" font-family="Radley,serif" font-size="12" fill="#bbb">always-INC prior held; no durable departure</text>
+  <text x="854" y="418" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#aaa">&#8776; 0 OOS</text>
+
+  <path d="M 675 426 L 675 446" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <rect x="480" y="456" width="390" height="66" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="496" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">Allocation</text>
+  <text x="496" y="501" font-family="Radley,serif" font-size="12" fill="#3d7ba8">budget weight &#963;^1.5 &#215; confidence</text>
+  <text x="854" y="514" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#1b4d75">+$0.467/MWh OOS</text>
+
+</svg>
+      <div class="pnote">The pipeline is unchanged. What changes is which stage carries the result. In v2 the
+      highlighted stage is corroboration; in v3 it is allocation, because that is the stage that survives the
+      window boundary.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="pcard">
+        <div class="pcard-h">Channel 1 &#183; corroboration</div>
+        <table class="ptab">
+          <tr><th></th><th>in sample</th><th>out of sample</th></tr>
+          <tr><td>direction margin</td><td>+$871</td><td class="bad">+$18</td></tr>
+          <tr><td>longs retained</td><td>1,351</td><td class="bad">14</td></tr>
+        </table>
+        <div class="pnote">Not a mis-specified veto. The 415 rejected proposals realize a positive-spread rate
+        of 0.443 and would have lost $421 if held. The screen works; there is no directional edge left to keep.</div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-h">Channel 2 &#183; confidence allocation</div>
+        <table class="ptab">
+          <tr><th></th><th>in sample</th><th>out of sample</th></tr>
+          <tr><td>effect on always-INC</td><td>+$5,769</td><td class="good">+$964</td></tr>
+          <tr><td>per MWh</td><td>+$0.092</td><td class="good">+$0.467</td></tr>
+        </table>
+        <div class="pnote">Concentrated where it matters: &#8722;$427 over Jun 3 &#8211; Jul 31, then <b>+$1,391</b>
+        over Aug 1 &#8211; Sep 6, the stretch in which the premium inverted and the unweighted book lost $7,390.</div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">The benchmark is one episode</div>
+      <table class="ptab wide">
+        <tr><th>always-INC, 63,148 hub-hours</th><th>P&amp;L</th><th>share</th></tr>
+        <tr><td>full evaluation window</td><td>$108,553</td><td>100%</td></tr>
+        <tr><td>January 2026 alone</td><td>$79,229</td><td class="bad">73.0%</td></tr>
+        <tr><td>top five days</td><td>$107,131</td><td class="bad">98.7%</td></tr>
+        <tr><td>excluding January</td><td>$29,323</td><td>27.0%</td></tr>
+      </table>
+      <div class="pnote">Every margin in the paper, ours included, is measured against a level that a handful of
+      days determines. v3 states this in the abstract rather than leaving it implicit.</div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">After the window closed &#183; 2026-04-23 to 2026-08-25</div>
+      <table class="ptab wide">
+        <tr><th>strategy</th><th>evaluation window</th><th>after</th></tr>
+        <tr><td>always-INC</td><td>+76,147</td><td class="bad">&#8722;2,150</td></tr>
+        <tr><td>always-INC &#215; &#963;^1.5</td><td>+56,455</td><td class="bad">&#8722;3,159</td></tr>
+        <tr><td>supervised LR</td><td>+74,567</td><td class="bad">&#8722;1,990</td></tr>
+        <tr><td>Thompson TS</td><td>+68,390</td><td class="bad">&#8722;1,879</td></tr>
+        <tr><td>BTZ-DPDS</td><td>+62,603</td><td class="good">+3,255</td></tr>
+      </table>
+      <div class="pnote">The forward premium inverts, volatility weighting makes the loss larger rather than
+      smaller, and both statistical corroborators turn negative. Only DPDS, which sizes its own capital, survives.</div>
+    </div>
+
+    <div class="pnote" style="margin-top:26px">
+      Out-of-sample LLM figures use the production deployment's logged directions and confidence at HB_NORTH,
+      2,064 hub-hours over 2026-06-03 to 2026-09-06. That deployment uses a larger model and a different prompt
+      than the archived runs, and covers one hub and one run, so it is a proxy for the evaluated agent rather
+      than that agent.
+    </div>
+  </div>
+</body>
+</html>

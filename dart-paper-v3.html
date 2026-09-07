@@ -285,6 +285,16 @@
     .ptab td:first-child { text-align:left; font-family:'Radley',serif; color:#555; }
     .ptab .good { color:#1b7a3f; font-weight:700; }
     .ptab .bad { color:#b3402f; font-weight:700; }
+    .lb-row { display:flex; gap:14px; flex-wrap:wrap; }
+    .lb { flex:1 1 150px; border:1px solid #eee; border-radius:7px; padding:12px 14px; background:#fcfcfc; }
+    .lb-lead { border-color:#2d6a9f; background:#eaf2f9; }
+    .lb-l { font-family:'Montserrat',sans-serif; font-size:10.5px; font-weight:700; color:#999; letter-spacing:.03em; }
+    .lb-v { font-family:'Montserrat',sans-serif; font-size:21px; font-weight:700; color:#222; margin-top:5px; }
+    .lb-s { font-family:'Radley',serif; font-size:11.5px; color:#aaa; margin-top:2px; }
+    .lb-legend { display:flex; gap:20px; flex-wrap:wrap; margin-top:12px; font-family:'Montserrat',sans-serif;
+      font-size:11.5px; color:#777; }
+    .lb-legend i { display:inline-block; width:11px; height:3px; border-radius:2px; margin-right:7px;
+      vertical-align:middle; }
     .pnote { font-family:'Radley',serif; font-size:13px; color:#777; line-height:1.65; margin-top:14px; }
   </style>
 </head>
@@ -307,6 +317,24 @@
       What changed in v3: the language model's contribution is reported as <b>position sizing</b>, not directional
       corroboration. v2 led with corroboration and treated sizing as a second axis. Testing both channels on data
       published after the evaluation window closed reverses that ordering.
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">Live scoreboard &#183; the two channels scored forward since 2026-08-06</div>
+      <div class="lb-row" id="lb-stats">
+        <div class="lb"><div class="lb-l">v2 as traded</div><div class="lb-v" id="s-v2">&#8230;</div><div class="lb-s" id="m-v2">&nbsp;</div></div>
+        <div class="lb"><div class="lb-l">always-INC &#215; &#963;^1.5</div><div class="lb-v" id="s-pr">&#8230;</div><div class="lb-s" id="m-pr">&nbsp;</div></div>
+        <div class="lb lb-lead"><div class="lb-l">v3 &#183; &#215; confidence</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
+        <div class="lb"><div class="lb-l">confidence effect</div><div class="lb-v" id="s-ce">&#8230;</div><div class="lb-s">v3 &#8722; prior</div></div>
+        <div class="lb"><div class="lb-l">direction effect</div><div class="lb-v" id="s-de">&#8230;</div><div class="lb-s">prior &#8722; v2</div></div>
+      </div>
+      <svg id="lb-chart" viewBox="0 0 900 320" width="100%" style="max-width:900px;margin-top:20px"></svg>
+      <div class="lb-legend">
+        <span><i style="background:#b3402f"></i>v2 as traded</span>
+        <span><i style="background:#9a9a9a"></i>always-INC &#215; &#963;^1.5</span>
+        <span><i style="background:#2d6a9f"></i>v3 &#183; &#215; confidence</span>
+      </div>
+      <div class="pnote" id="lb-note">Loading the live ledger&#8230;</div>
     </div>
 
     <div class="pcard">
@@ -445,5 +473,72 @@
       than that agent.
     </div>
   </div>
+
+  <script>
+  (function () {
+    var C = { v2: '#b3402f', prior: '#9a9a9a', v3: '#2d6a9f' };
+    var money = function (x) { return (x < 0 ? '\u2212$' : '+$') + Math.abs(Math.round(x)).toLocaleString(); };
+
+    fetch('/dart_v2_v3.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        var t = d.totals, pm = d.per_mwh || {};
+        var set = function (id, v) { document.getElementById(id).textContent = v; };
+        set('s-v2', money(t.v2)); set('s-pr', money(t.prior)); set('s-v3', money(t.v3));
+        set('s-ce', money(d.confidence_effect)); set('s-de', money(d.direction_effect));
+        ['v2', 'pr', 'v3'].forEach(function (k, i) {
+          var key = ['v2', 'prior', 'v3'][i];
+          document.getElementById('m-' + k).textContent =
+            pm[key] == null ? '\u00a0' : (pm[key] < 0 ? '\u2212$' : '+$') + Math.abs(pm[key]).toFixed(2) + '/MWh';
+        });
+        document.getElementById('lb-note').innerHTML =
+          d.n_days + ' settled days, ' + d.start + ' to ' + d.last_date +
+          ', HB_NORTH. One common universe (the hours the live book traded) and one common daily budget, ' +
+          'so the three books deploy the same notional and differ only in direction and weight. ' +
+          'Updated ' + (d.updated || '').replace('T', ' ').replace('Z', ' UTC') + '.';
+
+        // cumulative series
+        var days = d.days, keys = ['v2', 'prior', 'v3'], series = {}, lo = 0, hi = 0;
+        keys.forEach(function (k) {
+          var c = 0; series[k] = days.map(function (r) { c += r[k]; return c; });
+          series[k].forEach(function (v) { if (v < lo) lo = v; if (v > hi) hi = v; });
+        });
+        var W = 900, H = 320, L = 64, R = 16, T = 16, B = 34;
+        var n = days.length, pad = (hi - lo) * 0.08 || 1;
+        lo -= pad; hi += pad;
+        var X = function (i) { return L + (n < 2 ? 0 : i * (W - L - R) / (n - 1)); };
+        var Y = function (v) { return T + (hi - v) * (H - T - B) / (hi - lo); };
+        var svg = document.getElementById('lb-chart'), out = [];
+
+        // zero line + y ticks
+        [lo, (lo + hi) / 2, hi, 0].forEach(function (v) {
+          if (v < lo || v > hi) return;
+          var y = Y(v), zero = Math.abs(v) < 1e-9;
+          out.push('<line x1="' + L + '" y1="' + y + '" x2="' + (W - R) + '" y2="' + y +
+            '" stroke="' + (zero ? '#ccc' : '#f0f0f0') + '" stroke-width="1"' +
+            (zero ? ' stroke-dasharray="4 3"' : '') + '/>');
+          out.push('<text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-family="Montserrat,sans-serif" ' +
+            'font-size="10" fill="#aaa">' + money(v) + '</text>');
+        });
+        // x labels: first, middle, last
+        [0, Math.floor((n - 1) / 2), n - 1].forEach(function (i) {
+          if (i < 0) return;
+          out.push('<text x="' + X(i) + '" y="' + (H - 12) + '" text-anchor="middle" font-family="Montserrat,sans-serif" ' +
+            'font-size="10" fill="#aaa">' + days[i].date.slice(5) + '</text>');
+        });
+        keys.forEach(function (k) {
+          out.push('<polyline fill="none" stroke="' + C[k] + '" stroke-width="' + (k === 'v3' ? 2.6 : 1.8) +
+            '" stroke-linejoin="round" points="' +
+            series[k].map(function (v, i) { return X(i) + ',' + Y(v); }).join(' ') + '"/>');
+          out.push('<circle cx="' + X(n - 1) + '" cy="' + Y(series[k][n - 1]) + '" r="3.2" fill="' + C[k] + '"/>');
+        });
+        svg.innerHTML = out.join('');
+      })
+      .catch(function (e) {
+        document.getElementById('lb-note').textContent =
+          'Live ledger unavailable (' + e.message + '). It is published by the daily forecast job.';
+      });
+  })();
+  </script>
 </body>
 </html>

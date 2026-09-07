@@ -314,6 +314,13 @@
     .daylog .neg { color:#b3402f; } .daylog .pos { color:#1b7a3f; }
     .daylog .cum { background:#fafafa; font-weight:700; }
     .daywrap { max-height:460px; overflow:auto; border:1px solid #f0f0f0; border-radius:6px; }
+    .board { width:100%; border-collapse:collapse; font-family:'Montserrat',sans-serif; font-size:12px; }
+    .board td { padding:5px 8px; border-bottom:1px solid #f5f5f5; vertical-align:middle; }
+    .board .nm { width:150px; color:#555; font-family:'Radley',serif; }
+    .board .val { width:78px; text-align:right; font-variant-numeric:tabular-nums; font-weight:700; }
+    .board .bar { padding-right:0; }
+    .board tr.me .nm, .board tr.me .val { color:#1b7a3f; }
+    .board tr.v2row .nm, .board tr.v2row .val { color:#b3402f; }
     .pnote { font-family:'Radley',serif; font-size:13px; color:#777; line-height:1.65; margin-top:14px; }
   </style>
 </head>
@@ -343,7 +350,7 @@
       <div class="lb-row" id="lb-stats">
         <div class="lb"><div class="lb-l">v2 as traded</div><div class="lb-v" id="s-v2">&#8230;</div><div class="lb-s" id="m-v2">&nbsp;</div></div>
         <div class="lb"><div class="lb-l">always-INC &#215; &#963;^1.5</div><div class="lb-v" id="s-pr">&#8230;</div><div class="lb-s" id="m-pr">&nbsp;</div></div>
-        <div class="lb lb-lead"><div class="lb-l">v3 &#183; mean-vote &#215; conf</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
+        <div class="lb lb-lead"><div class="lb-l">v3 &#183; {LLM,mean7,mean14}</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
         <div class="lb"><div class="lb-l">confidence effect</div><div class="lb-v" id="s-ce">&#8230;</div><div class="lb-s">weights only</div></div>
         <div class="lb"><div class="lb-l">direction effect</div><div class="lb-v" id="s-de">&#8230;</div><div class="lb-s">direction only</div></div>
       </div>
@@ -355,6 +362,13 @@
       </div>
       <div class="lb-split" id="lb-split"></div>
       <div class="pnote" id="lb-note">Loading the live ledger&#8230;</div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-h">Leaderboard &#183; every direction rule, same universe and weights</div>
+      <table class="board"><tbody id="board-body"><tr><td>&#8230;</td></tr></tbody></table>
+      <div class="pnote" id="board-note">Each row swaps only the direction. Universe, daily budget and
+      the &#963;^1.5 &#215; confidence weights are identical, so the column is a clean read on direction alone.</div>
     </div>
 
     <div class="pcard">
@@ -547,6 +561,25 @@
         };
         document.getElementById('lb-split').innerHTML =
           panel('', 'before ' + brk, pre) + panel('after', 'from ' + brk, post);
+
+
+        // leaderboard
+        var LB = { v3:'v3 {LLM, mean7, mean14}', v2:'v2 live (as traded)', llm:'LLM alone',
+                   bandit:'Thompson bandit', lr:'supervised LR', mean7:'trailing mean, 7d',
+                   mean14:'trailing mean, 14d', persistence:'persistence', short:'always-INC' };
+        var board = d.leaderboard || [];
+        if (board.length) {
+          var mx = Math.max.apply(null, board.map(function (r) { return Math.abs(r.pnl); })) || 1;
+          document.getElementById('board-body').innerHTML = board.map(function (r) {
+            var w = Math.round(Math.abs(r.pnl) / mx * 100), pos = r.pnl >= 0;
+            var cls = r.name === 'v3' ? ' class="me"' : r.name === 'v2' ? ' class="v2row"' : '';
+            var col = r.name === 'v3' ? '#1b7a3f' : r.name === 'v2' ? '#b3402f' : (pos ? '#9ec4a9' : '#dcb4ac');
+            return '<tr' + cls + '><td class="nm">' + (LB[r.name] || r.name) + '</td>' +
+              '<td class="val">' + money(r.pnl) + '</td><td class="bar">' +
+              '<div style="height:9px;border-radius:3px;background:' + col + ';width:' + w + '%"></div>' +
+              '</td></tr>';
+          }).join('');
+        }
 
         // day-by-day table
         var c2 = 0, cp = 0, c3 = 0, rows = [];

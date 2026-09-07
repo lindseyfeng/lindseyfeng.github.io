@@ -343,15 +343,15 @@
       <div class="lb-row" id="lb-stats">
         <div class="lb"><div class="lb-l">v2 as traded</div><div class="lb-v" id="s-v2">&#8230;</div><div class="lb-s" id="m-v2">&nbsp;</div></div>
         <div class="lb"><div class="lb-l">always-INC &#215; &#963;^1.5</div><div class="lb-v" id="s-pr">&#8230;</div><div class="lb-s" id="m-pr">&nbsp;</div></div>
-        <div class="lb lb-lead"><div class="lb-l">v3 &#183; &#215; confidence</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
-        <div class="lb"><div class="lb-l">confidence effect</div><div class="lb-v" id="s-ce">&#8230;</div><div class="lb-s">v3 &#8722; prior</div></div>
-        <div class="lb"><div class="lb-l">direction effect</div><div class="lb-v" id="s-de">&#8230;</div><div class="lb-s">prior &#8722; v2</div></div>
+        <div class="lb lb-lead"><div class="lb-l">v3 &#183; mean-vote &#215; conf</div><div class="lb-v" id="s-v3">&#8230;</div><div class="lb-s" id="m-v3">&nbsp;</div></div>
+        <div class="lb"><div class="lb-l">confidence effect</div><div class="lb-v" id="s-ce">&#8230;</div><div class="lb-s">weights only</div></div>
+        <div class="lb"><div class="lb-l">direction effect</div><div class="lb-v" id="s-de">&#8230;</div><div class="lb-s">direction only</div></div>
       </div>
       <svg id="lb-chart" viewBox="0 0 900 320" width="100%" style="max-width:900px;margin-top:20px"></svg>
       <div class="lb-legend">
         <span><i style="background:#b3402f"></i>v2 as traded</span>
         <span><i style="background:#9a9a9a"></i>always-INC &#215; &#963;^1.5</span>
-        <span><i style="background:#2d6a9f"></i>v3 &#183; &#215; confidence</span>
+        <span><i style="background:#1b7a3f"></i>v3 &#183; mean-vote &#215; confidence</span>
       </div>
       <div class="lb-split" id="lb-split"></div>
       <div class="pnote" id="lb-note">Loading the live ledger&#8230;</div>
@@ -439,8 +439,8 @@
   <path d="M 675 426 L 675 446" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
 
   <rect x="480" y="456" width="390" height="66" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
-  <text x="496" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">Allocation</text>
-  <text x="496" y="501" font-family="Radley,serif" font-size="12" fill="#3d7ba8">budget weight &#963;^1.5 &#215; confidence</text>
+  <text x="496" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">Direction + allocation</text>
+  <text x="496" y="501" font-family="Radley,serif" font-size="12" fill="#3d7ba8">mean-vote direction, &#963;^1.5 &#215; confidence weights</text>
   <text x="854" y="514" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#1b4d75">+$0.467/MWh OOS</text>
 
 </svg>
@@ -509,7 +509,7 @@
 
   <script>
   (function () {
-    var C = { v2: '#b3402f', prior: '#9a9a9a', v3: '#2d6a9f' };
+    var C = { v2: '#b3402f', prior: '#9a9a9a', v3: '#1b7a3f' };
     var money = function (x) { return (x < 0 ? '\u2212$' : '+$') + Math.abs(Math.round(x)).toLocaleString(); };
 
     fetch('/dart_v2_v3.json', { cache: 'no-store' })
@@ -541,8 +541,9 @@
           if (!rows.length) return '';
           return '<div class="lb-sp ' + cls + '"><div class="lb-sp-h">' + title + ' &#183; ' + rows.length + ' days</div>' +
             '<div class="lb-sp-b">v2 ' + money(sum(rows, 'v2')) + ' &#183; prior ' + money(sum(rows, 'prior')) +
-            ' &#183; <b>v3 ' + money(sum(rows, 'v3')) + '</b><br>confidence effect ' +
-            money(sum(rows, 'v3') - sum(rows, 'prior')) + '</div></div>';
+            ' &#183; <b>v3 ' + money(sum(rows, 'v3')) + '</b><br>confidence ' +
+            money(sum(rows, 'prior_conf') - sum(rows, 'prior')) + ' &#183; direction ' +
+            money(sum(rows, 'v3') - sum(rows, 'prior_conf')) + '</div></div>';
         };
         document.getElementById('lb-split').innerHTML =
           panel('', 'before ' + brk, pre) + panel('after', 'from ' + brk, post);
@@ -598,7 +599,7 @@
             'font-size="9.5" fill="#b3402f">premium inverts</text>');
         }
         keys.forEach(function (k) {
-          out.push('<polyline fill="none" stroke="' + C[k] + '" stroke-width="' + (k === 'v3' ? 2.6 : 1.8) +
+          out.push('<polyline fill="none" stroke="' + C[k] + '" stroke-width="' + (k === 'v3' ? 2.8 : 1.8) +
             '" stroke-linejoin="round" points="' +
             series[k].map(function (v, i) { return X(i) + ',' + Y(v); }).join(' ') + '"/>');
           out.push('<circle cx="' + X(n - 1) + '" cy="' + Y(series[k][n - 1]) + '" r="3.2" fill="' + C[k] + '"/>');

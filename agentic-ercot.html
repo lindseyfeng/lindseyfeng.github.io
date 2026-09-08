@@ -196,14 +196,13 @@
           <div class="card-title">Paper v3</div>
           <div class="card-pill">write-up</div>
         </div>
-        <div class="card-sub">A Prior-Guided LLM Agent for Virtual Bidding — the two LLM channels tested past the evaluation window</div>
-        <div class="card-stats">
-          <div class="stat"><div class="stat-label">Corroboration</div><div class="stat-value">+$871 → +$18</div></div>
-          <div class="stat"><div class="stat-label">Allocation $/MWh</div><div class="stat-value">+0.092 → +0.467</div></div>
+        <div class="card-sub">A Prior-Guided LLM Agent for Virtual Bidding — v3 scored against v2 and the baselines, every day</div>
+        <div class="card-stats" id="paper-stats">
+          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
         </div>
         <div class="card-foot">
-          <span class="card-link">Read the v3 result <span class="arrow">→</span></span>
-          <span class="card-foot-meta">v2 vs v3 workflow</span>
+          <span class="card-link">Open the scoreboard <span class="arrow">→</span></span>
+          <span class="card-foot-meta" id="paper-meta">&mdash;</span>
         </div>
       </a>
 
@@ -287,6 +286,41 @@
       const sign = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
       return `${sign}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
     }
+    async function loadPaperV3() {
+      try {
+        const d = await fetch("/dart_v2_v3.json?t=" + Date.now()).then(r => r.ok ? r.json() : null);
+        if (!d) throw new Error("no payload");
+        const t = d.totals || {}, pm = d.per_mwh || {};
+        const best = (d.leaderboard || [])[0];
+        setStats("paper-stats", [
+          {
+            label: `v3 cum P&L (${d.n_days}d)`,
+            value: fmtMoney(t.v3, true),
+            cls: t.v3 > 0 ? "stat-pos" : (t.v3 < 0 ? "stat-neg" : ""),
+          },
+          {
+            label: "v3 $/MWh",
+            value: pm.v3 != null ? (pm.v3 >= 0 ? "+" : "\u2212") + "$" + Math.abs(pm.v3).toFixed(2) : "—",
+            cls: pm.v3 > 0 ? "stat-pos" : (pm.v3 < 0 ? "stat-neg" : ""),
+          },
+          {
+            label: "vs v2 live",
+            value: fmtMoney((t.v3 || 0) - (t.v2 || 0), true),
+            cls: (t.v3 || 0) - (t.v2 || 0) > 0 ? "stat-pos" : "stat-neg",
+          },
+          {
+            label: "Board leader",
+            value: best ? best.name : "—",
+          },
+        ]);
+        document.getElementById("paper-meta").textContent =
+          d.last_date ? `through ${d.last_date}` : "";
+      } catch (e) {
+        console.error("Paper v3 load", e);
+        setStats("paper-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
+      }
+    }
+
     function setStats(elId, items) {
       document.getElementById(elId).innerHTML = items.map(i => `
         <div class="stat">
@@ -433,6 +467,7 @@
     loadDAM();
     loadDART();
     loadBaselines();
+    loadPaperV3();
   </script>
 </body>
 

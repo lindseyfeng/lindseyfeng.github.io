@@ -396,81 +396,65 @@
 
     <div class="pcard">
       <div class="pcard-h">Where the result moves</div>
-      <svg viewBox="0 0 900 560" width="100%" role="img" aria-label="v2 versus v3 workflow" style="max-width:900px">
+      <svg viewBox="0 0 900 520" width="100%" role="img" aria-label="v2 versus v3 direction" style="max-width:900px">
   <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c8c8c8"/></marker></defs>
-  <text x="30" y="34" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#777">v2 &#183; as published</text>
-  <text x="480" y="34" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#222">v3 &#183; after the out-of-sample test</text>
-  <line x1="450" y1="18" x2="450" y2="540" stroke="#ececec" stroke-width="1"/>
-  <rect x="30" y="72" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="46" y="97" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Statistical proposers</text>
-  <text x="46" y="117" font-family="Radley,serif" font-size="12" fill="#777">logistic regression + Thompson bandit</text>
-  <text x="404" y="130" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">12,215 cand./run</text>
-
-  <path d="M 225 138 L 225 158" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="30" y="168" width="390" height="66" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
-  <text x="46" y="193" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">LLM corroboration</text>
-  <text x="46" y="213" font-family="Radley,serif" font-size="12" fill="#3d7ba8">LLM must independently propose the same long</text>
-  <text x="404" y="226" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#1b4d75">retains 1,351</text>
-
-  <path d="M 225 234 L 225 254" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="30" y="264" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="46" y="289" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Payoff screen</text>
-  <text x="46" y="309" font-family="Radley,serif" font-size="12" fill="#777">trailing asymmetry must imply EV &gt; 0</text>
-  <text x="404" y="322" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">82.0% removed</text>
-
-  <path d="M 225 330 L 225 350" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="30" y="360" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="46" y="385" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Direction</text>
-  <text x="46" y="405" font-family="Radley,serif" font-size="12" fill="#777">DEC on retained switches, else always-INC</text>
-  <text x="404" y="418" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">+$871</text>
-
-  <path d="M 225 426 L 225 446" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="30" y="456" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="46" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Allocation</text>
-  <text x="46" y="501" font-family="Radley,serif" font-size="12" fill="#777">budget weight &#963;^1.5 &#215; confidence</text>
-  <text x="404" y="514" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">+$5,769</text>
-
-  <rect x="480" y="72" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="496" y="97" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Statistical proposers</text>
-  <text x="496" y="117" font-family="Radley,serif" font-size="12" fill="#777">unchanged</text>
-  <text x="854" y="130" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">12,215 cand./run</text>
-
-  <path d="M 675 138 L 675 158" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="480" y="168" width="390" height="66" rx="7" fill="#fafafa" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="5 4"/>
-  <text x="496" y="193" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#aaa">LLM corroboration</text>
-  <text x="496" y="213" font-family="Radley,serif" font-size="12" fill="#bbb">in-sample only; 14 of 429 retained out of sample</text>
-  <text x="854" y="226" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#aaa">+$18 OOS</text>
-
-  <path d="M 675 234 L 675 254" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="480" y="264" width="390" height="66" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
-  <text x="496" y="289" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#222">Payoff screen</text>
-  <text x="496" y="309" font-family="Radley,serif" font-size="12" fill="#777">unchanged; correctly rejects 415 no-edge longs</text>
-  <text x="854" y="322" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#222">&#8722;$421 avoided</text>
-
-  <path d="M 675 330 L 675 350" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="480" y="360" width="390" height="66" rx="7" fill="#fafafa" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="5 4"/>
-  <text x="496" y="385" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#aaa">Direction</text>
-  <text x="496" y="405" font-family="Radley,serif" font-size="12" fill="#bbb">always-INC prior held; no durable departure</text>
-  <text x="854" y="418" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#aaa">&#8776; 0 OOS</text>
-
-  <path d="M 675 426 L 675 446" stroke="#c8c8c8" stroke-width="1.5" marker-end="url(#ah)"/>
-
-  <rect x="480" y="456" width="390" height="66" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
-  <text x="496" y="481" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#1b4d75">Direction + allocation</text>
-  <text x="496" y="501" font-family="Radley,serif" font-size="12" fill="#3d7ba8">mean-vote direction, &#963;^1.5 &#215; confidence weights</text>
-  <text x="854" y="514" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11" font-weight="700" fill="#1b4d75">+$0.467/MWh OOS</text>
-
+  <text x="30" y="30" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#999">v2 &#183; what was trading</text>
+  <text x="480" y="30" font-family="Montserrat,sans-serif" font-size="14" font-weight="700" fill="#222">v3 &#183; what trades now</text>
+  <line x1="450" y1="14" x2="450" y2="506" stroke="#ececec" stroke-width="1"/>
+  <text x="30" y="71" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c4c4c4" letter-spacing="0.08em">VOTERS</text>
+  <rect x="30" y="78" width="390" height="86" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="105" font-family="Radley,serif" font-size="12.5" fill="#333">LLM &#183; Thompson bandit &#183; supervised LR</text>
+  <text x="404" y="153" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#777">3 voters</text>
+  <rect x="480" y="78" width="390" height="86" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="496" y="105" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">LLM &#183; bandit* &#183; mean7 &#183; mean14</text>
+  <text x="496" y="122" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">&#183; persistence</text>
+  <text x="854" y="153" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#3d7ba8">5 voters</text>
+  <path d="M 225 164 L 225 180" stroke="#dcdcdc" stroke-width="1.4" marker-end="url(#ah)"/>
+  <path d="M 675 164 L 675 180" stroke="#c8c8c8" stroke-width="1.4" marker-end="url(#ah)"/>
+  <text x="30" y="181" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c4c4c4" letter-spacing="0.08em">WHAT EACH VOTER ESTIMATES</text>
+  <rect x="30" y="188" width="390" height="86" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="215" font-family="Radley,serif" font-size="12.5" fill="#333">which side wins more often &#8212; a sign,</text>
+  <text x="46" y="232" font-family="Radley,serif" font-size="12.5" fill="#333">graded on hit rate</text>
+  <text x="404" y="263" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#777">the wrong objective</text>
+  <rect x="480" y="188" width="390" height="86" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="496" y="215" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">the expected spread in dollars,</text>
+  <text x="496" y="232" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">which is what the book is paid</text>
+  <text x="854" y="263" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#3d7ba8">the change that matters</text>
+  <path d="M 225 274 L 225 290" stroke="#dcdcdc" stroke-width="1.4" marker-end="url(#ah)"/>
+  <path d="M 675 274 L 675 290" stroke="#c8c8c8" stroke-width="1.4" marker-end="url(#ah)"/>
+  <text x="30" y="291" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c4c4c4" letter-spacing="0.08em">HOW THEY COMBINE</text>
+  <rect x="30" y="298" width="390" height="56" rx="7" fill="#fafafa" stroke="#ececec" stroke-width="1"/>
+  <text x="46" y="325" font-family="Radley,serif" font-size="12.5" fill="#999">majority vote, ties flat</text>
+  <text x="404" y="343" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#aaa">unchanged</text>
+  <rect x="480" y="298" width="390" height="56" rx="7" fill="#fafafa" stroke="#ececec" stroke-width="1"/>
+  <text x="496" y="325" font-family="Radley,serif" font-size="12.5" fill="#999">majority vote, ties flat</text>
+  <text x="854" y="343" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#aaa">unchanged</text>
+  <path d="M 225 354 L 225 370" stroke="#dcdcdc" stroke-width="1.4" marker-end="url(#ah)"/>
+  <path d="M 675 354 L 675 370" stroke="#c8c8c8" stroke-width="1.4" marker-end="url(#ah)"/>
+  <text x="30" y="371" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c4c4c4" letter-spacing="0.08em">POSITION WEIGHT</text>
+  <rect x="30" y="378" width="390" height="56" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="405" font-family="Radley,serif" font-size="12.5" fill="#333">&#963;^1.5 trailing volatility</text>
+  <text x="404" y="423" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#777">confidence unused</text>
+  <rect x="480" y="378" width="390" height="56" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="496" y="405" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">&#963;^1.5 &#215; LLM confidence</text>
+  <text x="854" y="423" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#3d7ba8">the LLM's real job</text>
+  <path d="M 225 434 L 225 450" stroke="#dcdcdc" stroke-width="1.4" marker-end="url(#ah)"/>
+  <path d="M 675 434 L 675 450" stroke="#c8c8c8" stroke-width="1.4" marker-end="url(#ah)"/>
+  <text x="30" y="451" font-family="Montserrat,sans-serif" font-size="9.5" font-weight="700" fill="#c4c4c4" letter-spacing="0.08em">91 SETTLED DAYS, LIVE</text>
+  <rect x="30" y="458" width="390" height="56" rx="7" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="46" y="485" font-family="Radley,serif" font-size="12.5" fill="#333">worst single day &#8722;$2,962</text>
+  <text x="404" y="503" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#777">&#8722;$4,376</text>
+  <rect x="480" y="458" width="390" height="56" rx="7" fill="#eaf2f9" stroke="#2d6a9f" stroke-width="2"/>
+  <text x="496" y="485" font-family="Radley,serif" font-size="12.5" fill="#1b4d75">worst single day &#8722;$719</text>
+  <text x="854" y="503" text-anchor="end" font-family="Montserrat,sans-serif" font-size="11.5" font-weight="700" fill="#3d7ba8">+$466</text>
 </svg>
-      <div class="pnote">The pipeline is unchanged. What changes is which stage carries the result. In v2 the
-      highlighted stage is corroboration; in v3 it is allocation, because that is the stage that survives the
-      window boundary.</div>
+      <div class="pnote">The vote itself is untouched. What changes is what the voters are trying to be right
+      about. v2's three voters all predict a sign and are graded on how often they are right, and on this record
+      the most accurate rule is also the one that loses the most money, because the book is paid in dollars, not
+      in hit rate. v3 keeps the LLM and the bandit but has each statistical voter estimate the expected spread
+      instead, and lets the LLM's confidence set position weight, which is the one thing it measurably does
+      well. bandit* is the same two arms rebuilt around a Normal posterior over the spread instead of a Beta
+      over a win rate.</div>
     </div>
 
     <div class="grid2">
@@ -577,7 +561,7 @@
         var LB = { v3:'v3 {LLM, bandit*, mean7, mean14, persistence}', v2:'v2 live (as traded)',
                    llm:'LLM alone', bandit:'Thompson bandit (old, hit-rate)',
                    bandit_fixed:'Thompson bandit* (fixed)', lr:'supervised LR',
-                   mean7:'trailing mean, 7d', mean14:'trailing mean, 14d',
+                   mean14:'trailing mean, 14d',
                    persistence:'persistence',
                    short:'always-INC' };
         var board = d.leaderboard || [];

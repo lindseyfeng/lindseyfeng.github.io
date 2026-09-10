@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      32.36,
-      29.37,
-      30.25,
-      28.69,
+      32.29,
+      29.29,
+      30.06,
+      28.55,
+      29.68,
+      33.3,
+      40.3,
+      38.62,
+      27.25,
+      23.85,
+      27.57,
       29.87,
-      33.58,
-      40.94,
-      39.28,
-      27.58,
-      24.12,
-      28.12,
-      30.43,
-      35.93,
-      42.01,
-      44.96,
-      45.3,
-      51.62,
-      56.03,
-      81.25,
-      89.9,
-      79.37,
-      65.78,
-      52.38,
-      42.11
+      35.29,
+      41.26,
+      44.23,
+      44.7,
+      50.79,
+      55.27,
+      80.38,
+      89.09,
+      78.65,
+      65.15,
+      51.74,
+      41.49
     ],
-    "daily_avg_usd_per_mwh": 44.22,
-    "peak_avg_usd_per_mwh": 71.63,
-    "offpeak_avg_usd_per_mwh": 33.04
+    "daily_avg_usd_per_mwh": 43.69,
+    "peak_avg_usd_per_mwh": 70.84,
+    "offpeak_avg_usd_per_mwh": 32.76
   },
   "actuals_today": {
     "date": "2026-09-10",
@@ -93,6 +93,6 @@
       40.19
     ]
   },
-  "reasoning": "Anchor z=1.09 indicated a SPIKE regime, with formula default weights wA=0.496, wB=0.401, wC=0.104. Recent persistence errors over last 3 days show good tracking (errors within \u00b1$3), so wA was increased by +0.10 to 0.596 respecting max allowed 0.592 (rounded to 0.596 for sum to 1). Weights on B and C were proportionally reduced. No indication of overshoot or mixed error pattern, so increased reliance on Stage-1 anchor is justified.",
+  "reasoning": "The anchor_z is +1.09 indicating a SPIKE regime; formula weights are wA=0.496, wB=0.401, wC=0.104 with max wA=0.592. Recent persistence errors show no bias and errors within \u00b10.5, indicating the anchor tracked recent actuals well, so no deviation from formula defaults is applied.",
   "confidence": 3
 }

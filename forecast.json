@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.28,
-      25.94,
-      26.08,
+      28.39,
+      26.02,
+      26.11,
       25.87,
-      26.48,
+      26.49,
       29.02,
-      33.61,
-      31.38,
-      21.05,
-      16.94,
-      15.87,
-      17.39,
-      20.71,
-      23.31,
-      26.06,
-      27.05,
-      30.79,
-      37.28,
-      60.5,
-      76.72,
-      70.27,
-      58.73,
-      39.08,
-      31.62
+      33.02,
+      30.38,
+      20.59,
+      16.53,
+      17.67,
+      19.65,
+      23.45,
+      26.16,
+      28.5,
+      29.09,
+      31.9,
+      36.68,
+      59.05,
+      77.27,
+      70.82,
+      59.27,
+      39.62,
+      31.28
     ],
-    "daily_avg_usd_per_mwh": 33.33,
-    "peak_avg_usd_per_mwh": 55.11,
-    "offpeak_avg_usd_per_mwh": 28.33
+    "daily_avg_usd_per_mwh": 33.87,
+    "peak_avg_usd_per_mwh": 55.14,
+    "offpeak_avg_usd_per_mwh": 28.16
   },
   "actuals_today": {
     "date": "2026-09-13",
@@ -93,6 +93,6 @@
       30.29
     ]
   },
-  "reasoning": "Anchor_z is -0.71 indicating the anchor is below 7-day mean, regime context NORMAL. Formula default weights are wA=0.567, wB=0.321, wC=0.112. Recent persistence error shows overshoot with +5.06 MWh average error, so wA was increased by +0.10 to 0.667 within maximum allowed 0.674. Spike-reverted and dow_mean weights were decreased proportionally. This adjustment respects recent error track record.",
+  "reasoning": "The anchor_z is -0.66 with a NORMAL regime context, leading to formula default weights of wA=0.583, wB=0.306, and wC=0.111 (max wA allowed is 0.691). The recent error track record shows persistence overshot actuals by ~5 $/MWh in the last 3 days but no consistent large overshoot or undershoot beyond \u00b13 $/MWh by Stage1 anchor errors, so no deviation from formula defaults was made. Averaged forecast daily price is slightly up from Stage1 anchor daily average, reflecting the weighted blend.",
   "confidence": 3
 }

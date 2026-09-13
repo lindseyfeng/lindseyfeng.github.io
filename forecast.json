@@ -11,28 +11,28 @@
       25.87,
       26.49,
       29.02,
-      33.02,
-      30.38,
-      20.59,
-      16.53,
-      17.67,
-      19.65,
-      23.45,
-      26.16,
-      28.5,
-      29.09,
-      31.9,
-      36.68,
-      59.05,
-      77.27,
-      70.82,
-      59.27,
-      39.62,
-      31.28
+      33.46,
+      31.26,
+      21.04,
+      16.98,
+      15.99,
+      17.54,
+      20.92,
+      23.67,
+      26.44,
+      27.46,
+      31.14,
+      37.65,
+      60.87,
+      77.32,
+      70.89,
+      59.37,
+      39.71,
+      31.75
     ],
-    "daily_avg_usd_per_mwh": 33.87,
-    "peak_avg_usd_per_mwh": 55.14,
-    "offpeak_avg_usd_per_mwh": 28.16
+    "daily_avg_usd_per_mwh": 33.56,
+    "peak_avg_usd_per_mwh": 55.57,
+    "offpeak_avg_usd_per_mwh": 28.33
   },
   "actuals_today": {
     "date": "2026-09-13",
@@ -93,6 +93,6 @@
       30.29
     ]
   },
-  "reasoning": "The anchor_z is -0.66 with a NORMAL regime context, leading to formula default weights of wA=0.583, wB=0.306, and wC=0.111 (max wA allowed is 0.691). The recent error track record shows persistence overshot actuals by ~5 $/MWh in the last 3 days but no consistent large overshoot or undershoot beyond \u00b13 $/MWh by Stage1 anchor errors, so no deviation from formula defaults was made. Averaged forecast daily price is slightly up from Stage1 anchor daily average, reflecting the weighted blend.",
+  "reasoning": "",
   "confidence": 3
 }

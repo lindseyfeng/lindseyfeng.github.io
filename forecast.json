@@ -15,23 +15,23 @@
       28.81,
       21.69,
       17.85,
-      18.8,
-      20.65,
-      26.4,
-      29.21,
-      31.64,
-      31.97,
-      37.37,
-      41.85,
+      20.58,
+      22.43,
+      28.18,
+      30.99,
+      33.42,
+      33.75,
+      39.15,
+      43.63,
       66.58,
       90.18,
       80.67,
       69.88,
-      47.77,
-      40.89
+      48.66,
+      41.77
     ],
-    "daily_avg_usd_per_mwh": 36.58,
-    "peak_avg_usd_per_mwh": 63.33,
+    "daily_avg_usd_per_mwh": 37.25,
+    "peak_avg_usd_per_mwh": 64.04,
     "offpeak_avg_usd_per_mwh": 25.57
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       40.0
     ]
   },
-  "reasoning": "The anchor_z is +0.19 (slightly above 7-day mean) with regime NORMAL, suggesting a typical market regime. The formula default blend weights were wA=0.740, wB=0.149, wC=0.111, with a max wA allowed=0.850; no deviation was applied. The recent error track record shows the persistence anchor tracked actuals well over last 3 days (errors around -0.49), indicating stable accurate tracking and no consistent bias; thus, formula defaults are appropriate.",
+  "reasoning": "The anchor_z is +0.29 with a NORMAL regime context, indicating a mild positive deviation from the 7-day mean. The formula default weights (wA=0.703, wB=0.186, wC=0.111) reflect moderate trust in the stage-1 anchor with some reversion and day-of-week influence. Recent persistence errors show the anchor tracked actuals well (errors within \u00b1$3/MWh), so no adjustment was made beyond defaults.",
   "confidence": 3
 }

@@ -1,69 +1,69 @@
 {
  "hub": "HB_NORTH",
  "start": "2026-06-03",
- "updated": "2026-09-15T00:22:39Z",
- "n_days": 98,
- "last_date": "2026-09-13",
+ "updated": "2026-09-15T15:53:50Z",
+ "n_days": 99,
+ "last_date": "2026-09-14",
  "totals": {
-  "v2": -5306.56,
-  "prior": -1150.78,
-  "prior_conf": -635.01,
-  "v3": 706.03
+  "v2": -5310.89,
+  "prior": -1049.36,
+  "prior_conf": -558.95,
+  "v3": 767.66
  },
  "per_mwh": {
-  "v2": -2.782,
-  "prior": -0.603,
-  "prior_conf": -0.342,
-  "v3": 0.394
+  "v2": -2.757,
+  "prior": -0.545,
+  "prior_conf": -0.297,
+  "v3": 0.423
  },
  "mwh": {
-  "v2": 1907.4,
-  "prior": 1907.6,
-  "prior_conf": 1859.0,
-  "v3": 1793.0
+  "v2": 1926.4,
+  "prior": 1926.5,
+  "prior_conf": 1879.0,
+  "v3": 1812.9
  },
  "regime_break": "2026-08-06",
  "leaderboard": [
   {
    "name": "v3",
-   "pnl": 706.03
+   "pnl": 767.66
   },
   {
    "name": "bandit_fixed",
-   "pnl": -353.63
+   "pnl": -313.35
   },
   {
    "name": "persistence",
-   "pnl": -482.51
+   "pnl": -494.78
   },
   {
    "name": "short",
-   "pnl": -635.01
+   "pnl": -558.95
   },
   {
    "name": "mean14",
-   "pnl": -1184.2
+   "pnl": -1213.61
   },
   {
    "name": "lr",
-   "pnl": -1688.29
+   "pnl": -1684.84
   },
   {
    "name": "bandit",
-   "pnl": -2344.35
+   "pnl": -2280.82
   },
   {
    "name": "llm",
-   "pnl": -2417.08
+   "pnl": -2353.11
   },
   {
    "name": "v2",
-   "pnl": -5306.56
+   "pnl": -5310.89
   }
  ],
- "confidence_effect": 515.77,
- "direction_effect": 1341.04,
- "margin_vs_live": 6012.59,
+ "confidence_effect": 490.41,
+ "direction_effect": 1326.61,
+ "margin_vs_live": 6078.55,
  "days": [
   {
    "date": "2026-06-03",
@@ -2317,6 +2317,29 @@
    "prior_mwh": 19.07,
    "prior_conf_mwh": 19.35,
    "v3_mwh": 16.61,
+   "hours": 24
+  },
+  {
+   "date": "2026-09-14",
+   "v2": -4.33,
+   "prior": 101.42,
+   "prior_conf": 76.06,
+   "v3": 61.63,
+   "lb": {
+    "v3": 61.63,
+    "llm": 63.97,
+    "bandit": 63.53,
+    "bandit_fixed": 40.28,
+    "lr": 3.45,
+    "mean14": -29.41,
+    "persistence": -12.27,
+    "short": 76.06,
+    "v2": -4.33
+   },
+   "v2_mwh": 18.95,
+   "prior_mwh": 18.94,
+   "prior_conf_mwh": 19.96,
+   "v3_mwh": 19.96,
    "hours": 24
   }
  ]

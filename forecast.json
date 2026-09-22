@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
+      38.86,
+      35.65,
+      34.39,
+      33.96,
+      33.74,
+      37.34,
+      41.4,
       41.07,
-      37.83,
-      36.53,
-      36.08,
-      35.79,
-      39.38,
-      42.59,
-      41.53,
-      28.83,
-      25.78,
-      27.06,
-      29.05,
-      32.36,
-      37.98,
-      41.1,
-      45.71,
-      53.79,
-      68.38,
-      97.0,
-      103.76,
-      97.06,
-      85.34,
-      60.8,
-      44.21
+      28.65,
+      24.72,
+      27.47,
+      30.33,
+      34.57,
+      40.28,
+      42.66,
+      46.57,
+      56.71,
+      68.73,
+      96.58,
+      110.01,
+      101.65,
+      87.87,
+      61.42,
+      43.98
     ],
-    "daily_avg_usd_per_mwh": 49.54,
-    "peak_avg_usd_per_mwh": 84.0,
-    "offpeak_avg_usd_per_mwh": 38.85
+    "daily_avg_usd_per_mwh": 49.94,
+    "peak_avg_usd_per_mwh": 86.74,
+    "offpeak_avg_usd_per_mwh": 37.05
   },
   "actuals_today": {
     "date": "2026-09-22",
@@ -93,6 +93,6 @@
       42.51
     ]
   },
-  "reasoning": "Anchor_z=+0.75 indicated partial spike reversion with formula weights wA=0.562, wB=0.335, wC=0.103 in NORMAL regime. Recent error pattern showed persistence errors mostly under \u00b13/MWh for last 3 days, indicating good tracking; thus wA was increased by +0.10 to 0.662 (max allowed 0.663). This shift favors the stage-1 anchor more while slightly reducing spike reversion weight.",
+  "reasoning": "Anchor z = +0.94, regime = NORMAL. Formula default weights are wA=0.522, wB=0.375, wC=0.103; no deviation applied. Recent error track shows persistence bias signal tracked well with small average error, so no adjustment to wA was justified.",
   "confidence": 3
 }

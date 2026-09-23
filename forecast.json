@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      36.23,
-      33.56,
-      31.43,
-      30.34,
-      30.71,
-      34.52,
+      36.11,
+      33.52,
+      31.34,
+      30.27,
+      30.66,
+      34.49,
       40.73,
       37.75,
-      29.56,
-      26.35,
-      27.07,
-      27.56,
-      27.41,
-      31.84,
-      35.85,
-      39.45,
-      48.57,
-      65.91,
-      88.07,
-      94.18,
-      85.13,
-      68.15,
-      45.9,
-      36.66
+      29.57,
+      26.34,
+      22.51,
+      23.02,
+      23.73,
+      28.23,
+      33.17,
+      36.9,
+      47.88,
+      66.19,
+      88.82,
+      94.81,
+      85.29,
+      67.37,
+      44.1,
+      34.91
     ],
-    "daily_avg_usd_per_mwh": 43.87,
-    "peak_avg_usd_per_mwh": 76.37,
-    "offpeak_avg_usd_per_mwh": 34.41
+    "daily_avg_usd_per_mwh": 42.82,
+    "peak_avg_usd_per_mwh": 76.6,
+    "offpeak_avg_usd_per_mwh": 34.36
   },
   "actuals_today": {
     "date": "2026-09-23",
@@ -93,6 +93,6 @@
       34.47
     ]
   },
-  "reasoning": "The anchor_z is -0.48 \u03c3 indicating a slightly below average anchor, regime context NORMAL. Formula-computed default weights are wA=0.642, wB=0.257, wC=0.100 with Max wA 0.748; the anchor overshot actuals by +3.16 on persistence last 3 days but not enough to deviate from defaults. No adjustment was made. The forecast blends well with a daily average around 43.83 and maintains shape integrity.",
+  "reasoning": "Anchor_z is -0.73 indicating anchor below 7-day mean, regime NORMAL. Formula default weights were wA=0.568, wB=0.33, wC=0.101. Observed recent pattern is persistence overshot actuals by +3.16 MWh last 3 days, so increased wA by +0.10 to 0.668 (max allowed), reducing wB and wC proportionally to maintain sum=1.0. This adjustment reflects better trust in stage1 anchor given overshoot pattern.",
   "confidence": 3
 }

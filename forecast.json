@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      30.41,
-      28.35,
-      27.51,
-      25.8,
-      26.01,
-      29.14,
-      31.33,
+      30.43,
+      28.4,
+      27.57,
+      25.82,
+      26.05,
+      29.25,
       31.34,
-      21.92,
-      20.02,
-      19.55,
-      20.28,
-      22.35,
-      27.14,
-      31.17,
-      35.97,
-      41.0,
-      52.26,
-      76.02,
-      76.64,
-      59.96,
-      50.27,
-      38.65,
-      32.55
+      31.45,
+      21.89,
+      20.05,
+      22.03,
+      23.51,
+      26.28,
+      31.78,
+      35.81,
+      39.7,
+      45.38,
+      56.53,
+      79.75,
+      78.44,
+      61.58,
+      52.0,
+      39.73,
+      33.11
     ],
-    "daily_avg_usd_per_mwh": 35.65,
-    "peak_avg_usd_per_mwh": 61.18,
-    "offpeak_avg_usd_per_mwh": 28.74
+    "daily_avg_usd_per_mwh": 37.41,
+    "peak_avg_usd_per_mwh": 64.34,
+    "offpeak_avg_usd_per_mwh": 28.79
   },
   "actuals_today": {
     "date": "2026-09-25",
@@ -93,6 +93,6 @@
       31.6
     ]
   },
-  "reasoning": "Anchor_z is -1.44 (CRASH regime). Formula default weights: wA=0.449, wB=0.438, wC=0.113. Recent persistence error shows stage-1 anchor has overshot actuals by over +4 $/MWh in last 3 days, so we moderately reduced wA to 0.549 (max allowed 0.548) to temper this bias by leaning more on spike-reversion and day-of-week means. This results in a slightly higher blended daily average forecast of $35.90 vs anchor avg $34.39.",
+  "reasoning": "Anchor_z is -1.07 indicating a CRASH regime, formula default weights are wA=0.493, wB=0.395, wC=0.112. Due to recent persistence errors showing anchor overshot actuals by +4.36 $/MWh last 3 days, increased wA by +0.10 capped at max 0.595 and redistributed to wB and wC proportionally. Recent error pattern justifies increased trust in stage-1 anchor.",
   "confidence": 3
 }

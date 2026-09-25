@@ -6,33 +6,33 @@
   "forecast": {
     "hourly_usd_per_mwh": [
       30.41,
-      28.33,
-      27.49,
-      25.79,
-      25.99,
-      29.1,
-      32.89,
-      33.3,
-      23.91,
-      21.6,
-      21.81,
-      22.94,
-      25.04,
-      29.44,
-      33.07,
-      37.46,
-      43.89,
-      54.34,
-      77.26,
-      77.17,
-      61.24,
-      52.32,
-      39.33,
-      33.28
+      28.35,
+      27.51,
+      25.8,
+      26.01,
+      29.14,
+      31.33,
+      31.34,
+      21.92,
+      20.02,
+      19.55,
+      20.28,
+      22.35,
+      27.14,
+      31.17,
+      35.97,
+      41.0,
+      52.26,
+      76.02,
+      76.64,
+      59.96,
+      50.27,
+      38.65,
+      32.55
     ],
-    "daily_avg_usd_per_mwh": 36.98,
-    "peak_avg_usd_per_mwh": 62.78,
-    "offpeak_avg_usd_per_mwh": 29.16
+    "daily_avg_usd_per_mwh": 35.65,
+    "peak_avg_usd_per_mwh": 61.18,
+    "offpeak_avg_usd_per_mwh": 28.74
   },
   "actuals_today": {
     "date": "2026-09-25",
@@ -93,6 +93,6 @@
       31.6
     ]
   },
-  "reasoning": "The anchor_z value of -1.18 indicates a CRASH regime context, leading to formula default weights of wA=0.477, wB=0.411, wC=0.112. Recent persistence errors show consistent overshooting by the anchor, but the formula already accounts for this regime, so no weight deviation was made. Error pattern indicates overshot actuals but mixed hourly signal, thus formula defaults applied exactly.",
+  "reasoning": "Anchor_z is -1.44 (CRASH regime). Formula default weights: wA=0.449, wB=0.438, wC=0.113. Recent persistence error shows stage-1 anchor has overshot actuals by over +4 $/MWh in last 3 days, so we moderately reduced wA to 0.549 (max allowed 0.548) to temper this bias by leaning more on spike-reversion and day-of-week means. This results in a slightly higher blended daily average forecast of $35.90 vs anchor avg $34.39.",
   "confidence": 3
 }

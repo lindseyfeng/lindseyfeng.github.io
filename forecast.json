@@ -11,28 +11,28 @@
       34.14,
       36.27,
       40.52,
-      43.96,
-      43.29,
-      29.47,
-      25.48,
-      27.87,
-      28.89,
-      34.71,
-      38.11,
-      41.41,
-      43.06,
-      52.17,
-      59.49,
-      81.79,
+      43.92,
+      43.24,
+      29.45,
+      25.46,
+      27.82,
+      28.84,
+      35.47,
+      38.88,
+      42.2,
+      43.86,
+      52.1,
+      59.47,
+      81.81,
       84.2,
-      68.22,
-      50.63,
-      36.78,
-      30.39
+      68.27,
+      50.72,
+      36.83,
+      30.41
     ],
-    "daily_avg_usd_per_mwh": 43.44,
+    "daily_avg_usd_per_mwh": 43.57,
     "peak_avg_usd_per_mwh": 69.17,
-    "offpeak_avg_usd_per_mwh": 38.74
+    "offpeak_avg_usd_per_mwh": 38.73
   },
   "actuals_today": {
     "date": "2026-09-28",
@@ -93,6 +93,6 @@
       27.31
     ]
   },
-  "reasoning": "The anchor_z is +0.81 indicating a moderate deviation from the 7-day mean in a NORMAL regime context. Formula default weights (wA=0.549, wB=0.347, wC=0.104) were used as the recent error track record shows the stage-1 anchor tracking actuals well over the last 3 days with errors within \u00b13 $/MWh. No deviation was applied. The persistence averaged error was -2.76, indicating no consistent overshoot.",
+  "reasoning": "The anchor_z is +0.84 (moderate positive deviation), regime context NORMAL. The formula default weights are wA=0.542, wB=0.354, wC=0.104 with Max wA allowed=0.642. Recent error track record shows persistence errors within \u00b13 $/MWh and tracked well, so no adjustment to weights was applied. Using formula defaults exactly.",
   "confidence": 3
 }

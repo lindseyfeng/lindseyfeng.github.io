@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.91,
-      24.07,
-      22.4,
-      22.29,
-      22.92,
-      24.89,
-      28.93,
-      28.45,
-      23.92,
-      22.8,
-      23.11,
-      23.5,
+      26.15,
+      24.28,
+      22.64,
+      22.51,
+      23.16,
       25.21,
-      28.22,
-      33.27,
-      36.84,
-      40.54,
-      50.61,
-      65.99,
-      71.78,
-      63.8,
-      51.37,
-      32.75,
-      27.78
+      30.07,
+      29.5,
+      24.89,
+      23.69,
+      25.8,
+      27.15,
+      28.93,
+      30.21,
+      33.41,
+      37.01,
+      44.21,
+      54.24,
+      67.02,
+      72.1,
+      65.46,
+      51.73,
+      33.98,
+      28.86
     ],
-    "daily_avg_usd_per_mwh": 34.22,
-    "peak_avg_usd_per_mwh": 58.54,
-    "offpeak_avg_usd_per_mwh": 24.98
+    "daily_avg_usd_per_mwh": 35.51,
+    "peak_avg_usd_per_mwh": 60.61,
+    "offpeak_avg_usd_per_mwh": 25.44
   },
   "actuals_today": {
     "date": "2026-09-29",
@@ -93,6 +93,6 @@
       26.16
     ]
   },
-  "reasoning": "The anchor_z value is -0.66 with a NORMAL regime context. The formula default weights were wA=0.585, wB=0.310, wC=0.105. Observing the recent error track record, the persistence bias was +0.74 (tracked well without large overshoots), justifying increasing the stage1 anchor weight (wA) by +0.10, respecting the max wA=0.689. The spike-reverted and dow_mean weights were decreased proportionally to maintain sum=1.0.",
+  "reasoning": "The anchor_z is -0.45 indicating a NORMAL regime context with anchor slightly below the 7-day mean. The formula default weights are wA=0.652, wB=0.244, wC=0.104 and after checking recent persistence errors showed a mixed but low bias pattern, no adjustment was made. Persistence errors over last 3 days are within \u00b1$3/MWh indicating the anchor tracks well, so we keep formula defaults.",
   "confidence": 3
 }

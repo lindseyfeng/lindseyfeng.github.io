@@ -13,25 +13,25 @@
       25.15,
       27.8,
       28.47,
-      25.2,
-      22.17,
-      23.19,
-      23.79,
-      24.62,
-      26.76,
-      30.06,
-      36.29,
-      48.41,
+      24.3,
+      21.27,
+      20.49,
+      21.1,
+      21.92,
+      24.06,
+      27.36,
+      33.59,
+      47.52,
       65.89,
-      76.53,
-      70.1,
+      78.32,
+      71.0,
       70.15,
-      74.99,
-      53.34,
+      75.19,
+      54.23,
       46.54
     ],
-    "daily_avg_usd_per_mwh": 38.23,
-    "peak_avg_usd_per_mwh": 66.22,
+    "daily_avg_usd_per_mwh": 37.6,
+    "peak_avg_usd_per_mwh": 66.58,
     "offpeak_avg_usd_per_mwh": 24.95
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       45.81
     ]
   },
-  "reasoning": "The anchor_z value is +0.23, indicating a NORMAL regime context. Formula default weights derived are wA=0.731, wB=0.167, wC=0.102, with a max wA allowed of 0.848. Recent error track record shows persistence errors within \u00b13 USD/MWh with no clear overshoot or undershoot bias, so no deviation from formula defaults was applied. Output uses the formula default weights exactly.",
+  "reasoning": "The anchor_z value is +0.11, placing the regime context in NORMAL. The formula defaults assign weights wA=0.780, wB=0.119, wC=0.102, with a Max wA allowed of 0.850. The recent 3-day persistence errors are +2.89 on average (small positive bias) with good tracking overall, providing no strong justification for adjusting weights. Therefore, formula default weights are used exactly.",
   "confidence": 3
 }

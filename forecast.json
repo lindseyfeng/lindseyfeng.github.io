@@ -5,33 +5,33 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      33.33,
-      29.73,
+      33.34,
+      29.74,
       27.69,
-      26.74,
+      26.75,
       25.36,
       26.55,
-      31.47,
+      31.48,
       32.72,
-      31.15,
-      30.69,
-      24.63,
-      23.15,
-      22.42,
-      22.19,
-      23.02,
-      26.23,
+      31.16,
+      30.7,
+      31.06,
+      32.13,
+      31.39,
+      29.36,
+      29.29,
+      32.49,
       37.62,
-      48.37,
-      60.15,
-      61.47,
-      53.3,
-      55.53,
-      44.92,
-      44.78
+      48.36,
+      60.14,
+      61.45,
+      54.19,
+      56.43,
+      46.73,
+      45.42
     ],
-    "daily_avg_usd_per_mwh": 35.13,
-    "peak_avg_usd_per_mwh": 52.18,
+    "daily_avg_usd_per_mwh": 37.15,
+    "peak_avg_usd_per_mwh": 52.35,
     "offpeak_avg_usd_per_mwh": 29.2
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       45.22
     ]
   },
-  "reasoning": "The anchor_z is -0.29, indicating a NORMAL regime context with little deviation from recent 7-day means. Formula default weights are wA=0.707, wB=0.189, wC=0.104; no deviation was applied. The recent error track record shows the persistence anchor tracked actuals well with an average error of -1.33, indicating stable conditions and no reason to adjust weights.",
+  "reasoning": "Anchor_z is +0.09 sigma in a NORMAL regime; formula default weights are wA=0.783, wB=0.114, wC=0.103 with Max wA=0.850. The recent error track record shows persistence errors average -1.33 indicating the anchor tracked well without consistent bias. No deviation from formula defaults was warranted due to good recent anchor performance.",
   "confidence": 3
 }

@@ -1,6 +1,6 @@
 {
-  "run_date": "2026-10-01",
-  "target_date": "2026-10-02",
+  "run_date": "2026-10-02",
+  "target_date": "2026-10-03",
   "position_mw": 1,
   "baselines": {
     "persistence": {

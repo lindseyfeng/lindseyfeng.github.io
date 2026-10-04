@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      50.08,
-      46.81,
-      45.44,
-      43.43,
-      40.7,
+      50.45,
+      47.19,
+      45.8,
+      43.74,
+      40.89,
       38.94,
-      37.17,
-      34.02,
-      28.38,
-      21.49,
-      22.71,
-      21.52,
-      21.54,
-      23.68,
-      25.62,
-      27.4,
-      33.56,
-      42.29,
-      64.1,
-      70.47,
-      62.82,
-      53.36,
-      46.18,
-      42.88
+      38.89,
+      36.68,
+      31.21,
+      23.32,
+      23.66,
+      23.32,
+      23.23,
+      25.27,
+      26.26,
+      27.48,
+      33.69,
+      43.82,
+      63.71,
+      70.06,
+      62.42,
+      55.88,
+      47.75,
+      44.83
     ],
-    "daily_avg_usd_per_mwh": 39.36,
-    "peak_avg_usd_per_mwh": 54.65,
-    "offpeak_avg_usd_per_mwh": 42.07
+    "daily_avg_usd_per_mwh": 40.35,
+    "peak_avg_usd_per_mwh": 54.74,
+    "offpeak_avg_usd_per_mwh": 42.82
   },
   "actuals_today": {
     "date": "2026-10-04",
@@ -93,6 +93,6 @@
       43.26
     ]
   },
-  "reasoning": "Anchor_z is +0.31 indicating a slightly above average anchor price in a NORMAL regime. Formula-computed default weights are wA=0.704, wB=0.196, wC=0.101 with Max wA = 0.816. Recent error track record shows persistence errors within \u00b13 and well-tracked actuals, so no adjustment to weights was made and formula defaults were used.",
+  "reasoning": "Anchor_z is +0.53 with regime NORMAL, leading to formula weights wA=0.625, wB=0.273, wC=0.102. Due to persistence errors showing good anchor tracking last 3 days, wA is increased +0.10 to 0.725, respecting max wA=0.730. No overshoot pattern observed, so spike_reverted and dow_mean weights adjusted down proportionally.",
   "confidence": 3
 }

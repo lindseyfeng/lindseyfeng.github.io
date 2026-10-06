@@ -11,28 +11,28 @@
       32.16,
       32.8,
       36.24,
-      39.31,
-      38.88,
-      21.95,
-      18.17,
-      19.25,
-      20.8,
-      23.89,
-      27.25,
-      29.37,
-      31.47,
-      38.88,
-      62.49,
-      90.96,
-      96.06,
-      87.55,
-      75.55,
-      48.1,
-      35.81
+      41.09,
+      40.67,
+      23.76,
+      19.99,
+      20.17,
+      20.82,
+      23.0,
+      26.35,
+      29.36,
+      32.36,
+      39.75,
+      63.31,
+      90.83,
+      95.9,
+      88.31,
+      76.38,
+      48.11,
+      35.84
     ],
-    "daily_avg_usd_per_mwh": 42.14,
-    "peak_avg_usd_per_mwh": 75.19,
-    "offpeak_avg_usd_per_mwh": 35.48
+    "daily_avg_usd_per_mwh": 42.57,
+    "peak_avg_usd_per_mwh": 75.62,
+    "offpeak_avg_usd_per_mwh": 35.93
   },
   "actuals_today": {
     "date": "2026-10-06",
@@ -93,6 +93,6 @@
       34.41
     ]
   },
-  "reasoning": "Anchor_z value is +0.44\u03c3 indicating normal regime. Formula default weights are wA=0.656, wB=0.242, wC=0.102 and max wA allowed is 0.764. Recent error track record shows small mixed persistence errors near +0.45 avg and the anchor tracked well; no adjustment from defaults was justified.",
+  "reasoning": "Anchor_z is +0.53 with a NORMAL regime context. Formula default weights are wA=0.625, wB=0.273, wC=0.102, with a maximum wA allowed of 0.730. Recent persistence errors show small average bias (+0.45 last 3 days) indicating the anchor tracked actuals well, so no adjustment made. This follows the calibration protocol exactly.",
   "confidence": 3
 }

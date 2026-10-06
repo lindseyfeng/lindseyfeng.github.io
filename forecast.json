@@ -11,16 +11,16 @@
       32.16,
       32.8,
       36.24,
-      42.0,
-      41.58,
-      23.74,
-      19.97,
-      17.45,
-      18.1,
-      20.3,
-      23.65,
-      26.68,
-      29.67,
+      39.31,
+      38.88,
+      21.95,
+      18.17,
+      19.25,
+      20.8,
+      23.89,
+      27.25,
+      29.37,
+      31.47,
       38.88,
       62.49,
       90.96,
@@ -30,9 +30,9 @@
       48.1,
       35.81
     ],
-    "daily_avg_usd_per_mwh": 41.84,
+    "daily_avg_usd_per_mwh": 42.14,
     "peak_avg_usd_per_mwh": 75.19,
-    "offpeak_avg_usd_per_mwh": 36.16
+    "offpeak_avg_usd_per_mwh": 35.48
   },
   "actuals_today": {
     "date": "2026-10-06",
@@ -93,6 +93,6 @@
       34.41
     ]
   },
-  "reasoning": "Anchor_z is +0.38 indicating a slight above-average signal in a NORMAL regime. Formula default weights are wA=0.678, wB=0.220, wC=0.101 with Max wA allowed at 0.789, which we did not exceed. Recent error track shows persistence has tracked well with only minor bias, no consistent overshoot or undershoot pattern that would justify deviation. Thus, we applied formula defaults exactly.",
+  "reasoning": "Anchor_z value is +0.44\u03c3 indicating normal regime. Formula default weights are wA=0.656, wB=0.242, wC=0.102 and max wA allowed is 0.764. Recent error track record shows small mixed persistence errors near +0.45 avg and the anchor tracked well; no adjustment from defaults was justified.",
   "confidence": 3
 }

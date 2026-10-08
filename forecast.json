@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      42.06,
-      38.8,
-      41.23,
-      41.26,
-      42.7,
-      46.65,
-      54.33,
-      53.5,
+      42.05,
+      38.79,
+      41.22,
+      41.24,
+      42.68,
+      46.63,
+      53.42,
+      53.48,
       31.16,
-      22.51,
-      16.86,
-      18.11,
-      19.28,
-      25.46,
-      29.69,
-      34.73,
-      33.02,
-      63.66,
-      90.62,
-      91.15,
-      79.82,
-      68.83,
-      59.7,
-      48.57
+      21.64,
+      23.03,
+      26.04,
+      28.09,
+      33.39,
+      35.85,
+      40.01,
+      45.34,
+      68.3,
+      90.6,
+      91.13,
+      79.79,
+      68.81,
+      59.68,
+      51.19
     ],
-    "daily_avg_usd_per_mwh": 45.57,
-    "peak_avg_usd_per_mwh": 71.65,
-    "offpeak_avg_usd_per_mwh": 45.07
+    "daily_avg_usd_per_mwh": 48.06,
+    "peak_avg_usd_per_mwh": 75.03,
+    "offpeak_avg_usd_per_mwh": 44.94
   },
   "actuals_today": {
     "date": "2026-10-08",
@@ -93,6 +93,6 @@
       52.66
     ]
   },
-  "reasoning": "The anchor_z is +0.12 (near typical), so the regime context is NORMAL. Formula default weights are wA=0.758, wB=0.123, wC=0.119; these are used without deviation. The recent error track shows no consistent pattern that justifies changing wA; persistence errors over last 3 days average -3.73 indicating undershoot, so no increase in wA is warranted.",
+  "reasoning": "The anchor_z of +0.41 places this day in a NORMAL regime, leading to formula default weights (wA=0.653, wB=0.227, wC=0.120). The Stage-1 anchor daily average is $49.70, above the persistence baseline, indicating some upward momentum but offset by a recent undershoot pattern in persistence errors, thus no increase in wA. The recent error track record showed mixed small errors with an undershoot bias, so no deviation from the formula defaults was warranted.",
   "confidence": 3
 }

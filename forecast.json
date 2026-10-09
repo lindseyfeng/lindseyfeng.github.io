@@ -11,28 +11,28 @@
       37.07,
       39.16,
       42.56,
-      46.26,
-      44.85,
-      28.99,
-      20.39,
-      19.58,
-      20.7,
-      23.09,
-      27.81,
-      31.61,
-      32.4,
-      36.09,
+      48.03,
+      47.51,
+      31.64,
+      22.16,
+      16.04,
+      16.28,
+      18.67,
+      24.27,
+      28.95,
+      29.74,
+      41.4,
       70.3,
       91.79,
       92.73,
       77.58,
-      58.29,
-      44.73,
-      32.56
+      59.18,
+      45.61,
+      33.44
     ],
-    "daily_avg_usd_per_mwh": 43.31,
-    "peak_avg_usd_per_mwh": 73.7,
-    "offpeak_avg_usd_per_mwh": 41.36
+    "daily_avg_usd_per_mwh": 43.13,
+    "peak_avg_usd_per_mwh": 74.76,
+    "offpeak_avg_usd_per_mwh": 41.91
   },
   "actuals_today": {
     "date": "2026-10-09",
@@ -93,6 +93,6 @@
       32.0
     ]
   },
-  "reasoning": "The anchor_z is -0.37 with regime context NORMAL, leading to formula default weights wA=0.669, wB=0.216, wC=0.115. Recent error track record shows persistence averages errors near zero with no clear bias, so no deviation from formula defaults. Anchor average is $44.19/MWh and the blended forecast average is $43.31/MWh, slightly down from anchor.",
+  "reasoning": "Anchor_z is -0.40 indicating a normal regime with slight negative deviation from the 7-day mean. Formula defaults suggested weights wA=0.661, wB=0.224, wC=0.115 which were used without deviation. Recent error track shows the anchor tracked actuals well within \u00b13/MWh over the last 3 days with no overshooting pattern, justifying no adjustment to wA.",
   "confidence": 3
 }

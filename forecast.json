@@ -11,28 +11,28 @@
       22.45,
       22.6,
       23.67,
-      26.92,
-      26.65,
-      19.49,
-      13.65,
-      13.99,
-      14.56,
-      17.6,
-      20.82,
-      22.83,
-      23.59,
-      26.77,
-      40.6,
-      70.13,
-      67.67,
-      59.31,
-      52.27,
-      30.06,
-      25.73
+      27.28,
+      27.0,
+      19.47,
+      13.64,
+      13.97,
+      14.89,
+      18.29,
+      21.51,
+      23.52,
+      23.91,
+      27.41,
+      41.2,
+      69.98,
+      67.52,
+      59.15,
+      52.12,
+      29.63,
+      25.32
     ],
-    "daily_avg_usd_per_mwh": 29.91,
-    "peak_avg_usd_per_mwh": 52.9,
-    "offpeak_avg_usd_per_mwh": 24.84
+    "daily_avg_usd_per_mwh": 30.04,
+    "peak_avg_usd_per_mwh": 53.05,
+    "offpeak_avg_usd_per_mwh": 24.93
   },
   "actuals_today": {
     "date": "2026-10-10",
@@ -93,6 +93,6 @@
       20.01
     ]
   },
-  "reasoning": "Anchor_z is -1.53 indicating a CRASH regime. Formula default weights are wA=0.433, wB=0.437, wC=0.130 with max wA=0.540. Recent persistence errors show the anchor overshot actuals by +11.54 on average last 3 days. Given this pattern, no deviation from formula defaults was applied according to step 2 guidance. The formula blend thus balances stage1 anchor with spike reversion and day-of-week mean anchors.",
+  "reasoning": "Anchor_z is -1.51 indicating a CRASH regime. Formula default weights are wA=0.435, wB=0.435, wC=0.130 with max wA allowed at 0.542. Recent persistence error shows clear overshoot by stage1 anchor, matching formula's partial spike reversion. No deviation was applied from defaults. The last 3 days show overshot persistence errors supporting partial reliance on spike-reverted and DOW mean anchors.",
   "confidence": 3
 }

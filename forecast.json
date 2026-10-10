@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.51,
+      28.5,
       24.6,
       23.3,
       22.45,
       22.6,
       23.67,
-      27.75,
-      28.24,
-      21.05,
-      14.44,
-      9.86,
-      9.73,
-      12.77,
-      16.69,
-      19.4,
-      20.17,
-      28.83,
-      43.42,
-      73.78,
-      68.78,
-      59.68,
-      52.61,
-      30.22,
-      25.82
+      26.92,
+      26.65,
+      19.49,
+      13.65,
+      13.99,
+      14.56,
+      17.6,
+      20.82,
+      22.83,
+      23.59,
+      26.77,
+      40.6,
+      70.13,
+      67.67,
+      59.31,
+      52.27,
+      30.06,
+      25.73
     ],
-    "daily_avg_usd_per_mwh": 29.52,
-    "peak_avg_usd_per_mwh": 54.9,
-    "offpeak_avg_usd_per_mwh": 25.14
+    "daily_avg_usd_per_mwh": 29.91,
+    "peak_avg_usd_per_mwh": 52.9,
+    "offpeak_avg_usd_per_mwh": 24.84
   },
   "actuals_today": {
     "date": "2026-10-10",
@@ -93,6 +93,6 @@
       20.01
     ]
   },
-  "reasoning": "",
+  "reasoning": "Anchor_z is -1.53 indicating a CRASH regime. Formula default weights are wA=0.433, wB=0.437, wC=0.130 with max wA=0.540. Recent persistence errors show the anchor overshot actuals by +11.54 on average last 3 days. Given this pattern, no deviation from formula defaults was applied according to step 2 guidance. The formula blend thus balances stage1 anchor with spike reversion and day-of-week mean anchors.",
   "confidence": 3
 }

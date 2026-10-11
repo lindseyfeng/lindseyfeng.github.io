@@ -11,28 +11,28 @@
       18.58,
       18.7,
       20.24,
-      21.47,
-      21.67,
-      14.48,
-      7.58,
-      6.73,
-      11.05,
-      16.06,
-      18.27,
-      20.17,
-      22.34,
-      23.99,
-      33.13,
-      58.88,
-      59.7,
-      54.08,
-      44.64,
-      32.01,
-      25.23
+      22.62,
+      23.6,
+      16.61,
+      8.92,
+      9.25,
+      14.43,
+      20.29,
+      22.44,
+      23.56,
+      24.97,
+      28.5,
+      38.36,
+      63.77,
+      59.83,
+      55.09,
+      44.75,
+      32.91,
+      25.63
     ],
-    "daily_avg_usd_per_mwh": 25.47,
-    "peak_avg_usd_per_mwh": 45.96,
-    "offpeak_avg_usd_per_mwh": 20.38
+    "daily_avg_usd_per_mwh": 27.31,
+    "peak_avg_usd_per_mwh": 49.11,
+    "offpeak_avg_usd_per_mwh": 20.76
   },
   "actuals_today": {
     "date": "2026-10-11",
@@ -93,6 +93,6 @@
       20.65
     ]
   },
-  "reasoning": "The anchor_z is -1.43 indicating a CRASH regime; formula defaults wA=0.438, wB=0.426, wC=0.136 were applied without deviation. Recent 3-day error pattern shows persistence overshot actuals by large margins, confirming partial reversion is appropriate; no weight change made from formula defaults.",
+  "reasoning": "",
   "confidence": 3
 }

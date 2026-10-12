@@ -17,21 +17,21 @@
       18.93,
       21.49,
       22.57,
-      24.05,
-      25.6,
-      27.37,
-      29.72,
+      24.92,
+      27.33,
+      29.1,
+      31.46,
       36.49,
       56.01,
       83.73,
       77.97,
-      74.6,
-      54.01,
-      41.57,
-      33.2
+      75.46,
+      55.74,
+      42.44,
+      34.07
     ],
-    "daily_avg_usd_per_mwh": 35.13,
-    "peak_avg_usd_per_mwh": 65.76,
+    "daily_avg_usd_per_mwh": 35.57,
+    "peak_avg_usd_per_mwh": 65.93,
     "offpeak_avg_usd_per_mwh": 23.8
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       30.81
     ]
   },
-  "reasoning": "The anchor_z value is -0.27 indicating a slightly below-average anchor, placing the regime in 'VOLATILE' context. Formula default weights are wA=0.691, wB=0.177, wC=0.132 with a max allowable wA of 0.830. Recent persistence error shows the anchor slightly overshot actuals (+5.15 last 3 days), but the errors are mixed and not consistent enough to adjust weights, so the formula default blend is used unchanged.",
+  "reasoning": "The anchor_z is -0.24 indicating the Stage-1 anchor is slightly below the 7-day mean in a VOLATILE regime. The formula default weights are wA=0.702, wB=0.166, and wC=0.132. Recent persistence error showed overshooting of actuals by +5.15 on average, but the error pattern is mixed and does not clearly support deviation. Therefore, weights were not adjusted and formula defaults were used.",
   "confidence": 3
 }

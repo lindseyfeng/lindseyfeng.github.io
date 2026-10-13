@@ -175,12 +175,10 @@
   <div class="hub-container">
     <div class="hub-title">Agentic ERCOT</div>
     <div class="hub-sub">
-      Two LLM agents working the Texas (ERCOT) electricity market at HB_NORTH,
-      both updated daily.
+      An LLM agent trading the Texas (ERCOT) electricity market at HB_NORTH, updated daily.
     </div>
 
     <div class="intro">
-      The <b>Day-Ahead Forecast</b> agent predicts tomorrow's 24 hourly DAM clearing prices.
       The <b>DART Trading</b> agent is a prior-guided virtual bidder: it starts from an
       always-short prior, lets the LLM propose departures that a statistical prior must
       corroborate, and sizes each hour by volatility and the LLM's confidence. Positions are
@@ -188,22 +186,6 @@
     </div>
 
     <div class="cards">
-
-      <!-- ── DAM card ───────────────────────────────────────── -->
-      <a href="./ercot-forecast.html" class="card" id="dam-card">
-        <div class="card-header">
-          <div class="card-title">Day-Ahead Forecast</div>
-          <div class="card-pill">DAM · MAE</div>
-        </div>
-        <div class="card-sub">24 hourly DAM clearing prices for tomorrow</div>
-        <div class="card-stats" id="dam-stats">
-          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
-        </div>
-        <div class="card-foot">
-          <span class="card-link">Open dashboard <span class="arrow">→</span></span>
-          <span class="card-foot-meta" id="dam-meta">&mdash;</span>
-        </div>
-      </a>
 
       <!-- ── DART card ──────────────────────────────────────── -->
       <a href="./dart-trading-v2.html" class="card" id="dart-card">
@@ -218,37 +200,6 @@
         <div class="card-foot">
           <span class="card-link">Open dashboard <span class="arrow">→</span></span>
           <span class="card-foot-meta" id="dart-meta">&mdash;</span>
-        </div>
-      </a>
-
-      <!-- ── archived cards ─────────────────────────────────── -->
-      <a href="./dart-paper-v3.html" class="card" style="opacity:0.6;">
-        <div class="card-header">
-          <div class="card-title">Paper v3 <span style="background:#aaa;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;">archived</span></div>
-          <div class="card-pill" style="background:#eee;color:#999;">write-up</div>
-        </div>
-        <div class="card-sub">Earlier v2 / v3 scoreboard &mdash; superseded by the paper strategy</div>
-        <div class="card-foot"><span class="card-link" style="color:#aaa;">View archived page <span class="arrow">→</span></span></div>
-      </a>
-
-      <a href="./baselines-detail.html" class="card" style="opacity:0.6;">
-        <div class="card-header">
-          <div class="card-title">Per-Hour Decisions <span style="background:#aaa;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;">archived</span></div>
-          <div class="card-pill" style="background:#eee;color:#999;">day-by-day grid</div>
-        </div>
-        <div class="card-sub">Hour-by-hour grid for the previous live agent</div>
-        <div class="card-foot"><span class="card-link" style="color:#aaa;">View archived grid <span class="arrow">→</span></span></div>
-      </a>
-
-      <!-- ── DART v1 archived card ──────────────────────────── -->
-      <a href="./dart-trading-v1.html" class="card" style="opacity:0.6;">
-        <div class="card-header">
-          <div class="card-title">DART Trading <span style="background:#aaa;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;">v1 archived</span></div>
-          <div class="card-pill" style="background:#eee;color:#999;">LLM-only</div>
-        </div>
-        <div class="card-sub">Original LLM-only model — archived for reference</div>
-        <div class="card-foot">
-          <span class="card-link" style="color:#aaa;">View archived dashboard <span class="arrow">→</span></span>
         </div>
       </a>
 
@@ -282,54 +233,6 @@
       `).join("");
     }
 
-    async function loadDAM() {
-      try {
-        const [fc, hist] = await Promise.all([
-          fetch("/forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null),
-          fetch("/history.json?t=" + Date.now()).then(r => r.ok ? r.json() : []),
-        ]);
-        if (!fc) throw new Error("no forecast");
-
-        const tomorrowAvg = (fc.forecast && fc.forecast.daily_avg_usd_per_mwh) || null;
-        const scored = (hist || []).filter(e => e.mae != null);
-        const last = scored.length ? scored[scored.length - 1] : null;
-        const cumMAE = scored.length
-          ? scored.reduce((s, e) => s + e.mae, 0) / scored.length
-          : null;
-        const cumPersMAE = scored.length
-          ? scored.reduce((s, e) => s + (e.persistence_mae != null ? e.persistence_mae : 0), 0) / scored.length
-          : null;
-        const skill = cumMAE != null && cumPersMAE
-          ? ((1 - cumMAE / cumPersMAE) * 100)
-          : null;
-
-        setStats("dam-stats", [
-          {
-            label: "Tomorrow avg",
-            value: tomorrowAvg != null ? `$${tomorrowAvg.toFixed(0)}` : "—",
-          },
-          {
-            label: "Today MAE",
-            value: last ? `$${last.mae.toFixed(1)}` : "—",
-          },
-          {
-            label: `Cum MAE (${scored.length}d)`,
-            value: cumMAE != null ? `$${cumMAE.toFixed(1)}` : "—",
-          },
-          {
-            label: "Skill vs pers.",
-            value: skill != null ? `${skill > 0 ? "+" : ""}${skill.toFixed(1)}%` : "—",
-            cls: skill != null && skill > 0 ? "stat-pos" : (skill != null && skill < 0 ? "stat-neg" : ""),
-          },
-        ]);
-        document.getElementById("dam-meta").textContent =
-          fc.target_date ? `for ${fc.target_date}` : "";
-      } catch (e) {
-        console.error("DAM load", e);
-        setStats("dam-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
-      }
-    }
-
     async function loadDART() {
       try {
         const fc = await fetch("/dart_paper_forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null);
@@ -352,7 +255,6 @@
       }
     }
 
-    loadDAM();
     loadDART();
   </script>
 </body>

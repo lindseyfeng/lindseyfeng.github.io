@@ -23,15 +23,15 @@
       35.77,
       51.04,
       76.06,
-      104.07,
-      103.28,
-      94.44,
-      70.02,
+      102.34,
+      100.68,
+      91.84,
+      67.42,
       47.17,
       40.61
     ],
-    "daily_avg_usd_per_mwh": 43.29,
-    "peak_avg_usd_per_mwh": 85.78,
+    "daily_avg_usd_per_mwh": 42.89,
+    "peak_avg_usd_per_mwh": 84.39,
     "offpeak_avg_usd_per_mwh": 31.18
   },
   "actuals_today": {
@@ -93,6 +93,6 @@
       38.59
     ]
   },
-  "reasoning": "The anchor_z is +0.24, indicating a moderately typical regime in a VOLATILE context. The formula default blend weights are wA=0.702, wB=0.166, wC=0.132; no deviation was made. Recent error track record showed mixed errors with persistence undershooting actuals by about 6.15 $/MWh over the last 3 days but no consistent overshoot pattern, justifying keeping the formula defaults.",
+  "reasoning": "The anchor_z value is +0.22 indicating a slightly elevated but not extreme regime labeled VOLATILE. The formula default weights were wA=0.712, wB=0.156, wC=0.132 with a max allowed wA of 0.850, and no deviation from defaults was made. The recent error track record showed mixed persistence errors but no consistent overshoot or undershoot pattern warranting adjustment, supporting use of formula defaults exactly.",
   "confidence": 3
 }

@@ -12,7 +12,7 @@
    "ev": -0.11,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.292
+   "position_mw": -0.288
   },
   {
    "hour": 2,
@@ -23,7 +23,7 @@
    "ev": 0.6,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.379
+   "position_mw": -0.373
   },
   {
    "hour": 3,
@@ -34,7 +34,7 @@
    "ev": 0.61,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.37
+   "position_mw": -0.364
   },
   {
    "hour": 4,
@@ -45,7 +45,7 @@
    "ev": 0.63,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.342
+   "position_mw": -0.336
   },
   {
    "hour": 5,
@@ -56,7 +56,7 @@
    "ev": 0.55,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.379
+   "position_mw": -0.374
   },
   {
    "hour": 6,
@@ -67,7 +67,7 @@
    "ev": 0.94,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.333
+   "position_mw": -0.328
   },
   {
    "hour": 7,
@@ -78,7 +78,7 @@
    "ev": 1.66,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.263
+   "position_mw": -0.259
   },
   {
    "hour": 8,
@@ -89,7 +89,7 @@
    "ev": 2.58,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.392
+   "position_mw": -0.386
   },
   {
    "hour": 9,
@@ -100,7 +100,7 @@
    "ev": -0.33,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.217
+   "position_mw": -0.214
   },
   {
    "hour": 10,
@@ -111,7 +111,7 @@
    "ev": 1.09,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.25
+   "position_mw": -0.246
   },
   {
    "hour": 11,
@@ -122,7 +122,7 @@
    "ev": 1.1,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.462
+   "position_mw": -0.455
   },
   {
    "hour": 12,
@@ -133,7 +133,7 @@
    "ev": -0.46,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.501
+   "position_mw": -0.493
   },
   {
    "hour": 13,
@@ -144,7 +144,7 @@
    "ev": -0.46,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.463
+   "position_mw": -0.456
   },
   {
    "hour": 14,
@@ -155,7 +155,7 @@
    "ev": 0.47,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.478
+   "position_mw": -0.471
   },
   {
    "hour": 15,
@@ -166,7 +166,7 @@
    "ev": 0.61,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.524
+   "position_mw": -0.517
   },
   {
    "hour": 16,
@@ -177,7 +177,7 @@
    "ev": 0.91,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.477
+   "position_mw": -0.469
   },
   {
    "hour": 17,
@@ -188,7 +188,7 @@
    "ev": 1.18,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.667
+   "position_mw": -0.657
   },
   {
    "hour": 18,
@@ -199,7 +199,7 @@
    "ev": 1.04,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.267
+   "position_mw": -1.247
   },
   {
    "hour": 19,
@@ -210,7 +210,7 @@
    "ev": 6.35,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -3.879
+   "position_mw": -3.821
   },
   {
    "hour": 20,
@@ -221,7 +221,7 @@
    "ev": 11.31,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -3.844
+   "position_mw": -3.786
   },
   {
    "hour": 21,
@@ -232,18 +232,18 @@
    "ev": 14.52,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -2.909
+   "position_mw": -2.865
   },
   {
    "hour": 22,
-   "llm_dir": -1,
-   "llm_conf": 0.6,
+   "llm_dir": 1,
+   "llm_conf": 0.65,
    "lr_dir": -1,
    "ts_dir": -1,
    "ev": 2.89,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -4.41
+   "position_mw": -4.705
   },
   {
    "hour": 23,
@@ -254,7 +254,7 @@
    "ev": 1.73,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.525
+   "position_mw": -0.517
   },
   {
    "hour": 24,
@@ -265,34 +265,34 @@
    "ev": 2.97,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -0.377
+   "position_mw": -0.371
   }
  ],
  "paper_mw": [
-  -0.292,
-  -0.379,
-  -0.37,
-  -0.342,
-  -0.379,
-  -0.333,
-  -0.263,
-  -0.392,
-  -0.217,
-  -0.25,
-  -0.462,
-  -0.501,
-  -0.463,
-  -0.478,
-  -0.524,
-  -0.477,
-  -0.667,
-  -1.267,
-  -3.879,
-  -3.844,
-  -2.909,
-  -4.41,
-  -0.525,
-  -0.377
+  -0.288,
+  -0.373,
+  -0.364,
+  -0.336,
+  -0.374,
+  -0.328,
+  -0.259,
+  -0.386,
+  -0.214,
+  -0.246,
+  -0.455,
+  -0.493,
+  -0.456,
+  -0.471,
+  -0.517,
+  -0.469,
+  -0.657,
+  -1.247,
+  -3.821,
+  -3.786,
+  -2.865,
+  -4.705,
+  -0.517,
+  -0.371
  ],
  "baselines_mw": {
   "always_short": [
@@ -402,6 +402,8 @@
  },
  "actual_spread": null,
  "pnl": null,
+ "prompt": "ERCOT HB_NORTH RT-DAM spread (RT minus DAM, $/MWh) direction forecast for 2026-10-14.\nYou are deciding at BID TIME: 10:00 CT on the day before. The day-ahead auction\nhas NOT cleared, so the DAM price for this day is NOT known to you.\nMarket facts for this hub:\n  - Day-over-day autocorrelation of the spread is weak (~+0.21).\n  - Base rate is ~62% negative / ~38% positive: a short lean is real but not automatic.\nday-D weather FORECAST (Dallas): Tavg 81F, Tpeak 88F, wind 8.5, cloud 63%\nday-D load forecast: mean 67.3 GW, peak 79.2 GW, min 57.1 GW\n\nPer hour you get: the day-D LOAD FORECAST, its deviation from the day mean, its\nanomaly vs the same hour historically (zLOAD), its rank within the day and its\nhour-over-hour ramp; the most recent SETTLED wind and solar; a forecast NET-LOAD\nproxy (day-D load minus last settled renewables) and its ramp; and the most recent\nsettled same-hour spreads. Hours after 10:00 lag one extra day (not yet settled).\nHE | LOAD_GW | dLOAD | zLOAD | RANK | RAMP | WIND_GW | SOLAR_GW | NETLOAD | NL_RAMP | last settled spreads\nHE01 |  62.22 | -5.05 | +1.16 |    8 | +0.00 |  25.5 |   0.0 |  36.7 |  n/a | [-0.2, -0.8, -3.0, -4.5, 0.1, -6.2, -4.2]\nHE02 |  60.05 | -7.22 | +1.44 |    5 | -2.17 |  25.8 |   0.0 |  34.2 |  -2.5 | [-3.0, -0.6, -0.2, -5.0, 1.6, -7.0, -3.6]\nHE03 |  58.51 | -8.76 | +1.58 |    3 | -1.55 |  25.9 |   0.0 |  32.6 |  -1.6 | [-3.1, -2.3, -6.9, -5.0, 1.7, -6.5, -1.3]\nHE04 |  57.32 | -9.94 | +1.66 |    1 | -1.18 |  26.1 |   0.0 |  31.2 |  -1.4 | [-3.1, -2.3, -5.1, -6.5, 0.3, -4.8, -1.7]\nHE05 |  57.12 | -10.15 | +1.79 |    0 | -0.20 |  25.7 |   0.0 |  31.5 |   0.2 | [-7.9, -3.8, -1.5, -6.6, -0.1, -6.1, -3.6]\nHE06 |  57.84 | -9.43 | +1.94 |    2 | +0.72 |  25.3 |   0.0 |  32.6 |   1.1 | [-6.7, -4.5, -1.2, -7.2, -0.3, -6.5, -4.5]\nHE07 |  59.41 | -7.86 | +2.01 |    4 | +1.57 |  25.1 |   0.0 |  34.3 |   1.8 | [-1.4, -7.8, -4.4, -8.5, 1.0, -3.2, -5.2]\nHE08 |  60.08 | -7.19 | +1.75 |    6 | +0.67 |  24.8 |   0.0 |  35.3 |   0.9 | [0.1, -16.1, -7.5, -11.6, 2.9, -3.5, -6.4]\nHE09 |  60.78 | -6.49 | +1.65 |    7 | +0.70 |  24.3 |   0.5 |  36.0 |   0.8 | [-2.2, -4.8, 2.6, -4.6, 0.1, -5.4, -3.3]\nHE10 |  63.63 | -3.64 | +1.84 |   10 | +2.85 |  22.1 |  10.7 |  30.8 |  -5.2 | [-7.5, -5.5, 1.6, 0.1, -0.4, -7.5, -1.0]\nHE11 |  67.16 | -0.11 | +2.01 |   12 | +3.53 |  n/a |  n/a |  n/a |  n/a | [-5.2, -8.7, -4.5, 2.6, 1.5, -6.6, -8.6]\nHE12 |  70.61 | +3.34 | +2.06 |   14 | +3.44 |  n/a |  n/a |  n/a |  n/a | [-4.4, -14.2, -1.1, -1.3, -4.6, -10.8, -10.8]\nHE13 |  73.74 | +6.47 | +1.97 |   17 | +3.13 |  n/a |  n/a |  n/a |  n/a | [-3.7, -11.1, -3.6, 0.2, -5.5, -11.9, -16.1]\nHE14 |  76.45 | +9.18 | +1.84 |   19 | +2.71 |  n/a |  n/a |  n/a |  n/a | [-1.6, -5.7, -3.6, 4.8, -5.9, -9.7, -9.5]\nHE15 |  78.14 | +10.87 | +1.65 |   21 | +1.69 |  n/a |  n/a |  n/a |  n/a | [0.6, -2.9, -8.2, 5.0, -8.2, -8.4, -4.3]\nHE16 |  79.11 | +11.84 | +1.52 |   22 | +0.96 |  n/a |  n/a |  n/a |  n/a | [1.0, -2.9, -13.8, -3.5, -6.3, -6.6, -3.3]\nHE17 |  79.22 | +11.95 | +1.41 |   23 | +0.12 |  n/a |  n/a |  n/a |  n/a | [6.1, -6.7, -15.9, -5.7, -9.1, -8.4, -6.0]\nHE18 |  78.00 | +10.73 | +1.26 |   20 | -1.22 |  n/a |  n/a |  n/a |  n/a | [14.5, 9.3, 6.7, 32.3, -1.6, -11.1, -2.2]\nHE19 |  74.93 | +7.67 | +1.03 |   18 | -3.07 |  n/a |  n/a |  n/a |  n/a | [16.4, 30.0, 49.4, 86.2, -24.8, -20.9, -17.3]\nHE20 |  73.03 | +5.76 | +0.87 |   16 | -1.90 |  17.3 |   6.6 |  49.1 |  n/a | [27.7, 21.1, 77.7, 70.7, -33.1, -16.1, -11.7]\nHE21 |  71.05 | +3.78 | +0.90 |   15 | -1.98 |  17.5 |   0.1 |  53.5 |   4.3 | [121.0, -1.0, 18.9, 3.0, -41.7, -10.1, -9.9]\nHE22 |  68.38 | +1.11 | +0.84 |   13 | -2.67 |  21.0 |   0.0 |  47.4 |  -6.1 | [206.4, -25.2, -64.5, -53.4, -19.4, -6.8, -4.3]\nHE23 |  65.28 | -1.98 | +0.72 |   11 | -3.10 |  24.2 |   0.0 |  41.1 |  -6.3 | [4.2, -8.7, -9.4, -18.8, -17.8, -5.4, -5.0]\nHE24 |  62.37 | -4.90 | +0.74 |    9 | -2.92 |  25.2 |   0.0 |  37.1 |  -3.9 | [2.2, 6.5, -2.2, -5.7, -9.2, -6.5, -4.8]\n\nForecast each hour DIRECTION: +1 if RT>DAM, -1 if RT<DAM. Also confidence 0-1. Output ONLY JSON: {\"h\":[{\"hour\":1,\"dir\":-1,\"conf\":0.6}, ... exactly 24]}",
+ "model": "gpt-4.1-mini",
  "run_date": "2026-10-13",
- "generated_at": "2026-10-13T06:53:50+00:00"
+ "generated_at": "2026-10-13T06:56:42+00:00"
 }

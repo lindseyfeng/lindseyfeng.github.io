@@ -302,6 +302,102 @@
       </div>
 
       <hr class="divider">
+      <div class="section-label">How it works</div>
+      <div style="width:100%; overflow-x:auto;">
+      <svg viewBox="0 0 1000 400" style="width:100%; min-width:760px; height:auto; font-family:'Montserrat',sans-serif;" role="img"
+           aria-label="Pipeline: settled spreads and day-D forecasts feed an LLM, statistical priors and a spike prior; an always-short prior goes long only when the LLM proposes it and a statistical prior plus the payoff screen agree; an adaptive spike gate can flatten hours; positions are sized by volatility and confidence and bid at 10:00 CT the day before.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#999"/>
+          </marker>
+          <style>
+            .bx{fill:#fafafa;stroke:#d6d6d6;stroke-width:1.2;rx:8}
+            .bl{fill:#eef3f7;stroke:#2d6a9f;stroke-width:1.2}
+            .bo{fill:#fbf3ec;stroke:#cc7a2a;stroke-width:1.2}
+            .t{font-size:13px;font-weight:700;fill:#333}
+            .s{font-size:10.5px;fill:#666;font-family:'Radley',serif}
+            .ln{stroke:#999;stroke-width:1.3;fill:none;marker-end:url(#ar)}
+          </style>
+        </defs>
+        <!-- inputs -->
+        <rect class="bx" x="10" y="40"  width="200" height="78" rx="8"/>
+        <text class="t" x="22" y="64">Settled spreads</text>
+        <text class="s" x="22" y="84">same hour, last settled by</text>
+        <text class="s" x="22" y="100">10:00 CT on D&#8722;1 (else D&#8722;2)</text>
+        <rect class="bx" x="10" y="240" width="200" height="78" rx="8"/>
+        <text class="t" x="22" y="264">Day-D forecasts</text>
+        <text class="s" x="22" y="284">ERCOT load forecast, Dallas</text>
+        <text class="s" x="22" y="300">weather, settled wind &amp; solar</text>
+        <!-- models -->
+        <rect class="bl" x="270" y="10"  width="220" height="96" rx="8"/>
+        <text class="t" x="282" y="34">LLM (gpt-4.1-mini)</text>
+        <text class="s" x="282" y="54">paper prompt, temperature 0</text>
+        <text class="s" x="282" y="70">per hour: direction +1 or &#8722;1</text>
+        <text class="s" x="282" y="86">and confidence 0&#8211;1</text>
+        <rect class="bx" x="270" y="150" width="220" height="96" rx="8"/>
+        <text class="t" x="282" y="174">Statistical priors</text>
+        <text class="s" x="282" y="194">supervised LR (refit monthly)</text>
+        <text class="s" x="282" y="210">Thompson bandit per hour</text>
+        <text class="s" x="282" y="226">payoff screen EV on last 60</text>
+        <rect class="bx" x="270" y="290" width="220" height="96" rx="8"/>
+        <text class="t" x="282" y="314">Spike prior</text>
+        <text class="s" x="282" y="334">P(|spread| &gt; $20) from the</text>
+        <text class="s" x="282" y="350">last 14 settled same-hour</text>
+        <text class="s" x="282" y="366">spreads (logistic, monthly)</text>
+        <!-- decision -->
+        <rect class="bo" x="550" y="70"  width="210" height="120" rx="8"/>
+        <text class="t" x="562" y="94">Direction</text>
+        <text class="s" x="562" y="114">always-short prior; go long</text>
+        <text class="s" x="562" y="130">only if the LLM says long</text>
+        <text class="s" x="562" y="146">AND LR or bandit says long</text>
+        <text class="s" x="562" y="162">AND payoff screen EV &gt; 0</text>
+        <rect class="bo" x="550" y="240" width="210" height="120" rx="8"/>
+        <text class="t" x="562" y="264">Adaptive spike gate</text>
+        <text class="s" x="562" y="284">hours with spike prior &gt; 0.8</text>
+        <text class="s" x="562" y="300">go flat when shorting such</text>
+        <text class="s" x="562" y="316">hours lost money over the</text>
+        <text class="s" x="562" y="332">last 30 settled days</text>
+        <!-- sizing & output -->
+        <rect class="bl" x="810" y="70"  width="180" height="120" rx="8"/>
+        <text class="t" x="822" y="94">Sizing</text>
+        <text class="s" x="822" y="114">budget = 1 MWh per</text>
+        <text class="s" x="822" y="130">traded hour, split by</text>
+        <text class="s" x="822" y="146">volatility^1.5 &#215;</text>
+        <text class="s" x="822" y="162">LLM confidence</text>
+        <rect class="bx" x="810" y="240" width="180" height="120" rx="8"/>
+        <text class="t" x="822" y="264">Bids &amp; scoring</text>
+        <text class="s" x="822" y="284">submitted 10:00 CT D&#8722;1</text>
+        <text class="s" x="822" y="300">P&amp;L = position &#215;</text>
+        <text class="s" x="822" y="316">(RT &#8722; DAM), next to</text>
+        <text class="s" x="822" y="332">five baselines</text>
+        <!-- arrows -->
+        <path class="ln" d="M210,79 C240,79 240,58 268,58"/>
+        <path class="ln" d="M210,79 C240,79 240,198 268,198"/>
+        <path class="ln" d="M210,79 C240,79 240,338 268,338"/>
+        <path class="ln" d="M210,279 C240,279 240,70 268,70"/>
+        <path class="ln" d="M490,58 C520,58 520,110 548,110"/>
+        <path class="ln" d="M490,198 C520,198 520,150 548,150"/>
+        <path class="ln" d="M490,338 C520,338 520,300 548,300"/>
+        <path class="ln" d="M655,190 L655,238"/>
+        <path class="ln" d="M760,130 L808,130"/>
+        <path class="ln" d="M760,300 C785,300 785,175 808,175"/>
+        <path class="ln" d="M900,190 L900,238"/>
+        <path class="ln" d="M490,90 C700,30 790,40 860,68"/>
+      </svg>
+      </div>
+      <div style="font-size:12px; color:#666; line-height:1.55; margin-top:8px;">
+        Every input is fixed at bid close, 10:00 CT the day before the delivery day. The LLM proposes; the statistical
+        priors decide whether a proposal is allowed to move the book away from the short prior. The LLM's confidence
+        only reaches the book through sizing (the thin arrow).
+      </div>
+      <details style="margin-top:12px;">
+        <summary style="cursor:pointer; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; color:#2d6a9f;">
+          The LLM prompt for <span id="prompt-date"></span> (<span id="prompt-model"></span>)
+        </summary>
+        <pre id="prompt-box" style="white-space:pre-wrap; font-size:11px; line-height:1.4; background:#fafafa; border:1px solid #eee; border-radius:6px; padding:12px; margin-top:8px; max-height:520px; overflow:auto;"></pre>
+      </details>
+
+      <hr class="divider">
       <div class="section-label">Positions for <span id="forecast-date-label"></span></div>
       <div class="chart-wrapper short">
         <canvas id="positionsChart"></canvas>
@@ -361,6 +457,7 @@
       {key: "persistence",   label: "Persistence",     color: "#999999", width: 1.5},
       {key: "supervised_lr", label: "Supervised LR",   color: "#5aaa6f", width: 1.5},
       {key: "thompson_ts",   label: "Thompson bandit", color: "#8a6ab5", width: 1.5},
+      {key: "btz_dpds",      label: "BTZ-DPDS",        color: "#c0392b", width: 1.5},
     ];
     const fmt = (v, d=0) => (v == null ? "&mdash;" : (v >= 0 ? "+" : "") + v.toFixed(d));
 
@@ -458,6 +555,11 @@
         document.getElementById("loading").style.display = "none";
         document.getElementById("content").style.display = "block";
         renderCum(h); renderPositions(f); renderDaily(h);
+        if (f.prompt) {
+          document.getElementById("prompt-box").textContent = f.prompt;
+          document.getElementById("prompt-date").textContent = f.target_date;
+          document.getElementById("prompt-model").textContent = f.model || "";
+        }
         const firstLive = h.find(e => e.source === "live");
         document.getElementById("updated-note").textContent =
           "Updated " + (f.generated_at || "").replace("T", " ").replace("+00:00", " UTC");

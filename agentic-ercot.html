@@ -286,8 +286,8 @@
     <div class="dart-sub">
       HB_NORTH &nbsp;·&nbsp; always-short prior; an hour goes <b>long</b> only when the LLM proposes it,
       a statistical prior (supervised LR or Thompson bandit) corroborates, and the trailing payoff screen is positive
-      &nbsp;·&nbsp; adaptive spike gate &nbsp;·&nbsp; 1 MW on every traded hour, the same as each baseline
-      &nbsp;·&nbsp; bids close 10:00 CT the day before
+      &nbsp;·&nbsp; adaptive spike gate &nbsp;·&nbsp; a daily budget of 1 MWh per traded hour (the same total as each
+      1 MW baseline), split by volatility<sup>1.5</sup> &times; LLM confidence &nbsp;·&nbsp; bids close 10:00 CT the day before
     </div>
 
     <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">Loading&hellip;</div>
@@ -295,7 +295,7 @@
 
     <div id="content" style="display:none;">
 
-      <div class="section-label">Cumulative P&amp;L &mdash; $ per 1 MW position</div>
+      <div class="section-label">Cumulative P&amp;L &mdash; same daily MWh for every line</div>
       <div class="legend-row" id="cum-legend"></div>
       <div class="chart-wrapper" style="height:360px;">
         <canvas id="cumChart"></canvas>
@@ -312,6 +312,7 @@
             <tr>
               <th>HE</th>
               <th style="background:#eef3f7; color:#2d6a9f;">LLM</th>
+              <th style="background:#eef3f7; color:#2d6a9f;">Conf.</th>
                             <th style="background:#f4f6f8;">LR</th>
               <th style="background:#f4f6f8;">Bandit</th>
               <th style="background:#f4f6f8;">Payoff screen</th>
@@ -325,7 +326,7 @@
       </div>
 
       <hr class="divider">
-      <div class="section-label">Daily results &mdash; $ per 1 MW position</div>
+      <div class="section-label">Daily results</div>
       <div style="overflow-x:auto;">
         <table class="positions" id="dailyTable">
           <thead><tr id="dailyHead"></tr></thead>
@@ -406,7 +407,7 @@
           scales: {
             x: {ticks: {maxTicksLimit: 8, color: "#999", font: {size: 10}}, grid: {display: false}},
             y: {ticks: {color: "#999", font: {size: 10}, callback: v => "$" + v}, grid: {color: "#f0f0f0"},
-                title: {display: true, text: "$ (1 MW)", color: "#999", font: {size: 10}}}
+                title: {display: true, text: "$", color: "#999", font: {size: 10}}}
           }
         },
         plugins: [monthLines]
@@ -429,12 +430,12 @@
       document.querySelector("#positionsTable tbody").innerHTML = hrs.map(h => `
         <tr>
           <td>HE${h.hour}</td>
-          <td>${dir(h.llm_dir)}</td>
+          <td>${dir(h.llm_dir)}</td><td>${h.llm_conf == null ? "&mdash;" : h.llm_conf.toFixed(2)}</td>
           <td>${dir(h.lr_dir)}</td><td>${dir(h.ts_dir)}</td>
           <td>${h.ev == null ? "&mdash;" : (h.ev > 0 ? "long ok" : "short")}</td>
           <td>${h.corroborated_long ? "&#10003;" : ""}</td>
           <td>${h.spike_gate ? "flat" : ""}</td>
-          <td style="font-weight:700; color:${(h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a"};">${fmt(h.position_mw, 0)}</td>
+          <td style="font-weight:700; color:${(h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a"};">${fmt(h.position_mw, 2)}</td>
         </tr>`).join("");
     }
 
@@ -461,8 +462,8 @@
         document.getElementById("updated-note").textContent =
           "Updated " + (f.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
         document.getElementById("footnote").textContent = firstLive
-          ? `Before ${firstLive.target_date} the paper-strategy line replays the same pipeline on archived data; from ${firstLive.target_date} it is live. Every line holds 1 MW per traded hour.`
-          : "Every line holds 1 MW per traded hour.";
+          ? `Before ${firstLive.target_date} the paper-strategy line replays the same pipeline on archived data; from ${firstLive.target_date} it is live. Model choices were fixed using data through 2026-06-02. Days without a published load forecast are left out for every line.`
+          : "Days without a published load forecast are left out for every line.";
       } catch (e) {
         document.getElementById("loading").style.display = "none";
         const el = document.getElementById("error"); el.style.display = "block";

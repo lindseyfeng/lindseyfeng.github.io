@@ -12,7 +12,7 @@
    "ev": -0.11,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.292
   },
   {
    "hour": 2,
@@ -23,7 +23,7 @@
    "ev": 0.6,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.379
   },
   {
    "hour": 3,
@@ -34,7 +34,7 @@
    "ev": 0.61,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.37
   },
   {
    "hour": 4,
@@ -45,7 +45,7 @@
    "ev": 0.63,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.342
   },
   {
    "hour": 5,
@@ -56,7 +56,7 @@
    "ev": 0.55,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.379
   },
   {
    "hour": 6,
@@ -67,7 +67,7 @@
    "ev": 0.94,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.333
   },
   {
    "hour": 7,
@@ -78,7 +78,7 @@
    "ev": 1.66,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.263
   },
   {
    "hour": 8,
@@ -89,7 +89,7 @@
    "ev": 2.58,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.392
   },
   {
    "hour": 9,
@@ -100,7 +100,7 @@
    "ev": -0.33,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.217
   },
   {
    "hour": 10,
@@ -111,7 +111,7 @@
    "ev": 1.09,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.25
   },
   {
    "hour": 11,
@@ -122,7 +122,7 @@
    "ev": 1.1,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.462
   },
   {
    "hour": 12,
@@ -133,7 +133,7 @@
    "ev": -0.46,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.501
   },
   {
    "hour": 13,
@@ -144,7 +144,7 @@
    "ev": -0.46,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.463
   },
   {
    "hour": 14,
@@ -155,7 +155,7 @@
    "ev": 0.47,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.478
   },
   {
    "hour": 15,
@@ -166,7 +166,7 @@
    "ev": 0.61,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.524
   },
   {
    "hour": 16,
@@ -177,7 +177,7 @@
    "ev": 0.91,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.477
   },
   {
    "hour": 17,
@@ -188,7 +188,7 @@
    "ev": 1.18,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.667
   },
   {
    "hour": 18,
@@ -199,7 +199,7 @@
    "ev": 1.04,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -1.267
   },
   {
    "hour": 19,
@@ -210,7 +210,7 @@
    "ev": 6.35,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -3.879
   },
   {
    "hour": 20,
@@ -221,7 +221,7 @@
    "ev": 11.31,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -3.844
   },
   {
    "hour": 21,
@@ -232,18 +232,18 @@
    "ev": 14.52,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -2.909
   },
   {
    "hour": 22,
-   "llm_dir": 1,
-   "llm_conf": 0.65,
+   "llm_dir": -1,
+   "llm_conf": 0.6,
    "lr_dir": -1,
    "ts_dir": -1,
    "ev": 2.89,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -4.41
   },
   {
    "hour": 23,
@@ -254,7 +254,7 @@
    "ev": 1.73,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.525
   },
   {
    "hour": 24,
@@ -265,34 +265,34 @@
    "ev": 2.97,
    "corroborated_long": false,
    "spike_gate": false,
-   "position_mw": -1.0
+   "position_mw": -0.377
   }
  ],
  "paper_mw": [
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0,
-  -1.0
+  -0.292,
+  -0.379,
+  -0.37,
+  -0.342,
+  -0.379,
+  -0.333,
+  -0.263,
+  -0.392,
+  -0.217,
+  -0.25,
+  -0.462,
+  -0.501,
+  -0.463,
+  -0.478,
+  -0.524,
+  -0.477,
+  -0.667,
+  -1.267,
+  -3.879,
+  -3.844,
+  -2.909,
+  -4.41,
+  -0.525,
+  -0.377
  ],
  "baselines_mw": {
   "always_short": [
@@ -403,5 +403,5 @@
  "actual_spread": null,
  "pnl": null,
  "run_date": "2026-10-13",
- "generated_at": "2026-10-13T06:48:15+00:00"
+ "generated_at": "2026-10-13T06:53:50+00:00"
 }

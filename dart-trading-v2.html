@@ -290,8 +290,8 @@
         <span class="tab-sub">LLM-only · archived</span>
       </a>
       <a href="./dart-trading-v2.html" class="tab tab-active">
-        <span class="tab-label">DART Trading v2</span>
-        <span class="tab-sub">bandit · fixed 1 MW</span>
+        <span class="tab-label">DART Trading</span>
+        <span class="tab-sub">paper strategy · live</span>
       </a>
       <a href="./dart-paper-v3.html" class="tab">
         <span class="tab-label">Paper v3</span>
@@ -303,121 +303,60 @@
       </a>
     </nav>
 
-    <div class="dart-title">ERCOT DART Trading — Live Positions<span style="background:#2d6a9f;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:10px;vertical-align:middle;">v5 HYBRID</span></div>
+    <div class="dart-title">ERCOT DART Trading &mdash; Prior-Guided LLM Agent</div>
     <div class="dart-sub">
-      Hybrid LLM + statistical RT−DAM spread forecaster &nbsp;·&nbsp; HB_NORTH hub &nbsp;·&nbsp;
-      the <b>LLM owns the bulk</b> (priors fed in: 14-day %positive, LR direction, TSBandit72 win-rate, spike-risk LR) &nbsp;·&nbsp;
-      a <b>router + sign-LR</b> overrides direction only on hours likely to be large (&gt;$20), and <b>abstains when its
-      conviction is weak</b> — deferring those back to the LLM &nbsp;·&nbsp;
-      confidence × magnitude sizing · ±$2/MWh threshold &nbsp;·&nbsp; runs daily 3 PM CT after DAM clears
+      HB_NORTH &nbsp;·&nbsp; always-short prior; an hour goes <b>long</b> only when the LLM proposes it,
+      a statistical prior (supervised LR or Thompson bandit) corroborates, and the trailing payoff screen is positive
+      &nbsp;·&nbsp; adaptive spike gate &nbsp;·&nbsp; daily budget of 1 MWh per traded hour, split by
+      volatility<sup>1.5</sup> &times; LLM confidence &nbsp;·&nbsp; bids close 10:00 CT the day before
     </div>
 
-    <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">
-      Loading DART forecast...
-    </div>
+    <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">Loading&hellip;</div>
     <div id="error" class="error-msg" style="display:none;"></div>
-    <div class="updated-note" id="countdown-note"></div>
 
     <div id="content" style="display:none;">
 
-      <!-- ── Stats ─────────────────────────────────────────── -->
-      <div class="stats-row" id="stats-row"></div>
-
-      <!-- ── Chart 1: How did we do? (yesterday's settled day) ── -->
-      <div id="eval-section" style="display:none;">
-        <div class="section-label">How did we trade? &mdash; <span id="eval-date-label"></span></div>
-        <div class="legend-row">
-          <div class="legend-item"><div class="legend-bar" style="background:#2d6a9f;"></div><span>Agent P&amp;L</span></div>
-          <div class="legend-item" id="eval-legend-pers" style="display:none;">
-            <div class="legend-bar" style="background:#bbb;"></div><span>Persistence P&amp;L</span>
-          </div>
-          <div class="legend-item"><div class="legend-dot" style="background:#5aaa6f;"></div><span>Realized RT-DAM spread ($/MWh, right axis)</span></div>
-        </div>
-        <div class="chart-wrapper">
-          <canvas id="evalChart"></canvas>
-        </div>
-        <div class="subscore" id="eval-mae"></div>
-        <hr class="divider">
+      <div class="section-label">Cumulative P&amp;L &mdash; $ per 1 MW position</div>
+      <div class="legend-row" id="cum-legend"></div>
+      <div class="chart-wrapper" style="height:360px;">
+        <canvas id="cumChart"></canvas>
       </div>
 
-      <!-- ── Chart 2: Tomorrow's positions ──────────────────── -->
-      <div class="section-label">Tomorrow's positions &mdash; <span id="forecast-date-label"></span></div>
-      <div class="legend-row">
-        <div class="legend-item"><div class="legend-bar" style="background:#2d6a9f;"></div><span>Long DART (buy DAM, sell RT)</span></div>
-        <div class="legend-item"><div class="legend-bar" style="background:#cc7a2a;"></div><span>Short DART (sell DAM, buy RT)</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#888;"></div><span>Forecast spread ($/MWh, right axis)</span></div>
-      </div>
-      <div class="chart-wrapper">
+      <hr class="divider">
+      <div class="section-label">Positions for <span id="forecast-date-label"></span></div>
+      <div class="chart-wrapper short">
         <canvas id="positionsChart"></canvas>
       </div>
-
-      <!-- ── Position table ──────────────────────────────────── -->
-      <div class="section-label" style="margin-top:18px;">Per-hour signal breakdown</div>
-      <div style="font-size:11px; color:#888; margin:2px 0 8px; line-height:1.4;">
-        <b style="color:#6a4a9a;">Conviction</b> = calibrated P(trade is directionally right), from an
-        online-fit map of ensemble agreement, volatility, and (inverted) LLM confidence. Shown for
-        monitoring — the trade <b>gate is currently off</b> (a fixed threshold over-gated on the live
-        distribution), so no hours are skipped on conviction alone; direction comes from the ensemble vote.
-      </div>
-      <div style="overflow-x:auto;">
+      <div style="overflow-x:auto; margin-top:10px;">
         <table class="positions" id="positionsTable">
           <thead>
             <tr>
-              <th rowspan="2">HE</th>
-              <th rowspan="2">DAM $</th>
-              <th colspan="2" style="background:#f0f4f8; color:#555;">Quant priors</th>
-              <th colspan="2" style="background:#eef3f7; color:#2d6a9f;">LLM decision</th>
-              <th rowspan="2" style="background:#f3f0f8; color:#6a4a9a; min-width:78px;">Conviction<br><span style="font-size:9px; font-weight:400; color:#9a8ab5;">P&#770; · gate .55</span></th>
-              <th rowspan="2" style="background:#f4f8f4; color:#2d7a4a;">Position MW</th>
-              <th rowspan="2" style="background:#fbf7f0; color:#9a6a2a; min-width:200px;">Why — LLM rationale</th>
-              <th colspan="2" style="background:#fafafa; color:#888;">Persistence</th>
-            </tr>
-            <tr>
-              <th style="background:#f4f6f8; font-size:10px;">Bandit</th>
-              <th style="background:#f4f6f8; font-size:10px;">LR</th>
-              <th style="background:#f4f8fb; font-size:10px;">Spread</th>
-              <th style="background:#f4f8fb; font-size:10px;">Conf.</th>
-              <th style="font-size:10px;">Spread</th>
-              <th style="font-size:10px;">MW</th>
+              <th>HE</th>
+              <th style="background:#eef3f7; color:#2d6a9f;">LLM</th>
+              <th style="background:#eef3f7; color:#2d6a9f;">Conf.</th>
+              <th style="background:#f4f6f8;">LR</th>
+              <th style="background:#f4f6f8;">Bandit</th>
+              <th style="background:#f4f6f8;">Payoff screen</th>
+              <th style="background:#f3f0f8; color:#6a4a9a;">Long?</th>
+              <th style="background:#fbf3f0; color:#9a4a2a;">Spike gate</th>
+              <th style="background:#f4f8f4; color:#2d7a4a;">Position MW</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
-      <!-- ── Reasoning ──────────────────────────────────────── -->
-      <div class="section-label">Agent reasoning</div>
-      <div class="reasoning-box" id="reasoning-box">&mdash;</div>
+      <hr class="divider">
+      <div class="section-label">Daily results &mdash; $ per 1 MW position</div>
+      <div style="overflow-x:auto;">
+        <table class="positions" id="dailyTable">
+          <thead><tr id="dailyHead"></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
 
       <div class="updated-note" id="updated-note"></div>
-
-      <!-- ── Cumulative P&L ───────────────────────────────── -->
-      <div id="cum-section" style="display:none;">
-        <hr class="divider">
-        <div class="section-label">Cumulative P&amp;L &mdash; agent vs persistence</div>
-        <div class="chart-wrapper short">
-          <canvas id="cumChart"></canvas>
-        </div>
-        <div class="subscore" id="cum-summary"></div>
-      </div>
-
-      <!-- ── Agent vs non-agentic baselines ─────────────────── -->
-      <div id="baseline-section" style="display:none;">
-        <hr class="divider">
-        <div class="section-label">Live: agent vs non-agentic baselines &mdash; cumulative P&amp;L</div>
-        <div class="chart-wrapper short">
-          <canvas id="baselineChart"></canvas>
-        </div>
-        <div class="subscore" id="baseline-summary"></div>
-      </div>
-
-      <!-- ── Daily results log ──────────────────────────────── -->
-      <div id="history-section" style="display:none;">
-        <hr class="divider">
-        <div class="section-label">Daily results log</div>
-        <div id="history-log"></div>
-      </div>
-
+      <div style="font-size:10px; color:#aaa; margin-top:14px; line-height:1.4;" id="footnote"></div>
     </div>
   </div>
 
@@ -435,739 +374,124 @@
   <section class="copyright">&copy; 2023</section>
 
   <script>
-    const FORECAST_URL = "/dart_forecast_v2.json";
-    const HISTORY_URL  = "/dart_history_v2.json";
-    const BASELINES_HISTORY_URL = "/baselines_history.json";
-    const LEDGER_URL = "/agent_pnl_ledger.json";  // durable (untrimmed) agent P&L record
-    const HOURS = Array.from({ length: 24 }, (_, i) => `HE${String(i + 1).padStart(2, "0")}`);
+    const FORECAST_URL = "/dart_paper_forecast.json";
+    const HISTORY_URL  = "/dart_paper_history.json";
+    const SERIES = [
+      {key: "paper",         label: "Paper strategy",  color: "#2d6a9f", width: 3},
+      {key: "always_short",  label: "Always-short",    color: "#cc7a2a", width: 1.5},
+      {key: "persistence",   label: "Persistence",     color: "#999999", width: 1.5},
+      {key: "supervised_lr", label: "Supervised LR",   color: "#5aaa6f", width: 1.5},
+      {key: "thompson_ts",   label: "Thompson bandit", color: "#8a6ab5", width: 1.5},
+    ];
+    const fmt = (v, d=0) => (v == null ? "&mdash;" : (v >= 0 ? "+" : "") + v.toFixed(d));
 
-    function fmtMoney(v, signed) {
-      if (v == null || isNaN(v)) return "—";
-      const sign = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
-      return `${sign}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
-    }
-    function fmtSpread(v) {
-      if (v == null || isNaN(v)) return "—";
-      const sign = v > 0 ? "+" : (v < 0 ? "−" : "");
-      return `${sign}$${Math.abs(v).toFixed(2)}`;
-    }
-
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, c =>
-        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-    }
-
-    function classForSignal(s) {
-      if (s > 0) return "long";
-      if (s < 0) return "short";
-      return "flat";
-    }
-    function labelForSignal(s) {
-      if (s > 0) return "LONG";
-      if (s < 0) return "SHORT";
-      return "—";
-    }
-
-    function colorForPosition(s, pos) {
-      if (s > 0) return "rgba(45,106,159,0.85)";   // blue, long
-      if (s < 0) return "rgba(204,122,42,0.85)";   // orange, short
-      return "rgba(200,200,200,0.4)";              // grey, flat
-    }
-
-    function renderStats(data, history) {
-      const a = data.agent;
-      const stats = [];
-      stats.push({
-        label: "Tomorrow expected EV",
-        value: fmtMoney(a.expected_pnl, true),
-        cls: a.expected_pnl >= 0 ? "stat-pos" : "stat-neg",
-      });
-      stats.push({
-        label: "Active positions",
-        value: `${a.summary.n_long}L / ${a.summary.n_short}S / ${a.summary.n_flat}F`,
-        cls: "",
-      });
-      stats.push({
-        label: "Notional",
-        value: `${a.summary.notional_mwh.toFixed(1)}`,
-        unit: " MWh",
-        cls: "",
-      });
-      stats.push({
-        label: "Confidence",
-        value: `${a.confidence}/5`,
-        cls: "",
-      });
-
-      // Cumulative + yesterday from history
-      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
-      if (scored.length > 0) {
-        const last = scored[scored.length - 1];
-        stats.push({
-          label: `Yesterday (${last.target_date})`,
-          value: fmtMoney(last.agent.actual_pnl_total, true),
-          cls: last.agent.actual_pnl_total >= 0 ? "stat-pos" : "stat-neg",
+    // dashed vertical line at the first day of each month
+    const monthLines = {
+      id: "monthLines",
+      afterDatasetsDraw(chart, args, opts) {
+        const {ctx, chartArea: a, scales: {x}} = chart;
+        const labels = chart.data.labels;
+        ctx.save();
+        ctx.setLineDash([4, 4]); ctx.strokeStyle = "#c8c8c8"; ctx.lineWidth = 1;
+        ctx.fillStyle = "#999"; ctx.font = "10px Montserrat, sans-serif"; ctx.textAlign = "left";
+        labels.forEach((d, i) => {
+          if (i === 0 || d.slice(0, 7) !== labels[i - 1].slice(0, 7)) {
+            const px = x.getPixelForValue(i);
+            ctx.beginPath(); ctx.moveTo(px, a.top); ctx.lineTo(px, a.bottom); ctx.stroke();
+            const m = new Date(d + "T12:00:00").toLocaleString("en-US", {month: "short"});
+            ctx.fillText(m, px + 3, a.top + 10);
+          }
         });
-        const cum = scored.reduce((s, e) => s + e.agent.actual_pnl_total, 0);
-        stats.push({
-          label: `Cumulative (${scored.length}d)`,
-          value: fmtMoney(cum, true),
-          cls: cum >= 0 ? "stat-pos" : "stat-neg",
-        });
-        const persCum = scored.reduce(
-          (s, e) => s + (e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0),
-          0
-        );
-        const edge = cum - persCum;
-        stats.push({
-          label: "Edge vs persistence",
-          value: fmtMoney(edge, true),
-          cls: edge >= 0 ? "stat-pos" : "stat-neg",
-        });
+        ctx.restore();
       }
+    };
 
-      document.getElementById("stats-row").innerHTML = stats.map(s => `
-        <div class="stat-card">
-          <div class="stat-label">${s.label}</div>
-          <div class="stat-value ${s.cls || ""}">${s.value}<span class="stat-unit">${s.unit || ""}</span></div>
-        </div>
-      `).join("");
-    }
-
-    function renderEvalChart(history) {
-      const scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_hourly);
-      if (scored.length === 0) return;
-      const last = scored[scored.length - 1];
-
-      document.getElementById("eval-section").style.display = "block";
-      document.getElementById("eval-date-label").textContent = last.target_date;
-
-      const datasets = [{
-        label: "Agent P&L",
-        type: "bar",
-        data: last.agent.actual_pnl_hourly,
-        backgroundColor: last.agent.actual_pnl_hourly.map(v =>
-          v >= 0 ? "rgba(45,106,159,0.75)" : "rgba(185,74,74,0.65)"
-        ),
-        borderWidth: 0,
-        yAxisID: "y",
-      }];
-
-      if (last.persistence && last.persistence.actual_pnl_hourly) {
-        document.getElementById("eval-legend-pers").style.display = "flex";
-        datasets.push({
-          label: "Persistence P&L",
-          type: "bar",
-          data: last.persistence.actual_pnl_hourly,
-          backgroundColor: "rgba(180,180,180,0.55)",
-          borderWidth: 0,
-          yAxisID: "y",
-        });
-      }
-
-      datasets.push({
-        label: "Realized spread",
-        type: "line",
-        data: last.actual_spread_hourly || [],
-        borderColor: "#5aaa6f",
-        backgroundColor: "rgba(90,170,111,0.07)",
-        borderWidth: 2,
-        pointRadius: 2,
-        tension: 0.3,
-        yAxisID: "y1",
+    function renderCum(history) {
+      const settled = history.filter(e => e.pnl);
+      const labels = settled.map(e => e.target_date);
+      const legend = document.getElementById("cum-legend");
+      legend.innerHTML = SERIES.map(s =>
+        `<div class="legend-item"><div class="legend-bar" style="background:${s.color};height:${s.width + 1}px;"></div><span>${s.label}</span></div>`).join("");
+      const datasets = SERIES.map(s => {
+        let c = 0;
+        return {label: s.label, data: settled.map(e => (c += e.pnl[s.key] || 0)),
+                borderColor: s.color, borderWidth: s.width, pointRadius: 0, tension: 0.15, fill: false,
+                order: s.key === "paper" ? 0 : 1};
       });
-
-      new Chart(document.getElementById("evalChart"), {
-        data: { labels: HOURS, datasets },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: "index", intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: ctx => {
-                  if (ctx.dataset.label === "Realized spread") {
-                    return ` Spread: $${ctx.parsed.y.toFixed(2)}/MWh`;
-                  }
-                  const sign = ctx.parsed.y >= 0 ? "+" : "−";
-                  return ` ${ctx.dataset.label}: ${sign}$${Math.abs(ctx.parsed.y).toFixed(2)}`;
-                },
-              },
-            },
-          },
-          scales: {
-            x: { grid: { color: "#f0f0f0" }, ticks: { font: { family: "Montserrat", size: 10 }, color: "#888" } },
-            y:  {
-              position: "left",
-              grid: { color: "#f0f0f0" },
-              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#888" },
-              title: { display: true, text: "P&L $", color: "#aaa", font: { family: "Montserrat", size: 11 } },
-            },
-            y1: {
-              position: "right",
-              grid: { display: false },
-              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#5aaa6f" },
-              title: { display: true, text: "Spread $/MWh", color: "#5aaa6f", font: { family: "Montserrat", size: 11 } },
-            },
-          },
-        },
-      });
-
-      const a = last.agent.actual_pnl_total;
-      const p = last.persistence && last.persistence.actual_pnl_total;
-      const hr = last.agent.hit_rate != null ? `${(last.agent.hit_rate * 100).toFixed(0)}%` : "—";
-      let txt = `Agent: ${fmtMoney(a, true)}  ·  hit rate ${hr}`;
-      if (p != null) {
-        const edge = a - p;
-        txt += `  ·  Persistence: ${fmtMoney(p, true)}  ·  Edge: ${fmtMoney(edge, true)}`;
-      }
-      document.getElementById("eval-mae").textContent = txt;
-    }
-
-    function renderPositionsChart(data) {
-      document.getElementById("forecast-date-label").textContent = data.target_date;
-      const a = data.agent;
-      const signed = a.positions_mw.map((mw, i) => mw * a.signals[i]);
-
-      new Chart(document.getElementById("positionsChart"), {
-        data: {
-          labels: HOURS,
-          datasets: [
-            {
-              label: "Position",
-              type: "bar",
-              data: signed,
-              backgroundColor: a.signals.map((s, i) => colorForPosition(s, a.positions_mw[i])),
-              borderWidth: 0,
-              yAxisID: "y",
-            },
-            {
-              label: "Forecast spread",
-              type: "line",
-              data: a.spread_forecast_hourly,
-              borderColor: "#888",
-              backgroundColor: "transparent",
-              borderWidth: 1.5,
-              borderDash: [4, 3],
-              pointRadius: 0,
-              tension: 0.3,
-              yAxisID: "y1",
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: "index", intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: ctx => {
-                  if (ctx.dataset.label === "Forecast spread") {
-                    return ` Forecast spread: ${fmtSpread(ctx.parsed.y)}/MWh`;
-                  }
-                  const sgn = ctx.parsed.y >= 0 ? "LONG" : "SHORT";
-                  return ` ${sgn} ${Math.abs(ctx.parsed.y).toFixed(2)} MW`;
-                },
-              },
-            },
-          },
-          scales: {
-            x: { grid: { color: "#f0f0f0" }, ticks: { font: { family: "Montserrat", size: 10 }, color: "#888" } },
-            y: {
-              position: "left",
-              grid: { color: "#f0f0f0" },
-              ticks: { callback: v => `${v} MW`, font: { family: "Montserrat", size: 11 }, color: "#888" },
-              title: { display: true, text: "Position (signed MW)", color: "#aaa", font: { family: "Montserrat", size: 11 } },
-            },
-            y1: {
-              position: "right",
-              grid: { display: false },
-              ticks: { callback: v => `$${v}`, font: { family: "Montserrat", size: 11 }, color: "#888" },
-              title: { display: true, text: "Forecast spread $/MWh", color: "#aaa", font: { family: "Montserrat", size: 11 } },
-            },
-          },
-        },
-      });
-    }
-
-    function renderPositionsTable(data) {
-      const a = data.agent;
-      const p = data.persistence;
-      const perHour = a.per_hour || [];
-      const tbody = document.querySelector("#positionsTable tbody");
-
-      function dirLabel(d) {
-        if (d === 1 || d === "1")  return '<span style="color:#2d6a9f;font-weight:700;">▲ L</span>';
-        if (d === -1 || d === "-1") return '<span style="color:#cc7a2a;font-weight:700;">▼ S</span>';
-        return '<span style="color:#ccc;">—</span>';
-      }
-      function flipBadge(f) {
-        return f ? '<span style="background:#f39c12;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;">FLIP</span>' : '';
-      }
-      function confBar(c) {
-        if (c == null) return '—';
-        const pct = Math.round(c * 100);
-        const col = c >= 0.7 ? '#2d8a4f' : (c >= 0.5 ? '#e0a030' : '#aaa');
-        return `<span style="font-size:10px;color:${col};">${pct}%</span>`;
-      }
-      // Calibrated conviction P̂ = P(trade is directionally right). Gated hours
-      // (agent wanted to trade but P̂ < gate → position 0) are shown struck-out.
-      function convCell(c, gated) {
-        if (c == null) return '<span style="color:#ccc;">—</span>';
-        const pct = Math.round(c * 100);
-        if (gated) {
-          return `<span style="font-size:11px;font-weight:700;color:#b94a4a;text-decoration:line-through;">${pct}%</span>`
-               + ` <span style="background:#b94a4a;color:#fff;font-size:8px;padding:1px 4px;border-radius:3px;vertical-align:middle;">GATED</span>`;
-        }
-        const col = c >= 0.60 ? '#2d8a4f' : '#e0a030';
-        return `<span style="font-size:12px;font-weight:700;color:${col};">${pct}%</span>`;
-      }
-
-      tbody.innerHTML = a.signals.map((sig, i) => {
-        const ph = perHour[i] || {};
-        const cls = classForSignal(sig);
-        const persSig = p && p.signals ? p.signals[i] : 0;
-        const persCls = classForSignal(persSig);
-        const persSpread = p && p.spread_forecast_hourly ? p.spread_forecast_hourly[i] : null;
-        const persMW = p && p.positions_mw ? p.positions_mw[i].toFixed(2) : "—";
-        const mw = a.positions_mw[i];
-        const dam = data.dam_prices && data.dam_prices[i] != null ? "$" + data.dam_prices[i].toFixed(2) : "—";
-        return `
-          <tr>
-            <td>HE${String(i + 1).padStart(2, "0")}</td>
-            <td>${dam}</td>
-            <td style="text-align:center;">${dirLabel(ph.bandit_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.bandit_p_long != null ? (ph.bandit_p_long*100).toFixed(0)+'%L' : ''}</span></td>
-            <td style="text-align:center;">${dirLabel(ph.lr_dir)}<br><span style="font-size:9px;color:#aaa;">${ph.lr_prob != null ? (ph.lr_prob*100).toFixed(0)+'%' : ''}</span></td>
-            <td class="${cls}">${fmtSpread(a.spread_forecast_hourly[i])}</td>
-            <td style="text-align:center;">${confBar(ph.confidence)}</td>
-            <td style="text-align:center;">${convCell(ph.conviction, sig !== 0 && mw === 0)}</td>
-            <td class="${cls}">${labelForSignal(sig)} ${mw != null ? mw.toFixed(2) : '1.00'}</td>
-            <td style="font-size:10px; color:#555; text-align:left; line-height:1.35;">${ph.reason ? escapeHtml(ph.reason) : '<span style="color:#bbb;">—</span>'}</td>
-            <td>${persSpread != null ? fmtSpread(persSpread) : "—"}</td>
-            <td class="${persCls}">${persSig !== 0 ? labelForSignal(persSig) + " " : ""}${persMW}</td>
-          </tr>
-        `;
-      }).join("");
-    }
-
-    function renderBanditHeatmap(data) {
-      const conf = data.agent && data.agent.hour_confidence;
-      if (!conf || conf.length !== 24) return;
-      const signals = data.agent.signals || [];
-      document.getElementById("bandit-section").style.display = "block";
-      const container = document.getElementById("bandit-heatmap");
-      container.innerHTML = conf.map((c, i) => {
-        const sig = signals[i] || 0;
-        const intensity = Math.round(c * 200);
-        let bg;
-        if (sig > 0) bg = `rgba(45,106,159,${c.toFixed(2)})`;
-        else if (sig < 0) bg = `rgba(185,74,74,${c.toFixed(2)})`;
-        else bg = `rgba(180,180,180,${(c * 0.6).toFixed(2)})`;
-        return `<div title="HE${String(i+1).padStart(2,'0')}: conf=${c.toFixed(2)}" style="flex:1;min-width:24px;height:40px;background:${bg};border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;color:#fff;">${(c*100).toFixed(0)}</div>`;
-      }).join("");
-    }
-
-    function renderHistoryLog(history) {
-      if (!history || history.length === 0) return;
-      const sec = document.getElementById("history-section");
-      const log = document.getElementById("history-log");
-      sec.style.display = "block";
-
-      const rows = [...history].reverse();
-      log.innerHTML = rows.map(e => {
-        const a = e.agent || {};
-        const p = e.persistence || {};
-        const scored = a.actual_pnl_total != null;
-        const aPnl = scored ? a.actual_pnl_total : null;
-        const pPnl = (scored && p.actual_pnl_total != null) ? p.actual_pnl_total : null;
-        const edge = e.edge;
-
-        const chipCls = !scored ? 'dr-na' : (aPnl >= 0 ? 'dr-pos' : 'dr-neg');
-        const chipTxt = !scored ? 'pending' : (aPnl >= 0 ? `+$${aPnl.toFixed(0)}` : `−$${Math.abs(aPnl).toFixed(0)}`);
-        const edgeTxt = edge != null ? (edge >= 0 ? `edge +$${edge.toFixed(0)}` : `edge −$${Math.abs(edge).toFixed(0)}`) : '';
-        const edgeCls = edge != null ? (edge >= 0 ? 'dr-pos' : 'dr-neg') : 'dr-na';
-
-        const HOURS = Array.from({length:24},(_,i)=>`HE${String(i+1).padStart(2,'0')}`);
-        const sigs = a.signals || [];
-        const pSigs = p.signals || [];
-        const aPnlH = a.actual_pnl_hourly || [];
-        const pPnlH = p.actual_pnl_hourly || [];
-        const actual = e.actual_spread_hourly || [];
-        const ph = a.per_hour || [];
-
-        const tableRows = HOURS.map((he, i) => {
-          const sig = sigs[i] ?? 0;
-          const pSig = pSigs[i] ?? 0;
-          const ap = aPnlH[i]; const pp = pPnlH[i]; const act = actual[i];
-          const phi = ph[i] || {};
-          const sigCls = sig > 0 ? 'long' : (sig < 0 ? 'short' : '');
-          const pSigCls = pSig > 0 ? 'long' : (pSig < 0 ? 'short' : '');
-          const apCls = ap != null ? (ap >= 0 ? 'win' : 'lose') : '';
-          const ppCls = pp != null ? (pp >= 0 ? 'win' : 'lose') : '';
-          return `<tr>
-            <td style="text-align:left">${he}</td>
-            <td>${act != null ? (act>=0?'+':'')+act.toFixed(2) : '—'}</td>
-            <td>${phi.llm_raw != null ? (phi.llm_raw>=0?'+':'')+phi.llm_raw.toFixed(2) : '—'}</td>
-            <td>${phi.bandit_dir != null ? (phi.bandit_dir>0?'▲L':phi.bandit_dir<0?'▼S':'—') : '—'}</td>
-            <td>${phi.lr_dir != null ? (phi.lr_dir>0?'▲L':phi.lr_dir<0?'▼S':'—') : '—'}</td>
-            <td>${phi.confidence != null ? Math.round(phi.confidence*100)+'%' : '—'}</td>
-            <td class="${sigCls}">${sig>0?'LONG':sig<0?'SHORT':'—'}</td>
-            <td class="${apCls}">${ap != null ? (ap>=0?'+':'')+ap.toFixed(2) : '—'}</td>
-            <td class="${pSigCls}">${pSig>0?'LONG':pSig<0?'SHORT':'—'}</td>
-            <td class="${ppCls}">${pp != null ? (pp>=0?'+':'')+pp.toFixed(2) : '—'}</td>
-            <td style="text-align:left;font-size:10px;color:#666;max-width:240px;">${phi.reason ? escapeHtml(phi.reason) : '—'}</td>
-          </tr>`;
-        }).join('');
-
-        const pnlSummary = scored
-          ? `Agent: ${aPnl>=0?'+':''}$${aPnl.toFixed(2)} &nbsp;·&nbsp; Persistence: ${pPnl!=null?(pPnl>=0?'+':'')+'$'+pPnl.toFixed(2):'—'} &nbsp;·&nbsp; ${edgeTxt}`
-          : 'Actuals not yet available';
-
-        return `<details class="day-row">
-          <summary>
-            <span class="dr-date">${e.target_date}</span>
-            <span class="dr-chip ${chipCls}">${chipTxt}</span>
-            ${edgeTxt ? `<span class="dr-chip ${edgeCls}">${edgeTxt}</span>` : ''}
-            <span class="dr-val">${scored ? `hit rate: ${a.hit_rate != null ? Math.round(a.hit_rate*100)+'%' : '—'}` : ''}</span>
-          </summary>
-          <div class="day-detail">
-            <div style="font-family:'Radley',serif;font-size:13px;color:#555;margin-bottom:10px;">${pnlSummary}</div>
-            <div style="overflow-x:auto;">
-            <table class="day-tbl">
-              <thead><tr>
-                <th>HE</th><th>Actual $</th><th>Forecast</th>
-                <th>Bandit</th><th>LR</th><th>Conf</th>
-                <th>Signal</th><th>Agent P&amp;L</th><th>Pers sig</th><th>Pers P&amp;L</th><th>Why</th>
-              </tr></thead>
-              <tbody>${tableRows}</tbody>
-            </table>
-            </div>
-          </div>
-        </details>`;
-      }).join('');
-    }
-
-    // Counterfactual: new design (ensemble direction + volatility budget, no gate)
-    // re-scored offline on logged signals for the 28 settleable days (2026-06-18..07-15).
-    // Early days (pre-06-18) have no logged signals, so the line follows Actual there.
-    const CF_NEW_PNL = { "2026-06-18": 103.83, "2026-06-19": 113.78, "2026-06-20": -3.16, "2026-06-21": 27.26, "2026-06-22": -98.23, "2026-06-23": -121.3, "2026-06-24": 12.05, "2026-06-25": -0.81, "2026-06-26": 92.51, "2026-06-27": 3.63, "2026-06-28": -13.23, "2026-06-29": 28.94, "2026-06-30": 60.27, "2026-07-01": 25.55, "2026-07-02": 87.61, "2026-07-03": 109.28, "2026-07-04": -41.03, "2026-07-05": 268.9, "2026-07-06": 233.13, "2026-07-07": 57.1, "2026-07-08": -67.01, "2026-07-09": -56.17, "2026-07-10": -30.9, "2026-07-11": 82.92, "2026-07-12": 51.48, "2026-07-13": 95.05, "2026-07-14": -79.31, "2026-07-15": -62.34 };
-
-    function renderCumChart(history, ledger) {
-      // Prefer the durable ledger (never trimmed) over the rolling 30-day history,
-      // so the cumulative reflects the FULL track record, not a shrinking window.
-      let scored;
-      if (ledger && Array.isArray(ledger.days) && ledger.days.length) {
-        scored = ledger.days.map(d => ({
-          target_date: d.date,
-          agent: { actual_pnl_total: d.agent_pnl },
-          persistence: { actual_pnl_total: d.persistence_pnl },
-        }));
-      } else {
-        scored = (history || []).filter(e => e.agent && e.agent.actual_pnl_total != null);
-      }
-      if (scored.length < 2) return;
-
-      document.getElementById("cum-section").style.display = "block";
-
-      const labels = scored.map(e => e.target_date.slice(5));
-      let agentRun = 0, persRun = 0, newRun = 0;
-      const agentCum = [], persCum = [], newCum = [];
-      let cfDays = 0;
-      scored.forEach(e => {
-        agentRun += e.agent.actual_pnl_total;
-        const p = e.persistence && e.persistence.actual_pnl_total != null ? e.persistence.actual_pnl_total : 0;
-        persRun += p;
-        // counterfactual: use re-scored new-design P&L where available, else the actual
-        const cf = CF_NEW_PNL[e.target_date];
-        if (cf != null) cfDays++;
-        newRun += (cf != null ? cf : e.agent.actual_pnl_total);
-        agentCum.push(+agentRun.toFixed(2));
-        persCum.push(+persRun.toFixed(2));
-        newCum.push(+newRun.toFixed(2));
-      });
-
-      const lastAgent = agentCum[agentCum.length - 1];
-      const lastPers  = persCum[persCum.length - 1];
-      const lastNew   = newCum[newCum.length - 1];
-      const edge = lastAgent - lastPers;
-      document.getElementById("cum-summary").innerHTML =
-        `${scored.length}-day cumulative — Agent: ${fmtMoney(lastAgent, true)}  ·  Persistence: ${fmtMoney(lastPers, true)}  ·  Edge: ${fmtMoney(edge, true)}`
-        + `<br><span style="color:#6a4a9a;">New design (counterfactual, ${cfDays}-day re-score): ${fmtMoney(lastNew, true)} &nbsp; (${fmtMoney(lastNew - lastAgent, true)} vs actual)</span>`;
-
       new Chart(document.getElementById("cumChart"), {
         type: "line",
-        data: {
-          labels,
-          datasets: [
-            {
-              label: "Agent",
-              data: agentCum,
-              borderColor: "#2d6a9f",
-              backgroundColor: "rgba(45,106,159,0.08)",
-              borderWidth: 2,
-              pointRadius: 2,
-              fill: true,
-              tension: 0.3,
-            },
-            {
-              label: "New design (counterfactual)",
-              data: newCum,
-              borderColor: "#6a4a9a",
-              borderDash: [6, 3],
-              borderWidth: 2,
-              pointRadius: 0,
-              backgroundColor: "transparent",
-              tension: 0.3,
-            },
-            {
-              label: "Persistence",
-              data: persCum,
-              borderColor: "#bbb",
-              borderDash: [5, 4],
-              borderWidth: 1.5,
-              pointRadius: 0,
-              backgroundColor: "transparent",
-              tension: 0.3,
-            },
-          ],
-        },
+        data: {labels, datasets},
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: "index", intersect: false },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtMoney(ctx.parsed.y, true)}` },
-            },
-          },
+          responsive: true, maintainAspectRatio: false, interaction: {mode: "index", intersect: false},
+          plugins: {legend: {display: false},
+                    tooltip: {callbacks: {label: c => `${c.dataset.label}: $${c.parsed.y.toFixed(0)}`}}},
           scales: {
-            x: { grid: { color: "#f5f5f5" }, ticks: { color: "#aaa", maxTicksLimit: 12, font: { family: "Montserrat", size: 10 } } },
-            y: {
-              grid: { color: "#f5f5f5" },
-              ticks: { callback: v => fmtMoney(v, false), font: { family: "Montserrat", size: 11 }, color: "#888" },
-              title: { display: true, text: "Cumulative P&L $", color: "#aaa", font: { family: "Montserrat", size: 10 } },
-            },
-          },
+            x: {ticks: {maxTicksLimit: 8, color: "#999", font: {size: 10}}, grid: {display: false}},
+            y: {ticks: {color: "#999", font: {size: 10}, callback: v => "$" + v}, grid: {color: "#f0f0f0"},
+                title: {display: true, text: "$ (1 MW)", color: "#999", font: {size: 10}}}
+          }
         },
+        plugins: [monthLines]
       });
     }
 
-    function renderBaselineChart(agentSource, baselineHistory) {
-      const settled = (baselineHistory || []).filter(e => e.pnl && typeof e.pnl === "object");
-      const section = document.getElementById("baseline-section");
-      const summary = document.getElementById("baseline-summary");
-      const wrapper = document.getElementById("baselineChart").parentElement;
-
-      // Not enough settled days yet — show the section with an "accruing" note.
-      if (settled.length < 1) {
-        if ((baselineHistory || []).length) {
-          section.style.display = "block";
-          wrapper.style.display = "none";
-          summary.textContent =
-            "Baseline track record is accruing — first settled results appear ~2 days after launch.";
-        }
-        return;
-      }
-
-      // Agent per-day P&L from the durable ledger (preferred) or the rolling history.
-      const agentByDate = {};
-      if (agentSource && Array.isArray(agentSource.days)) {
-        agentSource.days.forEach(d => { if (d.agent_pnl != null) agentByDate[d.date] = d.agent_pnl; });
-      } else {
-        (agentSource || []).forEach(e => {
-          if (e.agent && e.agent.actual_pnl_total != null)
-            agentByDate[e.target_date] = e.agent.actual_pnl_total;
-        });
-      }
-
-      const names = ["btz_dpds", "bandit_ts", "hls", "persistence"];
-      const nice = { btz_dpds: "BTZ-DPDS", bandit_ts: "Bandit-TS", hls: "HLS", persistence: "Persistence" };
-      const colors = { agent: "#2d6a9f", btz_dpds: "#c0703a", bandit_ts: "#6aa06a", hls: "#a06ab0", persistence: "#bbb" };
-
-      section.style.display = "block";
-      wrapper.style.display = "";
-
-      const labels = settled.map(e => e.target_date.slice(5));
-      const run = { agent: 0 }, cum = { agent: [] };
-      names.forEach(n => { run[n] = 0; cum[n] = []; });
-      settled.forEach(e => {
-        run.agent += (agentByDate[e.target_date] || 0);
-        cum.agent.push(+run.agent.toFixed(2));
-        names.forEach(n => {
-          run[n] += (e.pnl[n] != null ? e.pnl[n] : 0);
-          cum[n].push(+run[n].toFixed(2));
-        });
+    function renderPositions(f) {
+      document.getElementById("forecast-date-label").textContent = f.target_date;
+      const hrs = f.hours;
+      new Chart(document.getElementById("positionsChart"), {
+        type: "bar",
+        data: {labels: hrs.map(h => "HE" + h.hour),
+               datasets: [{data: hrs.map(h => h.position_mw || 0),
+                           backgroundColor: hrs.map(h => (h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a")}]},
+        options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}},
+                  scales: {x: {ticks: {font: {size: 9}, color: "#999"}, grid: {display: false}},
+                           y: {ticks: {font: {size: 10}, color: "#999"}, title: {display: true, text: "MW", color: "#999"}}}}
       });
-
-      const last = k => cum[k][cum[k].length - 1];
-      summary.textContent = `${settled.length}-day live cumulative — ` +
-        ["agent", ...names].map(k =>
-          `${k === "agent" ? "Agent" : nice[k]}: ${fmtMoney(last(k), true)}`).join("  ·  ");
-
-      const ds = (key, label, o = {}) => ({
-        label, data: cum[key], borderColor: colors[key],
-        borderWidth: o.w || 1.5, pointRadius: o.pr != null ? o.pr : 0,
-        borderDash: o.dash || [], backgroundColor: o.bg || "transparent",
-        fill: !!o.bg, tension: 0.3,
-      });
-
-      new Chart(document.getElementById("baselineChart"), {
-        type: "line",
-        data: {
-          labels,
-          datasets: [
-            ds("agent", "Agent", { w: 2.5, pr: 2, bg: "rgba(45,106,159,0.08)" }),
-            ds("btz_dpds", "BTZ-DPDS", { w: 2 }),
-            ds("bandit_ts", "Bandit-TS"),
-            ds("hls", "HLS"),
-            ds("persistence", "Persistence", { dash: [5, 4] }),
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: "index", intersect: false },
-          plugins: {
-            legend: { display: true, position: "bottom",
-              labels: { boxWidth: 12, font: { family: "Montserrat", size: 10 }, color: "#888" } },
-            tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtMoney(ctx.parsed.y, true)}` } },
-          },
-          scales: {
-            x: { grid: { color: "#f5f5f5" }, ticks: { color: "#aaa", maxTicksLimit: 12, font: { family: "Montserrat", size: 10 } } },
-            y: { grid: { color: "#f5f5f5" },
-              ticks: { callback: v => fmtMoney(v, false), font: { family: "Montserrat", size: 11 }, color: "#888" },
-              title: { display: true, text: "Cumulative P&L $", color: "#aaa", font: { family: "Montserrat", size: 10 } } },
-          },
-        },
-      });
+      const dir = v => v == null ? "&mdash;" : (v > 0 ? "long" : v < 0 ? "short" : "&mdash;");
+      document.querySelector("#positionsTable tbody").innerHTML = hrs.map(h => `
+        <tr>
+          <td>HE${h.hour}</td>
+          <td>${dir(h.llm_dir)}</td><td>${h.llm_conf == null ? "&mdash;" : h.llm_conf.toFixed(2)}</td>
+          <td>${dir(h.lr_dir)}</td><td>${dir(h.ts_dir)}</td>
+          <td>${h.ev == null ? "&mdash;" : (h.ev > 0 ? "long ok" : "short")}</td>
+          <td>${h.corroborated_long ? "&#10003;" : ""}</td>
+          <td>${h.spike_gate ? "flat" : ""}</td>
+          <td style="font-weight:700; color:${(h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a"};">${fmt(h.position_mw, 2)}</td>
+        </tr>`).join("");
     }
 
-    async function load() {
-      let data = null, history = [], baselineHistory = [], ledger = null;
+    function renderDaily(history) {
+      document.getElementById("dailyHead").innerHTML =
+        "<th>Date</th>" + SERIES.map(s => `<th>${s.label}</th>`).join("");
+      const rows = history.filter(e => e.pnl).slice(-30).reverse();
+      document.querySelector("#dailyTable tbody").innerHTML = rows.map(e =>
+        `<tr><td>${e.target_date}</td>` + SERIES.map(s => {
+          const v = e.pnl[s.key];
+          return `<td style="color:${v >= 0 ? "#2d8a4f" : "#b94a4a"}; ${s.key === "paper" ? "font-weight:700;" : ""}">${fmt(v)}</td>`;
+        }).join("") + "</tr>").join("");
+    }
 
+    async function main() {
       try {
-        const resp = await fetch(FORECAST_URL + "?t=" + Date.now());
-        if (resp.ok) data = await resp.json();
-      } catch (e) { console.warn("forecast fetch failed:", e); }
-
-      try {
-        const hresp = await fetch(HISTORY_URL + "?t=" + Date.now());
-        if (hresp.ok) history = await hresp.json();
-      } catch (_) { /* history optional */ }
-
-      try {
-        const bresp = await fetch(BASELINES_HISTORY_URL + "?t=" + Date.now());
-        if (bresp.ok) baselineHistory = await bresp.json();
-      } catch (_) { /* baselines optional */ }
-
-      try {
-        const lresp = await fetch(LEDGER_URL + "?t=" + Date.now());
-        if (lresp.ok) ledger = await lresp.json();
-      } catch (_) { /* ledger optional */ }
-
-      document.getElementById("loading").style.display = "none";
-
-      if (!data && (!history || history.length === 0)) {
-        const err = document.getElementById("error");
-        err.style.display = "block";
-        err.textContent =
-          "DART forecast not yet available — the daily run hasn't completed yet. Check back after 3 PM CT.";
-        return;
-      }
-
-      document.getElementById("content").style.display = "block";
-
-      // If forecast.json is missing, fall back to the most recent history
-      // entry as a stand-in so the page still has something to show.
-      const display = data || _syntheticFromHistory(history);
-
-      renderStats(display, history);
-      renderEvalChart(history);
-
-      if (display && display.agent && display.agent.signals) {
-        renderPositionsChart(display);
-        renderPositionsTable(display);
-        renderBanditHeatmap(display);
-        document.getElementById("reasoning-box").textContent =
-          display.reasoning || "No reasoning trace available.";
-      } else {
-        document.querySelector(".section-label + .legend-row").style.display = "none";
-        document.getElementById("positionsChart").parentElement.style.display = "none";
-        document.getElementById("positionsTable").style.display = "none";
-        document.getElementById("reasoning-box").textContent =
-          "Today's forecast not available yet. The next daily run is at 3 PM CT.";
-      }
-
-      renderCumChart(history, ledger);
-      renderBaselineChart(ledger || history, baselineHistory);
-      renderHistoryLog(history);
-
-      if (display && display.generated_at) {
-        const genAt = new Date(display.generated_at);
+        const [f, h] = await Promise.all([
+          fetch(FORECAST_URL + "?t=" + Date.now()).then(r => r.json()),
+          fetch(HISTORY_URL + "?t=" + Date.now()).then(r => r.json())]);
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        renderCum(h); renderPositions(f); renderDaily(h);
+        const firstLive = h.find(e => e.source === "live");
         document.getElementById("updated-note").textContent =
-          `Last updated: ${genAt.toUTCString()}`;
+          "Updated " + (f.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
+        document.getElementById("footnote").textContent = firstLive
+          ? `Before ${firstLive.target_date} the paper-strategy line replays the same pipeline on archived data; from ${firstLive.target_date} it is live. Baselines hold 1 MW per hour on the same hours.`
+          : "Baselines hold 1 MW per hour on the same hours.";
+      } catch (e) {
+        document.getElementById("loading").style.display = "none";
+        const el = document.getElementById("error"); el.style.display = "block";
+        el.textContent = "Could not load data: " + e;
       }
-      startCountdown();
     }
-
-    function getNextRunUTC() {
-      const now = new Date();
-      const todayBase = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-      const run1 = new Date(todayBase + 20 * 3600000);
-      const run2 = new Date(todayBase + 22 * 3600000);
-      if (now < run1) return run1;
-      if (now < run2) return run2;
-      return new Date(todayBase + 24 * 3600000 + 20 * 3600000);
-    }
-
-    function startCountdown() {
-      function tick() {
-        const next = getNextRunUTC();
-        const diff = Math.max(0, next - new Date());
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        const timeStr = next.toLocaleString('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
-        const parts = [];
-        if (h > 0) parts.push(`${h}h`);
-        if (m > 0 || h > 0) parts.push(`${m}m`);
-        parts.push(`${s}s`);
-        const el = document.getElementById("countdown-note");
-        if (el) el.textContent = `Next update in: ${parts.join(' ')} (${timeStr})`;
-      }
-      tick();
-      setInterval(tick, 1000);
-    }
-
-    function _syntheticFromHistory(history) {
-      if (!history || history.length === 0) return null;
-      const last = history[history.length - 1];
-      if (!last.agent || !last.agent.signals) return null;
-      return {
-        generated_at: last.run_date + "T18:00:00+00:00",
-        run_date: last.run_date,
-        target_date: last.target_date,
-        dam_prices: null,
-        agent: {
-          spread_forecast_hourly: last.agent.spread_forecast_hourly || [],
-          signals:                last.agent.signals || [],
-          positions_mw:           last.agent.positions_mw || [],
-          confidence:             last.agent.confidence ?? 3,
-          expected_pnl:           last.agent.expected_pnl || 0,
-          summary:                last.agent.summary || { n_long: 0, n_short: 0, n_flat: 24, notional_mwh: 0 },
-        },
-        persistence: last.persistence,
-        reasoning: last.reasoning || "",
-      };
-    }
-
-    load();
-    startCountdown();
+    main();
   </script>
 </body>
 

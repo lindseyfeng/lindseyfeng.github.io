@@ -2,10 +2,11 @@
 <html>
 
 <head>
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Agentic ERCOT — Xinyu Feng</title>
-  <meta name="description" content="Two LLM agents trading day-ahead and real-time electricity prices on ERCOT HB_NORTH" />
+  <meta name="description" content="Live RT-DAM spread forecast and trading positions for ERCOT HB_NORTH" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -14,97 +15,44 @@
   <link rel="stylesheet" type="text/css" href="css1/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css1/style.css">
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+
   <style>
-    .hub-container {
+    .dart-container {
       width: 78%;
       margin: 0 auto;
-      padding: 24px 0 40px;
+      padding: 20px 0 40px;
     }
-    .hub-title {
+    .dart-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .hub-sub {
+    .dart-sub {
       font-family: 'Radley', serif;
       color: #777;
       font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
-    .cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 820px) {
-      .cards { grid-template-columns: 1fr; }
-      .hub-container { width: 92%; }
-    }
-    .card {
+    .stat-card {
+      background: #f9f9f9;
       border: 1px solid #e8e8e8;
-      border-radius: 8px;
-      padding: 22px 24px 20px;
-      background: #fff;
-      transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-    }
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-      transform: translateY(-2px);
-      border-color: #cfd8e0;
-      text-decoration: none;
-      color: inherit;
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 4px;
-    }
-    .card-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: #222;
-    }
-    .card-pill {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 10px;
-      background: #eef3f7;
-      color: #2d6a9f;
-    }
-    .card-pill.dart { background: #fdf3ea; color: #b46720; }
-    .card-sub {
-      font-family: 'Radley', serif;
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 18px;
-    }
-    .card-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-    .stat {
-      background: #fafafa;
-      border: 1px solid #f0f0f0;
-      border-radius: 5px;
-      padding: 10px 12px;
+      border-radius: 6px;
+      padding: 14px 20px;
+      min-width: 160px;
     }
     .stat-label {
       font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       color: #999;
       letter-spacing: 0.05em;
@@ -112,55 +60,214 @@
     }
     .stat-value {
       font-family: 'Montserrat', sans-serif;
-      font-size: 19px;
+      font-size: 24px;
       font-weight: 700;
       color: #222;
-      margin-top: 3px;
+      margin-top: 2px;
+    }
+    .stat-unit {
+      font-size: 13px;
+      color: #888;
     }
     .stat-pos { color: #2d8a4f; }
     .stat-neg { color: #b94a4a; }
-    .card-foot {
-      margin-top: auto;
-      padding-top: 12px;
-      border-top: 1px solid #f1f1f1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .chart-wrapper {
+      position: relative;
+      height: 300px;
+      margin-bottom: 32px;
     }
-    .card-link {
+    .chart-wrapper.short { height: 220px; }
+    .section-label {
       font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      color: #2d6a9f;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .card .arrow {
-      transition: transform 0.18s;
-      display: inline-block;
-      margin-left: 4px;
-    }
-    .card:hover .arrow { transform: translateX(4px); }
-    .card-foot-meta {
-      font-family: 'Radley', serif;
-      font-size: 12px;
-      color: #aaa;
-    }
-    .loading {
-      font-family: 'Radley', serif;
-      color: #aaa;
-      font-style: italic;
-    }
-    .intro {
-      font-family: 'Radley', serif;
       color: #555;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .reasoning-box {
+      background: #fafafa;
+      border-left: 3px solid #ccc;
+      padding: 14px 18px;
+      font-family: 'Radley', serif;
       font-size: 14px;
       line-height: 1.7;
-      background: #fafafa;
-      border-left: 3px solid #2d6a9f;
-      padding: 14px 18px;
-      margin-bottom: 28px;
+      color: #444;
       border-radius: 0 4px 4px 0;
+      margin-bottom: 28px;
+    }
+    .legend-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 3px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .legend-bar {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .subscore {
+      font-family: 'Radley', serif;
+      font-size: 14px;
+      color: #555;
+      margin-top: -16px;
+      margin-bottom: 28px;
+    }
+    .updated-note {
+      font-family: 'Radley', serif;
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    #countdown-note {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2d6a9f;
+      margin-bottom: 20px;
+      margin-top: 4px;
+    }
+    .error-msg {
+      font-family: 'Radley', serif;
+      color: #c00;
+      padding: 20px 0;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 32px 0;
+    }
+    .day-row {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .day-row summary {
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      background: #fafafa;
+      list-style: none;
+      user-select: none;
+    }
+    .day-row summary::-webkit-details-marker { display: none; }
+    .day-row summary .dr-date { font-weight: 700; color: #333; min-width: 90px; }
+    .day-row summary .dr-chip {
+      padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700;
+    }
+    .day-row summary .dr-pos { background:#e8f5ec; color:#2d8a4f; }
+    .day-row summary .dr-neg { background:#fdecea; color:#b94a4a; }
+    .day-row summary .dr-na  { background:#f3f3f3; color:#aaa; }
+    .day-row summary .dr-val { color: #555; font-size: 11px; }
+    .day-row .day-detail {
+      padding: 12px 14px;
+      border-top: 1px solid #f0f0f0;
+      overflow-x: auto;
+    }
+    table.day-tbl {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table.day-tbl th, table.day-tbl td {
+      border: 1px solid #eee;
+      padding: 4px 7px;
+      text-align: right;
+    }
+    table.day-tbl th { background:#f8f8f8; color:#888; font-size:10px; text-transform:uppercase; }
+    table.day-tbl td.long  { color:#2d6a9f; font-weight:700; }
+    table.day-tbl td.short { color:#cc7a2a; font-weight:700; }
+    table.day-tbl td.win   { color:#2d8a4f; }
+    table.day-tbl td.lose  { color:#b94a4a; }
+    table.positions {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      border-collapse: collapse;
+      margin-bottom: 28px;
+      width: 100%;
+    }
+    table.positions th, table.positions td {
+      border: 1px solid #eee;
+      padding: 6px 8px;
+      text-align: right;
+    }
+    table.positions th {
+      background: #fafafa;
+      color: #555;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 10px;
+    }
+    table.positions td.long  { color: #2d6a9f; font-weight: 700; }
+    table.positions td.short { color: #cc7a2a; font-weight: 700; }
+    table.positions td.flat  { color: #aaa; }
+    @media (max-width: 768px) {
+      .dart-container { width: 94%; }
+    }
+
+    /* ── Agent tabs (shared with ercot-forecast.html) ────────── */
+    .agent-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 22px;
+    }
+    .agent-tabs .tab {
+      flex: 0 0 auto;
+      padding: 12px 22px 14px;
+      text-decoration: none;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .agent-tabs .tab:hover { color: #444; background: #fafafa; }
+    .agent-tabs .tab .tab-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .agent-tabs .tab .tab-sub {
+      display: block;
+      font-family: 'Radley', serif;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 2px;
+    }
+    .agent-tabs .tab.tab-active {
+      color: #222;
+      border-bottom-color: #2d6a9f;
+    }
+    .agent-tabs .tab.tab-active .tab-sub { color: #777; }
+    @media (max-width: 600px) {
+      .agent-tabs .tab { padding: 10px 14px; }
+      .agent-tabs .tab .tab-label { font-size: 12px; }
+      .agent-tabs .tab .tab-sub { font-size: 11px; }
     }
   </style>
 </head>
@@ -172,37 +279,62 @@
     </div>
   </header>
 
-  <div class="hub-container">
-    <div class="hub-title">Agentic ERCOT</div>
-    <div class="hub-sub">
-      An LLM agent trading the Texas (ERCOT) electricity market at HB_NORTH, updated daily.
+  <div class="dart-container">
+
+
+    <div class="dart-title">Agentic ERCOT &mdash; Prior-Guided LLM Agent for DART Trading</div>
+    <div class="dart-sub">
+      HB_NORTH &nbsp;·&nbsp; always-short prior; an hour goes <b>long</b> only when the LLM proposes it,
+      a statistical prior (supervised LR or Thompson bandit) corroborates, and the trailing payoff screen is positive
+      &nbsp;·&nbsp; adaptive spike gate &nbsp;·&nbsp; 1 MW on every traded hour, the same as each baseline
+      &nbsp;·&nbsp; bids close 10:00 CT the day before
     </div>
 
-    <div class="intro">
-      The <b>DART Trading</b> agent is a prior-guided virtual bidder: it starts from an
-      always-short prior, lets the LLM propose departures that a statistical prior must
-      corroborate, and holds 1 MW on every traded hour. Positions are
-      fixed at bid close, 10:00 CT the day before, and scored against the realized RT&minus;DAM spread.
-    </div>
+    <div id="loading" style="font-family:'Radley',serif; color:#888; padding:30px 0;">Loading&hellip;</div>
+    <div id="error" class="error-msg" style="display:none;"></div>
 
-    <div class="cards">
+    <div id="content" style="display:none;">
 
-      <!-- ── DART card ──────────────────────────────────────── -->
-      <a href="./dart-trading-v2.html" class="card" id="dart-card">
-        <div class="card-header">
-          <div class="card-title">DART Trading <span style="background:#2d6a9f;color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;">paper strategy</span></div>
-          <div class="card-pill dart">RT-DAM · P&amp;L</div>
-        </div>
-        <div class="card-sub">Tomorrow's hourly book and the cumulative record against four baselines</div>
-        <div class="card-stats" id="dart-stats">
-          <div class="stat"><div class="stat-label">Loading</div><div class="stat-value loading">…</div></div>
-        </div>
-        <div class="card-foot">
-          <span class="card-link">Open dashboard <span class="arrow">→</span></span>
-          <span class="card-foot-meta" id="dart-meta">&mdash;</span>
-        </div>
-      </a>
+      <div class="section-label">Cumulative P&amp;L &mdash; $ per 1 MW position</div>
+      <div class="legend-row" id="cum-legend"></div>
+      <div class="chart-wrapper" style="height:360px;">
+        <canvas id="cumChart"></canvas>
+      </div>
 
+      <hr class="divider">
+      <div class="section-label">Positions for <span id="forecast-date-label"></span></div>
+      <div class="chart-wrapper short">
+        <canvas id="positionsChart"></canvas>
+      </div>
+      <div style="overflow-x:auto; margin-top:10px;">
+        <table class="positions" id="positionsTable">
+          <thead>
+            <tr>
+              <th>HE</th>
+              <th style="background:#eef3f7; color:#2d6a9f;">LLM</th>
+                            <th style="background:#f4f6f8;">LR</th>
+              <th style="background:#f4f6f8;">Bandit</th>
+              <th style="background:#f4f6f8;">Payoff screen</th>
+              <th style="background:#f3f0f8; color:#6a4a9a;">Long?</th>
+              <th style="background:#fbf3f0; color:#9a4a2a;">Spike gate</th>
+              <th style="background:#f4f8f4; color:#2d7a4a;">Position MW</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label">Daily results &mdash; $ per 1 MW position</div>
+      <div style="overflow-x:auto;">
+        <table class="positions" id="dailyTable">
+          <thead><tr id="dailyHead"></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="updated-note" id="updated-note"></div>
+      <div style="font-size:10px; color:#aaa; margin-top:14px; line-height:1.4;" id="footnote"></div>
     </div>
   </div>
 
@@ -212,6 +344,7 @@
         <a href="index.html">home</a>&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="contact.html">(unveil the curtain, and - tada!) "the one behind it all"</a>&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="./算命/sample-page.html">fortune-teller project</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="./agentic-ercot.html">agentic ERCOT</a>&nbsp;&nbsp;&nbsp;&nbsp;
       </div>
     </div>
   </section>
@@ -219,43 +352,124 @@
   <section class="copyright">&copy; 2023</section>
 
   <script>
-    function fmtMoney(v, signed) {
-      if (v == null || isNaN(v)) return "—";
-      const sign = signed && v > 0 ? "+" : (v < 0 ? "−" : "");
-      return `${sign}$${Math.abs(v).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
-    }
-    function setStats(elId, items) {
-      document.getElementById(elId).innerHTML = items.map(i => `
-        <div class="stat">
-          <div class="stat-label">${i.label}</div>
-          <div class="stat-value ${i.cls || ""}">${i.value}</div>
-        </div>
-      `).join("");
+    const FORECAST_URL = "/dart_paper_forecast.json";
+    const HISTORY_URL  = "/dart_paper_history.json";
+    const SERIES = [
+      {key: "paper",         label: "Paper strategy",  color: "#2d6a9f", width: 3},
+      {key: "always_short",  label: "Always-short",    color: "#cc7a2a", width: 1.5},
+      {key: "persistence",   label: "Persistence",     color: "#999999", width: 1.5},
+      {key: "supervised_lr", label: "Supervised LR",   color: "#5aaa6f", width: 1.5},
+      {key: "thompson_ts",   label: "Thompson bandit", color: "#8a6ab5", width: 1.5},
+    ];
+    const fmt = (v, d=0) => (v == null ? "&mdash;" : (v >= 0 ? "+" : "") + v.toFixed(d));
+
+    // dashed vertical line at the first day of each month
+    const monthLines = {
+      id: "monthLines",
+      afterDatasetsDraw(chart, args, opts) {
+        const {ctx, chartArea: a, scales: {x}} = chart;
+        const labels = chart.data.labels;
+        ctx.save();
+        ctx.setLineDash([4, 4]); ctx.strokeStyle = "#c8c8c8"; ctx.lineWidth = 1;
+        ctx.fillStyle = "#999"; ctx.font = "10px Montserrat, sans-serif"; ctx.textAlign = "left";
+        labels.forEach((d, i) => {
+          if (i === 0 || d.slice(0, 7) !== labels[i - 1].slice(0, 7)) {
+            const px = x.getPixelForValue(i);
+            ctx.beginPath(); ctx.moveTo(px, a.top); ctx.lineTo(px, a.bottom); ctx.stroke();
+            const m = new Date(d + "T12:00:00").toLocaleString("en-US", {month: "short"});
+            ctx.fillText(m, px + 3, a.top + 10);
+          }
+        });
+        ctx.restore();
+      }
+    };
+
+    function renderCum(history) {
+      const settled = history.filter(e => e.pnl);
+      const labels = settled.map(e => e.target_date);
+      const legend = document.getElementById("cum-legend");
+      legend.innerHTML = SERIES.map(s =>
+        `<div class="legend-item"><div class="legend-bar" style="background:${s.color};height:${s.width + 1}px;"></div><span>${s.label}</span></div>`).join("");
+      const datasets = SERIES.map(s => {
+        let c = 0;
+        return {label: s.label, data: settled.map(e => (c += e.pnl[s.key] || 0)),
+                borderColor: s.color, borderWidth: s.width, pointRadius: 0, tension: 0.15, fill: false,
+                order: s.key === "paper" ? 0 : 1};
+      });
+      new Chart(document.getElementById("cumChart"), {
+        type: "line",
+        data: {labels, datasets},
+        options: {
+          responsive: true, maintainAspectRatio: false, interaction: {mode: "index", intersect: false},
+          plugins: {legend: {display: false},
+                    tooltip: {callbacks: {label: c => `${c.dataset.label}: $${c.parsed.y.toFixed(0)}`}}},
+          scales: {
+            x: {ticks: {maxTicksLimit: 8, color: "#999", font: {size: 10}}, grid: {display: false}},
+            y: {ticks: {color: "#999", font: {size: 10}, callback: v => "$" + v}, grid: {color: "#f0f0f0"},
+                title: {display: true, text: "$ (1 MW)", color: "#999", font: {size: 10}}}
+          }
+        },
+        plugins: [monthLines]
+      });
     }
 
-    async function loadDART() {
+    function renderPositions(f) {
+      document.getElementById("forecast-date-label").textContent = f.target_date;
+      const hrs = f.hours;
+      new Chart(document.getElementById("positionsChart"), {
+        type: "bar",
+        data: {labels: hrs.map(h => "HE" + h.hour),
+               datasets: [{data: hrs.map(h => h.position_mw || 0),
+                           backgroundColor: hrs.map(h => (h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a")}]},
+        options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}},
+                  scales: {x: {ticks: {font: {size: 9}, color: "#999"}, grid: {display: false}},
+                           y: {ticks: {font: {size: 10}, color: "#999"}, title: {display: true, text: "MW", color: "#999"}}}}
+      });
+      const dir = v => v == null ? "&mdash;" : (v > 0 ? "long" : v < 0 ? "short" : "&mdash;");
+      document.querySelector("#positionsTable tbody").innerHTML = hrs.map(h => `
+        <tr>
+          <td>HE${h.hour}</td>
+          <td>${dir(h.llm_dir)}</td>
+          <td>${dir(h.lr_dir)}</td><td>${dir(h.ts_dir)}</td>
+          <td>${h.ev == null ? "&mdash;" : (h.ev > 0 ? "long ok" : "short")}</td>
+          <td>${h.corroborated_long ? "&#10003;" : ""}</td>
+          <td>${h.spike_gate ? "flat" : ""}</td>
+          <td style="font-weight:700; color:${(h.position_mw || 0) >= 0 ? "#2d6a9f" : "#cc7a2a"};">${fmt(h.position_mw, 0)}</td>
+        </tr>`).join("");
+    }
+
+    function renderDaily(history) {
+      document.getElementById("dailyHead").innerHTML =
+        "<th>Date</th>" + SERIES.map(s => `<th>${s.label}</th>`).join("");
+      const rows = history.filter(e => e.pnl).slice(-30).reverse();
+      document.querySelector("#dailyTable tbody").innerHTML = rows.map(e =>
+        `<tr><td>${e.target_date}</td>` + SERIES.map(s => {
+          const v = e.pnl[s.key];
+          return `<td style="color:${v >= 0 ? "#2d8a4f" : "#b94a4a"}; ${s.key === "paper" ? "font-weight:700;" : ""}">${fmt(v)}</td>`;
+        }).join("") + "</tr>").join("");
+    }
+
+    async function main() {
       try {
-        const fc = await fetch("/dart_paper_forecast.json?t=" + Date.now()).then(r => r.ok ? r.json() : null);
-        if (!fc) throw new Error("no forecast");
-        const hrs = fc.hours || [];
-        const nL = hrs.filter(h => (h.position_mw || 0) > 0).length;
-        const nS = hrs.filter(h => (h.position_mw || 0) < 0).length;
-        const nF = hrs.length - nL - nS;
-        const mwh = hrs.reduce((s, h) => s + Math.abs(h.position_mw || 0), 0);
-        setStats("dart-stats", [
-          { label: "Long hours", value: String(nL) },
-          { label: "Short hours", value: String(nS) },
-          { label: "Flat hours", value: String(nF) },
-          { label: "Book", value: `${mwh.toFixed(0)} MWh` },
-        ]);
-        document.getElementById("dart-meta").textContent = fc.target_date ? `for ${fc.target_date}` : "";
+        const [f, h] = await Promise.all([
+          fetch(FORECAST_URL + "?t=" + Date.now()).then(r => r.json()),
+          fetch(HISTORY_URL + "?t=" + Date.now()).then(r => r.json())]);
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        renderCum(h); renderPositions(f); renderDaily(h);
+        const firstLive = h.find(e => e.source === "live");
+        document.getElementById("updated-note").textContent =
+          "Updated " + (f.generated_at || "").replace("T", " ").replace("+00:00", " UTC");
+        document.getElementById("footnote").textContent = firstLive
+          ? `Before ${firstLive.target_date} the paper-strategy line replays the same pipeline on archived data; from ${firstLive.target_date} it is live. Every line holds 1 MW per traded hour.`
+          : "Every line holds 1 MW per traded hour.";
       } catch (e) {
-        console.error("DART load", e);
-        setStats("dart-stats", [{ label: "Status", value: "data unavailable", cls: "" }]);
+        document.getElementById("loading").style.display = "none";
+        const el = document.getElementById("error"); el.style.display = "block";
+        el.textContent = "Could not load data: " + e;
       }
     }
-
-    loadDART();
+    main();
   </script>
 </body>
 

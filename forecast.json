@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      28.76,
-      27.37,
-      28.49,
-      28.24,
-      28.11,
-      32.5,
+      30.49,
+      29.11,
+      30.23,
+      29.98,
+      29.84,
+      34.23,
       36.58,
       39.41,
-      32.42,
-      25.99,
-      20.0,
-      18.24,
-      19.45,
-      22.93,
-      27.95,
-      35.77,
-      51.04,
-      76.06,
+      33.28,
+      26.85,
+      27.8,
+      27.78,
+      28.99,
+      31.61,
+      35.76,
+      43.57,
+      51.03,
+      76.04,
       102.34,
-      100.68,
-      91.84,
-      67.42,
-      47.17,
-      40.61
+      100.67,
+      92.71,
+      68.31,
+      48.04,
+      41.47
     ],
-    "daily_avg_usd_per_mwh": 42.89,
-    "peak_avg_usd_per_mwh": 84.39,
-    "offpeak_avg_usd_per_mwh": 31.18
+    "daily_avg_usd_per_mwh": 45.67,
+    "peak_avg_usd_per_mwh": 84.56,
+    "offpeak_avg_usd_per_mwh": 32.48
   },
   "actuals_today": {
     "date": "2026-10-13",
@@ -93,6 +93,6 @@
       38.59
     ]
   },
-  "reasoning": "The anchor_z value is +0.22 indicating a slightly elevated but not extreme regime labeled VOLATILE. The formula default weights were wA=0.712, wB=0.156, wC=0.132 with a max allowed wA of 0.850, and no deviation from defaults was made. The recent error track record showed mixed persistence errors but no consistent overshoot or undershoot pattern warranting adjustment, supporting use of formula defaults exactly.",
+  "reasoning": "Anchor_z is +0.41 indicating a modest volatile regime context with partial spike reversion. The formula computed default weights are wA=0.641, wB=0.226, wC=0.133. Given the recent 3-day persistence average error of -6.15 and mixed error pattern, no adjustment to the formula default weights was justified. Therefore, formula defaults were used exactly.",
   "confidence": 3
 }

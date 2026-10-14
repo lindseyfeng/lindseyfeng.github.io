@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      41.12,
-      40.43,
-      41.96,
-      38.2,
-      40.47,
-      44.22,
-      48.48,
-      53.15,
-      45.21,
-      38.18,
-      32.25,
-      32.36,
-      34.5,
-      35.7,
+      41.24,
+      40.76,
+      42.44,
+      38.43,
+      40.77,
+      44.57,
+      49.69,
+      54.73,
+      47.2,
       39.3,
-      43.55,
-      54.5,
-      88.98,
-      124.66,
-      110.79,
-      107.81,
-      85.94,
-      57.06,
-      41.52
+      37.03,
+      37.89,
+      40.04,
+      39.94,
+      43.61,
+      47.06,
+      57.09,
+      91.54,
+      127.21,
+      114.53,
+      111.72,
+      88.65,
+      59.01,
+      42.46
     ],
-    "daily_avg_usd_per_mwh": 55.01,
-    "peak_avg_usd_per_mwh": 97.35,
-    "offpeak_avg_usd_per_mwh": 43.5
+    "daily_avg_usd_per_mwh": 57.37,
+    "peak_avg_usd_per_mwh": 100.42,
+    "offpeak_avg_usd_per_mwh": 44.08
   },
   "actuals_today": {
     "date": "2026-10-14",
@@ -93,6 +93,6 @@
       41.74
     ]
   },
-  "reasoning": "Anchor_z is 1.23 sigma outlier indicating spike regime; formula default weights are wA=0.459, wB=0.405, wC=0.136 with max wA=0.571. Recent error track shows mixed errors with no consistent pattern justifying deviation, so formula defaults were used exactly.",
+  "reasoning": "Anchor_z is +1.35 indicating a SPIKE regime; formula default weights were wA=0.445, wB=0.419, wC=0.136. Recent persistence errors showed the anchor track actuals well last 3 days, justifying an increase of wA by +0.10 to 0.55 but not exceeding max wA allowed (0.557). No strong overshoot pattern was found, so small increase was justified reflecting better anchor accuracy.",
   "confidence": 3
 }

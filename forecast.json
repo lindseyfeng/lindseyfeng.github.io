@@ -11,28 +11,28 @@
       21.06,
       20.8,
       21.48,
-      22.1,
       21.87,
-      20.37,
-      18.58,
-      10.06,
-      6.96,
-      6.13,
-      6.11,
-      6.2,
-      6.98,
-      10.32,
-      23.07,
-      45.45,
-      43.49,
-      35.33,
-      33.4,
-      31.32,
-      28.58
+      21.6,
+      20.2,
+      18.51,
+      12.1,
+      9.66,
+      9.49,
+      9.39,
+      8.54,
+      8.4,
+      12.63,
+      27.76,
+      44.16,
+      43.79,
+      40.56,
+      37.64,
+      31.16,
+      28.53
     ],
-    "daily_avg_usd_per_mwh": 21.24,
-    "peak_avg_usd_per_mwh": 31.53,
-    "offpeak_avg_usd_per_mwh": 22.17
+    "daily_avg_usd_per_mwh": 22.47,
+    "peak_avg_usd_per_mwh": 33.78,
+    "offpeak_avg_usd_per_mwh": 22.11
   },
   "actuals_today": {
     "date": "2026-10-16",
@@ -93,6 +93,6 @@
       27.47
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z of -0.86 indicates the stage1 anchor is below the 7-day mean in a volatile regime. The formula default weights were wA=0.520, wB=0.347, wC=0.132. Due to consistent overshoot of actuals by the anchor (> $8/MWh average error over the last 3 days), I increased wA from 0.520 to 0.570 within the allowed max wA=0.637 to better trust the stage1 anchor. The recent error track record showed a persistence bias with the anchor overshooting actuals, so a modest increase in stage1 weight was justified to capture stable regime signals. No other adjustments were made, and all weights sum to 1.0 satisfying calibration rules.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.2,
-      22.88,
+      25.21,
+      22.89,
       21.95,
       21.06,
       20.8,
-      21.47,
-      21.96,
-      21.7,
-      20.26,
-      18.53,
-      11.4,
-      9.01,
-      8.88,
-      8.81,
-      8.02,
-      7.92,
-      13.01,
-      28.17,
-      44.64,
-      42.79,
-      38.51,
-      36.18,
-      32.02,
-      29.36
+      21.48,
+      22.1,
+      21.87,
+      20.37,
+      18.58,
+      10.06,
+      6.96,
+      6.13,
+      6.11,
+      6.2,
+      6.98,
+      10.32,
+      23.07,
+      45.45,
+      43.49,
+      35.33,
+      33.4,
+      31.32,
+      28.58
     ],
-    "daily_avg_usd_per_mwh": 22.27,
-    "peak_avg_usd_per_mwh": 33.42,
-    "offpeak_avg_usd_per_mwh": 22.13
+    "daily_avg_usd_per_mwh": 21.24,
+    "peak_avg_usd_per_mwh": 31.53,
+    "offpeak_avg_usd_per_mwh": 22.17
   },
   "actuals_today": {
     "date": "2026-10-16",
@@ -93,6 +93,6 @@
       27.47
     ]
   },
-  "reasoning": "The anchor_z value is -0.89 indicating the stage-1 anchor is slightly below 7-day mean with a VOLATILE regime. Formula default weights are wA=0.514, wB=0.354, wC=0.132 with Max wA of 0.630; no deviation made. Recent error pattern shows persistence overshot actuals strongly, supporting partial spike reversion, so formula defaults used. The blended forecast moves daily average up from 19.41 to 22.27 USD/MWh reflecting moderate reversion blending.",
+  "reasoning": "",
   "confidence": 3
 }

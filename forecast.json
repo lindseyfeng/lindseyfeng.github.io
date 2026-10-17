@@ -11,28 +11,28 @@
       29.61,
       31.2,
       35.88,
-      38.66,
-      41.85,
-      24.36,
-      13.23,
-      6.4,
-      5.58,
-      5.71,
-      7.77,
-      8.48,
-      9.51,
-      9.42,
-      22.59,
-      49.46,
-      50.69,
-      45.62,
-      44.37,
+      36.05,
+      39.24,
+      22.63,
+      11.5,
+      7.29,
+      6.48,
+      6.61,
+      8.67,
+      9.38,
+      9.55,
+      11.21,
+      22.65,
+      49.51,
+      50.72,
+      46.52,
       44.38,
-      41.15
+      44.37,
+      41.13
     ],
-    "daily_avg_usd_per_mwh": 27.28,
-    "peak_avg_usd_per_mwh": 35.56,
-    "offpeak_avg_usd_per_mwh": 33.26
+    "daily_avg_usd_per_mwh": 27.23,
+    "peak_avg_usd_per_mwh": 36.12,
+    "offpeak_avg_usd_per_mwh": 32.61
   },
   "actuals_today": {
     "date": "2026-10-17",
@@ -93,6 +93,6 @@
       44.91
     ]
   },
-  "reasoning": "Anchor_z is -0.52 with regime 'VOLATILE', formula defaults wA=0.609, wB=0.261, wC=0.130. Due to consistent overshooting persistence errors averaging +9.32 $/MWh over last 3 days, wA increased by 0.10 to 0.709 (max allowed 0.734). This adjustment reflects better trust in stage-1 anchor in current volatile context. Weights sum to 1.0 and forecast daily avg is close to weighted anchor average.",
+  "reasoning": "The anchor_z is -0.53 indicating a moderately below-average regime, with 'VOLATILE' regime context. The formula default weights (wA=0.607, wB=0.263, wC=0.130) were used without adjustment because the recent error track record shows mixed small errors and no consistent large overshoot. The persistence bias signal suggested overshooting, but it was not strong enough or consistent to justify decreasing wA beyond formula defaults. Therefore, the blend respects the formula defaults.",
   "confidence": 3
 }

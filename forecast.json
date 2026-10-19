@@ -93,6 +93,6 @@
       28.52
     ]
   },
-  "reasoning": "The anchor_z is -0.63 indicating a moderately below-average day with a volatility regime flag VOLATILE. Formula default blend weights are wA=0.577, wB=0.293, wC=0.130 with a max wA of 0.698; no deviation applied. Persistence error pattern over the last 3 days showed well-tracked prices with small errors within \u00b1$3/MWh, supporting retention of formula defaults.",
+  "reasoning": "The anchor_z value is -0.63 with a VOLATILE regime context. The formula default weights were wA=0.577, wB=0.293, wC=0.130, and no deviation was made. Recent error track shows the anchor tracked well with persistence avg error -2.24, no consistent overshoot or undershoot; therefore, the formula default was used.",
   "confidence": 3
 }

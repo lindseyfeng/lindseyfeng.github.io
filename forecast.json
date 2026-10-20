@@ -11,28 +11,28 @@
       26.4,
       28.91,
       35.15,
-      43.07,
-      43.23,
-      24.53,
-      15.91,
-      11.0,
-      10.31,
-      10.29,
-      13.12,
-      15.91,
-      17.78,
-      21.46,
+      43.95,
+      44.1,
+      25.4,
+      16.78,
+      7.5,
+      5.94,
+      5.92,
+      9.62,
+      13.28,
+      15.15,
+      16.47,
       43.43,
-      84.62,
-      76.28,
-      74.74,
-      65.69,
-      39.09,
-      32.04
+      84.61,
+      76.27,
+      74.73,
+      65.68,
+      35.6,
+      28.55
     ],
-    "daily_avg_usd_per_mwh": 33.74,
-    "peak_avg_usd_per_mwh": 60.11,
-    "offpeak_avg_usd_per_mwh": 31.71
+    "daily_avg_usd_per_mwh": 32.51,
+    "peak_avg_usd_per_mwh": 59.1,
+    "offpeak_avg_usd_per_mwh": 31.92
   },
   "actuals_today": {
     "date": "2026-10-20",
@@ -93,6 +93,6 @@
       29.62
     ]
   },
-  "reasoning": "anchor_z is +0.07 indicating the stage1 anchor is near the 7-day mean, regime context is VOLATILE. Formula default weights are wA=0.771, wB=0.102, wC=0.126 with a max wA of 0.850; no deviation as recent anchor errors are small and well-tracked. Persistence errors show no consistent overshoot or undershoot over the last 3 days, confirming reliability of the stage1 anchor and the formula blend.",
+  "reasoning": "The anchor_z is -0.03 with regime context VOLATILE indicating the anchor is typical and trustworthy. Formula default weights are wA=0.786, wB=0.088, wC=0.126, with a max wA of 0.850 allowed. Recent error-track record shows persistence bias nearly zero (tracked well), so no deviation from formula defaults was made. The blend uses given formula defaults exactly.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      25.79,
-      25.33,
+      25.78,
+      25.32,
       25.78,
       26.4,
       28.91,
       35.15,
-      43.94,
-      44.54,
-      25.85,
-      16.79,
-      15.38,
-      15.56,
-      15.55,
-      17.94,
-      20.29,
-      21.72,
-      27.59,
-      47.6,
-      84.65,
-      76.31,
-      74.76,
-      65.72,
-      40.42,
-      32.93
+      43.07,
+      43.23,
+      24.53,
+      15.91,
+      11.0,
+      10.31,
+      10.29,
+      13.12,
+      15.91,
+      17.78,
+      21.46,
+      43.43,
+      84.62,
+      76.28,
+      74.74,
+      65.69,
+      39.09,
+      32.04
     ],
-    "daily_avg_usd_per_mwh": 35.62,
-    "peak_avg_usd_per_mwh": 62.18,
-    "offpeak_avg_usd_per_mwh": 31.98
+    "daily_avg_usd_per_mwh": 33.74,
+    "peak_avg_usd_per_mwh": 60.11,
+    "offpeak_avg_usd_per_mwh": 31.71
   },
   "actuals_today": {
     "date": "2026-10-20",
@@ -93,6 +93,6 @@
       29.62
     ]
   },
-  "reasoning": "The anchor_z value is +0.23 under a VOLATILE regime. Formula defaults set weights wA=0.710, wB=0.163, wC=0.127. Recent error track record shows persistence errors near zero (+0.01 average last 3 days), indicating the anchor tracked actuals well with no significant bias. Therefore, no deviation from formula defaults was made.",
+  "reasoning": "anchor_z is +0.07 indicating the stage1 anchor is near the 7-day mean, regime context is VOLATILE. Formula default weights are wA=0.771, wB=0.102, wC=0.126 with a max wA of 0.850; no deviation as recent anchor errors are small and well-tracked. Persistence errors show no consistent overshoot or undershoot over the last 3 days, confirming reliability of the stage1 anchor and the formula blend.",
   "confidence": 3
 }

@@ -11,28 +11,28 @@
       29.93,
       30.85,
       36.71,
-      44.28,
-      47.47,
-      32.94,
-      20.74,
-      21.26,
-      21.48,
-      23.27,
-      25.19,
-      25.64,
-      27.92,
-      35.11,
-      68.28,
-      97.42,
-      90.0,
-      74.26,
-      62.65,
-      46.27,
-      37.57
+      44.42,
+      46.88,
+      32.29,
+      20.8,
+      17.99,
+      17.54,
+      19.36,
+      22.0,
+      23.11,
+      25.43,
+      33.7,
+      67.85,
+      99.16,
+      88.19,
+      72.0,
+      60.16,
+      45.05,
+      36.99
     ],
-    "daily_avg_usd_per_mwh": 41.08,
-    "peak_avg_usd_per_mwh": 73.01,
-    "offpeak_avg_usd_per_mwh": 34.49
+    "daily_avg_usd_per_mwh": 39.88,
+    "peak_avg_usd_per_mwh": 72.18,
+    "offpeak_avg_usd_per_mwh": 34.43
   },
   "actuals_today": {
     "date": "2026-10-21",
@@ -93,6 +93,6 @@
       36.99
     ]
   },
-  "reasoning": "The regime context based on anchor_z=+1.83 indicated a SPIKE scenario. The formula defaults weights were wA=0.422, wB=0.459, wC=0.119 with a max wA allowed of 0.522. The persistent errors show mixed and moderate bias without consistent anchor overshoot > $5, so no deviation from formula defaults was made. Recent error track record did not justify increasing or decreasing wA from 0.422. Thus, the forecast is a weighted blend reflecting partial spike reversion and some reliance on the day-of-week mean.",
+  "reasoning": "Anchor_z is +1.56 representing a SPIKE regime context. Formula default weights are wA=0.436 (stage1), wB=0.445 (spike_reverted), wC=0.119 (dow_mean). We did not deviate from these defaults as recent error track record does not show a strong pattern requiring adjustment. Recent persistence shows undershoot bias, justifying no increase in wA.",
   "confidence": 3
 }

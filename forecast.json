@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.17,
-      21.31,
-      20.39,
-      21.65,
-      21.76,
-      25.4,
-      31.44,
-      32.29,
       23.08,
-      13.24,
-      4.25,
-      2.12,
-      3.36,
-      5.22,
-      6.82,
-      8.22,
-      11.89,
-      22.09,
-      42.76,
-      42.59,
-      35.15,
-      30.88,
-      28.03,
-      22.7
+      21.22,
+      20.3,
+      21.58,
+      21.69,
+      25.34,
+      30.92,
+      31.77,
+      22.6,
+      12.73,
+      7.29,
+      4.63,
+      5.54,
+      6.72,
+      9.43,
+      9.57,
+      15.6,
+      27.48,
+      42.07,
+      42.03,
+      34.56,
+      30.38,
+      27.69,
+      22.35
     ],
-    "daily_avg_usd_per_mwh": 20.83,
-    "peak_avg_usd_per_mwh": 30.9,
-    "offpeak_avg_usd_per_mwh": 24.68
+    "daily_avg_usd_per_mwh": 21.52,
+    "peak_avg_usd_per_mwh": 32.35,
+    "offpeak_avg_usd_per_mwh": 24.49
   },
   "actuals_today": {
     "date": "2026-10-23",
@@ -93,6 +93,6 @@
       19.94
     ]
   },
-  "reasoning": "Anchor_z = -1.22 indicating a CRASH regime; formula defaults wA=0.472, wB=0.417, wC=0.111. Recent 3-day error track shows anchor overshot actuals consistently by over $3, so wA was increased by +0.1 to 0.572 within allowed max to better leverage the skilled anchor. Weights adjusted accordingly with reduced spike_reverted and Dow mean weights proportionally.",
+  "reasoning": "Anchor_z is -1.05 representing a CRASH regime. Formula default weights were wA=0.497, wB=0.392, wC=0.111. Due to consistent persistence bias where anchor overshot actuals by +3.29 over last 3 days, increased wA by +0.10 to 0.597 (below max allowed 0.598). Error pattern justified slight increase in stage1 anchor weight. Forecast blend calculated accordingly.",
   "confidence": 3
 }

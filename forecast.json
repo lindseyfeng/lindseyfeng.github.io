@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      23.44,
-      21.57,
-      20.66,
-      21.85,
-      21.96,
-      25.55,
-      31.16,
-      32.01,
-      23.05,
-      13.42,
+      23.16,
+      21.3,
+      20.38,
+      21.63,
+      21.74,
+      25.39,
+      30.57,
+      31.85,
+      22.65,
+      12.37,
+      7.46,
+      4.86,
+      5.76,
+      6.95,
+      9.62,
+      9.79,
       11.83,
-      10.0,
-      11.38,
-      12.57,
-      14.89,
-      14.63,
-      21.87,
-      33.29,
-      43.73,
-      41.79,
-      36.03,
-      32.34,
-      27.98,
-      23.84
+      21.99,
+      42.65,
+      42.5,
+      35.05,
+      30.8,
+      27.97,
+      22.64
     ],
-    "daily_avg_usd_per_mwh": 23.79,
-    "peak_avg_usd_per_mwh": 35.34,
-    "offpeak_avg_usd_per_mwh": 24.78
+    "daily_avg_usd_per_mwh": 21.29,
+    "peak_avg_usd_per_mwh": 30.8,
+    "offpeak_avg_usd_per_mwh": 24.5
   },
   "actuals_today": {
     "date": "2026-10-23",
@@ -93,6 +93,6 @@
       19.94
     ]
   },
-  "reasoning": "The anchor_z is -0.69 indicating a moderate negative deviation from the 7-day mean, in a NORMAL regime context. The formula default weights are wA=0.576 (stage1), wB=0.314 (spike_reverted), and wC=0.110 (dow_mean), with maximum allowed wA=0.682. Recent three-day anchor errors show mixed small errors but no strong consistent overshoot or undershoot, so we adhere to formula defaults. The recent error track record does not justify deviating from these weightings.",
+  "reasoning": "Anchor_z is -1.13 sigma, signaling a CRASH regime. Formula defaults are wA=0.484, wB=0.404, wC=0.111 with max wA=0.585. Due to the clear persistence overshoot bias, we moderately increased wA to 0.55 within the cap and reduced weights on spike_reverted and dow_mean proportionally. This balances trusting the skill anchor\u2019s shape and correcting the overshoot evident in recent days actual vs persistence errors.",
   "confidence": 3
 }

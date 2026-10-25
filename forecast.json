@@ -93,6 +93,6 @@
       23.84
     ]
   },
-  "reasoning": "The anchor_z is -0.18 indicating a NORMAL regime context. Formula-computed default weights are wA=0.744, wB=0.145, wC=0.111; no deviations made. Recent error track record shows a slight persistence overshoot of actual prices by +3.44 in the last three days, a small bias but not large enough to justify altering weights. Thus, I used formula default weights exactly.",
+  "reasoning": "Anchor_z = -0.18 with regime NORMAL indicates a near-typical anchor, formula default weights (wA=0.744, wB=0.145, wC=0.111) applied. Recent error pattern shows a slight persistence overshoot bias but not strong enough to adjust weights; no deviation made from formula defaults.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      36.51,
-      35.95,
-      34.2,
-      33.93,
-      33.24,
+      36.58,
+      36.02,
+      34.26,
+      33.99,
+      33.29,
+      34.59,
+      37.76,
+      38.78,
+      37.3,
+      33.26,
+      25.32,
+      23.98,
+      23.71,
+      24.95,
+      28.95,
+      31.95,
       34.55,
-      37.83,
-      39.27,
-      37.77,
-      33.31,
-      23.73,
-      21.55,
-      21.3,
-      22.11,
-      27.38,
-      31.2,
-      32.92,
-      38.12,
-      40.0,
-      42.39,
-      44.35,
-      43.62,
-      47.43,
-      44.98
+      39.91,
+      41.75,
+      43.61,
+      45.48,
+      44.27,
+      48.07,
+      45.61
     ],
-    "daily_avg_usd_per_mwh": 34.9,
-    "peak_avg_usd_per_mwh": 39.56,
-    "offpeak_avg_usd_per_mwh": 35.69
+    "daily_avg_usd_per_mwh": 35.75,
+    "peak_avg_usd_per_mwh": 41.06,
+    "offpeak_avg_usd_per_mwh": 35.66
   },
   "actuals_today": {
     "date": "2026-10-30",
@@ -93,6 +93,6 @@
       49.83
     ]
   },
-  "reasoning": "Anchor_z is +0.90\u03c3 indicating a moderately high anchor; regime is NORMAL. Formula defaults wA=0.522, wB=0.363, wC=0.115. Recent persistence errors show consistent undershoot, so raised wA to 0.622 (max allowed 0.627). Error pattern justified moderate increase in stage1 anchor weight; other weights adjusted down proportionally.",
+  "reasoning": "Anchor_z is +1.04 indicating SPIKE regime context. Formula default weights were wA=0.497, wB=0.388, wC=0.115, max wA allowed is 0.601. Recent error track record shows minor overshoot of anchor by ~3.5 $/MWh over last 3 days, so stage1_anchor weight increased slightly (+0.10 max) to 0.597 with proportional reduction in wB and wC. This blend respects the calibration and leverages moderate mean reversion while trusting the skill anchor's shape.",
   "confidence": 3
 }

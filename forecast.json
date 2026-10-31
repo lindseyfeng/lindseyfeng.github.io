@@ -11,28 +11,28 @@
       35.72,
       35.74,
       37.54,
-      40.54,
-      40.88,
-      36.39,
-      28.05,
-      25.09,
-      25.14,
-      26.09,
-      27.51,
-      29.71,
-      32.41,
-      36.14,
-      44.74,
-      58.29,
-      57.05,
-      55.08,
-      49.82,
-      44.86,
-      36.42
+      40.32,
+      41.05,
+      36.5,
+      28.1,
+      25.22,
+      25.33,
+      26.33,
+      27.77,
+      29.95,
+      32.61,
+      36.3,
+      44.76,
+      58.78,
+      57.19,
+      55.62,
+      50.28,
+      44.28,
+      36.14
     ],
-    "daily_avg_usd_per_mwh": 38.23,
-    "peak_avg_usd_per_mwh": 50.26,
-    "offpeak_avg_usd_per_mwh": 38.08
+    "daily_avg_usd_per_mwh": 38.32,
+    "peak_avg_usd_per_mwh": 50.53,
+    "offpeak_avg_usd_per_mwh": 38.07
   },
   "actuals_today": {
     "date": "2026-10-31",
@@ -93,6 +93,6 @@
       36.11
     ]
   },
-  "reasoning": "The anchor_z is +1.12 sigma, indicating a SPIKE regime context with partial reversion suggested. The formula default weights (wA=0.485, wB=0.400, wC=0.115) were used without deviation because recent persistence errors show mixed undershoot rather than overshoot, so no adjustment to the stage 1 anchor weight was justified. The decision respects the maximum allowed wA of 0.587.",
+  "reasoning": "The anchor_z value is +1.10, indicating a SPIKE regime with formula default weights wA=0.487, wB=0.398, wC=0.115. Due to the persistence error track showing consistent undershoot by the anchor (average -5.44 $/MWh error last 3 days), wA was increased by +0.10 to max allowed 0.589 for more reliance on the skill anchor. This shift redistributes weights accordingly to wB=0.298 and wC=0.115. The recent actuals show the anchor is generally close but slightly low, justifying a modest increase in wA.",
   "confidence": 3
 }

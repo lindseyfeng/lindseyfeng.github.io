@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      18.11,
       18.12,
-      20.02,
-      21.6,
+      18.13,
+      20.03,
+      21.61,
       25.76,
       29.35,
-      24.8,
-      12.89,
-      8.84,
-      7.9,
-      11.4,
-      10.97,
-      12.97,
-      13.32,
-      16.45,
-      22.75,
-      32.47,
-      31.5,
-      32.69,
-      35.77,
-      38.72,
-      38.06,
-      38.44,
-      37.89
+      24.98,
+      13.21,
+      9.2,
+      8.22,
+      4.2,
+      3.78,
+      5.71,
+      6.74,
+      9.8,
+      16.87,
+      33.3,
+      33.17,
+      34.33,
+      36.65,
+      39.58,
+      38.23,
+      36.52,
+      35.73
     ],
-    "daily_avg_usd_per_mwh": 23.37,
-    "peak_avg_usd_per_mwh": 34.23,
-    "offpeak_avg_usd_per_mwh": 21.33
+    "daily_avg_usd_per_mwh": 21.8,
+    "peak_avg_usd_per_mwh": 35.41,
+    "offpeak_avg_usd_per_mwh": 21.4
   },
   "actuals_today": {
     "date": "2026-11-06",
@@ -93,6 +93,6 @@
       45.67
     ]
   },
-  "reasoning": "anchor_z = -1.42 indicates a crash regime with moderate spike reversion applied. Formula default weights are wA=0.444, wB=0.431, wC=0.125 with max wA allowed = 0.550. Recent error track shows persistence tracked well with small average error (~+1.4), no consistent overshoot pattern to adjust weights. We therefore use formula defaults exactly.",
+  "reasoning": "",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
+      18.11,
       18.12,
-      18.13,
-      20.03,
-      21.61,
+      20.02,
+      21.6,
       25.76,
       29.35,
-      24.98,
-      13.21,
-      9.2,
-      8.22,
-      4.2,
-      3.78,
-      5.71,
-      6.74,
-      9.8,
-      16.87,
-      33.3,
-      33.17,
-      34.33,
-      36.65,
-      39.58,
-      38.23,
-      36.52,
-      35.73
+      23.6,
+      12.25,
+      8.11,
+      6.43,
+      9.07,
+      9.38,
+      11.53,
+      11.89,
+      14.39,
+      19.74,
+      41.36,
+      42.29,
+      43.58,
+      47.65,
+      50.63,
+      47.74,
+      42.69,
+      41.84
     ],
-    "daily_avg_usd_per_mwh": 21.8,
-    "peak_avg_usd_per_mwh": 35.41,
-    "offpeak_avg_usd_per_mwh": 21.4
+    "daily_avg_usd_per_mwh": 25.71,
+    "peak_avg_usd_per_mwh": 45.1,
+    "offpeak_avg_usd_per_mwh": 21.1
   },
   "actuals_today": {
     "date": "2026-11-06",
@@ -93,6 +93,6 @@
       45.67
     ]
   },
-  "reasoning": "",
+  "reasoning": "The anchor_z is -1.04, indicating a CRASH regime context. The formula defaults weights are wA=0.491, wB=0.384, wC=0.125, with a max wA of 0.600. Recent error track record shows persistence with small bias and good tracking of actuals, so no deviation from formula defaults was applied. The forecast blend reflects moderate reversion due to the 1\u03c3 outlier anchor_z.",
   "confidence": 3
 }

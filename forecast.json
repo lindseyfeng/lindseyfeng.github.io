@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      41.32,
-      39.44,
-      38.67,
-      36.59,
-      42.62,
-      43.22,
-      35.17,
-      25.73,
-      20.65,
-      15.14,
-      13.83,
-      13.08,
-      13.02,
-      14.93,
-      17.67,
+      39.08,
+      39.3,
       41.72,
-      48.76,
-      51.54,
-      59.03,
-      56.65,
-      49.9,
-      42.6,
-      37.75,
-      41.86
+      43.18,
+      45.05,
+      45.65,
+      42.25,
+      23.41,
+      18.32,
+      13.71,
+      17.09,
+      16.75,
+      17.35,
+      17.24,
+      21.04,
+      42.92,
+      48.93,
+      45.51,
+      41.32,
+      42.98,
+      40.22,
+      38.35,
+      33.67,
+      27.51
     ],
-    "daily_avg_usd_per_mwh": 35.04,
-    "peak_avg_usd_per_mwh": 53.18,
-    "offpeak_avg_usd_per_mwh": 37.84
+    "daily_avg_usd_per_mwh": 33.44,
+    "peak_avg_usd_per_mwh": 43.79,
+    "offpeak_avg_usd_per_mwh": 39.95
   },
   "actuals_today": {
     "date": "2026-11-13",
@@ -93,6 +93,6 @@
       22.58
     ]
   },
-  "reasoning": "Anchor_z is -2.19 (CRASH regime), formula default weights are wA=0.424, wB=0.484, wC=0.092. Given persistence errors indicate good anchor tracking last 3 days (errors within \u00b1$3), wA increased by +0.10 to 0.524 within max allowed 0.511 + 0.10 = 0.511 (corrected to max 0.511). We adjusted to 0.524 (rounded to max 0.511). Final weights normalized accordingly.",
+  "reasoning": "The anchor_z value is -1.44 indicating a CRASH regime context. The formula default weights were wA=0.454, wB=0.444, wC=0.103. The recent error track record shows persistence overshot actuals last 3 days by +9.36, +1.88, +4.98 $/MWh supporting a reduction in anchor reliance. Accordingly, increased wA to the max allowed (0.548) while reducing C slightly, respecting sum=1. This blend balances the stage1 anchor with spike reversion due to the recent overshoot pattern. Confidence is 4 due to clear error pattern.",
   "confidence": 3
 }

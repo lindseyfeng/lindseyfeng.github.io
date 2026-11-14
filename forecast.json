@@ -12,27 +12,27 @@
       37.76,
       36.54,
       35.3,
-      18.76,
-      15.23,
-      13.57,
-      12.78,
-      12.51,
-      13.16,
-      14.01,
-      18.07,
-      36.33,
-      46.19,
-      38.7,
-      41.4,
-      38.89,
-      34.97,
-      29.5,
-      26.63,
-      28.0
+      15.76,
+      12.24,
+      11.33,
+      11.51,
+      10.58,
+      11.23,
+      12.08,
+      16.81,
+      36.4,
+      46.31,
+      38.22,
+      41.51,
+      39.0,
+      35.08,
+      29.6,
+      24.57,
+      26.63
     ],
-    "daily_avg_usd_per_mwh": 29.26,
-    "peak_avg_usd_per_mwh": 40.03,
-    "offpeak_avg_usd_per_mwh": 35.28
+    "daily_avg_usd_per_mwh": 28.43,
+    "peak_avg_usd_per_mwh": 40.02,
+    "offpeak_avg_usd_per_mwh": 34.91
   },
   "actuals_today": {
     "date": "2026-11-14",
@@ -93,6 +93,6 @@
       28.4
     ]
   },
-  "reasoning": "The anchor_z is -2.65 with CRASH regime context, leading to formula default weights wA=0.412, wB=0.485, wC=0.103. The recent persistence error pattern shows overshoot bias, supporting spike reversion. No deviation from formula defaults was made because the pattern matches the expected regime weighting. The formula blend outputs a daily avg forecast $29.26/MWh, slightly above the stage1 anchor daily average $26.25/MWh.",
+  "reasoning": "Anchor_z is -2.91 indicating a CRASH regime with the stage 1 anchor significantly below the 7-day mean. The formula default weights (wA=0.410, wB=0.487, wC=0.103) reflect strong spike reversion and were used without deviation. Recent persistence errors show a consistent overshoot pattern but no adjustment was made as it aligns with anchor_z regime-based defaults.",
   "confidence": 3
 }

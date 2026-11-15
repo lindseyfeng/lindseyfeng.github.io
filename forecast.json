@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      26.82,
-      26.72,
       26.85,
-      25.74,
-      26.17,
-      23.58,
-      26.32,
-      22.42,
-      18.27,
-      16.49,
-      11.29,
-      11.92,
-      12.62,
-      15.65,
-      17.95,
-      23.42,
-      33.86,
-      36.72,
-      39.4,
-      36.32,
-      31.77,
-      27.54,
-      30.13,
-      27.42
+      26.75,
+      28.58,
+      29.62,
+      33.0,
+      32.59,
+      37.55,
+      38.37,
+      34.74,
+      35.26,
+      34.32,
+      34.43,
+      34.2,
+      34.7,
+      37.04,
+      47.28,
+      52.01,
+      50.56,
+      51.77,
+      53.5,
+      55.93,
+      54.77,
+      49.41,
+      45.67
     ],
-    "daily_avg_usd_per_mwh": 24.81,
-    "peak_avg_usd_per_mwh": 35.61,
-    "offpeak_avg_usd_per_mwh": 25.58
+    "daily_avg_usd_per_mwh": 39.95,
+    "peak_avg_usd_per_mwh": 52.75,
+    "offpeak_avg_usd_per_mwh": 31.66
   },
   "actuals_today": {
     "date": "2026-11-15",
@@ -93,6 +93,6 @@
       60.22
     ]
   },
-  "reasoning": "The anchor_z value is -2.01 indicating a CRASH regime with the stage1 anchor as a strong outlier on the low side. The formula default weights are wA=0.418, wB=0.468, wC=0.115, with a max allowed wA of 0.516. The recent error track record shows persistence overshot actuals by about +6.18 last 3 days, but the errors are mixed and moderate, so this justifies using formula defaults without adjustment.",
+  "reasoning": "",
   "confidence": 3
 }

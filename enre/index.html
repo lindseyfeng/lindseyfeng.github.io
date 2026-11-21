@@ -167,6 +167,14 @@ code { font: 13px var(--data); }
 
 <section aria-labelledby="h-int">
   <h2 id="h-int">90% interval</h2>
+  <p class="note"><b>How the baseline intervals are built.</b> Each model gets its own interval, using empirical residual quantiles (split conformal) kept separately for every (lead, hour) cell.
+  At forecast day <em>o</em>, take that model's errors <code>actual &minus; forecast</code> from the previous 91 forecast days.
+  Origin <em>o</em>&minus;1 is skipped, because its day-2 target is not realized yet.
+  The 5th and 95th percentiles of those 91 errors are added to today's point forecast to give <code>lo</code> and <code>hi</code>. The first 28 days with too few past errors are dropped.
+  No future information enters: the interval is built only from errors that were observable at <em>o</em>.</p>
+  <p class="note"><b>Coverage @ 90</b> is the share of hours in the window where <code>lo &le; actual &le; hi</code> (target 0.90).
+  <b>Winkler</b> is <code>(hi &minus; lo) + 20&middot;(lo &minus; actual)</code> when the actual falls below the band, <code>+ 20&middot;(actual &minus; hi)</code> when above, and the width alone otherwise. It is averaged over hours, and lower is better.
+  For an uploaded CSV, both are computed from its <code>&lt;model&gt;_lo</code> / <code>_hi</code> columns. Models without them are left out of this section.</p>
   <div class="grid2">
     <div class="panel"><h3 style="font-size:13px;margin-bottom:8px">Coverage by hour of day (target 0.90)</h3><div class="chart"><canvas id="covChart"></canvas></div></div>
     <div class="panel"><h3 style="font-size:13px;margin-bottom:8px">Winkler score, 7-day rolling</h3><div class="chart"><canvas id="wkChart"></canvas></div></div>

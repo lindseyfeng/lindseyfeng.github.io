@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      16.05,
-      15.68,
-      17.52,
-      18.1,
-      20.47,
-      20.69,
+      16.07,
+      15.7,
+      17.54,
+      18.12,
+      20.49,
+      20.71,
       25.05,
-      20.7,
-      12.38,
-      9.06,
-      2.92,
-      2.57,
-      5.07,
+      20.71,
+      12.39,
+      9.07,
+      2.91,
+      2.56,
+      5.06,
       9.54,
       15.02,
-      25.04,
-      26.94,
-      28.57,
+      25.87,
+      26.91,
+      28.56,
       28.77,
-      23.02,
-      21.1,
-      20.13,
-      20.57,
-      21.57
+      23.01,
+      21.09,
+      20.93,
+      21.42,
+      22.41
     ],
-    "daily_avg_usd_per_mwh": 17.77,
-    "peak_avg_usd_per_mwh": 25.68,
-    "offpeak_avg_usd_per_mwh": 19.28
+    "daily_avg_usd_per_mwh": 17.91,
+    "peak_avg_usd_per_mwh": 25.67,
+    "offpeak_avg_usd_per_mwh": 19.3
   },
   "actuals_today": {
     "date": "2026-11-22",
@@ -93,6 +93,6 @@
       26.13
     ]
   },
-  "reasoning": "Anchor_z = -1.00 (1\u03c3 below 7-day mean) in volatile regime. Formula default weights were wA=0.495, wB=0.374, wC=0.131. Due to consistent good tracking with small positive persistence error indicating slight overshoot, increased wA by +0.10 capped at max allowed 0.608 resulting in wA=0.595, wB=0.305, wC=0.100. Error track record supports moderate confidence in anchor.",
+  "reasoning": "Anchor_z is -0.98 indicating a moderate outlier in price, regime flagged VOLATILE. Formula default weights were wA=0.497, wB=0.372, wC=0.131. Given recent error track record showed small persistence errors within \u00b13/MWh (good tracking), wA was increased by +0.10 capped at 0.610 resulting in wA=0.597 with proportional reduction in others. This leverages the reliable stage1_anchor signal without losing reversion balance.",
   "confidence": 3
 }

@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      31.43,
-      30.81,
-      31.49,
-      32.45,
-      34.64,
-      35.18,
-      40.31,
-      33.9,
-      29.65,
+      31.28,
+      30.67,
+      31.28,
+      32.24,
+      34.7,
+      35.38,
+      39.37,
+      32.17,
       28.14,
-      21.09,
-      20.33,
-      20.0,
-      20.46,
-      23.08,
-      37.74,
-      51.88,
-      52.27,
-      53.66,
-      58.98,
-      57.35,
-      55.26,
-      52.43,
-      51.87
+      26.58,
+      20.79,
+      19.41,
+      19.93,
+      21.06,
+      23.7,
+      37.75,
+      62.83,
+      62.49,
+      59.75,
+      57.0,
+      54.23,
+      52.16,
+      50.35,
+      50.1
     ],
-    "daily_avg_usd_per_mwh": 37.68,
-    "peak_avg_usd_per_mwh": 54.83,
-    "offpeak_avg_usd_per_mwh": 33.78
+    "daily_avg_usd_per_mwh": 38.06,
+    "peak_avg_usd_per_mwh": 59.26,
+    "offpeak_avg_usd_per_mwh": 33.39
   },
   "actuals_today": {
     "date": "2026-11-25",
@@ -93,6 +93,6 @@
       50.43
     ]
   },
-  "reasoning": "Anchor_z is +1.56 indicating a spike regime; formula defaults assigned wA=0.434, wB=0.442, wC=0.123. The recent error track record shows that Stage-1 anchor errors in the last 3+ days were within \u00b1$3/MWh, justifying a moderate increase in wA by +0.10 but capped at 0.538 max. Blended weights adjusted accordingly with minor redistribution to spike_reverted and dow_mean. Confidence rated 4 due to clear but not perfect tracking.",
+  "reasoning": "The anchor_z is +1.81 sigma indicating a SPIKE regime. Formula default weights were wA=0.421, wB=0.456, wC=0.123 with Max wA allowed=0.524. The recent error track shows mixed small errors, so no deviation from formula defaults was justified. Hence, weights were used as computed.",
   "confidence": 3
 }

@@ -1,6 +1,6 @@
 {
-  "run_date": "2026-11-24",
-  "target_date": "2026-11-25",
+  "run_date": "2026-11-25",
+  "target_date": "2026-11-26",
   "position_mw": 1,
   "baselines": {
     "persistence": {
@@ -56,7 +56,7 @@
         0,
         0,
         0,
-        1
+        0
       ]
     },
     "bandit_ts": {

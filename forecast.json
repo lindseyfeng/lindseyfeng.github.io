@@ -5,34 +5,34 @@
   "model": "gpt-4.1-mini",
   "forecast": {
     "hourly_usd_per_mwh": [
-      35.87,
-      36.83,
-      36.98,
+      35.86,
+      36.82,
+      36.97,
       37.88,
-      42.5,
+      42.49,
       35.96,
       34.88,
-      19.46,
-      14.47,
-      14.09,
-      11.08,
-      9.71,
-      9.95,
-      10.45,
-      11.56,
-      27.97,
-      39.14,
-      39.17,
-      40.37,
-      43.16,
-      40.0,
-      38.2,
-      33.85,
-      29.77
+      19.47,
+      14.48,
+      14.1,
+      11.1,
+      9.73,
+      9.96,
+      10.47,
+      11.58,
+      28.85,
+      40.89,
+      40.92,
+      42.12,
+      44.91,
+      41.75,
+      39.95,
+      36.48,
+      31.52
     ],
-    "daily_avg_usd_per_mwh": 28.89,
-    "peak_avg_usd_per_mwh": 40.37,
-    "offpeak_avg_usd_per_mwh": 35.05
+    "daily_avg_usd_per_mwh": 29.55,
+    "peak_avg_usd_per_mwh": 42.12,
+    "offpeak_avg_usd_per_mwh": 35.04
   },
   "actuals_today": {
     "date": "2026-11-27",
@@ -93,6 +93,6 @@
       18.16
     ]
   },
-  "reasoning": "Anchor_z is approximately 0.00 indicating regime is typical (VOLATILE). The formula default weights are wA=0.80, wB=0.076, wC=0.124, with Max wA allowed at 0.85. Recent persistence errors are small and mixed; no systematic overshoot or undershoot warrants adjustment. Therefore, formula defaults are used exactly.",
+  "reasoning": "The anchor_z is +0.06 sigma in a VOLATILE regime. The formula default weights are wA=0.777, wB=0.098, wC=0.125 with a max wA allowed of 0.850. Recent error track record shows persistence errors within \u00b13 $/MWh and no clear overshoot; thus, no deviation from formula defaults was warranted.",
   "confidence": 3
 }
